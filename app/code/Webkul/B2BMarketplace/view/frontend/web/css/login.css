@@ -1,0 +1,72 @@
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+.page-layout-seller-login .wk-mp-login-content {
+    display: inline-block;
+    width: 100%;
+    min-height: 431px;
+}
+.page-layout-seller-login .wk-mp-page-wrapper {
+    margin: auto;
+    display: inherit;
+    position: relative;
+}
+.page-layout-seller-login header.wk-mp-login-header {
+    display: inline-block;
+    width: 100%;
+    padding: 25px 0 0 0;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ccc;
+}
+.page-layout-seller-login ul.header.links {
+    float: right;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.page-layout-seller-login ul.header.links li {
+    float: left;
+    padding: 0 5px;
+}
+.page-layout-seller-login .page-title {
+    margin-top: 1.5rem;
+    margin-bottom: 2.5rem;
+    font-size: 27px;
+    font-weight: 500;
+}
+.page-layout-seller-login .logo {
+    margin: -8px auto 15px 0!important;
+}
+.wk-supplier-registration-link a {
+    padding-left: 28px;
+    position: relative;
+}
+.wk-supplier-registration-link a:before {
+    font-family: "webkul-font";
+    content: '\0049';
+    padding: 0 5px;
+    font-size: 19px;
+    position: absolute;
+    left: 0;
+    top: -4px;
+}
+@media (max-width: 767px) {
+    .fieldset.wk-supplier-login {
+        width: 85%;
+        text-align : left;
+        display : inline-block;
+    }
+}
+@media (min-width: 768px) {
+    .fieldset.wk-supplier-login {
+        width: 500px;
+        text-align : left;
+        display : inline-block;
+    }
+}

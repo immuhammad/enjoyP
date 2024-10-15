@@ -1,0 +1,65 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpquotesystem
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+// use to display navigation in marketplace account section left side for seller.
+$_helper = $block->getMpHelper();
+
+$isPartner= $_helper->isSeller();
+$magentoCurrentUrl = $block->getCurrentUrl();
+$isSellerGroup = $_helper->isSellerGroupModuleInstalled();
+?>
+<?php
+if ($isPartner): ?>
+    <?php if (($isSellerGroup &&
+    $_helper->isAllowedAction('mpquotesystem/sellerquote/managequote')) || !$isSellerGroup): ?>
+        <li id="wk-mp-menu-quote" class="wk-mp-item-quote level-0 
+        <?= strpos($magentoCurrentUrl, 'mpquotesystem') !== false ? "current active":"";?>" 
+        id="wk-mp-menu-quote">
+            <a href="#" onclick="return false;">
+                <span><?= $block->escapeHtml(__('Marketplace Quote System'))?></span>
+            </a>
+            <div class="wk-mp-submenu">
+                <strong class="wk-mp-submenu-title"><?= $block->escapeHtml(__('Marketplace Quote System'))?></strong>
+                <a href="#" class="action-close _close" data-role="wk-mp-close-submenu"></a>
+                <ul>
+                    <li data-ui-id="menu-webkul-booking-menu" class="item-menu parent level-1">
+                        <strong class="wk-mp-submenu-group-title">
+                            <span><?= $block->escapeHtml(__('Menu'))?></span>
+                        </strong>
+                        <div class="wk-mp-submenu">
+                            <ul>
+                            <li class="level-2"><a href="
+                                    <?=$block->escapeUrl($block->getUrl(
+                                        'mpquotesystem/sellerquote/managequote',
+                                        ['_secure' => 1]
+                                    ))?>">
+                                        <?=$block->escapeHtml(__('Manage Quotes'))?>
+                                    </a>
+                                </li>
+                                <li class="level-2">
+                                    <a href="
+                                    <?=$block->escapeUrl($block->getUrl(
+                                        'mpquotesystem/sellerquote/index',
+                                        ['_secure' => 1]
+                                    ))?>">
+                                        <?=$block->escapeHtml(__('Quote Settings'))?>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+<?php endif;?>
+<?php endif;?>

@@ -1,0 +1,246 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$quickOrderBlock =  $block->getLayout()->createBlock(
+    \Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class
+);
+
+$helper = $quickOrderBlock->helper(\Webkul\Marketplace\Helper\Data::class);
+$partner = $block->getProfileDetail();
+$shopUrl = $block->escapeHtml($partner['shop_url']);
+$sellerId = $partner->getSellerId();
+$feeds = $block->getFeed();
+if (empty($feeds['feed_price'])) {
+    $feeds['feed_price'] = 0;
+}
+if (empty($feeds['feed_value'])) {
+    $feeds['feed_value'] = 0;
+}
+if (empty($feeds['feed_quality'])) {
+    $feeds['feed_quality'] = 0;
+}
+$widthPriceStar5 = 0;
+$widthPriceStar4 = 0;
+$widthPriceStar3 = 0;
+$widthPriceStar2 = 0;
+$widthPriceStar1 = 0;
+
+$borderPriceStar5 = 0;
+$borderPriceStar4 = 0;
+$borderPriceStar3 = 0;
+$borderPriceStar2 = 0;
+$borderPriceStar1 = 0;
+if ($feeds['feedcount']) {
+    $widthPriceStar5 = ($feeds['price_star_5']*100)/$feeds['feedcount'];
+    if ($widthPriceStar5) {
+        $borderPriceStar5 = 3;
+    }
+    $widthPriceStar4 = ($feeds['price_star_4']*100)/$feeds['feedcount'];
+    if ($widthPriceStar4) {
+        $borderPriceStar4 = 3;
+    }
+    $widthPriceStar3 = ($feeds['price_star_3']*100)/$feeds['feedcount'];
+    if ($widthPriceStar3) {
+        $borderPriceStar3 = 3;
+    }
+    $widthPriceStar2 = ($feeds['price_star_2']*100)/$feeds['feedcount'];
+    if ($widthPriceStar2) {
+        $borderPriceStar2 = 3;
+    }
+    $widthPriceStar1 = ($feeds['price_star_1']*100)/$feeds['feedcount'];
+    if ($widthPriceStar1) {
+        $borderPriceStar1 = 3;
+    }
+}
+$avgPriceRatingStar = round(($feeds['price']/20), 1, PHP_ROUND_HALF_UP);
+$avgPriceRatingClass = "wk-supplier-rating-icon wk-supplier-star".(int)$avgPriceRatingStar;
+
+$widthValueStar5 = 0;
+$widthValueStar4 = 0;
+$widthValueStar3 = 0;
+$widthValueStar2 = 0;
+$widthValueStar1 = 0;
+
+$borderValueStar5 = 0;
+$borderValueStar4 = 0;
+$borderValueStar3 = 0;
+$borderValueStar2 = 0;
+$borderValueStar1 = 0;
+if ($feeds['feedcount']) {
+    $widthValueStar5 = ($feeds['value_star_5']*100)/$feeds['feedcount'];
+    if ($widthValueStar5) {
+        $borderValueStar5 = 3;
+    }
+    $widthValueStar4 = ($feeds['value_star_4']*100)/$feeds['feedcount'];
+    if ($widthValueStar4) {
+        $borderValueStar4 = 3;
+    }
+    $widthValueStar3 = ($feeds['value_star_3']*100)/$feeds['feedcount'];
+    if ($widthValueStar3) {
+        $borderValueStar3 = 3;
+    }
+    $widthValueStar2 = ($feeds['value_star_2']*100)/$feeds['feedcount'];
+    if ($widthValueStar2) {
+        $borderValueStar2 = 3;
+    }
+    $widthValueStar1 = ($feeds['value_star_1']*100)/$feeds['feedcount'];
+    if ($widthValueStar1) {
+        $borderValueStar1 = 3;
+    }
+}
+$avgValueRatingStar = round(($feeds['value']/20), 1, PHP_ROUND_HALF_UP);
+$avgValueRatingClass = "wk-supplier-rating-icon wk-supplier-star".(int)$avgValueRatingStar;
+
+$widthQualityStar5 = 0;
+$widthQualityStar4 = 0;
+$widthQualityStar3 = 0;
+$widthQualityStar2 = 0;
+$widthQualityStar1 = 0;
+
+$borderQualityStar5 = 0;
+$borderQualityStar4 = 0;
+$borderQualityStar3 = 0;
+$borderQualityStar2 = 0;
+$borderQualityStar1 = 0;
+if ($feeds['feedcount']) {
+    $widthQualityStar5 = ($feeds['quality_star_5']*100)/$feeds['feedcount'];
+    if ($widthQualityStar5) {
+        $borderQualityStar5 = 3;
+    }
+    $widthQualityStar4 = ($feeds['quality_star_4']*100)/$feeds['feedcount'];
+    if ($widthQualityStar4) {
+        $borderQualityStar4 = 3;
+    }
+    $widthQualityStar3 = ($feeds['quality_star_3']*100)/$feeds['feedcount'];
+    if ($widthQualityStar3) {
+        $borderQualityStar3 = 3;
+    }
+    $widthQualityStar2 = ($feeds['quality_star_2']*100)/$feeds['feedcount'];
+    if ($widthQualityStar2) {
+        $borderQualityStar2 = 3;
+    }
+    $widthQualityStar1 = ($feeds['quality_star_1']*100)/$feeds['feedcount'];
+    if ($widthQualityStar1) {
+        $borderQualityStar1 = 3;
+    }
+}
+$avgQualityRatingStar = round(($feeds['quality']/20), 1, PHP_ROUND_HALF_UP);
+$avgQualityRatingClass = "wk-supplier-rating-icon wk-supplier-star".(int)$avgQualityRatingStar;
+
+$feedbackUrl = $helper->getRewriteUrl('marketplace/seller/feedback/shop/'.$shopUrl);
+
+$totalRatingStar = $helper->getSelleRating($sellerId);
+$ratingClass = "wk-supplier-rating-icon wk-supplier-star".(int)$totalRatingStar;
+$ratingPercent = $totalRatingStar*20;
+?>
+<h2 class="wk-supplier-collection-h2"><?= $block->escapeHtml(__("Review(s)")) ?></h2>
+<div class="wk-supplier-rating-block" id="rating">
+    <div class="wk-supplier-rating-container">
+        <div class="wk-supplier-rating-avg-wrapper">
+            <div class="wk-supplier-rating-summary">
+                <span class="product-reviews-summary short">
+                    <div class="rating-summary">
+                        <div class="rating-result" title="<?= $block->escapeHtml($ratingPercent)?>%">
+                            <span style="width:<?= $block->escapeHtml($ratingPercent)?>%">
+                                <span><?= $block->escapeHtml($ratingPercent)?>%</span>
+                            </span>
+                        </div>
+                    </div>
+                </span>
+            </div>
+            <div class="wk-supplier-rating-avg-container">
+                <div class="wk-supplier-container-left">
+                    <span class="wk-supplier-rating-total wk-supplier-collection-header-txt">
+                        <?= $block->escapeHtml(__('Average'))?>
+                    </span>
+                    <a class="wk-supplier-rating-container" href="<?= $block
+                    ->escapeHtml($helper->getRewriteUrl('marketplace/seller/feedback/shop/'.
+                    $shopUrl))?>" title="<?= $block->escapeHtml(__('Make a Review'))?>">
+                        <span class="wk-supplier-rating-avg">
+                        <?= $block->escapeHtml(__('%1 Stars', $totalRatingStar))?> - 
+                        </span>
+                    </a>
+                    <span class="wk-supplier-rating-total wk-supplier-collection-header-txt">
+                        <?= $block->escapeHtml(__('based on %1 Ratings', $feeds['feedcount']))?>
+                    </span>
+                </div>
+                <div class="wk-supplier-container-right">
+                    <div class="wk-supplier-btn-wrapper wk-supplier-msg-container">
+                        <a href="<?= $block->escapeHtml($feedbackUrl)?>" 
+                        title="<?= $block->escapeHtml(__('Make a Review'))?>">
+                            <button class="wk-supplier-rating-btn">
+                                <span>
+                                    <?= $block->escapeHtml(__('Write a Review'))?>
+                                </span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="wk-supplier-rating-container">
+        <?php
+        foreach ($block->getFeedCollection() as $keyed) {
+            $feedcustomer = $block->Customer->load($keyed['buyer_id']);
+            $name = $feedcustomer['firstname'].' '.$feedcustomer['lastname'];
+            $feedDateTime= strtotime($keyed['created_at']);
+
+            $feedDate = $quickOrderBlock->helper('Webkul\B2BMarketplace\Helper\Data')
+            ->formatDate(
+                $keyed['created_at'],
+                \IntlDateFormatter::LONG,
+                true
+            );
+            $feedTotal = $keyed['feed_price'] + $keyed['feed_price'] + $keyed['feed_price'];
+            $feedAvg = round(($feedTotal)/(20*3), 1, PHP_ROUND_HALF_UP);
+            $feedAvgPrecent = round(($feedTotal)/3, 1, PHP_ROUND_HALF_UP);
+            ?>
+            <div class="wk-supplier-rating-row">
+                <div class="wk-supplier-rating-customer-row">
+                    <?= $block->escapeHtml($name)?>
+                </div>
+                <div class="wk-supplier-rating-date-row">
+                    <?= $block->escapeHtml(__("On - %1", $feedDate))?>
+                </div>
+                <div class="wk-supplier-rating-summary-container">
+                    <div class="wk-supplier-rating-summary">
+                        <span class="product-reviews-summary short">
+                            <div class="rating-summary">
+                                <div class="rating-result" title="<?= $block->escapeHtml($feedAvgPrecent)?>%">
+                                    <span style="width:<?= $block->escapeHtml($feedAvgPrecent)?>%">
+                                        <span><?= $block->escapeHtml($feedAvgPrecent)?>%</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </span>
+                        <span class="wk-supplier-rating-row-avg" 
+                        title="<?= $block->escapeHtml(__('%1 star', $feedAvg))?>">
+                            <?= $block->escapeHtml(number_format(floatval($feedAvg), 1, '.', ''))?>
+                        </span>
+                    </div>
+                    <div class="wk-supplier-rating-review-row">
+                        <div class="wk-supplier-rating-review-summary">
+                            <?= $block->escapeHtml($keyed['feed_summary'])?>
+                        </div>
+                        <p><?= $block->escapeHtml($keyed['feed_review'])?></p>
+                    </div>
+                </div>
+            </div>
+            <?php
+        } ?>        
+        <div class="wk-supplier-collection-view-btn">
+            <a href="<?= $block->escapeHtml($feedbackUrl)?>" 
+            title="<?= $block->escapeHtml(__('View All Reviews'))?>" target="blank">
+                <?= $block->escapeHtml(__('View All Reviews'))?>
+            </a>
+        </div>
+    </div>
+</div>

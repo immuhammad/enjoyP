@@ -1,0 +1,19 @@
+"Vendor Domain","Vendor Domain"
+"Marketplace Seller Collection","Marketplace Seller Collection"
+"Marketplace Seller Profile","Marketplace Seller Profile"
+"%1 Vendor domain already assigned.","%1 Vendor domain already assigned."
+"Store View:","Store View:"
+"Stores Configuration","Stores Configuration"
+"Please confirm scope switching. All data that hasn't been saved will be lost.","Please confirm scope switching. All data that hasn't been saved will be lost."
+"Toggle Nav","Toggle Nav"
+Webkul,Webkul
+"Seller Subdomain","Seller Subdomain"
+"Global Seller Subdomain Settings","Global Seller Subdomain Settings"
+Enabled,Enabled
+"If set yes then ""Rewrite Seller's Shop URL"" and ""Allow to automatic create seller public url on seller registration"" settings under ""Marketplace Seller Profile Page"" will not work.","If set yes then ""Rewrite Seller's Shop URL"" and ""Allow to automatic create seller public url on seller registration"" settings under ""Marketplace Seller Profile Page"" will not work."
+Prefix,Prefix
+"only characters(a-z), numbers(0,9), - and _ are allowed","only characters(a-z), numbers(0,9), - and _ are allowed"
+"Display Only Seller's Public Pages On Seller's Domain","Display Only Seller's Public Pages On Seller's Domain"
+"Display Admin's Products On Category Page","Display Admin's Products On Category Page"
+"Customer Vendor Subdomain Settings","Customer Vendor Subdomain Settings"
+"If set yes then you have to set url for each vendor under customer->edit->Vendor Domain.","If set yes then you have to set url for each vendor under customer->edit->Vendor Domain."

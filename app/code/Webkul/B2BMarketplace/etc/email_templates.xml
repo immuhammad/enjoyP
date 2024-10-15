@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="customer_create_account_b2b_marketplace_email_template" label="New Account" file="account_new.html" type="html" module="Webkul_B2BMarketplace" area="frontend"/>
+    <template id="marketplace_email_b2b_marketplace_new_message_template" label="Send New Message Mail" file="new_message.html" type="html" module="Webkul_B2BMarketplace" area="frontend"/>
+    <template id="marketplace_email_b2b_marketplace_verified_supplier_template" label="Verified Supplier Mail" file="verified_supplier.html" type="html" module="Webkul_B2BMarketplace" area="frontend"/>
+    <template id="marketplace_email_rfq_mail_to_seller_template" label="Request for Quote Mail to Supplier" file="rfq_mail_to_seller.html" type="html" module="Webkul_B2BMarketplace" area="frontend"/>
+    <template id="marketplace_email_rfq_reply_mail_to_seller_template" label="Request for Quote Reply Mail to Supplier" file="rfq_reply_mail_to_seller.html" type="html" module="Webkul_B2BMarketplace" area="frontend"/>
+    <template id="marketplace_email_rfq_reply_mail_to_customer_template" label="Request for Quote Reply Mail to Customer" file="rfq_reply_mail_to_customer.html" type="html" module="Webkul_B2BMarketplace" area="frontend"/>
+</config>

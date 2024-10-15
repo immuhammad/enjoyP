@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpquotesystem
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Webkul_Mpquotesystem::mpquotes" title="Marketplace Quote System" module="Webkul_Mpquotesystem" sortOrder="1" parent="Webkul_Mpquotesystem::manager" action="mpquotesystem/managequotes" resource="Webkul_Mpquotesystem::mpquotes"/>
+        <add id="Webkul_Mpquotesystem::manager" title="Marketplace Quote System Manager" module="Webkul_Mpquotesystem" sortOrder="11" resource="Webkul_Mpquotesystem::manager" parent="Webkul_Marketplace::marketplace"/>
+    </menu>
+</config>

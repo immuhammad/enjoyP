@@ -1,0 +1,517 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $quickOrderBlock = $block->getLayout()->createBlock(
+        \Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class
+    );
+    $helper = $quickOrderBlock->helper('Webkul\B2BMarketplace\Helper\Data');
+    $viewModel = $block->getViewModel();
+    $passwordLength = $viewModel->getConfigPasswordLength() ?? '8';
+    $charLength = $viewModel->getConfigCharLength() ?? '3';
+    $baseUrl = $viewModel->getBaseUrl()."pub/media/b2b/";
+    ?>
+<div class="wk-supplier-account-container">
+    <div class="wk-page-title-wrapper page-title-wrapper">
+        <h1 class="page-title">
+            <span class="base" data-ui-id="page-title-wrapper"><?= /* @noEscape */ __("Register as Supplier"); ?></span>
+        </h1>
+    </div>
+    <form 
+        method="post" 
+        action="<?= /* @noEscape */ $quickOrderBlock->getUrl('b2bmarketplace/supplier/createPost'); ?>" 
+        id="wk-supplier-create-form" enctype="multipart/form-data" data-mage-init='{"validation":{}}'
+        >
+        <?= /* @noEscape */ $block->getBlockHtml('formkey'); ?>
+        <div class="wk-supplier-continer">
+            <div class="wk-loading-mask wk-display-none">
+                <div class="wk-loader"></div>
+            </div>
+            <div class="wk-signup-step-tab-container">
+                <div class="wk-signup-step-tab wk-active-tab">
+                    <div class="wk-signup-step-tab-icon">
+                        <img src="<?= /* @noEscape */ $block->getViewFileUrl(
+                            'Webkul_B2BMarketplace/images/user-active.png'
+                        ) ?>">
+                    </div>
+                    <span><?= /* @noEscape */ __("Account"); ?></span>
+                    <span><?= /* @noEscape */ __("Information"); ?></span>
+                </div>
+                <div class="wk-signup-step-tab">
+                    <div class="wk-signup-step-tab-icon">
+                        <img class="wk-active-icon" src="<?= /* @noEscape */
+                        $block->getViewFileUrl('Webkul_B2BMarketplace/images/phone-book-active.png') ?>">
+                        <img class="wk-deactive-icon" src="<?= /* @noEscape */
+                        $block->getViewFileUrl('Webkul_B2BMarketplace/images/phone-book.png') ?>">
+                    </div>
+                    <span><?= /* @noEscape */ __("Personal"); ?></span>
+                    <span><?= /* @noEscape */ __("Information"); ?></span>
+                </div>
+                <div class="wk-signup-step-tab wk-final-step-tab">
+                    <div class="wk-signup-step-tab-icon">
+                        <img class="wk-active-icon" src="<?= /* @noEscape */
+                        $block->getViewFileUrl('Webkul_B2BMarketplace/images/checked-active.png') ?>">
+                        <img class="wk-deactive-icon" src="<?= /* @noEscape */
+                        $block->getViewFileUrl('Webkul_B2BMarketplace/images/checked.png') ?>">
+                    </div>
+                    <span><?= /* @noEscape */ __("You are"); ?></span>
+                    <span><?= /* @noEscape */ __("Done"); ?></span>
+                </div>
+            </div>
+            <div class="wk-signup-step-panel-container">
+                <div class="wk-signup-step-panel wk-signup-step-account-info">
+                    <fieldset class="fieldset">
+                        <div class="field required">
+                            <label class="label" for="supplier-email">
+                                <span><?= /* @noEscape */ __("Email Address"); ?></span>
+                            </label>
+                            <div class="control">
+                                <input type="email" data-validate="{required:true, 'validate-email':true}" 
+                                class="input-text required-entry" title="<?= /* @noEscape */ __("Email Address"); ?>" 
+                                id="supplier-email" name="email">
+                            </div>
+                        </div>
+                        <div class="field email required">
+                            <label for="supplier-password" class="label">
+                                <span><?= /* @noEscape */ __("Password"); ?></span>
+                            </label>
+                            <div class="control">
+                                <input type="password" 
+                                data-validate="{required:true, 'validate-customer-password':true}" 
+                                data-password-min-length="<?= /* @noEscape */ $passwordLength; ?>" 
+                                data-password-min-character-sets="<?= /* @noEscape */ $charLength; ?>" 
+                                title="<?= /* @noEscape */ __("Password"); ?>" class="input-text required-entry" 
+                                id="supplier-password" name="password">
+                            </div>
+                        </div>
+                        <div class="field email required">
+                            <label for="supplier-password" class="label">
+                                <span><?= /* @noEscape */ __("Confirm Password"); ?></span>
+                            </label>
+                            <div class="control">
+                                <input type="password" data-validate="{required:true, equalTo:'#supplier-password'}" 
+                                title="<?= /* @noEscape */ __("Confirm Password"); ?>" 
+                                class="input-text required-entry" 
+                                id="supplier-re-password" name="password_confirmation">
+                            </div>
+                        </div>
+                        <div class="actions-toolbar">
+                            <div class="primary">
+                                <button id="proceed" name="proceed" 
+                                class="wk-proceed-btn action login primary" type="button">
+                                    <span><?= /* @noEscape */ __("Proceed"); ?></span>
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="wk-signup-step-panel wk-signup-step-personal-info wk-display-none">
+                    <fieldset class="fieldset">
+                        <div class="field required">
+                            <label class="label" for="supplier-first-name">
+                                <span><?= /* @noEscape */ __("First Name"); ?></span>
+                            </label>
+                            <div class="control">
+                                <input type="text" data-validate="{required:true}" class="input-text required-entry" 
+                                title="<?= /* @noEscape */ __("First Name"); ?>" 
+                                id="supplier-first-name" name="firstname">
+                            </div>
+                        </div>
+                        <div class="field required">
+                            <label class="label" for="supplier-last-name">
+                                <span><?= /* @noEscape */ __("Last Name"); ?></span>
+                            </label>
+                            <div class="control">
+                                <input type="text" data-validate="{required:true}" 
+                                class="input-text required-entry" 
+                                title="<?= /* @noEscape */ __("Last Name"); ?>" 
+                                id="supplier-last-name" name="lastname">
+                            </div>
+                        </div>
+                        <div class="field required">
+                            <label class="label" for="supplier-phone">
+                                <span><?= /* @noEscape */ __("Phone"); ?></span>
+                            </label>
+                            <div class="control">
+                                <input type="text" data-validate="{required:true}" 
+                                class="input-text required-entry" 
+                                title="<?= /* @noEscape */ __("Phone"); ?>" 
+                                id="supplier-phone" name="telephone">
+                            </div>
+                        </div>
+                        <div class="field required">
+                            <label class="label" for="supplier-company"><span><?= /* @noEscape */
+                            __("Company Name"); ?></span>
+                            </label>
+                            <div class="control">
+                                <input type="text" data-validate="{required:true}" 
+                                class="input-text required-entry" 
+                                title="<?= /* @noEscape */ __("Company Name"); ?>" 
+                                id="supplier-company" name="company">
+                            </div>
+                        </div>
+                        <div class="field required">
+                            <label class="label" for="supplier-company-url">
+                                <span><?= /* @noEscape */ __("Company Url"); ?></span>
+                            </label>
+                            <div class="control" id="wk-mp-become-seller-box-wrapper" 
+                            data-role="wk-mp-become-seller-box-wrapper">
+                                <input type="text" data-validate="{required:true}" class="input-text required-entry" 
+                                title="<?= /* @noEscape */ __("Company Url"); ?>" id="supplier-company-url" 
+                                name="company_url">
+                                <div id="wk-load" class="no-display">
+                                    <img height="16px" width="16px" src="<?= /* @noEscape */
+                                    $quickOrderBlock->getViewFileUrl(
+                                        'Webkul_Marketplace::images/ajax-loader-tr.gif'
+                                    ) ?>" />
+                                </div>
+                                <span> 
+                                    (<?= /* @noEscape */ __('This will be used to display your public profile')?>)
+                                </span>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="fieldset">
+                        <div class="wk-signup-step-sub-title"><?= /* @noEscape */
+                        __("Address Information"); ?></div>
+                        <div class="field required">
+                            <label class="label" for="supplier-country">
+                                <span><?= /* @noEscape */ __("Country"); ?></span>
+                            </label>
+                            <div class="control">
+                                <?= /* @noEscape */ $viewModel->getCountryHtmlSelect(); ?>
+                            </div>
+                        </div>
+                        <div class="field region required">
+                            <label class="label" for="region_id">
+                                <span><?= /* @noEscape */ $block->escapeHtml(__('State/Province')) ?></span>
+                            </label>
+                            <div class="control">
+                                <select id="region_id" name="region_id"
+                                        title="<?= /* @noEscape */ $block->escapeHtmlAttr(__('State/Province')) ?>"
+                                        class="validate-select" <?= /* @noEscape */
+                                        !$helper->getConfig(
+                                            'general/region/display_all'
+                                        ) ? ' disabled="disabled"' : '' ?>>
+                                    <option value=""><?= /* @noEscape */
+                                    $block->escapeHtml(__('Please select a region, state or province.')) ?></option>
+                                </select>
+                                <input type="text"
+                                    id="region"
+                                    name="region"
+                                    value=""
+                                    title="<?= /* @noEscape */ $block->escapeHtmlAttr(__('State/Province')) ?>"
+                                    class="input-text <?= /* @noEscape */ $block->escapeHtmlAttr(
+                                        $viewModel->helper(
+                                            \Magento\Customer\Helper\Address::class
+                                        )->getAttributeValidationClass('region')
+                                    ) ?>"<?=
+                                        !$helper->getConfig(
+                                            'general/region/display_all
+                                            '
+                                        ) ? ' disabled="disabled"' : '' ?>/>
+                            </div>
+                        </div>
+                        <div class="field required">
+                            <label class="label" for="supplier-city">
+                                <span><?= /* @noEscape */ __("City"); ?></span>
+                            </label>
+                            <div class="control">
+                                <input type="text" data-validate="{required:true}" 
+                                class="input-text required-entry" 
+                                title="<?= /* @noEscape */ __("City"); ?>" 
+                                id="supplier-city" name="city">
+                            </div>
+                        </div>
+                        <div class="field required">
+                            <label class="label" for="supplier-address">
+                                <span><?= /* @noEscape */ __("Address Line"); ?></span>
+                            </label>
+                            <div class="control">
+                                <input type="text" data-validate="{required:true}" 
+                                class="input-text required-entry" 
+                                title="<?= /* @noEscape */ __("Address Line"); ?>" 
+                                id="supplier-address" name="street[]">
+                            </div>
+                        </div>
+                        <div class="field required">
+                            <label class="label" for="supplier-postcode">
+                                <span><?= /* @noEscape */ __("Zip/Postal Code"); ?></span>
+                            </label>
+                            <div class="control">
+                                <input type="text" data-validate="{required:true}" 
+                                class="input-text required-entry" 
+                                title="<?= /* @noEscape */ __("Zip/Postal Code"); ?>" 
+                                id="supplier-postcode" name="postcode">
+                            </div>
+                        </div>
+                        <?= $block->getChildHtml('mpgdpr.customer.agreement'); ?>
+                        <div class="actions-toolbar">
+                            <div class="primary">
+                                <button id="register" name="register" 
+                                class="action login primary wk-register-btn" type="button">
+                                    <span><?= /* @noEscape */ __("Register"); ?></span>
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="wk-signup-step-panel wk-display-none wk-signup-step-final">
+                    <div class="wk-signup-complete">
+                        <div class="wk-signup-complete-logo">&#10004;</div>
+                        <div class="wk-signup-complete-title"><?= /* @noEscape */__("Voila! Account Created!"); ?></div>
+                        <div class="wk-signup-complete-msg"><?= /* @noEscape */
+                        __("You have successfully registered as Supplier with us."); ?></div>
+                        <div class="wk-signup-complete-btn-container">
+                            <a href="<?= /* @noEscape */ $quickOrderBlock->getUrl(
+                                'b2bmarketplace/supplier/account'
+                            ); ?>" 
+                            class="wk-signup-complete-dashboard-btn">
+                                <?= /* @noEscape */ __("Go to Dashboard"); ?>
+                            </a>
+                        </div>
+                        <div class="wk-supplier-feature-container">
+                            <div class="wk-supplier-feature">
+                                <div class="wk-supplier-feature-logo">
+                                    <img src="<?= /* @noEscape */ $block->getViewFileUrl(
+                                        'Webkul_B2BMarketplace/images/document.png'
+                                    ) ?>">
+                                </div>
+                                <div class="wk-supplier-feature-content">
+                                    <div class="wk-supplier-feature-title"><?= /* @noEscape */ __(
+                                        "Create a MicroSite"
+                                    ); ?></div>
+                                    <div class="wk-supplier-feature-info">
+                                        <?= /* @noEscape */ __(
+                                            "You can setup and customize your very own MicroSite for free, ".
+                                            "where you can showcase your information and products."
+                                        ); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wk-supplier-feature">
+                                <div class="wk-supplier-feature-logo">
+                                    <img src="<?= /* @noEscape */
+                                    $block->getViewFileUrl('Webkul_B2BMarketplace/images/list.png') ?>">
+                                </div>
+                                <div class="wk-supplier-feature-content">
+                                    <div class="wk-supplier-feature-title"><?= /* @noEscape */ __(
+                                        "Choose Relevant Categories"
+                                    ); ?></div>
+                                    <div class="wk-supplier-feature-info">
+                                        <?= /* @noEscape */ __(
+                                            "You can choose the categories you want to sell for".
+                                            "and you will only receive relevant product quotations."
+                                        ); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wk-supplier-feature">
+                                <div class="wk-supplier-feature-logo">
+                                    <img src="<?= /* @noEscape */
+                                    $block->getViewFileUrl('Webkul_B2BMarketplace/images/shield.png') ?>">
+                                </div>
+                                <div class="wk-supplier-feature-content">
+                                    <div class="wk-supplier-feature-title"><?= /* @noEscape */ __(
+                                        "Get Premium Badge"
+                                    ); ?></div>
+                                    <div class="wk-supplier-feature-info">
+                                        <?= /* @noEscape */ __(
+                                            "You can verify your business and become a Preminum Supplier".
+                                            "for free to receive relatively more quotations."
+                                        ); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/x-magento-init">
+    {
+        "#country": {
+            "regionUpdater": {
+                "optionalRegionAllowed": <?= /* @noEscape */
+                $viewModel->getConfigRegionDisplay() ? 'true' : 'false' ?>,
+                "regionListId": "#region_id",
+                "regionInputId": "#region",
+                "postcodeId": "#supplier-postcode",
+                "form": "#wk-supplier-create-form",
+                "regionJson": <?= /* @noEscape */ $viewModel->helper(
+                    \Magento\Directory\Helper\Data::class
+                )->getRegionJson() ?>,
+                "defaultRegion": "",
+                "countriesWithOptionalZip": <?= /* @noEscape */ $viewModel->helper(
+                    \Magento\Directory\Helper\Data::class
+                )->getCountriesWithOptionalZip(true) ?>
+            }
+        }
+    }
+</script>
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/alert',
+        'Magento_Customer/js/customer-data',
+        'mage/mage'
+    ], function($, alertBox, customerData) {
+        var warningLable = "Warning";
+        $(document).ready(function() {
+            $('body').delegate('#supplier-company-url', 'keyup', function () {
+                var shopUrlVal = $(this).val();
+                $('#supplier-company-url').val(shopUrlVal.replace(/[^a-z^A-Z^0-9\.\-]/g,''));
+            });
+            $('body').delegate('#supplier-company-url', 'change', function () {
+                var self = this;
+                var shopUrlVal = $('#supplier-company-url').val();
+                $('.available').remove();
+                $('.unavailable').remove();
+                if (shopUrlVal) {
+                    $('#wk-load').removeClass('no-display');
+                    $.ajax({
+                        type: "POST",
+                        url: '<?= /* @noEscape */
+                        $block->getUrl(
+                            "marketplace/seller/usernameverify",
+                            ["_secure" => $quickOrderBlock->getRequest()->isSecure()]
+                        )?>',
+                        data: {
+                            profileurl: shopUrlVal
+                        },
+                        success: function (response) {
+                            $('#wk-load').addClass('no-display');
+                            if (response===0) {
+                                $('[data-role="wk-mp-become-seller-box-wrapper"]').append(
+                                    $('<div/>').addClass('available message success')
+                                    .text('<?= /* @noEscape */ __("Congratulations! Shop name is available.") ?>')
+                                );
+                            } else {
+                                $('#supplier-company-url').val('');
+                                $('[data-role="wk-mp-become-seller-box-wrapper"]').append(
+                                    $('<div/>').addClass('available message error')
+                                    .text('<?= /* @noEscape */ __(
+                                        "Sorry! But this shop name is not available, please set another shop name."
+                                    ) ?>')
+                                );
+                            }
+                        },
+                        error: function (response) {
+                            alertBox({
+                                content: $t('There was error during verifying seller shop data')
+                            });
+                        }
+                    });
+                }
+            });
+
+            $(".wk-proceed-btn").click(function() {
+                var dataForm = $('#wk-supplier-create-form');
+                dataForm.mage('validation', {});
+                if (dataForm.validation('isValid')) {
+                    showLoader();
+                    $.ajax({
+                        url: "<?= /* @noEscape */ $quickOrderBlock->getUrl('b2bmarketplace/supplier/validate'); ?>",
+                        type: 'POST',
+                        data: { email : $("#supplier-email").val() },
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.error) {
+                                if (data.msg) {
+                                    hideLoader();
+                                    alertBox({
+                                        title: warningLable,
+                                        content: "<div class='wk-mprma-warning-content'>"+data.msg+"</div>",
+                                        actions: {
+                                            always: function () {
+                                                if (data.reload) {
+                                                    if (data.redirect) {
+                                                        window.location = data.redirect;
+                                                    } else {
+                                                        location.reload(true);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
+                            } else {
+                                customerData.reload([''], true);
+                                $(".wk-signup-step-panel").removeClass("wk-display-none");
+                                $(".wk-signup-step-panel").addClass("wk-display-none");
+                                $(".wk-signup-step-personal-info").removeClass("wk-display-none");
+                                $(".wk-signup-step-tab").addClass("wk-active-tab");
+                                $(".wk-final-step-tab").removeClass("wk-active-tab");
+                                hideLoader();
+                            }
+                        }
+                    });
+                } else {
+                }
+            });
+
+            $(".wk-register-btn").click(function() {
+                var dataForm = $('#wk-supplier-create-form');
+                dataForm.mage('validation', {});
+                if (dataForm.validation('isValid')) {
+                    showLoader();
+                    $.ajax({
+                        url: "<?= /* @noEscape */ $quickOrderBlock->getUrl('b2bmarketplace/supplier/register'); ?>",
+                        type: 'POST',
+                        data: $('#wk-supplier-create-form').serialize(),
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.error) {
+                                hideLoader();
+                                alertBox({
+                                    title: warningLable,
+                                    content: "<div class='wk-mprma-warning-content'>"+data.msg+"</div>",
+                                    actions: {
+                                        always: function () {
+                                            if (data.reload) {
+                                                location.reload(true);
+                                            }
+                                        }
+                                    }
+                                });
+                            } else {
+                                $(".wk-signup-step-panel").removeClass("wk-display-none");
+                                $(".wk-signup-step-panel").addClass("wk-display-none");
+                                $(".wk-signup-step-final").removeClass("wk-display-none");
+                                $(".wk-signup-step-tab").addClass("wk-active-tab");
+                                hideLoader();
+                            }
+                        }
+                    });
+                } else {
+                }
+            });
+            
+            $('body').on('keyup', '.wk-signup-step-panel input', function (e) {
+                if (e.keyCode == 13) {
+                    $(this).closest(".wk-signup-step-panel").find("button").trigger("click")
+                }
+            });
+        });
+
+        function showLoader() {
+            $(".wk-loading-mask").removeClass("wk-display-none");
+        }
+
+        function hideLoader() {
+            $(".wk-loading-mask").addClass("wk-display-none");
+        }
+    });
+</script>

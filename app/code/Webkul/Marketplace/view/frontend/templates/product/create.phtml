@@ -1,0 +1,175 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Marketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+/** @var $block \Webkul\Marketplace\Block\Product\Create */
+$viewModel = $block->getViewModel();
+$helper = $viewModel->getHelper();
+$allowedSets = $helper->getAllowedSets();
+$allowedProducts = $helper->getAllowedProductTypes();
+$totalSets = count($allowedSets);
+$totalProductTypes = count($allowedProducts);
+?>
+<?php if (!$helper->isProfileCompleted() && $helper->getSellerProfileDisplayFlag()): ?>
+    <div class="wk-profile-alert">
+        <strong><?= $escaper->escapeHtml(__('Warning'))?>!</strong>
+        <span><?= $escaper->escapeHtml(__('Please Complete'))?></span>
+        <a href="<?= $escaper->escapeUrl($block
+        ->getUrl('marketplace/account/editprofile', ['_secure' => $block->getRequest()->isSecure()]))?>" 
+        style="color: inherit;">
+            <?= $escaper->escapeHtml(__('Your Profile'))?>
+        </a>
+        <span class="wk-close">X</span>
+    </div>
+<?php endif; ?>
+<form action="<?= $escaper->escapeUrl($block->getUrl('marketplace/product/create', ['_secure' => $block
+->getRequest()->isSecure()])) ?>" enctype="multipart/form-data" 
+method="post" id="form-customer-product-new" data-mage-init='{"validation":{}}'>
+    <div class="wk-mp-design">
+        <fieldset class="fieldset info wk-mp-fieldset">
+            <legend class="legend">
+                <span><?= $escaper->escapeHtml(__('Add New Product')) ?></span>
+                <div class="tooltip d-lg-inline-block d-none">
+                            
+                            <img src="<?php echo $this->getViewFileUrl('Webkul_Marketplace::images/info.png'); ?>"  width="33px" height="33px"  />
+                            <span class="tooltiptext">
+                                <ol><b>Product Types:These are of  Basically four types of Products available  in magento which can be created and sold</b>
+                                              <li> <strong>Simple Product :</strong>A simple product is a standalone product with a single SKU (stock or shelf keeping unit) and no product variable. A product 
+                                                containing  no sizes or 
+                                                colors to choose from can lie within this category.</li>
+                                               <li><strong>Downloadable Product :</strong>The downloadable product can’t be touched and doesn’t require shipping rules. But it can be treated as semi-physical 
+                                                as it 
+                                                 allows you to 
+                                                 download it once you purchase it. Examples like software or tools and any gaming setups</li>
+                                                <li><strong>Virtual product :</strong>These are non-tangible product types without a physical appearance. They can’t be shipped or downloaded. You can use 
+                                                 warranties, club membership, music, subscription, or any other digital items.   The process of selling a virtual product isn’t complicated. You can treat it 
+                                                  as a simple,  grouped, or bundle category of the product type. </li>
+                                                   <li><strong>Configurable Product: </strong>This is similar to the simple product, but with a drop-down menu. This lets you set product attributes like color 
+                                                   and size 
+                                                     as separate SKUs, which helps track the inventory of every single variation. 
+                                                </li>
+                                 </ol>
+                            </span>
+                        </div>
+                <button class="button wk-mp-btn" title="Continue" type="submit">
+                    <span><span><?= $escaper->escapeHtml(__('Continue')) ?></span></span>
+                </button>
+            </legend>
+            <?= $block->getBlockHtml('formkey')?>
+            <?= $block->getBlockHtml('seller.formkey')?>
+            <?php if ($totalSets > 0): ?>
+                <?php if ($totalSets > 1): ?>
+                    <div class="field required">
+                        <label class="label"><?= $escaper->escapeHtml(__('Attribute Set')) ?>:</label>
+                        <div class="control">
+                            <select name="set" class="required-entry">
+                            <?php foreach ($allowedSets as $set): ?>
+                                <option value="<?= $escaper->escapeHtml($set['value']) ?>">
+                                <?= $escaper->escapeHtml($set['label'])?></option>
+                            <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <input type="hidden" name="set" value="<?= /* @noEscape */ $allowedSets[0]['value'] ?>" />
+                <?php endif; ?>
+            <?php endif; ?>
+            <?php if ($totalProductTypes > 0): ?>
+                <?php if ($totalProductTypes > 1): ?>
+                    <div class="field required">
+                        <label class="label"><?= $escaper->escapeHtml(__('Product Type')) ?>:</label>
+                        <div class="control">
+                            <select name="type" class="required-entry">
+                            <?php foreach ($allowedProducts as $type): ?>
+                                <option value="<?= $escaper->escapeHtml($type['value']) ?>">
+                                <?= $escaper->escapeHtml($type['label'])?></option>
+                            <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <input type="hidden" name="type" value="<?= /* @noEscape */ $allowedProducts[0]['value'] ?>" />
+                <?php endif; ?>
+            <?php endif; ?>
+            <?= $block->getChildHtml(); ?>
+        </fieldset>
+    </div>
+</form>
+<div class="buttons-set">
+    <p class="required">* <?= $escaper->escapeHtml(__('Required Fields')) ?></p>
+    <p class="back-link">
+        <a href="javascript:;" onclick="javascript: window.history.back();" class="left">&laquo; 
+        <?= $escaper->escapeHtml(__('Back')) ?></a>
+    </p>
+</div>
+<script type='text/javascript'>
+    require(['jquery'], function($) {
+      $('.wk-close').click(function(e) {
+        $('.wk-profile-alert').hide();
+      });
+    })
+
+  
+
+</script>
+<style>
+
+.wk-mp-column.wk-mp-main fieldset.fieldset.info.wk-mp-fieldset {
+    overflow: unset;
+}
+@media only screen and (min-width: 992px) {
+     .tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+  cursor: pointer;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 840px;
+  background-color:white ;
+  color: #0088cc;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 5px;
+  font-size:14px;
+  text-align:left;
+  text-transform:none;
+  margin-left:4px;
+  padding-top:10px;
+
+
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 9999;
+  /* overflow-y: auto;
+    max-height: 520px; */
+}
+
+.tooltip.active .tooltiptext {
+  visibility: visible;
+  
+}
+}
+
+    </style>
+    <script>
+var tooltip = document.querySelector('.tooltip')
+
+tooltip.addEventListener('click', function() {
+  if (this.classList.contains('active')) {
+    this.classList.remove('active');
+  } else {
+    this.classList.add('active');
+  }
+  
+}); 
+        </script>

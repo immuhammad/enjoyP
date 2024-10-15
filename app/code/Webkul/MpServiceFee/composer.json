@@ -1,0 +1,20 @@
+{
+    "name": "webkul/marketplace-service-fee",
+    "description": "Marketplace Service Fees For Magento 2",
+    "require": {
+        "webkul/module-marketplace": "5.0.*"
+    },
+    "type": "magento2-module",
+    "version": "5.0.0",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Webkul\\MpServiceFee\\": ""
+        }
+    }
+}

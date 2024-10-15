@@ -1,0 +1,93 @@
+<?php
+    $quickOrderBlock =  $block->getLayout()
+    ->createBlock(\Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class);
+    $helper = $quickOrderBlock->helper('Webkul\B2BMarketplace\Helper\Data');
+    $customer = $helper->getCurrentSupplierMageData();
+    $email = "<span>".$customer->getEmail()."</span>";
+    $link = "<a href='".$quickOrderBlock
+    ->getUrl('b2bmarketplace/supplier/verification_send').
+    "'>click here</a>";
+?>
+<div class="wk-supplier-company-overview-container">
+    <fieldset class="fieldset">
+        <?php if (!$helper->isVerifiedSupplier()): ?>
+            <div class='wk-b2b-supplier-verification-bar'>
+                <?= /* @noEscape */ __(
+                    "A verification email is sent to %1 ,
+                    check your inbox for verification email or %2 to resend link.",
+                    $email,
+                    $link
+                ); ?>
+            </div>
+        <?php endif; ?>
+        <div class="field">
+            <label class="label"><span><?= /* @noEscape */ __('Email Address') ?></span></label>
+            <div class="control">
+                <?= /* @noEscape */ $customer->getEmail(); ?>
+                <?= /* @noEscape */ $helper->getVerifiedSupplierStatusHtml(); ?>
+            </div>
+        </div>
+        <div class='wk-b2b-supplier-badge-info-container'>
+            <?php if ($helper->isVerifiedSupplier()): ?>
+                <div class='wk-b2b-supplier-badge-info-title'>
+                    <?= /* @noEscape */ __("You have earned the Verified Supplier Badge"); ?>
+                </div>
+                <div class='wk-b2b-supplier-badge-info-content wk-b2b-verified wk-supplier-verified'>
+                Verified supplier</div>
+            <?php else: ?>
+                <div class='wk-b2b-supplier-badge-info-title'>
+                    <?= /* @noEscape */ __("Once you verify the details above you will get the Verification Badge
+                    which will be displayed along with the profile."); ?>
+                </div>
+                <div class='wk-b2b-supplier-badge-info-content wk-supplier-verified'>Verified supplier</div>
+            <?php endif; ?>
+        </div>
+    </fieldset>
+</div>
+
+<style>
+    .wk-b2b-supplier-label {
+        display: inline-block;
+        width: 100%;
+        font-weight: bold;
+    }
+    .wk-b2b-supplier-label-verified.wk-b2b-supplier-label {
+        color: #00D147;
+    }
+    .wk-b2b-supplier-label-not-verified.wk-b2b-supplier-label {
+        color: #FF4754;
+    }
+    .wk-b2b-supplier-verification-bar {
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    background: #FFFBD4;
+    margin-bottom: 15px;
+    border-radius: 2px;
+    border: 1px solid #E9DF80;
+    color: #333;
+    font-weight: 600;
+}
+.wk-b2b-supplier-verification-bar span {
+    color: #006bb4;
+}
+.wk-b2b-supplier-badge-info-container {
+    margin-top: 20px;
+    display: inline-block;
+    width: 100%;
+    border-top: 1px solid #ccc;
+    padding: 10px 0;
+}
+.wk-b2b-supplier-badge-info-content.wk-b2b-verified {
+    color: #2173F7;
+}
+.wk-b2b-supplier-badge-info-content {
+    font-weight: bold;
+    color: #999999;
+    padding-left: 20px;
+    margin: 5px 0;
+    margin-left: 10px;
+}
+</style>
+

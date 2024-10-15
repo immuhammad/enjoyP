@@ -1,0 +1,32 @@
+<!--
+/**
+ * Webkul Affiliate Pay To User By Paypal file.
+ *
+ * @category  Webkul
+ * @package   Webkul_Affiliate
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<form action="https://www.<%- urlFix %>paypal.com/webscr" id="wk_aff_paypal_standard_checkout<%- sellerid %>" name="paypal_standard_checkout" method="POST">
+	<input id="business" name="business" value="<%- adminEmail %>" type="hidden"/>
+	<input id="invoice" name="invoice" value="<%- invoice %>" type="hidden"/>
+	<input id="currency_code" name="currency_code" value="<%- currentCurrencyCode %>" type="hidden"/>
+	<input id="paymentaction" name="paymentaction" value="sale" type="hidden"/>
+	<input id="return" name="return" value="<%- returnurl %>" type="hidden"/>
+	<input id="cancel_return" name="cancel_return" value="<%- cancelReturn %>" type="hidden"/>
+	<input id="notify_url" name="notify_url" value="<%- ipnnotify %>" type="hidden"/>
+	<input id="bn" name="bn" value="Varien_Cart_WPS_US" type="hidden"/>
+	<input id="charset" name="charset" value="utf-8" type="hidden"/>
+	<input id="item_name_1" name="item_name_1" value="Affiliate User Payment" type="hidden"/>
+	<input id="amount_1" name="amount_1" value="<%- ammounttopay %>" type="hidden"/>
+	<input id="quantity_1" name="quantity_1" value="1" type="hidden"/>
+	<input id="cmd" name="cmd" value="_cart" type="hidden"/>
+	<input id="upload" name="upload" value="1" type="hidden"/>
+	<input id="tax_cart" name="tax_cart" value="0.00" type="hidden"/>
+	<input id="discount_amount_cart" name="discount_amount_cart" value="0.00" type="hidden"/>
+	<input id="email" name="email" value="<%- adminEmail %>" type="hidden"/>
+	<input id="first_name" name="first_name" value="<%- adminFirstName %>" type="hidden"/>
+	<input id="last_name" name="last_name" value="<%- adminLastName %>" type="hidden"/>
+</form>

@@ -1,0 +1,120 @@
+<?php
+/**
+ * Webkul Affiliate Ads template.
+ * @category  Webkul
+ * @package   Webkul_Affiliate
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+$isAffiliate = $block->isAffiliate();
+$config = $block->getAffiliateConfig();
+if ($isAffiliate && $config['enable']) {
+    $adsColl = $block->getAllAds();
+    ?>
+    <div class="wk-mp-design ">
+        <fieldset class="fieldset info">
+            <legend class="legend">
+                <a href="<?= /* @noEscape */ $block->getUrl('affiliate/user/ads')?>"> 
+                <?= /* @noEscape */ __('Product Ads') ?></a> |
+                <span><b><?= /* @noEscape */ __('Banners/Text Ads') ?> </b></span>
+                <div style="display:inline-block; float:right" >
+                    <form action="<?= /* @noEscape */  $block->getUrl('affiliate/user/banner')?>" 
+                        method="get" name="adsForm" id="myForm">
+                        <input type="text" class="input-text" 
+                        style="width:300px" name="bnTitle" 
+                        placeholder="<?= /* @noEscape */  __('Search by Banner Title')?>" 
+                        value="<?= /* @noEscape */ $block->getRequest()->getParam('bnTitle')?>">
+                        <button class="button"
+                            title="<?= /* @noEscape */ __('Search')?>"
+                            type="submit">
+                            <span><span><span><?= /* @noEscape */ __('Submit')?></span></span></span>
+                        </button>      
+                    </form>
+                </div>
+            </legend>
+            <div class="grid">
+                <div class="hor-scroll">
+                    <?php if ($adsColl && $adsColl->getSize()): ?>
+                        <table cellspacing="0" class="border table wk-affiliate-list-table">
+                            <thead>
+                                <tr class="wk-content">
+                                    <th class="wk-first-td name">
+                                        <span class="label"><?= /* @noEscape */ __('Title')?></span>
+                                    </th>
+                                    <th class="wk-first-td">
+                                        <span class="label"><?= /* @noEscape */ __('Size')?></span>
+                                    </th>
+                                    <th class="wk-first-td">
+                                        <span class="label"><?= /* @noEscape */ __('HTML Code')?></span>
+                                    </th>
+                                    <th class="wk-first-td">
+                                        <span class="label name"><?= /* @noEscape */ __('Preview')?></span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $i = 0;
+                                $affId = $isAffiliate['data']->getCustomerId();
+                                foreach ($adsColl as $ads) {
+                                    //echo "<pre>";print_r($ads->getData());exit;
+                                    $i++;
+                                    ?>
+                                    <tr class="wk-row-view 
+                                    <?= /* @noEscape */ $i == $adsColl->getSize()? 'wk-last_tr':''?>">
+                                        <td class="wk-first_td">
+                                            <div class="label name"><?= /* @noEscape */  $ads->getTitle(); ?></div>
+                                        </td>
+                                        <td><span class="banner_size" >
+                                            <?= /* @noEscape */  $ads->getBannerSize(); ?></span></td>
+                                        <td>
+                                            <textarea class="banner_content wk-copy-to-txt" readonly="readonly">
+                                                <?= /* @noEscape */ $block->getHtmlCodeForAds($ads, $affId)?>
+                                            </textarea>
+                                        </td>
+                                        <td>
+                                            <div class="primary">
+                                                <button type="button" class="action primary preview" title="Save">
+                                                    <span><?= /* @noEscape */ __('Preview')?></span>
+                                                </button>
+                                                <button type="button" 
+                                                    class="action primary wk-copy-txt-btn" 
+                                                    title="<?= /* @noEscape */ __('Copy HTML Code')?>">
+                                                    <?= /* @noEscape */ __('Copy HTML Code')?>
+                                                </button>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    <?php else: ?>
+                        <div class="wk-emptymsg">
+                            <?= /* @noEscape */  __('No Ads Banner Available') ?>
+                        </div>
+                    <?php endif ?>
+                </div>
+            </div>
+            <?php if ($block->getPagerHtml()): ?>
+                <div class="order-products-toolbar toolbar bottom">
+                    <?= /* @noEscape */  $block->getPagerHtml(); ?></div>
+            <?php endif ?>
+        </fieldset>
+        <div class="buttons-set">
+            <p class="back-link">
+                <a href="javascript:;" onclick="javascript: window.history.back();" 
+                class="left">&laquo; <?= /* @noEscape */  __('Back') ?></a>
+            </p>
+        </div>
+    </div>
+    <script type="text/x-magento-init">
+    {
+        "*": {
+            "bannerlist": {}
+        }
+    }
+    </script>
+<?php } ?>

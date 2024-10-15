@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpmembership
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="marketplace_membership_transaction" resource="default" engine="innodb" comment="Marketplace Membership Transaction Table">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+    <column xsi:type="int" name="no_of_products" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Number Of Products"/>
+    <column xsi:type="int" name="remaining_products" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Remaining Products To Add"/>
+    <column xsi:type="int" name="check_type" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Checks On"/>
+    <column xsi:type="int" name="seller_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Seller ID"/>
+    <column xsi:type="varchar" name="transaction_id" nullable="false" length="255" comment="Transaction Id"/>
+    <column xsi:type="varchar" name="transaction_email" nullable="false" length="255" comment="Transaction Email"/>
+    <column xsi:type="varchar" name="ipn_transaction_id" nullable="false" length="255" comment="IPN Transaction ID"/>
+    <column xsi:type="timestamp" name="transaction_date" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Transaction Time"/>
+    <column xsi:type="timestamp" name="expiry_date" on_update="false" nullable="false" comment="Transaction Expire Time"/>
+    <column xsi:type="varchar" name="transaction_status" nullable="false" length="255" comment="Transaction Status"/>
+    <column xsi:type="text" name="reference_number" nullable="true" comment="Transaction Reference Number"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Time"/>
+    <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Update Time"/>
+    <column xsi:type="smallint" name="transaction_type" padding="5" unsigned="true" nullable="false" identity="false" default="0" comment="Transaction Type"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="marketplace_membership_product" resource="default" engine="innodb" comment="Marketplace Membership Product Table">
+    <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+    <column xsi:type="int" name="no_of_products" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Number Of Products"/>
+    <column xsi:type="int" name="seller_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Seller ID"/>
+    <column xsi:type="text" name="product_ids" nullable="false" comment="Product Ids"/>
+    <column xsi:type="varchar" name="transaction_id" nullable="false" length="255" comment="Transaction Id"/>
+    <column xsi:type="varchar" name="transaction_email" nullable="false" length="255" comment="Transaction Email"/>
+    <column xsi:type="varchar" name="ipn_transaction_id" nullable="false" length="255" comment="IPN Transaction ID"/>
+    <column xsi:type="timestamp" name="transaction_date" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Transaction Time"/>
+    <column xsi:type="timestamp" name="expiry_date" on_update="true" nullable="false" disabled="true" comment="Transaction Expire Time"/>
+    <column xsi:type="varchar" name="transaction_status" nullable="false" length="255" comment="Transaction Status"/>
+    <column xsi:type="text" name="reference_number" nullable="true" comment="Transaction Reference Number"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Time"/>
+    <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Update Time"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="marketplace_product" resource="default">
+    <column xsi:type="smallint" name="payment_status" padding="5" unsigned="true" nullable="false" identity="false" default="0" comment="Membership Payment Status"/>
+  </table>
+</schema>

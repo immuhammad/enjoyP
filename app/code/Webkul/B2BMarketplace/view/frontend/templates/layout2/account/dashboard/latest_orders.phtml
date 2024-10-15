@@ -1,0 +1,30 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<style>
+    .admin__data-grid-wrap {
+        padding-top: 0;
+    }
+</style>
+<div class="wk-mp-dashboard-order-grid">
+    <div class="wk-mp-order-grid-title-row">
+        <span class="wk-mp-float-left wk-mp-order-grid-title-row-sp1">
+            <?= /* @noEscape */ __("Latest Orders")?>
+        </span>
+        <span class="wk-mp-float-right wk-mp-order-grid-title-row-sp2">
+            <a href="<?= /* @noEscape */ $block->getUrl('marketplace/order/history', [
+                '_secure' => $block->getRequest()->isSecure()])?>">
+                <?= /* @noEscape */ __("View All Orders")?>
+            </a>
+        </span>
+    </div>
+    <?= /* @noEscape */ $block->getChildHtml()?>
+</div>

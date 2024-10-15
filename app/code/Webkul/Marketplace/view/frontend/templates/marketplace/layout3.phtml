@@ -1,0 +1,429 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Marketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$viewModel = $block->getViewModel();
+$helper = $viewModel->getHelper();
+$bannerDisplay      =   $helper->getDisplayBannerLayout3();
+$bannerImage        =   $helper->getBannerImageLayout3();
+$bannerContent      =   $helper->getBannerContentLayout3();
+$marketplacebutton  =   $helper->getBannerButtonLayout3();
+$marketplacelabel1  =   $helper->getMarketplacelabel1Layout3();
+$marketplacelabel2  =   $helper->getMarketplacelabel2Layout3();
+$marketplacelabel3  =   $helper->getMarketplacelabel3Layout3();
+$iconsDisplay       =   $helper->getDisplayIconLayout3();
+$iconImage1         =   $helper->getIconImage1Layout3();
+$iconImage1Label    =   $helper->getIconImageLabel1Layout3();
+$iconImage2         =   $helper->getIconImage2Layout3();
+$iconImage2Label    =   $helper->getIconImageLabel2Layout3();
+$iconImage3         =   $helper->getIconImage3Layout3();
+$iconImage3Label    =   $helper->getIconImageLabel3Layout3();
+$iconImage4         =   $helper->getIconImage4Layout3();
+$iconImage4Label    =   $helper->getIconImageLabel4Layout3();
+$iconImage5         =   $helper->getIconImage5Layout3();
+$iconImage5Label    =   $helper->getIconImageLabel5Layout3();
+$iconSeperatorImage = $block->
+getViewFileUrl('Webkul_Marketplace::images/landingpage2/icon/sell-page-2-arrow-right.png');
+?>
+<link rel="stylesheet" type="text/css" href="<?= /* @noEscape */
+  $block->getViewFileUrl('Webkul_Marketplace::css/landingpage_two.css');?>">
+<div class="wk-mp-design wk-mp-landingpage wk-mp-landingpage-layout3">
+    <?php
+    $sellerAccountUrl = $block->getUrl(
+        'marketplace/account/becomeseller',
+        ["_secure" => $block->getRequest()->isSecure()]
+    );
+    ?>
+
+     <div class="container-fluid">
+	 <div class="top-banner">
+	 <div class="container">
+        <div class="row vh-center">
+            <div class="col-md-6 col-sm-12 align-left">
+                    <h1 class="mechant-title">Become a merchant on Enjoy Palestine</h1>
+                        <p class="merchant-text"> Join the Global Marketplace and Boost Your Sales with Enjoy Palestine!</p>
+                            <span class="seller-button py-5">
+                            <a href="/b2bmarketplace/supplier/login/">  
+                                <button class="btn btn-success"> Start Selling </button>
+                            </a> 
+                            <a href="#how-it-works">  
+                                <button class="btn btn-secondary  btn-2 m-2" > How It works </button>
+                            </a> 
+                    </span>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                     <img src="<?php echo $this->getViewFileUrl('Webkul_Marketplace::images/header-image-marketplace.png'); ?>"  />
+           </div>
+        </div>
+		</div>
+		</div>
+		<div class="marketplace-form">
+		<div class="container bg-grey">
+        <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-12 ">
+            <img src="<?php echo $this->getViewFileUrl('Webkul_Marketplace::images/supplier-image.png'); ?>" width="500px" />
+            </div>
+            <div class="offset-1 col-lg-6 col-md-7 col-sm-12">
+            <?php if (!$helper->isCustomerLoggedIn()): ?>
+                <?php $sellerAccountUrl = '#register-as-seller';?>
+            <?= /* @noEscape */
+                          __('Register As Seller')?>
+                        <?= $block->getChildHtml('customer_form_register_layout3');?>
+           </div>
+           <?php endif; ?>
+        </div>
+		</div>
+		</div>
+     </div>
+<!-- 
+    <div class="wk-mp-banner-container-layout2">
+        <div class="wk-mp-banner">
+            <?php// if ($bannerDisplay) { ?>
+            <div class="wk-list-container wk-mp-header">
+                <div class="wk-mp-header-container">
+                    <?= /* @noEscape */  $block->getCmsFilterContent($bannerContent)?>
+                </div>
+            </div>
+                <?php
+            //} ?>
+            <?php// if (!$helper->isCustomerLoggedIn()): ?>
+                <?php// $sellerAccountUrl = '#register-as-seller';?>
+                <div class="wk-list-container">
+                    <div class="wk-list-container-registration wk-text-transform-left"
+                     id="register-as-seller">
+                        <div class="wk-list-container-feature-label"><?= /* @noEscape */
+                          __('Register As Seller')?></div>
+                        = //$block->getChildHtml('customer_form_register_layout3');?>
+                    </div>
+                </div>
+        <?php// endif; ?>
+        </div>
+    </div> -->
+    <!-- <h1 class="wk-marketplace-label"><?= $escaper->escapeHtml($marketplacelabel1)?></h1>
+    <?php
+    if ($iconsDisplay) {?>
+        <div class="wk-mp-icon-container">
+            <div class="wk-mp-icon-wraper">
+                <div class="wk-mp-icon">
+                    <img src="<?= $escaper->escapeUrl($iconImage1) ?>">
+                </div>
+                <span class="wk-marketplace-label-span"><?= $escaper->escapeHtml($iconImage1Label) ?></span>
+            </div>
+            <div class="wk-mp-icon-seperator">
+                <div class="wk-mp-icon">
+                    <img src="<?= $escaper->escapeUrl($iconSeperatorImage) ?>">
+                </div>
+            </div>
+            <div class="wk-mp-icon-wraper">
+                <div class="wk-mp-icon">
+                    <img src="<?= $escaper->escapeUrl($iconImage2) ?>">
+                </div>
+                <span class="wk-marketplace-label-span"><?= $escaper->escapeHtml($iconImage2Label) ?></span>
+            </div>
+            <div class="wk-mp-icon-seperator">
+                <div class="wk-mp-icon">
+                    <img src="<?= $escaper->escapeUrl($iconSeperatorImage) ?>">
+                </div>
+            </div>
+            <div class="wk-mp-icon-wraper">
+                <div class="wk-mp-icon">
+                    <img src="<?= $escaper->escapeUrl($iconImage3) ?>">
+                </div>
+                <span class="wk-marketplace-label-span"><?= $escaper->escapeHtml($iconImage3Label) ?></span>
+            </div>
+            <div class="wk-mp-icon-seperator">
+                <div class="wk-mp-icon">
+                    <img src="<?= $escaper->escapeUrl($iconSeperatorImage) ?>">
+                </div>
+            </div>
+            <div class="wk-mp-icon-wraper">
+                <div class="wk-mp-icon">
+                    <img src="<?= $escaper->escapeUrl($iconImage4) ?>">
+                </div>
+                <span class="wk-marketplace-label-span"><?= $escaper->escapeHtml($iconImage4Label) ?></span>
+            </div>
+            <div class="wk-mp-icon-seperator">
+                <div class="wk-mp-icon">
+                    <img src="<?= $escaper->escapeUrl($iconSeperatorImage) ?>">
+                </div>
+            </div>
+            <div class="wk-mp-icon-wraper">
+                <div class="wk-mp-icon">
+                    <img src="<?= $escaper->escapeUrl($iconImage5) ?>">
+                </div>
+                <span class="wk-marketplace-label-span"><?= $escaper->escapeHtml($iconImage5Label) ?></span>
+            </div>
+        </div>
+        <?php
+    } ?>
+	<div class="container why-to-sell-section" id ="how-it-works">
+    <h1 class="wk-marketplace-label"><?= $escaper->escapeHtml($marketplacelabel2) ?></h1>
+    <div class="wk-list-container-wrapper wk-text-transform-left">
+        <div class="wk-layout2-box-container">
+            <span class="wk-layout2-box-span">
+                <span class="wk-layout2-box-span-image"></span>
+            </span>
+            <span class="wk-layout2-box-span-container"><?= /* @noEscape */  __('Huge Buyers');?></span>
+            <div class="wk-icon-div"><?= /* @noEscape */
+              __('Get your product showcased to a huge range of customers,
+               as everyday many user shops from us.');?></div>
+        </div>
+        <div class="wk-layout2-box-container">
+            <span class="wk-layout2-box-span">
+                <span class="wk-layout2-box-span-image wk-layout2-box-span-image-ask"></span>
+            </span>
+            <span class="wk-layout2-box-span-container"><?= /* @noEscape */  __('Ask Questions');?></span>
+            <div class="wk-icon-div"><?= /* @noEscape */
+              __('If you ever get stuck, let us know and we will help you with the
+               best we have in minimum possible time.');?></div>
+        </div>
+        <div class="wk-layout2-box-container">
+            <span class="wk-layout2-box-span">
+                <span class="wk-layout2-box-span-image wk-layout2-box-span-image-quickpay"></span>
+            </span>
+            <span class="wk-layout2-box-span-container"><?= /* @noEscape */  __('Quick Payments');?></span>
+            <div class="wk-icon-div"><?= /* @noEscape */
+              __('Once goods have been successfully delivered to respective customers,
+               you can request for payout.');?></div>
+        </div>
+        <div class="wk-layout2-box-container">
+            <span class="wk-layout2-box-span">
+                <span class="wk-layout2-box-span-image wk-layout2-box-span-image-order"></span>
+            </span>
+            <span class="wk-layout2-box-span-container"><?= /* @noEscape */  __('Manage Your Orders');?></span>
+            <div class="wk-icon-div"><?= /* @noEscape */
+              __('Manage your orders at maximum ease and help customers to 
+              have a better shopping experience.');?></div>
+        </div>
+        <div class="wk-layout2-box-container">
+            <span class="wk-layout2-box-span">
+                <span class="wk-layout2-box-span-image wk-layout2-box-span-image-badges"></span>
+            </span>
+	        <span class="wk-layout2-box-span-container"><?= /* @noEscape */  __('Earn Badges');?></span>
+            <div class="wk-icon-div"><?= /* @noEscape */
+              __('Once you climb a milestone you get awarded with a badge,
+               which make you look like more pro.');?></div>
+        </div>
+        <div class="wk-layout2-box-container">
+            <span class="wk-layout2-box-span">
+                <span class="wk-layout2-box-span-image wk-layout2-box-span-image-verified"></span>
+            </span>
+			<span class="wk-layout2-box-span-container"><?= /* @noEscape */  __('Get Yourself Verified');?></span>
+            <div class="wk-icon-div"><?= /* @noEscape */
+              __('Add a verified brooch to your profile by providing very necessary 
+              some business details and documents.');?></div>
+        </div>
+        <div class="wk-layout2-box-container">
+            <span class="wk-layout2-box-span">
+                <span class="wk-layout2-box-span-image wk-layout2-box-span-image-profile"></span>
+            </span>
+		    <span class="wk-layout2-box-span-container"><?= /* @noEscape */  __('Customize Profile');?></span>
+            <div class="wk-icon-div"><?= /* @noEscape */
+              __('Customize your profile with information like profile logo, shop location,
+               shipping and refund policies.');?></div>
+        </div>
+        <div class="wk-layout2-box-container">
+            <span class="wk-layout2-box-span">
+                <span class="wk-layout2-box-span-image wk-layout2-box-span-image-media"></span>
+            </span>
+			<span class="wk-layout2-box-span-container"><?= /* @noEscape */  __('Add Media');?></span>
+            <div class="wk-icon-div"><?= /* @noEscape */
+              __('Embed video YouTube to make your account more genuine and stand out in the queue.');?></div>
+        </div>
+    </div> -->
+	<!-- </div> -->
+	<!-- <div class="container bottom-section">
+		<div class="wk-list-container-wrapper wk-text-transform-center">
+			<span class="wk-icon-check-span"><?= $escaper->escapeHtml($marketplacelabel3) ?></span>
+		</div>
+		<div class="primary">
+				<a href="<?= $escaper->escapeUrl($sellerAccountUrl)?>">
+					<button type="submit" class="action submit primary"
+					 title="<?= $escaper->escapeHtml($marketplacebutton); ?>">
+						<span><?= $escaper->escapeHtml($marketplacebutton); ?></span>
+					</button>
+				</a>
+			</div> -->
+	</div>
+</div>
+<script>
+    require([
+        "jquery",
+        "mage/mage",
+    ], function($){
+        var bannerDisplay = '<?= /* @noEscape */ $bannerDisplay;?>';
+        $('.page-title-wrapper').hide();
+        // $('.wk-mp-landingpage').insertBefore('#maincontent');
+        if(bannerDisplay == 1) {
+          $('.wk-mp-banner').css('background-image','url("<?= $escaper->escapeUrl($bannerImage) ?>")');
+        } else {
+          $('.wk-list-container').css('float','right');
+        }
+    });
+</script>
+<style>
+.porto-block-html-top {display:none;}
+.layout-1220 .block.category.event, .layout-1220 .footer.content, .layout-1220 .header.content, .layout-1220 .navigation, 
+.layout-1220 .page-main, .layout-1220 .page-wrapper>.breadcrumbs >ul, .layout-1220 .page-wrapper>.page-bottom, 
+.layout-1220 .page-wrapper>.widget,.page-header.type15 .header-main .header.content {max-width: 100%;}
+.container-fluid {padding:0;}
+#maincontent {padding: 0;}
+.m-2 {margin:0!important;}
+.ml-5, .mx-5 {margin-left: 0!important;}
+.pt-3, .py-3 {padding-top:0!important; padding-bottom:0!important;}
+.page-header .header-main {max-width: 88%; margin: 0 auto;}
+.top-banner {background-color: #F3F7F6;}
+.vh-center {
+    display: -webkit-flexbox;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    justify-content: center;
+    display: -webkit-box;
+    -webkit-box-pack: start;
+    -webkit-box-align: center;
+}
+.align-left {text-align: left;}
+.top-banner h1 {
+	font-size: 50px;
+    line-height: 120%;
+    max-width: 512px;
+    margin-bottom: 15px;
+}
+.top-banner p {
+	font-size: 20px;
+    line-height: 32px;
+    max-width: 512px;
+    margin-bottom: 40px;
+    color: #222529;
+}
+#maincontent .btn-success, #maincontent .btn-success:hover, #maincontent button.submit {letter-spacing:0; background: #046F4F!important; color:#FFF!important;font-size: 16px;line-height: 26px; text-transform:none;}
+#maincontent .top-banner .btn-success {margin-right:15px;}
+#maincontent .btn-secondary, #maincontent .btn-secondary:hover {letter-spacing:0; border:1px solid #046F4F; background-color:transparent!important; color: #046F4F!important;font-size: 16px;text-transform:none; line-height: 26px;}
+.marketplace-form {padding-top: 120px;}
+.bg-grey {background-color:#F3F7F6;}
+.marketplace-form .bg-grey .row {padding:80px 60px;}
+.marketplace-form .col-md-7 {
+	font-size: 32px;
+    line-height: 44px;
+    letter-spacing: -0.02em;
+    color: #222529;
+    font-weight: 600;
+}
+#maincontent .marketplace-form label, #password-strength-meter, #maincontent .marketplace-form span,#wk-vender-login-box a {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    color: #222529;
+}
+#maincontent .marketplace-form form {text-align:left;}
+#maincontent .marketplace-form button span {color:#fff;}
+#wk-termsconditions-box, #wk-vender-login-box {
+	float: left;
+    clear: both;
+    display: block;
+}
+.marketplace-form .form.create.account .actions-toolbar {padding:0;}
+#wk-vender-login-box {margin-bottom:30px;padding-left: 25px;}
+div#wk-vender-login-box:before {
+    font-family: "webkul-font";
+    content: '\0049';
+    padding: 0 5px;
+    font-size: 19px;
+    position: absolute;
+    left: 30px;
+    color: #046F4F;
+    margin-top: 4px;
+}
+#wk-termsconditions-box {display:none;}
+.wk-mp-landingpage .container-fluid + h1 {display: none;}
+.wk-marketplace-label {
+	font-size: 40px!important;
+	line-height: 48px!important;
+	text-align: center!important;
+	color: #222529!important;
+	text-transform:none!important;
+}
+.wk-layout2-box-container {background: #FFFFFF; box-shadow: 0px 16px 40px rgba(4, 32, 41, 0.06); padding: 20px; width: calc(100%/4.35);}
+.wk-layout2-box-span {margin:0;}
+body #maincontent .wk-list-container-wrapper {max-width:100%;}
+.wk-layout2-box-span-container {
+	font-weight: 600;
+    font-size: 22px;
+    line-height: 32px;
+    text-align: center;
+    color: #222529;
+	padding:15px 0;
+}
+.wk-layout2-box-span {border: 1px solid rgba(8, 112, 147, 0.16); border-radius: 100px;}
+.wk-icon-div {
+	padding: 0;
+    color: #4B5565;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+}
+.wk-mp-landingpage-layout3 .wk-layout2-box-container {height:334px;}
+.wk-list-container-wrapper.wk-text-transform-center	{background: #F3F7F6;padding:10px;}
+#maincontent .wk-icon-check-span {
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 32px;
+	color: #046F4F;
+}
+.wk-layout2-box-span-image {margin:25px 11px;}
+form .mage-error {
+    font-size: 13px;
+    line-height: normal;
+    margin-top: 8px;
+}
+#maincontent .bottom-section button.submit{
+	height: 60px;
+    margin-top: 30px;
+    margin-bottom: 60px;
+}
+.page-header.sticky-header .header-main {max-width:100%;}
+.page-header.sticky-header .header-main .header.content {max-width: 88%;}
+body #maincontent .bottom-section .wk-list-container-wrapper {
+    width: 95%;
+}
+
+/* ##FOr Showing page message on home page  i.e prelaunch-page: */
+.cms-prelaunch-page .page.messages {
+    display: block!important;
+}
+@media only screen and (max-width:991px) {
+	.top-banner h1 {font-size: 32px; line-height: 130%;}
+	.top-banner p {font-size: 14px; line-height: 21px;}
+	#maincontent .btn-success, #maincontent .btn-success:hover, #maincontent button.submit {font-size:14px;}
+	.marketplace-form .col-md-7 {font-size: 24px; line-height: 32px;}
+	.offset-1 {margin-left:0;}
+	.wk-layout2-box-container {width: calc(100%/2.15);}
+	.marketplace-form {padding-top: 65px;}
+	.marketplace-form .bg-grey .row {padding: 40px 30px;}
+	.marketplace-form .form.create.account .actions-toolbar {max-width: 100%; width: auto; display: inline-block;}
+	.wk-marketplace-label {font-size: 24px!important; line-height: 32px!important;}
+	#maincontent .marketplace-form form {padding-bottom: 0!important; padding-right: 0!important;}
+}
+@media only screen and (max-width:767px) {
+	.wk-layout2-box-container {width: 100%;}
+	.marketplace-form img {width:140px; margin-bottom:20px;}
+	.marketplace-form .container {padding: 0; max-width: 100%;}
+	div#wk-vender-login-box:before {left:5px;}
+	#maincontent .marketplace-form button.submit {line-height:1;height:55px;}
+	body #maincontent .bottom-section .wk-list-container-wrapper {width: 100%;}
+	.top-banner {padding-top:45px;}
+	body .wk-mp-landingpage .form.create.account .info .field, body .wk-mp-landingpage .form.create.account .account .password, body .wk-mp-landingpage .form.create.account .account .confirmation {width: 100%; padding-right: 0;}
+	body .wk-mp-landingpage .form.create.account .info .field.field-name-lastname, body .wk-mp-landingpage .form.create.account .account .confirmation {padding-left: 0;}
+}
+</style>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="seller-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Webkul_B2BMarketplace::css/quote.css"/>
+        <css src="Webkul_Marketplace::css/wk_block.css"/>
+        <css src="Webkul_Marketplace::css/style.css"/>
+        <css src="Webkul_Marketplace::css/product.css"/>
+        <css src="Webkul_Marketplace::css/layout.css"/>
+    </head>
+    <body>
+        <referenceContainer name="seller.content">
+            <block class="Webkul\B2BMarketplace\Block\Supplier\Quote\Request" name="supplier.quote.request" template="Webkul_B2BMarketplace::supplier/quote/request.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

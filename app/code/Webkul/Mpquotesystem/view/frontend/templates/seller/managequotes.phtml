@@ -1,0 +1,331 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpquotesystem
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+// use to list all the quotes of those products which are assigned to that seller
+$helper = $block->getMpHelper();
+$isPartner = $helper->isSeller();
+$deleteImage = $block->getImageUrl('Webkul_Marketplace::images/icon-trash.png');
+$editImage = $block->getImageUrl('Webkul_Marketplace::images/icon-edit.png');
+$quoteHelper = $block->getHelper();
+$attachIcon = $block->getImageUrl('Webkul_Mpquotesystem::images/attachmenticon.png');
+$paramData = $block->getRequest()->getParams();
+$filter = '';
+$filterStatus = '';
+$filterQuoteId = '';
+if (isset($paramData['quote_id'])) {
+    $filterQuoteId = $paramData['quote_id'] != '' ? $block->escapeHtml($paramData['quote_id']) : '';
+}
+if (isset($paramData['s'])) {
+    $filter = $paramData['s'] != '' ? $paramData['s'] : '';
+}
+if (isset($paramData['status'])) {
+    $filterStatus = $paramData['status'] != '' ? $paramData['status'] : '';
+}
+$approvedStatusText = __('Approved');
+$pendingStatusText = __('Pending');
+$declinedStatusText = __('Declined');
+$soldStatusText = __('Sold');
+if ($isPartner==1) { ?>
+<div class="wk_mp_design">
+    <div class="fieldset wk_mp_fieldset">
+        <div class="grid">
+            <div class="table-wrapper">
+            <?php if (count($block->getQuotesCollection())==0) {
+                ?>       
+                <div class="fieldset wk_mp_fieldset">
+                    <div class="wk_emptymsg">
+                        <?=$block->escapeHtml(__('No Quotes Available'))?>
+                    </div>
+                </div>
+            <?php } else { ?>
+                <form action="<?= $block->escapeUrl($block->getUrl(
+                    'mpquotesystem/sellerquote/managequote',
+                    ['_secure' => $block->getRequest()->isSecure()]
+                ))?>"
+                method="get" id="seller-quote-filter"  name="sellerQuoteFilter"
+                data-mage-init='{"validation":{}}' autocomplete="off">
+                <table cellspacing="0" class="border wk-mp-list-table">
+                    <thead>
+                        <tr id="wk-mp-tr-heading">
+                            <th><span><?= $block->escapeHtml(__('Quote Id')) ?></span></th>
+                            <th><span><?= $block->escapeHtml(__('Quote Product Name')) ?></span></th>
+                            <th><span><?= $block->escapeHtml(__('Quote Product Status')) ?></span></th>
+                            <th><span>&nbsp;</span></th>
+                        </tr>
+                    </thead>
+                    <tbody class="wk-mp-body" id="colender-check">
+                        <tr>
+                            <td>
+                                <input type="text" class="input-text" name="quote_id"
+                                placeholder='<?= $block->escapeHtml(__('Search by Quote Id')) ?>'
+                                value="<?= $block->escapeHtml($filterQuoteId)?>"/>
+                            </td>
+                            <td>
+                                <input type="text" class="input-text" name="s"
+                                placeholder='<?= $block->escapeHtml(__('Search by product name')) ?>'
+                                value="<?= $block->escapeHtml($filter)?>"/>
+                            </td>
+                            <td>
+                                <select name="status" class="input-text">
+                                    <option value=""><?= $block->escapeHtml(__('All')) ?></option>
+                                    <option value="1" <?php if ($filterStatus == 1) { ?>
+                                        <?= $block->escapeHtmlAttr('selected'); }?> >
+                                        <?=$block->escapeHtml($pendingStatusText)?>
+                                    </option>
+                                    <option value="2" <?php if ($filterStatus == 2) { ?>
+                                        <?= $block->escapeHtmlAttr('selected'); }?> >
+                                        <?=$block->escapeHtml($approvedStatusText)?>
+                                    </option>
+                                    <option value="3" <?php if ($filterStatus == 3) { ?>
+                                        <?= $block->escapeHtmlAttr('selected'); }?> >
+                                        <?=$block->escapeHtml($declinedStatusText)?>
+                                    </option>
+                                    <option value="4" <?php if ($filterStatus == 4) { ?>
+                                        <?= $block->escapeHtmlAttr('selected'); }?> >
+                                        <?=$block->escapeHtml($soldStatusText)?>
+                                    </option>
+                                </select>
+                            </td>
+                            <td>
+                                <button class="button" title="Save" type="submit">
+                                    <span><span><span><?= $block->escapeHtml(__('Submit')) ?></span></span></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+                <form action="
+                <?=$block->escapeUrl($block->getUrl(
+                    'mpquotesystem/sellerquote/massdeletequote',
+                    ['_secure' => $block->getIsSecure()]
+                ))?>"
+                method="post"
+                id="formmassdelete"
+                name="formmassdelete">
+                <?=$block->getBlockHtml('formkey')?>
+                    <button class="button"
+                        title="<?=$block->escapeHtmlAttr(__('Delete Quotes'))?>"
+                        type="submit"
+                        id="mass_delete_butn"
+                    >
+                        <span><span>
+                            <?=$block->escapeHtml(__('Delete Quotes'))?>
+                        </span></span>
+                    </button>
+                    <table cellspacing="0" class="data table mpquote-list">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="col selectid">
+                                    <span>
+                                        <input type="checkbox"
+                                            name="mpquoteselecctall"
+                                            value="all"
+                                            id="mpquoteselecctall"
+                                        />
+                                    </span>
+                                </th>
+                                <th scope="col" class="col proname">
+                                    <span class="label quote_id">
+                                        <?=$block->escapeHtml(__('Quote Id'))?>
+                                    </span>
+                                </th>
+                                <th scope="col" class="col proname">
+                                    <span class="label name">
+                                        <?=$block->escapeHtml(__('Product Name'))?>
+                                    </span>
+                                </th>
+                                <th scope="col" class="col quote_qty">
+                                    <span class="label qty">
+                                        <?=$block->escapeHtml(__('Quantity'))?>
+                                    </span>
+                                </th>
+                                <th scope="col" class="col quote_price">
+                                    <span class="label price">
+                                        <?=$block->escapeHtml(__('Quote Price'))?>
+                                    </span>
+                                </th>
+                                <th scope="col" class="col quote_status">
+                                    <span class="label">
+                                        <?=$block->escapeHtml(__('Status'))?>
+                                    </span>
+                                </th>
+                                <th scope="col" class="col action">
+                                    <span class="label">
+                                        <?=$block->escapeHtml(__('Action'))?>
+                                    </span>
+                                </th>                       
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php $i = 0;
+                        foreach ($block->getQuotesCollection() as $quote) { ?>
+                            <tr class="<?=$class = ($i == count(
+                                $block->getQuotesCollection()
+                            ))? $block->escapeHtmlAttr('wk_last_tr'):''?>">
+                                <input type="hidden"
+                                    class="id"
+                                    value="<?=$block->escapeHtmlAttr($quote->getId())?>"
+                                >
+                                    <td data-th="<?=$block->escapeHtmlAttr(__("Select"))?>" class="col selectid">
+                                        <span>
+                                            <?php if ($block->quoteStatusIsNotSold($quote->getStatus())) { ?>
+                                                <input type="checkbox"
+                                                    name="quote_mass_delete[]"
+                                                    class="mpquotecheckbox"
+                                                    value="<?=$block->escapeHtmlAttr($quote->getId())?>"
+                                                />
+                                            <?php } ?>
+                                        </span>
+                                    </td>
+                                     <td data-th="<?=$block->escapeHtmlAttr(__("ID"))?>" class="col selectid">
+                                        <span>
+                                            <?=$block->escapeHtml($quote->getId())?>
+                                        </span>
+                                    </td>
+                                    <td data-th="<?=$block->escapeHtmlAttr(__("Product Name"))?>" class="col proname">
+                                        <span class="label">
+                                            <?php $product = $quoteHelper->getProduct($quote->getProductId());?>
+                                            <?php
+                                            if ($quoteHelper->checkProductCanShowOrNot($product)): ?>
+                                            <a href="<?=$block->escapeHtmlAttr($product->getProductUrl())?>"
+                                            target="blank">
+                                                <?=$block->escapeHtml($product->getName())?>
+                                        </a>
+                                        <?php else: ?>
+                                            <?=$block->escapeHtml($quote->getProductName())?>
+                                        <?php endif;?>
+                                        </span>
+                                    </td>
+                                    <td data-th="<?=$block->escapeHtmlAttr(__("Quantity"))?>" 
+                                    class="col quote_qty wk_qs_quote_qty">
+                                        <span class="label qty"><?=$block->escapeHtml($quote->getQuoteQty())?></span>
+                                    </td>
+                                    <td data-th="<?=$block->escapeHtmlAttr(__("Quote Price"))?>"
+                                        class="col quote_price">
+                                        <span class="label">
+                                            <input type="hidden" 
+                                            class="wk_qs_quote_price"
+                                            value="<?=$block->escapeHtmlAttr($quote->getQuotePrice())?>">
+                                            <?=$block->escapeHtmlAttr(
+                                                $quote->getQuoteCurrencySymbol().' '.
+                                                number_format($quote->getQuotePrice(), 2)
+                                            )
+                                            //$quoteHelper->getformattedPrice(
+                                              //  $quote->getQuotePrice()
+                                            //);
+                                            ?>
+                                        </span> 
+                                    </td>
+                                    <td data-th="<?=$block->escapeHtmlAttr(__("Status"))?>" class="col status">        
+                                        <span class="label pro_status">
+                                            <?php if ($quote->getStatus() ==
+                                            \Webkul\Mpquotesystem\Model\Quotes::STATUS_UNAPPROVED) { ?>
+                                                <span class="label wk_qs_status_pending">
+                                                     <?=$block->escapeHtml(__('Pending'))?>
+                                                </span>
+                                            <?php } elseif ($quote->getStatus() ==
+                                            \Webkul\Mpquotesystem\Model\Quotes::STATUS_APPROVED) { ?>
+                                                <span class="label wk_qs_status_sold">
+                                                    <?=$block->escapeHtml(__('Approved'))?>
+                                                </span>
+                                            <?php } elseif ($quote->getStatus() ==
+                                            \Webkul\Mpquotesystem\Model\Quotes::STATUS_DECLINE) { ?>
+                                                <span class="label wk_qs_status_decline">
+                                                    <?=$block->escapeHtml(__('Declined'))?>
+                                                </span>
+                                            <?php } else { ?>
+                                                <span class="label wk_qs_status_sold">
+                                                    <?php
+                                                    if ($quote->getOrderId()) { ?>
+<a href="<?=$block->escapeUrl($block->getUrl('marketplace/order/view', ['id'=>$quote->getOrderId()]))?>">
+                                                            <?=$block->escapeHtml(__('Sold'))?>
+                                                        </a>
+                                                    <?php } else { ?>
+                                                        <?=$block->escapeHtml(__('Sold'))?>
+                                                    <?php } ?>
+                                                </span>
+                                            <?php } ?>
+                                        </span>
+                                    </td>                                   
+                                    <td data-th="<?=$block->escapeHtmlAttr(__("Action"))?>" class="col action">
+                                        <span class="label wk_action">
+                                            <img src="<?=$block->escapeHtmlAttr($editImage)?>"
+                                            data-id="<?=$block->escapeHtmlAttr($quote->getId())?>" 
+                                            alt="<?=$block->escapeHtmlAttr(__('Edit'))?>" 
+                                            data-url = "
+                                            <?=$block->escapeUrl($block->getUrl(
+                                                'mpquotesystem/sellerquote/edit/',
+                                                ['id'=>$quote->getEntityId() ,'_secure' => $block->getIsSecure()]
+                                            ))?>"
+                                            title="<?=$block->escapeHtmlAttr(__('Edit'))?>" class="mp_quote_edit"/>
+                                        <?php if ($block->quoteStatusIsNotSold($quote->getStatus())) { ?>
+                                            <img src="<?=$block->escapeHtmlAttr($deleteImage)?>"
+                                            alt="<?=$block->escapeHtmlAttr(__('Delete'))?>"
+                                            title="<?=$block->escapeHtmlAttr(__('Delete'))?>"
+                                            class="mp_quote_delete"
+                                            data-url = "
+                                            <?=$block->escapeUrl($block->getUrl(
+                                                'mpquotesystem/sellerquote/delete/',
+                                                ['id'=>$quote->getEntityId() ,'_secure' => $block->getIsSecure()]
+                                            ))?>"
+                                            data-type="<?=$block->escapeHtmlAttr($quote->getId())?>"/>
+                                        <?php } ?>
+                                        </span> 
+                                    </td>
+                                </tr>
+                        <?php   } ?>
+                        </tbody>
+                    </table>
+                </form>
+            <?php }?>
+            </div>
+        </div>
+           <?php if ($block->getPagerHtml()): ?>
+            <div class="order-products-toolbar toolbar bottom"><?=$block->getPagerHtml()?></div>
+        <?php endif ?>
+    </div>
+    <div class="buttons-set">
+        <p class="back-link">
+            <a href="javascript:;" 
+            onclick="javascript: window.history.back();" 
+            class="left">&laquo; <?=$block->escapeHtml(__('Back'))?>
+            </a>
+        </p>
+    </div>
+</div>
+    <?php
+    $formData = [
+    'mpquoteedit'       =>   '.mp_quote_edit',
+    'mpmassdelete'      =>  '#mass_delete_butn',
+    'mpquotecheckbox'   =>  '.mpquotecheckbox',
+    'massdeleteform'    =>  '#formmassdelete',
+    'mpselectall'       =>  '#mpquoteselecctall',
+    'mpquotedelete'     =>  '.mp_quote_delete'
+    ];
+    
+    
+    $serializedFormData = \Magento\Framework\Serialize\JsonConverter::convert($formData);
+    ?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "WkMpQuotesystem": <?= /* @noEscape */ $serializedFormData; ?>
+        }
+    }
+</script>
+    <?php
+} else { ?>
+    <h2 class='wk_new_msg'>
+        <?= $block->escapeHtml(__("To BECOME SELLER PLEASE CONTACT TO ADMIN.")) ?>
+    </h2>
+<?php } ?>

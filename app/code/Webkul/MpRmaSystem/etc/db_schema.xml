@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpRmaSystem
+ * @author    Webkul Software Private Limited
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="marketplace_rma_details" resource="default" engine="innodb" comment="Marketplace RMA Details Table">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="int" name="order_id" padding="11" unsigned="false" nullable="false" identity="false" comment="Order Id"/>
+    <column xsi:type="int" name="seller_id" padding="11" unsigned="false" nullable="false" identity="false" comment="Seller Id"/>
+    <column xsi:type="int" name="customer_id" padding="11" unsigned="false" nullable="false" identity="false" comment="Customer Id"/>
+    <column xsi:type="varchar" name="customer_email" nullable="false" length="255" comment="Customer Email"/>
+    <column xsi:type="int" name="status" padding="11" unsigned="false" nullable="false" identity="false" comment="Status"/>
+    <column xsi:type="int" name="order_status" padding="11" unsigned="false" nullable="false" identity="false" comment="Order Status"/>
+    <column xsi:type="int" name="seller_status" padding="11" unsigned="false" nullable="false" identity="false" comment="Seller Status"/>
+    <column xsi:type="int" name="final_status" padding="11" unsigned="false" nullable="false" identity="false" comment="Final Status"/>
+    <column xsi:type="varchar" name="product_id" nullable="false" length="255" comment="Product Id"/>
+    <column xsi:type="int" name="resolution_type" padding="11" unsigned="false" nullable="false" identity="false" comment="Resolution Type"/>
+    <column xsi:type="text" name="number" nullable="false" onCreate="migrateDataFrom(number)"/>
+    <column xsi:type="varchar" name="order_ref" nullable="false" length="255" comment="Order Reference"/>
+    <column xsi:type="varchar" name="additional_info" nullable="false" length="255" comment="Additional Information"/>
+    <column xsi:type="varchar" name="created_date" nullable="false" length="255" comment="Created Date"/>
+    <column xsi:type="decimal" name="refunded_amount" scale="4" precision="12" unsigned="false" nullable="false" comment="Refunded Amount"/>
+    <column xsi:type="int" name="memo_id" padding="11" unsigned="false" nullable="false" identity="false" comment="Credit Memo Id"/>
+    <column xsi:type="text" name="customer_name" nullable="false" comment="Customer Name"/>
+    <column xsi:type="text" name="product_seller" nullable="false" comment="Product Seller"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="marketplace_rma_reasons" resource="default" engine="innodb" comment="Marketplace RMA Reason Table">
+    <column xsi:type="int" name="id" padding="11" unsigned="false" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="varchar" name="reason" nullable="false" length="255" comment="Reason"/>
+    <column xsi:type="int" name="status" padding="11" unsigned="false" nullable="false" identity="false" comment="Status"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="marketplace_rma_conversation" resource="default" engine="innodb" comment="Marketplace RMA Reason Table">
+    <column xsi:type="int" name="id" padding="11" unsigned="false" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="int" name="rma_id" padding="11" unsigned="false" nullable="false" identity="false" comment="RMA Id"/>
+    <column xsi:type="int" name="sender_type" padding="11" unsigned="false" nullable="false" identity="false" comment="Sender Type"/>
+    <column xsi:type="longtext" name="message" nullable="false" comment="Message" onCreate="migrateDataFrom(message)"/>
+    <column xsi:type="varchar" name="created_time" nullable="false" length="255" comment="Created Time"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="marketplace_rma_items" resource="default" engine="innodb" comment="Marketplace RMA Items Table">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="ID"/>
+    <column xsi:type="int" name="rma_id" padding="11" unsigned="false" nullable="false" identity="false" comment="RMA Id"/>
+    <column xsi:type="int" name="item_id" padding="11" unsigned="false" nullable="false" identity="false" comment="Item Id"/>
+    <column xsi:type="int" name="reason_id" padding="11" unsigned="false" nullable="false" identity="false" comment="Reason Id"/>
+    <column xsi:type="int" name="product_id" padding="11" unsigned="false" nullable="false" identity="false" comment="Product Id"/>
+    <column xsi:type="int" name="qty" padding="11" unsigned="false" nullable="false" identity="false" comment="Quantity"/>
+    <column xsi:type="decimal" name="price" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Price"/>
+    <column xsi:type="int" name="is_qty_returned" padding="11" unsigned="false" nullable="false" identity="false" comment="Is Quantity Returned"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+</schema>

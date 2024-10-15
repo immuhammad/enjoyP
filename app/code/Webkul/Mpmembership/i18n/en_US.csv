@@ -1,0 +1,106 @@
+"View Product","View Product"
+expired,expired
+pending,pending
+valid,valid
+"Time Expired","Time Expired"
+"Product Limit Completed","Product Limit Completed"
+"View Product Transactions","View Product Transactions"
+"View Seller Transactions","View Seller Transactions"
+Admin,Admin
+"Following Product(s) have been enabled","Following Product(s) have been enabled"
+"Allowed Products","Allowed Products"
+"Expires on","Expires on"
+"you can not add more products, your pack is expired. Please pay fee to add more products","you can not add more products, your pack is expired. Please pay fee to add more products"
+"you are allowed only %1 products to add in %2 transaction","you are allowed only %1 products to add in %2 transaction"
+"you are allowed to add products till %1 for %2 transaction","you are allowed to add products till %1 for %2 transaction"
+"you are allowed only %1 product(s) to add till %2 for %3 transaction","you are allowed only %1 product(s) to add till %2 for %3 transaction"
+"please pay fee to add products","please pay fee to add products"
+"Time and Number Of Products","Time and Number Of Products"
+"Only Time","Only Time"
+"Only Number Of Products","Only Number Of Products"
+Vendor,Vendor
+Product,Product
+Percent,Percent
+Fixed,Fixed
+"Unable to save transaction","Unable to save transaction"
+"Unable to remove transaction %1","Unable to remove transaction %1"
+"you can add more product(s) for ""%1"" transaction(s)","you can add more product(s) for ""%1"" transaction(s)"
+"you are allowed only %1 product(s) to add, please pay fee to add more products","you are allowed only %1 product(s) to add, please pay fee to add more products"
+"please pay fee to add more products","please pay fee to add more products"
+Pending,Pending
+Paid,Paid
+Expired,Expired
+Valid,Valid
+"you will redirect to paypal within 10 seconds...","you will redirect to paypal within 10 seconds..."
+"Payment is not allowed due to some technical issues...","Payment is not allowed due to some technical issues..."
+"Pay Fee","Pay Fee"
+"Number of Product(s) : ","Number of Product(s) : "
+"Amount : ","Amount : "
+"Product Name","Product Name"
+Sku,Sku
+"Search by product name","Search by product name"
+"Search by product sku","Search by product sku"
+Submit,Submit
+Pay,Pay
+SKU,SKU
+Price,Price
+"Fee Amount","Fee Amount"
+"No Product Available","No Product Available"
+Back,Back
+"Product Fee Transaction List","Product Fee Transaction List"
+"Transaction List","Transaction List"
+"No Transaction Available","No Transaction Available"
+"Transaction Id","Transaction Id"
+"Transaction Email","Transaction Email"
+"Transaction Date","Transaction Date"
+"Transaction Status","Transaction Status"
+"Search by transaction Id","Search by transaction Id"
+"Search by transaction email","Search by transaction email"
+"From: ","From: "
+"Search by date","Search by date"
+"To: ","To: "
+"Search by transaction status","Search by transaction status"
+"Reference Number","Reference Number"
+Products,Products
+"Number of allowed product(s) : ","Number of allowed product(s) : "
+"Number of Months allowed : ","Number of Months allowed : "
+"Seller Fee Transaction List","Seller Fee Transaction List"
+"No. of Products allowed to add","No. of Products allowed to add"
+"Added No. Of Products","Added No. Of Products"
+"Expiration Date","Expiration Date"
+"Transaction Type","Transaction Type"
+unlimited,unlimited
+"no expiration time","no expiration time"
+"Pay Membership Fee","Pay Membership Fee"
+"%customer_name,","%customer_name,"
+"Congratulations! payment has been successfully done for your membership plan. Please check your transaction details given below.","Congratulations! payment has been successfully done for your membership plan. Please check your transaction details given below."
+"Membership Fee","Membership Fee"
+"At least one product need to pay fee","At least one product need to pay fee"
+"Marketplace Seller Membership","Marketplace Seller Membership"
+Enabled,Enabled
+"Sandbox Status","Sandbox Status"
+"Admin Paypal Account Id","Admin Paypal Account Id"
+"Paypal Id, i.e. john@xyz.com","Paypal Id, i.e. john@xyz.com"
+"Type Of Fee","Type Of Fee"
+"If Type of Fee set as ""Percent"" then we suggest you to ENABLE ""Product update approval required"" setting","If Type of Fee set as ""Percent"" then we suggest you to ENABLE ""Product update approval required"" setting"
+Fee,Fee
+"Seller Fee","Seller Fee"
+"Fee Applied For","Fee Applied For"
+"Number Of products","Number Of products"
+"Number of products allowed to add by seller, e.g, 10","Number of products allowed to add by seller, e.g, 10"
+"Number Of Months","Number Of Months"
+"Number of months allowed to add product by seller, e.g, 5","Number of months allowed to add product by seller, e.g, 5"
+"Check On","Check On"
+"Transaction Completed Mail Template to Seller","Transaction Completed Mail Template to Seller"
+"Payment Status","Payment Status"
+ID,ID
+Seller,Seller
+"Number of products","Number of products"
+"Check Type","Check Type"
+"Allowed Number of products","Allowed Number of products"
+"Number of products Added","Number of products Added"
+"Seller Fee Payment Panel","Seller Fee Payment Panel"
+" Transaction Date"," Transaction Date"
+"Seller Membership","Seller Membership"
+"View Membership Seller Transactions","View Membership Seller Transactions"
+"View Membership Product Transactions","View Membership Product Transactions"

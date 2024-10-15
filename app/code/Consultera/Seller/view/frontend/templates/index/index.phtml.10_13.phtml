@@ -1,0 +1,940 @@
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 ,shrink-to-fit=no">
+    <script>
+    function myFunction() {
+  var dots = document.getElementById("dots");
+  var moreText = document.getElementById("more");
+  var btnText = document.getElementById("myBtn");
+
+  if (dots.style.display === "none") {
+    dots.style.display = "inline";
+    btnText.innerHTML = "Read more";
+    moreText.style.display = "none";
+  } else {
+    dots.style.display = "none";
+    btnText.innerHTML = "Read less";
+    moreText.style.display = "inline";
+  }
+}
+</script>
+</head>
+<?php  $url = '/static/frontend/Smartwave/porto_child/en_US/Consultera_Seller/images/background-new.png';?>
+    <div class="row py-5 seller-row-1" >
+		<div class="container">
+            <div class="row">
+				<div class="col-sm-6 ">
+                        <!-- <span class="hoyland-title" >Expand your sales to global markets</span> -->
+                        <h1 class="seller-title"><span>Become a merchant  </span> <br>
+                        <span> on Enjoy Palestine</span> </h1>
+                        <p class="hoyland-title" >Join the Global Marketplace and Boost Your Sales<br> with Enjoy Palestine!</p>
+                                <span class="seller-button py-5">
+                                <a href="/marketplace/">  
+                                    <button class="btn btn-success btn-1 m-2"> Start Selling </button>
+                                </a> 
+                                <!-- <a href="">  
+                                    <button class="btn btn-secondary  btn-2 m-2" > How It works </button>
+                                </a>  -->
+                        </span>
+
+                </div> 
+                <div class="col-sm-6">
+                    <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/sell_earn.png'); ?>"  />
+                </div>
+			</div>
+		</div>
+    </div>
+    <div class="container">
+        <div class="row py-5 mb-5 seller-row-new d-flex d-lg-flex">     
+                <div class="col-sm-4 register-col">
+                <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/image-marchant.png'); ?>" style="max-width:350px; max-height:350px;" class="register" />
+                </div>
+                <div class="col-sm-8">
+                      <h1 class="why-regis"> Why Register as a merchant?</h1>
+                      <p class="why-content" >
+                      Are you looking for an effective way to expand your reach to the European market and increase your sales? Look no further than Enjoy Palestine, the leading online marketplace for high- 
+                    quality Palestinian products!
+
+                    By registering with Enjoy Palestine, you'll gain access to our unparalleled co-distribution, co-marketing, and after-sales services, which are designed to help you succeed in the 
+                    competitive European market. Our team of experienced marketing professionals will work closely with you to develop a customized marketing plan that will help you promote your products to 
+                     a wider audience and increase your sales.<span id="dots">...</span><span id="more">
+
+                    Plus, with our state-of-the-art fulfillment center located in Sweden near Arlanda Airport, you'll be able to take advantage of fast, efficient shipping to customers throughout Europe. 
+                    This means you can focus on what you do best – creating amazing products – while we handle the logistics of getting your products to your customers on time and in perfect condition.
+
+                    At Enjoy Palestine, we're passionate about promoting Palestinian culture and supporting Palestinian producers. That's why we're dedicated to providing a platform that helps you succeed 
+                    and reach a wider audience than ever before.
+
+                   So why wait? Register with Enjoy Palestine today and start enjoying the benefits of co-distribution, co-marketing, and after-sales services, along with our fast and efficient fulfillment 
+                    center located in Sweden. We look forward to helping you succeed!
+                                  
+                            </span>
+                            <strong onclick="myFunction()" id="myBtn">Read more</strong>
+                        </p>
+                      
+                        <div class="col-sm-12">
+                            <a href="/marketplace/">  
+                                <button class="btn btn-success  register-btn" > Start Selling </button>
+                            </a> 
+
+                        </div>
+                </div>
+        </div>     
+    </div>
+    <!-- How It Work section -->
+    <h2 class="py-2 text-center sell-products">How to sell your products?</h2>
+   
+    <div class="row py-5 seller-how-it-works">
+        <div class="container">
+               
+            <div class="row">
+                <div class="col-sm-12 desktop d-none d-lg-block d-md-block">
+                <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/how-it-woks-desk.png'); ?>"  class="desk" />
+                </div>  
+                <div class="col-sm-12 mobile d-block d-md-none d-lg-none">
+                <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/how-it-woks-mob.png'); ?>" />
+                </div>  
+            </div>
+            <div class="col-sm-12 text-center m-1 center-button ">
+                    <a href="/marketplace/">  
+                        <button class="btn btn-success desk-btn"> Start Selling</button>
+                    </a> 
+
+                </div>
+        </div>   
+    </div>   
+    <!-- Leran Steps To Selling on our Platform -->
+    <div class="py-5 seller-row-3" style="background:black;">
+		<div class="container">
+			<div class="row">
+                <div class="col-sm-4">
+                    <h1  class="learn-steps"><span>Learn steps to selling </span><br>
+                    <span> on Enjoy Palestine</span> </h1>
+                        <ul class="steps">
+                            <li class="first-step"><img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/Vector.png'); ?>" /> <a href ="/b2bmarketplace/supplier/create/"> Click 
+                                start selling button </a></li>
+                            <li  class="second-step"><img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/Vector.png'); ?>" /> <a href ="/b2bmarketplace/supplier/create/"> 
+                                Register As Seller </a></li> 
+                            <li  class="third-step"><img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/Vector.png'); ?>" /> <a href ="/mpstripe/seller/connect/"> Tell us more 
+                                About your business</a> </li>
+                            <li  class="fourth-step"><img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/Vector.png'); ?>" /><a href =""> Start listing your Products </a> </li>
+                            <li  class="fifth-step"><img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/Vector.png'); ?>" /> <a href ="/mpstripe/seller/connect/"> Update your  
+                                Tax  deatils </a> </li>
+                            <li  class="sixth-step"><img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/Vector.png'); ?>" /><a href =""> Launch Your Business </a> </li>
+                            <li  class="seventh-step"><img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/Vector.png'); ?>" /><a href =""> Start Selling </a> </li>
+                        </ul>
+                    <div class="col-sm-12 m-2 center-button d-none d-lg-block" >
+                        <a href="/marketplace/">  
+                            <button class="btn btn-success steps mt-5"> Start Selling </button>
+                        </a> 
+                    </div>
+                </div>   
+                <div class="col-sm-8 vedio">
+                   <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/step-to-sell.png'); ?>"  />  
+                </div>
+		    </div>
+                <div class="col-sm-12 m-2 center-button d-block d-lg-none" >
+                        <a href="/marketplace/">  
+                            <button class="btn btn-success steps mt-5"> Start Selling </button>
+                        </a> 
+                </div>
+		</div>
+    </div>
+    <!-- WHy Choose Us Section -->
+    <h2 class="py-3 text-center choose-us">Why choose us ?</h2>
+    <div class="row py-5 seller-row-4">
+		<div class="container">
+			<div class="row desktop">
+                <div class="col-sm-4  d-none d-md-block d-lg-block">
+                            <div class="card">
+                                <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/transparent.png'); ?>"  class="card-img-top"/>
+                                <div class="card-body">
+                                            <h4 class="card-title m-5">Transparent pricing</h4>
+                                            <p class="card-text" >
+                                            Enjoy Palestine publicly displaying its fee structure publicly on all fee related pages on its website.
+                                           </p> 
+                                </div>
+                            </div>
+                </div>
+                <div class="col-sm-4  d-none d-md-block d-lg-block">
+                            <div class="card">
+                            <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/secure.png'); ?>"  class="card-img-top"/>
+                                <div class="card-body">
+                                        <h4 class="card-title  m-5">Secure Payments</h4>
+                                        <p class="card-text" >
+                                        Funds are deposited directly to your bank account every 7 days, including for Pay on Delivery order.
+                                    </p> 
+                        
+                                </div>
+                            </div>
+                </div>
+                <div class="col-sm-4  d-none d-md-block d-lg-block">
+                            <div class="card">
+                                    <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/unbeatable.png'); ?>"  class="card-img-top"/>
+                                <div class="card-body">
+                                        <h4 class="card-title  m-5">Unbeatable Profit</h4>
+                                        <p class="card-text" >
+                                        Deliver to 100% of India's serviceable pincodes*, through Easy Ship & Fulfillment by Holyland Produced Products.
+                                        </p> 
+                            
+                                </div>
+                            </div>
+                </div>
+	     	</div>
+            <!-- For Mobile View To show Slider Of All three Images -->
+            <div class="row mobile">
+                <div class="col-sm-12 mobile d-block d-md-none d-lg-none">
+                    <div class="slides">
+                            <div>   
+                                <div class="card">
+                                    <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/transparent.png'); ?>"  class="card-img-top"/>
+                                    <img  src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/arrow.png'); ?>" class="mobile"  />
+                                    <div class="card-body">
+                                                <h4 class="card-title m-5">Transparent pricing</h4>
+                                                <p class="card-text" >
+                                                Enjoy Palestine publicly displaying its fee structure publicly on all fee related pages on its website.
+                                            </p> 
+                                    </div>
+                                 </div>
+                            </div>
+                            <div>
+                                    <div class="card">
+                                    <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/secure.png'); ?>"  class="card-img-top"/>
+                                    <img  src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/arrow.png'); ?>" class="mobile"  />
+                                        <div class="card-body">
+                                                <h4 class="card-title  m-5">Secure Payments</h4>
+                                                <p class="card-text" >
+                                                Funds are deposited directly to your bank account every 7 days, including for Pay on Delivery order.
+                                            </p> 
+                                
+                                        </div>
+                                    </div>
+                            </div>
+                            <div>
+                                <div class="card">
+                                        <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/unbeatable.png'); ?>"  class="card-img-top"/>
+                                    <div class="card-body">
+                                            <h4 class="card-title  m-5">Unbeatable Profit</h4>
+                                            <p class="card-text" >
+                                            Deliver to 100% of India's serviceable pincodes*, through Easy Ship & Fulfillment by Holyland Produced Products.
+                                            </p> 
+                                        </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="col-sm-12 text-center m-1 center-button ">
+                    <a href="/marketplace/">  
+                        <button class="btn btn-success "> Start Selling </button>
+                    </a> 
+
+                </div>
+    </div>    
+    <div class="container">
+    <div class="row py-5 seller-row-5" style="background:black;" >
+                         <div class="col-sm-6 m-2  d-block d-lg-none  d-md-none">
+                            <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/ceo.png'); ?>" /><br>
+
+                                    <span class="mt-4">Jenny Wilson</span><br>
+                                    <span class="mt-0">CEO, Wilson.co</span>
+                        </div>
+                        <!-- <img  class="arrow d-block d-lg-none" src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/comma.png'); ?>"  style="max-width:25px;"/> -->
+                        <div class="col-sm-12 ml-3 mr-3  d-block d-lg-none  d-md-none">
+                            <div class="text"  style="background: #E6FCF4;">
+                                <p class="ambasdor-text">
+                                <img  class="arrow d-block d-lg-none  d-md-none " src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/comma.png'); ?>"  style="max-width:25px;"/>
+                                    B2B e-commerce platforms like Wholesale Channel, Technology Manager, and B2B Self Service Portal offer powerful tools to increase efficiency and ultimately lead to greater 
+                                     success. These platforms are essential for sellers to transact with buyers and access a vast pool of potential customers</p>
+                            </div> 
+                      </div> 
+                        <div class=" col-sm-12 d-flex d-lg-none  d-md-none " >
+                        <a href="#" "> <img class="backward"  src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/backword-arrow.png'); ?>"  width="50" /></a> 
+                         <a href="#" "> <img   class="forward" src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/forword.png'); ?>"  width="50" /></a> 
+                        </div>
+                        <!-- </div>   -->
+                        <!-- </div> -->
+                        <!-- <div class="col-sm-12  d-none d-lg-block">
+                        <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/bottom.png'); ?>" />--> 
+		<div class="row">
+        <div class="col-sm-4 p-2 d-none d-lg-block d-md-block">
+         <img  class="ceo" src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/ceo.png'); ?>" /><br>
+           <strong class="ambasdor-ceo-title">Jenny Wilson</strong><br>
+           <strong class="follower"> CEO, Wilson.co</strong>
+            
+           
+          </div>
+
+        <div class="col-sm-7 p-3 d-none d-lg-block d-md-block">
+               <div class="text">
+                            <p class="ambasdor-text" style="background: #E6FCF4;"> <img  class="comma" src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/comma.png'); ?>"  style="max-width:25px;"/>
+                                 B2B e-commerce platforms like Wholesale Channel, Technology Manager, and B2B Self Service Portal offer powerful tools to increase  efficiency and  ultimately lead to greater 
+                                  success. These platforms are essential for sellers to transact with buyers and access a vast pool of potential customers.
+                            </p>
+                            <div class="arrow"  style="display:flex;">
+                                   <a href="#" "> <img class="backward" src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/backword-arrow.png'); ?>"  width="50"/></a> 
+                                  <a href="#" "> <img   class="forward" src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/forword.png'); ?>"   width="50"/></a> 
+                                 
+                            </div>         
+                </div>
+        </div>
+		</div>
+
+        <style>
+#newsletter_popup h3.text-center.choose-product-type {display:block; margin-top:0;}
+.prelaunch-index-index #maincontent, .seller-index-index  #maincontent, .ambasdor-index-index #maincontent {max-width:100%;padding-top: 0;}
+.prelaunch-index-index #maincontent .container-fluid,  .seller-index-index  #maincontent .container-fluid, #maincontent, .ambasdor-index-index #maincontent .container-fluid {padding:0;}
+.all-content-desktop {background-size:cover;}
+.row.py-5.mb-5.seller-row-new.d-none.d-lg-flex {padding:30px; margin-bottom: 120px!important;}
+body .row.py-5.mb-5.seller-row-new .col-sm-4 img.register {margin-top:0;} 
+strong#myBtn {cursor: pointer;}
+.learn-steps {color: #fff;}
+/* .learn-steps span {font-size: 40px; line-height: 64px;}
+.learn-steps span:last-child {font-size: 32px;} */
+ul.steps li {list-style-type: none; margin-bottom: 24px;}
+ul.steps {
+	padding-inline-start: 0;
+	font-size: 20px;
+    line-height: 28px;
+}
+ul.steps li a {color: rgba(240, 240, 240, 0.9);}
+.row.py-5.seller-row-4 .card .card-body h4.card-title.m-5 {margin: 30px 0 15px 0!important;}
+h2.py-3.text-center.choose-us {margin-top:120px; padding-top:0;}
+
+    /* Why Regsiter Section */
+    .row.py-5.mb-5.seller-row-new .col-sm-4 img.register {
+                    border-radius: 50%;
+                    /* margin-top:66px; */
+                }
+                /* To stop The clcik of arrow button at bottom section */
+                .text .arrow a {
+                    pointer-events: none;
+                }
+                .text .arrow img.backward {
+              margin-right: 20px;
+                 }
+                 /*  For the How it works Button In header Section */
+                 a button.btn.btn-secondary.btn-2.m-2:hover {
+                    border-color:#046f4F;
+                    background: unset!important;
+                }
+                /*  For the WHy Nechabt registe Button */
+                .seller-row-new button.btn.btn-success.register-btn {
+                    margin-left: unset;
+                }
+                /*To hide The Title At Top Of Seller Page*/
+            .seller-index-index #maincontent .page-title-wrapper h1.page-title span.base {
+                display: none;
+            }
+            .seller-index-index #maincontent .page-title-wrapper {
+                margin-top: -25px;
+            }
+            .seller-row-5 .col-sm-12.d-flex.d-lg-none.d-md-none a {
+                    pointer-events: none;
+                }
+                   /*  Why register Image */
+               .seller-row-new .col-sm-4.register-col {
+                    display: flex;
+                    justify-content: center;
+                }
+              /*  Last upadted */
+            .row.py-5.seller-how-it-works img.desk {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            margin-left:-40px;
+            }
+@media only screen and (min-width: 992px) {
+         /*  Last upadted */
+                        h2.py-2.text-center.sell-products {
+                    margin-left: 16px;
+                }
+                /* ---------------------------- */
+                .row.py-5.seller-row-1 ,.row.py-5.mb-5.seller-row-new{
+                    background-image: url('<?php echo $url ?>');
+                  
+                }
+                .row.py-5.mb-5.seller-row-new{
+                    margin-top:60px;
+                }
+                /*  To move First Column from Top  */
+                .seller-row-1 .seller-title {
+                    margin-top: 120px;
+                    font-size: 50px;
+                    line-height: 60px;
+                    font-weight: 600;
+                    font-family: 'POPPINS';
+                    font-style: normal;
+                }
+
+                
+                .seller-row-1 .hoyland-title {
+                    margin-top: -17px;
+                    font-size: 20px;
+                    font-weight: 400;
+                    line-height: 27px;
+                    color: #222529;
+                    font-family: 'Poppins';
+                    font-style: normal;
+                }
+             .seller-row-1 .seller-button {
+                margin-top: -40px;
+                margin-left: -10px;
+            }
+
+                .row.py-5.seller-row-5 {
+                    padding-top: unset;
+                }
+                .row.py-5.seller-row-3 .col-sm-8.vedio {
+                    max-width: 800px;
+                    max-height: 550px;
+                }
+                /* .row.py-5.mb-5.seller-row-new .col-sm-4 img.register {
+                    border-radius: 50%;
+                    margin-top:66px;
+                } */
+                .col-sm-8 p.why-content-modal {
+                    font-size: 16px;
+                    line-height: 24px;
+                    font-weight: 400;
+                    font-style: normal;
+                    font-family: 'Poppins';
+                }
+                /*  For all bUtton On Big Scren  */
+                button.btn.btn-success {
+                    background-color: #046f4F;
+                    color: white;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 500;
+                    /* line-height: 13px; */
+                    font-family: Poppins;
+                    border: unset !important;
+                }
+
+
+.row.py-5.seller-row-5 .col-sm-4.p-2.d-none.d-lg-block img.ceo {
+    margin: 58px;
+}
+strong.ambasdor-ceo-title {
+    margin-left: 65px;
+    font-size: 29px;
+    font-weight: 600;
+    line-height: 32px;
+    font-family: 'POPPINS';
+    font-style: normal;
+    color: #F0F0F0;
+}
+.col-sm-7.p-3.d-none.d-lg-block p.ambasdor-text {
+    margin-top: 144px;
+    margin-left: 40px;
+    font-size: 16px;
+    line-height: 28px;
+    font-weight: 400;
+    font-family: 'Poppins';
+    font-style: normal;
+    padding: 15px;
+}
+  .col-sm-12.ambasdor-center span.choose-btn button:hover {
+    color: unset!important;
+    background-color: unset!important;
+    border-color: #046F4F;
+}
+.text p.ambasdor-text img.comma {
+    margin-top: -61px;
+}
+ .text .arrow {
+    display: flex;
+    justify-content: center;
+    margin-top: 69px;
+}
+.text .arrow img {
+    /* border-radius: 50%; */
+}
+.text .arrow img.backward {
+    /* margin-right: 20px; */
+    /* margin-top:5px; */
+}
+.col-sm-4.p-2 strong.follower {
+    margin-left: 65px;
+    font-size: 21px;
+    font-weight: 400;
+    font-family: 'Poppins';
+    font-style: normal;
+    line-height: 30px;
+    color: #F0F0F0;
+
+}
+        /*  For the Learn how to sell on Enjoyp  */
+        .row.py-5.seller-row-3 .learn-steps span { 
+                        color: white;
+                        margin-inline-start: 20px;
+                        font-weight: 500;
+                        font-style: normal;
+                        font-family: Poppins;
+                        line-height: 64px;
+                        font-size: 40px;
+                        margin-left: 16px;
+                    }
+                    /*  For the How To sell Product Imaeg Section */
+                    .col-sm-12.desktop.d-none.d-lg-block {
+                    margin-top: -95px;
+                    margin-left: 42px;
+                }
+                
+                /*  For the Learn  How to Sell Section  */
+                .seller-row-3 h1.learn-steps {
+                    color: white;
+                    font-weight: 700;
+                    font-style: normal;
+                    font-family: Poppins;
+                    line-height: 40px;
+                    font-size: 32px;
+                    letter-spacing: -.64px;
+                }
+
+
+    }  
+@media only screen and (max-width: 600px) { 
+            .row.py-5.seller-row-1{
+                    background-image: url('<?php echo $url ?>');
+                    max-height:648px;
+                    }
+            .seller-row-1 .hoyland-title {
+                font-size: 13px;
+                font-style: normal;
+                font-family: Poppins;
+                font-weight: 500;
+                line-height: 32px;
+                color: black;
+                margin-top: -17px;
+            }
+            .seller-row-1 .seller-title {
+                font-size: 32px;
+                font-family: Poppins;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 113%;
+                }
+            span.seller-button.py-5 {
+                display: flex;
+                margin-top: -45px;
+            }
+            .seller-row-1 .seller-button .btn-2 {
+                color: #046f4F;
+                font-size: 10px;
+            }
+            .seller-row-1 .seller-button .btn-1 {
+                background-color: #046f4F;
+                color: white;
+                font-size: 10px;
+            }
+            h2.sell-products {
+                font-size: 22px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 30px;
+                font-family: Poppins;
+                margin-top: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .seller-row-3 h1.learn-steps {
+             font-size: 31px;
+                }
+            .row.py-5.seller-row-3 .learn-steps span { 
+                color: white;
+                margin-inline-start: 20px;
+                font-weight: 500;
+                font-style: normal;
+                font-family: Poppins;
+                line-height: 64px;
+                font-size: 31px!important;
+                margin-left: 16px;
+            }
+            .row.py-5.seller-row-3 ul.steps {
+                font-size: 13px;
+                font-weight: 500;
+                font-style: normal;
+                font-family: Poppins;
+                line-height: 20px;
+                list-style: none;
+                margin-left: -24px;
+            }
+            .row.py-5.seller-row-3 .col-sm-8.vedio {
+                margin-top: 26px;
+            }
+            /*  For All button In Mobile View  */
+            button.btn.btn-success {
+                background-color: #046f4F;
+                color: white;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 500;
+                /* line-height: 13px; */
+                font-family: Poppins;
+                /* margin-left: 63px; */
+                border: unset !important;
+                margin-top: 20px;
+            }
+            /*  For teh Learn stpes button make in center  */
+            .col-sm-12.m-2.center-button button.btn.btn-success.steps.mt-5 {
+                margin-left: 63px;
+            }
+            h2.py-3.text-center.choose-us {
+                font-size: 24px;
+                font-weight: 700;
+                font-style: normal;
+                font-family: Poppins;
+                line-height: 12px;
+                margin-top: 20px;
+            }
+            .card img.card-img-top {
+                /* max-width: 238px; */
+                 /* max-height: 166px; */
+            }
+            .row.py-5.seller-row-4 .card .card-body p.card-text {
+                font-size: 14px;
+                font-weight: 400;
+                font-style: normal;
+                font-family: Poppins;
+                line-height: 20px;
+            }
+            .row.py-5.seller-row-4 .card .card-body h4.card-title.m-5 {
+                font-size: 18px;
+                font-weight: 600;
+                font-style: normal;
+                font-family: Poppins;
+                line-height: 20px;
+            }
+            .seller-row-2 .center-btn {
+                background-color: #046f4F;
+                color: white;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 13px;
+                font-family: Poppins;
+            }
+            /* button.btn.btn-success.center-button {
+                background-color: #046f4F;
+                color: white;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 13px;
+                font-family: Poppins;
+            } */
+            .row.py-5.seller-row-5 .col-sm-6.m-2.d-block.d-lg-none img {
+          max-width: 166px;
+           max-height: 208px;
+           margin-bottom:20px;
+           }
+           .row.py-5.seller-row-5 {
+           background: #0D1412;
+            }
+            .col-sm-6.m-2.d-block.d-lg-none span.mt-4 {
+                font-size: 24px;
+                font-weight: 600;
+                line-height: 28px;
+                color: #F0F0F0;
+            }
+            .col-sm-6.m-2.d-block.d-lg-none span.mt-0 {
+                font-size: 18px;
+                line-height: 20px;
+                font-weight: 300;
+                font-family: 'Poppins';
+                font-style: normal;
+                color: #FFFFFFCC;
+            }
+          .row.py-5.seller-row-5 img.arrow {
+              margin-left: 21px;
+              }
+            .col-sm-12.d-flex.d-lg-none {
+                justify-content: center;
+                margin-top: 30px;
+             }
+             .col-sm-12.d-flex.d-lg-none img {
+                border-radius: 50%;
+             }
+              .col-sm-12.d-flex.d-lg-none img.backward{
+              margin-right: 20px;
+             
+            }
+            .row.py-5.seller-row-2 img.mobile.d-block.d-lg-none {
+            margin-left: 143px;
+             }
+             .row.py-5.seller-row-2 img.desktop {
+                    display: none;
+                }
+                /*  Why Register */
+                .row.py-5.mb-5.seller-row-new{
+                    background-image: url('<?php echo $url ?>');
+                    margin-top: 50px;
+                   }
+                h1.why-regis {
+                text-align:center;
+                font-size: 23px;
+                line-height: 48px;
+                font-weight: 600;
+                font-style: normal;
+                font-family: 'POPPINS';
+                margin-top: 26px;
+               }
+            
+               .row.py-5.mb-5.seller-row-new .col-sm-4 img.register
+               {
+                width:240px!important;
+                height:240px!important;
+              
+               }
+               /* Why content */
+               .seller-row-new p.why-content {
+                margin-top: -29px;
+                text-align: justify;
+                padding: 10px;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 24px;
+                font-family: 'Poppins';
+                font-style: normal;
+            }
+               /*  WHy choose Us? */
+               .row.mobile .col-sm-12.mobile {
+                        margin-left: 21px;
+                    }
+                    .row.py-5.seller-row-4 .row.mobile {
+                        margin-top: -105px;
+                    }
+ 
+                /*  To Position The comma in  Mobile at Bottom */
+                .row.py-5.seller-row-5 img.arrow {
+                    margin-left: -6px;
+                    margin-top: -24px;
+                }
+                /*  To pOstion The message ambassdor mesage div at bottom */
+                .row.py-5.seller-row-5 .text {
+                    margin-top: 20px;
+                }
+                .text p.ambasdor-text {
+                    font-size: 14px;
+                    line-height: 24px;
+                    font-weight: 400;
+                    font-family: 'Poppins';
+                    font-style: normal;
+                    padding: 15px;
+                }
+                /*  To postion the ambassdor image col  */
+                .seller-row-5 .col-sm-6.m-2.d-block.d-lg-none {
+                        margin-left: 15px!important;
+                    }
+                            /*  For the How To sell Product Imaeg Section */
+                    .col-sm-12.mobile.d-block.d-lg-none {
+                        margin-top: -40px;
+                        margin-left: 10px;
+                    }
+     }        
+     @media only screen and (min-width: 601px) and (max-width:991px){ 
+
+        .row.py-5.seller-row-1 ,.row.py-5.mb-5.seller-row-new{
+                    background-image: url('<?php echo $url ?>');
+                  
+                }
+                .row.py-5.mb-5.seller-row-new{
+                    margin-top:50px;
+                }
+        .seller-row-1 .seller-title {
+            font-size: 29px;
+            font-family: Poppins;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 120%;
+            margin-top: 85px;
+}
+.seller-row-1 .hoyland-title {
+    font-size: 13px;
+    font-style: normal;
+    font-family: Poppins;
+    font-weight: 500;
+    line-height: 29px;
+    color: black;
+    margin-top: -16px;
+}
+.seller-row-1 .seller-button {
+    display: flex;
+    margin-top: -54px;
+}
+span.seller-button.py-5 button.btn.btn-success.m-2 {
+    background-color: #046f4F;
+    color: white;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 21px;
+    font-family: Poppins;
+    /* margin-left: 63px; */
+    border: unset !important;
+    margin-top: 20px;
+    letter-spacing: .14rem;
+}
+h1.why-regis {
+    font-size: 27px;
+    line-height: 48px;
+    font-weight: 600;
+    font-style: normal;
+    font-family: 'POPPINS';
+}
+/* for The Image of why register  */
+body .row.py-5.mb-5.seller-row-new .col-sm-4 img.register {
+    margin-top: 106px;
+    max-width: 212px!important;
+    height:212px;
+ 
+}
+/*  For all bUtton On medium -screen  */
+button.btn.btn-success {
+                    background-color: #046f4F;
+                    color: white;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 13px;
+                    font-family: Poppins;
+                    border: unset !important;
+                }
+                /* For The Image of how it works section  */
+                .seller-how-it-works .col-sm-12.desktop.d-none.d-lg-block.d-md-block {
+                        margin-top: -74px;
+                    }
+
+                    .seller-row-3 ul.steps li {
+                   margin-bottom: 7px;
+                    line-height: 24px;
+                }
+                .seller-row-3  ul.steps {
+                      font-size: 14px;
+                    
+                    }
+                    .seller-row-3 h1.learn-steps {
+  
+                    color: white;
+                    font-weight: 700;
+                    font-style: normal;
+                    font-family: Poppins;
+                    line-height: 40px;
+                    font-size: 20px;
+                    letter-spacing: -.64px;
+                }
+                /* WHy choose Us ? */
+                h2.py-3.text-center.choose-us {
+                        margin-top: 30px;
+                      
+                    }
+                    .row.py-5.seller-row-4 .card .card-body h4.card-title.m-5 {
+                    font-size: 18px;
+                   
+                    line-height: 32px;
+                }
+                row.py-5.seller-row-4 .card .card-body p.card-text {
+                    font-size: 14px;
+                    line-height: 22px;
+                }
+                /* Ceo Section */
+                .col-sm-7.p-3.d-none.d-lg-block.d-md-block p.ambasdor-text {
+                        margin-top: 66px;
+                        margin-left: 40px;
+                        font-size: 14px;
+                        line-height: 26px;
+                        font-weight: 400;
+                        font-family: 'Poppins';
+                        font-style: normal;
+                        padding: 9px;
+                    }
+                    .text img.comma {
+                    margin-top: -41px;
+                    margin-left: -1px;
+                }
+                .text .arrow {
+                    justify-content: center;
+                }
+                strong.ambasdor-ceo-title {
+                font-size: 24px;
+                margin-left: 40px;
+                font-weight: 600;
+                line-height: 32px;
+                font-family: 'POPPINS';
+                font-style: normal;
+                color: #F0F0F0;
+                
+            }
+            strong.follower {
+                margin-left: 52px;
+                font-size: 19px;
+                font-weight: 400;
+                font-family: 'Poppins';
+                font-style: normal;
+                line-height: 30px;
+                color: #F0F0F0;
+            }
+            .col-sm-4.p-2.d-none.d-lg-block.d-md-block img.ceo {
+                    margin: 37px;
+                }
+       }
+
+
+
+
+.slides {
+     
+display: flex;
+
+
+overflow-x: auto;
+
+
+scroll-snap-type: x mandatory;
+}
+
+.slides > div {
+
+
+display: flex;
+
+
+flex-shrink: 0;
+
+
+width: 100%;
+
+
+height: 481px;
+
+
+scroll-snap-align: start;
+
+
+scroll-behavior: smooth;
+
+
+/* background: #74ABE2; */
+
+
+justify-content: center;
+
+
+align-items: center;
+
+
+/* font-size: 100px; */
+
+
+}
+
+           
+    </style>
+
+ 

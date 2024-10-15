@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpmembership
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Webkul\Mpmembership\Api\Data\ProductInterface" type="Webkul\Mpmembership\Model\Product" />
+    <preference for="Webkul\Mpmembership\Api\ProductRepositoryInterface" type="Webkul\Mpmembership\Model\ProductRepository" />
+
+    <preference for="Webkul\Mpmembership\Api\Data\TransactionInterface" type="Webkul\Mpmembership\Model\Transaction" />
+    <preference for="Webkul\Mpmembership\Api\TransactionRepositoryInterface" type="Webkul\Mpmembership\Model\TransactionRepository" />
+
+    <type name="Webkul\Mpmembership\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\Mpmembership\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">mpmembershipLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Webkul\Mpmembership\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="mpmembership_sellertransaction_list_data_source" xsi:type="string">Webkul\Mpmembership\Model\ResourceModel\Transaction\Grid\Collection</item>
+                <item name="mpmembership_producttransaction_list_data_source" xsi:type="string">Webkul\Mpmembership\Model\ResourceModel\Product\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\Mpmembership\Model\ResourceModel\Transaction\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">marketplace_membership_transaction</argument>
+            <argument name="eventPrefix" xsi:type="string">mpmembership_sellertransaction_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">mpmembership_sellertransaction_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Mpmembership\Model\ResourceModel\Transaction</argument>
+        </arguments>
+    </type>
+    <type name="Webkul\Mpmembership\Model\ResourceModel\Product\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">marketplace_membership_product</argument>
+            <argument name="eventPrefix" xsi:type="string">mpmembership_producttransaction_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">mpmembership_producttransaction_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Mpmembership\Model\ResourceModel\Product</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="TransactionGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="ProductGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="TransactionQueryGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\Mpmembership\Model\ResourceModel\Transaction\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">TransactionGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="ProductQueryGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\Mpmembership\Model\ResourceModel\Product\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">ProductGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="\Webkul\Marketplace\Helper\Data">
+        <plugin name="Webkul_Mpmembership::updatedMpHelper"
+                type="Webkul\Mpmembership\Plugin\Helper\Data"
+                sortOrder="100" />
+    </type>
+    <type name="\Magento\Catalog\Model\Product\Copier">
+        <plugin name="Webkul_Mpmembership::beforeCopy"
+                type="Webkul\Mpmembership\Plugin\Model\Product\Copier"
+                sortOrder="100" />
+    </type>
+</config>

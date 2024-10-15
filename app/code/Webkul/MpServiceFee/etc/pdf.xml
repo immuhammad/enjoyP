@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpServiceFee
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Sales:etc/pdf_file.xsd">
+    <totals>
+        <total name="service_fee">
+            <title translate="true">Service Fees</title>
+            <source_field>service_fee</source_field>
+            <model>Webkul\MpServiceFee\Model\Sales\Pdf\MpServiceFee</model>
+            <font_size>7</font_size>
+            <display_zero>true</display_zero>
+            <sort_order>600</sort_order>
+        </total>
+    </totals>
+</config>

@@ -1,0 +1,117 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category   Webkul
+ * @package    Webkul_MpServiceFee
+ * @author     Webkul Software Private Limited
+ * @copyright  Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license    https://store.webkul.com/license.html
+ */
+$serviceFeeData = [];
+$serviceFeeId = "";
+$postValues = $block->getRequestData();
+if (is_array($block->getRequest()->getParams()) && isset($block->getRequest()->getParams()["id"])) {
+    $serviceFeeId = $block->getRequest()->getParams()["id"];
+    $serviceFeeData = $block->getServiceFeeData($serviceFeeId);
+}
+?>
+<form action="<?= $escaper->escapeUrl($block
+->getUrl($serviceFeeId == ""?'servicefee/fees/save':'servicefee/fees/save/id/'.$serviceFeeId, ["_secure" => $block
+->getRequest()->isSecure()])) ?>" enctype="multipart/form-data" method="post" 
+data-role="form-profile-validate" data-mage-init='{"validation":{}}' id="form-validate-fee">
+<div class="wk-mp-design">
+    <fieldset class="fieldset info wk-mp-fieldset">
+        <div data-mage-init='{"formButtonAction": {}}' class="wk-mp-page-title legend" id="wk-mp-servicefee-form">
+            <span><?= /* @noEscape */ __('Service Fee Information') ?></span>
+            <button class="button wk-mp-btn" title="<?= /* @noEscape */ __('Save Service Fee') ?>" 
+            type="submit" id="save-btn mp-save-btn">
+                <span><span><?= /* @noEscape */ __('Save Service Fee') ?></span></span>
+            </button>
+        </div>
+        <div class="profile field required">
+            <label class="label" for="service_status"> <?= /* @noEscape */ __('Status') ?> </label>
+            <div class="control">
+                <select name="service_status" id="service_status">
+                <?php foreach ($block->getStatusOptionArray() as $status) {?>
+                    <option <?= (isset($serviceFeeData['service_status'])
+                    && $serviceFeeData['service_status']==$status['value'])?"selected='selected'":""; ?>
+                     value="<?= $escaper->escapeHtml($status['value']); ?>">
+                     <?=$escaper->escapeHtml($status['label']);?></option>
+                    <?php
+                } ?>
+                </select>
+            </div>
+        </div>
+        <div class="profile field required">
+            <label class="label"><?= /* @noEscape */ __('Service Code') ?> </label>
+            <div class="control">
+                 <input type="text" id="service_code" name="service_code" 
+                 value="<?= isset($serviceFeeData['service_status'])?$block
+                    ->escapeHtml($serviceFeeData['service_code']):""; ?>" 
+                 title="<?= /* @noEscape */ __('Enter service_code') ?>" 
+                 class="input-text required-entry validate-no-html-tags"
+                 placeholder="<?= /* @noEscape */ __('Enter service code') ?>"/>
+            </div>
+        </div>
+        <div class="profile field required">
+            <label class="label"><?= /* @noEscape */ __('Service Title') ?> </label>
+            <div class="control">
+                 <input type="text" id="service_title" name="service_title" 
+                 value="<?= isset($serviceFeeData['service_title'])?$block
+                    ->escapeHtml($serviceFeeData['service_title']):""; ?>" 
+                 title="<?= /* @noEscape */ __('Enter service title') ?>" 
+                 class="input-text required-entry validate-no-html-tags"
+                 placeholder="<?= /* @noEscape */ __('Enter service title') ?>"/>
+            </div>
+        </div>
+        <div class="profile field required">
+            <label class="label" for="service_type"> <?= /* @noEscape */ __('Service Type') ?> </label>
+            <div class="control">
+                <select name="service_type" id="service_type">
+                <?php foreach ($block->getServiceType() as $serviceType) {?>
+                    <option <?=(isset($serviceFeeData['service_type'])
+                    && $serviceFeeData['service_type']==$serviceType['value'])?"selected='selected'":""; ?> 
+                    value="<?= $escaper->escapeHtml($serviceType['value']); ?>">
+                    <?=$escaper->escapeHtml($serviceType['label']);?></option>
+                    <?php
+                } ?>
+                </select>
+            </div>
+        </div>
+        <div class="profile field required">
+            <label class="label"><?= /* @noEscape */ __('Amount') ?> </label>
+            <div class="control">
+                 <input type="text" id="service_value" name="service_value" 
+                 value="<?= isset($serviceFeeData['service_value'])?$block
+                    ->escapeHtml($serviceFeeData['service_value']):""; ?>" 
+                 title="<?= /* @noEscape */ __('Enter service Value') ?>" 
+                 class="input-text validate-number validate-greater-than-zero required-entry" 
+                 placeholder="<?= /* @noEscape */ __('Enter service Value') ?>" />
+            </div>
+        </div>
+        <div class="field profile" style="display:none">
+            <div class="control">
+                 <input type="hidden" id="seller_id" name="seller_id" 
+                 value="<?= $escaper->escapeHtml($block->getSellerId())?>"/>
+            </div>
+        </div>
+    </fieldset>
+</div>
+</form>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Customer/js/block-submit-on-send": {
+                "formId": "form-validate-fee"
+            }
+        }
+    }
+</script>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "serviceData": []
+        }
+    }
+</script>

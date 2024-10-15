@@ -1,0 +1,71 @@
+Legend
+
++ Features
+- Bugs
+
+-------------------------------- Version 5.0.2 --------------------------------------
+	- Fixed issues
+	+ Compatible to Service Fee module.
+	+ Compatible to Reward System module.
+
+-------------------------------- Version 5.0.1 --------------------------------------
+	- Fixed issues
+
+-------------------------------- Version 5.0.0 --------------------------------------
+	+ compatible with Magento 2.4.x
+	+ Module is enabled with 3D Secure.
+
+-------------------------------- Version 4.0.2 --------------------------------------
+	- Fixed issues
+	+ Compatible to Service Fee module.
+	+ Compatible to Reward System module.
+	+ Compatible to StoreCredit, GiftCard, GiftWrapping features.
+
+-------------------------------- Version 4.0.1 --------------------------------------
+	- Fixed issues
+
+-------------------------------- Version 4.0.0 --------------------------------------
+	+ compatible with Magento EE 2.4.x
+
+-------------------------------- Version 3.0.0 --------------------------------------
+	+ module updated as per new stripe checkout api
+
+-------------------------------- Version 2.1.0 --------------------------------------
+	+ compatible with magento2.3
+
+-------------------------------- Version 2.0.4 --------------------------------------
+	+ module updated as per new stripe checkout api
+
+-------------------------------- Version 2.0.3 --------------------------------------
+	- fixed issue of save duplicate card details.
+	- fixed issue of security check of expiry date when payment from saved card details.
+	- fixed the issue of information about stripe payment method.
+	- fixed the issue of locale of stripe pop up.
+	- fixed the issue of integration of alipay.
+	- Bitcoin payment is removed as stripe ended bitcoin support.
+	+ admin can enable the zip code validation from backend.
+	+ admin can enable the shiiping or billing address from backend
+
+-------------------------------- Version 2.0.2 --------------------------------------
+	+ admin now can set payment action as authorize or authorize and capture
+	+ order will be captured when invoice will be created
+
+-------------------------------- Version 2.0.1 --------------------------------------
+	- issues with virtual products at checkout page
+	- autoload load of stripe popup fixed
+	- issue related to terms and condition at payment page fixed
+	+ alipay integrated with stripe checkout
+	+ bitcoin integrated with stripe checkout.
+	+ alipay account can be saved for future payments
+	+ bitcoin payment cannot be saved for future payments
+	+ added cards and payment methods specific images at checkout page
+
+-------------------------------- Version 2.0.0 --------------------------------------
+	+ PCI compliant payments system
+	+ Working with stripe supported currencies
+	+ well integrated with magento
+	+ Allow buyers to pay using stripe embedded form.
+	+ Allow buyers to pay using all cards that stripe supports.
+	+ Working on Stripe API Version 2.2.0
+	+ Customer can save the card for future payment
+	+ Customer can delete the cards and add new one at checkout page

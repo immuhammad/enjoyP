@@ -1,0 +1,106 @@
+<?php
+    $quickOrderBlock =  $block->getLayout()->createBlock(
+        \Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class
+    );
+    $b2bQuoteHelper = $quickOrderBlock->helper('Webkul\B2BMarketplace\Helper\Quote');
+    $helper = $quickOrderBlock->helper('Webkul\B2BMarketplace\Helper\Data');
+    $categories = $b2bQuoteHelper->getQuoteCategories();
+    $selectedCategories = $helper->getSupplierCategories();
+    $result = array_diff($categories, $selectedCategories);
+    ?>
+<div class="wk-supplier-company-overview-container">
+    <form method="post" action="<?= /* @noEscape */
+    $quickOrderBlock->getUrl('b2bmarketplace/supplier/info_update'); ?>" 
+    id="wk-supplier-company-info-form" enctype="multipart/form-data" 
+    data-mage-init='{"validation":{}}'>
+        <?= /* @noEscape */ $block->getBlockHtml('seller.formkey')?>
+        <?= /* @noEscape */ $block->getBlockHtml('formkey')?>
+        <fieldset class="fieldset">
+            <?php if (count($selectedCategories) > 0): ?>
+                <div class="field">
+                    <div class="wk-b2b-rfq-category-field-label"><?= /* @noEscape */
+                    __("Categories you are selling and receiving quote for - "); ?></div>
+                    <div class="wk-b2b-rfq-item-category-panel">
+                        <?php foreach ($selectedCategories as $id => $category): ?>
+                            <div class="wk-b2b-rfq-item-category wk-selected-category">
+                                <div class="wk-b2b-rfq-item-category-checkbox">
+                                <input checked data-id="<?= /* @noEscape */ $id; ?>" 
+                                name="category[<?= /* @noEscape */ $id; ?>]" type="checkbox"></div>
+                                <div class="wk-b2b-rfq-item-category-label">
+                                <?= /* @noEscape */ $category; ?></div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <?php if (count($result) > 0): ?>
+                <div class="field">
+                    <div class="wk-b2b-rfq-category-field-label"><?= /* @noEscape */ __("Select Categories"); ?></div>
+                    <div class="wk-b2b-rfq-item-category-panel">
+                        <?php foreach ($result as $id => $category): ?>
+                            <div class="wk-b2b-rfq-item-category">
+                                <div class="wk-b2b-rfq-item-category-checkbox">
+                                <input data-id="<?= /* @noEscape */ $id; ?>" 
+                                name="category[<?= /* @noEscape */ $id; ?>]" 
+                                type="checkbox"></div>
+                                <div class="wk-b2b-rfq-item-category-label">
+                                <?= /* @noEscape */ $category; ?></div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button id="supplier-categories" name="section" 
+                    value="supplier_categories" 
+                    class="action primary" type="submit">
+                        <span><?= /* @noEscape */ __("Save Categories"); ?></span>
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/alert',
+        "mage/template"
+    ], function($, alertBox, template) {
+        $(".wk-b2b-rfq-item-category-checkbox input").click(function () {
+            if ($(this).prop("checked")) {
+                $(this).parent().parent().addClass("wk-selected-category");
+            } else {
+                $(this).parent().parent().removeClass("wk-selected-category");
+            }
+            catIds = getSelectedCategoryIds();
+        });
+
+        $(".wk-b2b-rfq-item-category-label").click(function () {
+            $(this).parent().find("input").trigger("click");
+        });
+
+        function getSelectedCategoryIds()
+        {
+            var ids = [];
+            $(".wk-b2b-rfq-item-category-checkbox input").each(function () {
+                if ($(this).prop("checked")) {
+                    ids.push($(this).attr("data-id"));
+                }
+            });
+            return ids;
+        }
+
+    });
+</script>
+
+<style>
+.wk-b2b-rfq-category-field-label {
+    display: inline-block;
+    width: 100%;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+</style>

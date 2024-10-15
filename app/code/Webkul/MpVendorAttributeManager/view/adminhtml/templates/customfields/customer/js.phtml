@@ -1,0 +1,31 @@
+<?php $vendorAttributes = $block->getVendorAttributes() ?>
+<?php if (count($vendorAttributes)): ?>
+    <script>
+        require([
+            "jquery",
+            "mage/mage",
+            "mage/calendar",
+            "prototype"
+        ], function($){
+            $.each($('.custom_date_field'),function(i,v){
+                $(this).calendar({
+                dateFormat:'M\/d\/yy',
+                buttonText: "Select Date"
+                });
+            });
+
+            $("input[type='file']").attr('form','customer_form');
+            $("select[multiple='multiple']").attr('form','customer_form');
+            $("input[type='checkbox']").on('change', function(){
+                if (this.checked) {
+                    $(this).attr('form','customer_form');
+                    $(this).attr('value','1');
+                }else{
+                $(this).attr('value','0');
+                }
+            });
+        });
+    </script>
+<?php endif; ?>      
+
+

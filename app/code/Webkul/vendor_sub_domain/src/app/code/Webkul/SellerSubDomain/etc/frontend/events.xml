@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul_SellerSubDomain Frontend events
+ * @category  Webkul
+ * @package   Webkul_SellerSubDomain
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="controller_action_predispatch_marketplace_seller_profile">
+        <observer name="webkul_seller_profile_render_before" instance="Webkul\SellerSubDomain\Observer\MarketplaceSellerProfilePreDispatch" />
+    </event>
+    <event name="controller_action_predispatch_marketplace_seller_collection">
+        <observer name="webkul_seller_collection_render_before" instance="Webkul\SellerSubDomain\Observer\MarketplaceSellerProfilePreDispatch" />
+    </event>
+    <event name="controller_action_predispatch_marketplace_seller_location">
+        <observer name="webkul_seller_location_render_before" instance="Webkul\SellerSubDomain\Observer\MarketplaceSellerProfilePreDispatch" />
+    </event>
+    <event name="controller_action_predispatch_marketplace_seller_feedback">
+        <observer name="webkul_seller_feedback_render_before" instance="Webkul\SellerSubDomain\Observer\MarketplaceSellerProfilePreDispatch" />
+    </event>
+    <event name="controller_action_predispatch_marketplace_index_index">
+        <observer name="webkul_marketplace_landing_page_render_before" instance="Webkul\SellerSubDomain\Observer\MarketplaceSellerProfilePreDispatch" />
+    </event>
+</config>

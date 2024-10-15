@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpVendorAttributeManager
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Webkul\MpVendorAttributeManager\Api\Data\VendorAttributeInterface"
+                type="Webkul\MpVendorAttributeManager\Model\VendorAttribute"/>
+
+    <preference for="Webkul\MpVendorAttributeManager\Api\Data\VendorGroupInterface"
+                type="Webkul\MpVendorAttributeManager\Model\VendorGroup"/>
+
+    <preference for="Webkul\MpVendorAttributeManager\Api\Data\VendorAssignGroupInterface"
+                type="Webkul\MpVendorAttributeManager\Model\VendorAssignGroup"/>
+
+    <preference for="Webkul\MpVendorAttributeManager\Api\Data\VendorAttributeSearchResultsInterface"
+                type="Webkul\MpVendorAttributeManager\Model\VendorAttributeSearchResults"/>
+    
+    <preference for="Webkul\MpVendorAttributeManager\Api\Data\VendorGroupSearchResultsInterface"
+                type="Webkul\MpVendorAttributeManager\Model\VendorGroupSearchResults"/>
+
+    <preference for="Webkul\MpVendorAttributeManager\Api\VendorAttributeRepositoryInterface"
+                type="Webkul\MpVendorAttributeManager\Model\VendorAttributeRepository"/>
+
+    <preference for="Webkul\MpVendorAttributeManager\Api\VendorGroupRepositoryInterface"
+                type="Webkul\MpVendorAttributeManager\Model\VendorGroupRepository"/>
+
+    <preference for="Webkul\MpVendorAttributeManager\Api\VendorAssignGroupRepositoryInterface"
+                type="Webkul\MpVendorAttributeManager\Model\VendorAssignGroupRepository"/>
+
+    <preference for="Magento\Eav\Model\Entity\Attribute\Backend\DefaultBackend"
+                type="Webkul\MpVendorAttributeManager\Model\VendorAttribute\Attribute\Backend\Image"/>
+
+    <preference for="Magento\Eav\Model\Entity\Attribute\Backend\Increment"
+                type="Webkul\MpVendorAttributeManager\Model\VendorAttribute\Attribute\Backend\File"/>
+
+    <preference for="Magento\Eav\Model\Entity\Attribute\Backend\ArrayBackend"
+                type="Webkul\MpVendorAttributeManager\Model\VendorAttribute\Attribute\Backend\Multiselect"/>
+
+    <preference for="Magento\Eav\Model\Entity\Attribute\Backend\Datetime"
+                type="Webkul\MpVendorAttributeManager\Model\VendorAttribute\Attribute\Backend\Datetime"/>
+
+    <preference for="Magento\Customer\Model\Metadata\Form\Date"
+                type="Webkul\MpVendorAttributeManager\Model\VendorAttribute\Metadata\Form\Date"/>
+
+    <type name="Magento\Customer\Controller\Adminhtml\Index\Save">
+        <plugin name="before-save" type="Webkul\MpVendorAttributeManager\Plugin\Customer\Save" sortOrder="1" />
+    </type>
+
+    <!-- <preference for="Magento\Framework\Data\Form\Element\Image"
+                type="Webkul\MpVendorAttributeManager\Plugin\Form\Element\Image"/> -->
+
+    <type name="Magento\Customer\Controller\Account\CreatePost">
+        <plugin name="vendor-create-post" type="Webkul\MpVendorAttributeManager\Plugin\Controller\CreatePost" sortOrder="1" />
+    </type>
+
+    <type name="Magento\Customer\Model\Customer\DataProviderWithDefaultAddresses">
+        <plugin name="after-getMeta" type="Webkul\MpVendorAttributeManager\Plugin\Customer\DataProvider" sortOrder="1" />
+    </type>
+
+    <type name="Magento\Eav\Model\Attribute\Data\File">
+        <plugin name="around-validateValue" type="Webkul\MpVendorAttributeManager\Plugin\Eav\Model\Attribute\Data\File" sortOrder="1" />
+    </type>
+
+    <type name="Webkul\Marketplace\Helper\Data">
+        <plugin name="after-getSellerRegistrationUrl" type="Webkul\MpVendorAttributeManager\Plugin\Marketplace\Helper\Data" sortOrder="1" />
+    </type>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="vendorattribute_allfields_listing_data_source" xsi:type="string">Webkul\MpVendorAttributeManager\Model\ResourceModel\VendorAttribute\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="vendorattribute_group_listing_data_source" xsi:type="string">Webkul\MpVendorAttributeManager\Model\ResourceModel\VendorGroup\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\MpVendorAttributeManager\Model\ResourceModel\VendorAttribute\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">marketplace_vendor_attribute</argument>
+            <argument name="eventPrefix" xsi:type="string">vendor_block_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">block_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\MpVendorAttributeManager\Model\ResourceModel\VendorAttribute</argument>
+        </arguments>
+    </type>
+    <type name="Webkul\MpVendorAttributeManager\Model\ResourceModel\VendorGroup\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">marketplace_vendor_group</argument>
+            <argument name="eventPrefix" xsi:type="string">vendor_group_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">group_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\MpVendorAttributeManager\Model\ResourceModel\VendorGroup</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="VendorFieldsGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="VendorGroupGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="FieldsGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\MpVendorAttributeManager\Model\ResourceModel\VendorAttribute\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">VendorFieldsGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="FieldsGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\MpVendorAttributeManager\Model\ResourceModel\VendorGroup\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">VendorGroupGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Webkul\MpVendorAttributeManager\Ui\Component\MassAction\Group\AssignGroup">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="urlPath" xsi:type="string">vendorattribute/attribute/assigngroup</item>
+                <item name="paramName" xsi:type="string">entity_id</item>
+                <item name="confirm" xsi:type="array">
+                    <item name="title" xsi:type="string" translatable="true">Assign Group</item>
+                    <item name="message" xsi:type="string" translatable="true">Are you sure to assign selected Attribute to Group?</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Webkul\Marketplace\Block\Account\Becomeseller"
+                type="Webkul\MpVendorAttributeManager\Block\Account\Becomeseller"/>
+    <preference for="Webkul\Marketplace\Block\Sellerregistration"
+                type="Webkul\MpVendorAttributeManager\Block\Sellerregistration"/>
+
+    <preference for="Magento\Eav\Model\Entity\Attribute\Source\Table"
+                type="Webkul\MpVendorAttributeManager\Model\Eav\Entity\Attribute\Source\Table"/>
+
+    <preference for="Webkul\Marketplace\Controller\Wysiwyg\Gallery\Upload"
+                type="Webkul\MpVendorAttributeManager\Controller\Marketplace\Wysiwyg\Gallery\Upload"/>
+</config>

@@ -1,0 +1,69 @@
+<?php
+$viewModel = $block->getBookingViewModel();
+if ($viewModel === null) {
+    $viewModel = $block->getLayout()->createBlock(
+        \Webkul\MpAdvancedBookingSystem\Block\GetViewModel::class
+    )->getBookingViewModel();
+}
+
+$helper = $viewModel->getHelper();
+$params = $block->getRequest()->getParams();
+if (!empty($params['booking_type']) || (!(empty($params['id'])) && $helper->isBookingProduct($params['id']))):
+    if (!empty($params['id'])) {
+        $product = $block->getProduct($params['id']);
+    } else {
+        $product['cancellation_available'] = 1;
+    } ?>
+<div class="field toggle-field">
+    <label class="label" for="cancellation_available">
+        <span>
+            <?= /* @noEscape */ __('Cancellation Available')?>
+        </span>
+    </label>
+    <div class="admin__field-control">
+        <div class="admin__actions-switch" data-role="switcher">
+            <input type="checkbox" class="admin__actions-switch-checkbox" id="cancellation_available"
+                   name="product[cancellation_available]" value="1"
+                   <?php if ($product['cancellation_available']) { ?> checked="checked" <?php } ?>>
+            <label class="admin__actions-switch-label" for="cancellation_available">
+                <span class="admin__actions-switch-text" data-text-on="Yes" data-text-off="No"></span>
+            </label>
+        </div>
+    </div>
+</div>
+<script>
+    require([
+        'jquery'
+    ], function($) {
+        $(function () {
+            isCancellationAvailable(<?= /* @noEscape */ $product['cancellation_available'] ?>);
+        });
+        $('body').on('change', '#cancellation_available', function () {
+            if ($(this).prop('checked')) {
+                isCancellationAvailable(1);
+            } else {
+                isCancellationAvailable(0);
+            }
+        });
+
+        function isCancellationAvailable(flag)
+        {
+            if (flag) {
+                if ($('body').find('input#cancellation_available-hide').length) {
+                    $('body').find('input#cancellation_available-hide').remove();
+                } 
+            } else {
+                if ($('body').find('input#cancellation_available-hide').length) {
+                    $('body').find('input#cancellation_available-hide').val(0);
+                } else {
+                    $('#cancellation_available').after(
+                    $("<input>").attr('type', 'hidden').attr('id', 'cancellation_available-hide')
+                    .attr('name', 'product[cancellation_available]').val(0));
+                }
+            }
+        }
+    });
+
+    
+</script>
+<?php endif; ?>

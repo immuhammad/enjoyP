@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <marketplace>
+            <general_settings>
+                <percent>20</percent>
+                <seller_approval>0</seller_approval>
+                <order_manage>1</order_manage>
+            </general_settings>
+            <layout_settings>
+                <is_separate_panel>1</is_separate_panel>
+            </layout_settings>
+            <product_settings>
+                <product_approval>0</product_approval>
+                <product_edit_approval>0</product_edit_approval>
+                <is_admin_view_category_tree>1</is_admin_view_category_tree>
+                <attributesetid>4</attributesetid>
+                <allow_for_seller>simple,downloadable,virtual</allow_for_seller>
+            </product_settings>
+            <profile_settings>
+                <seller_profile_display>1</seller_profile_display>
+                <url_rewrite>1</url_rewrite>
+                <auto_url_rewrite>1</auto_url_rewrite>
+            </profile_settings>
+            <quote_settings>
+                <forward_quote_time>48</forward_quote_time>
+            </quote_settings>
+            <email>
+                <b2b_marketplace_new_message_template>marketplace_email_b2b_marketplace_new_message_template</b2b_marketplace_new_message_template>
+                <b2b_marketplace_verified_supplier_template>marketplace_email_b2b_marketplace_verified_supplier_template</b2b_marketplace_verified_supplier_template>
+                <rfq_mail_to_seller_template>marketplace_email_rfq_mail_to_seller_template</rfq_mail_to_seller_template>
+                <rfq_reply_mail_to_seller_template>marketplace_email_rfq_reply_mail_to_seller_template</rfq_reply_mail_to_seller_template>
+                <rfq_reply_mail_to_customer_template>marketplace_email_rfq_reply_mail_to_customer_template</rfq_reply_mail_to_customer_template>
+            </email>
+        </marketplace>
+    </default>
+</config>

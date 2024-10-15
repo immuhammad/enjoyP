@@ -1,0 +1,21 @@
+/**
+ * Webkul Software.
+ *
+ * @category   Webkul
+ * @package    Webkul_MpServiceFee
+ * @author     Webkul Software Private Limited
+ * @copyright  Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license    https://store.webkul.com/license.html
+ */
+.col-xs-2 {
+    width: 20% !important;
+}
+.profile .control input[type=text] {
+    width: 100%;
+}
+.page-title-wrapper .page-title {
+    margin-top : 24px;
+}
+input[type="checkbox"]:disabled {
+    opacity: 0;
+}

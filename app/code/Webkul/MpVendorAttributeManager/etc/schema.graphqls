@@ -1,0 +1,341 @@
+type StoreConfig {
+    vendorattribute_visible_registration : Int @doc(description: "Visible on Registration")
+    vendorattribute_visible_profile : Int @doc(description: "Visible on Profile")
+    vendorattribute_file_display : Int @doc(description: "File Display on Vendor Profile")
+    vendorattribute_group_display : Int @doc(description: "Display Registration Fields Group Wise")
+    vendorattribute_image_display : Int @doc(description: "Image Display on Vendor Profile")
+    vendorattribute_allowede_image_extension : String @doc(description: "Allowed Image Extension")
+    vendorattribute_allowede_file_extension : String @doc(description: "Allowed File Extension")
+    vendorattribute_profile_label : String @doc(description: "Seller Profile Label")
+    termcondition_enable_registration : Int @doc(description: "Enable Terms and Conditions on Vendor Registration Page")
+    termcondition_customer_enable_registration : Int @doc(description: "Enable Terms and Conditions on Customer Registration Page")
+    termcondition_privacy_heading : String @doc(description: "Privacy Popup Model Heading")
+    termcondition_term_heading : String @doc(description: "Term and Condition Popup Model Heading")
+    termcondition_button_text : String @doc(description: "Model Button Text")
+    termcondition_button_text_color : String @doc(description: "Button Text Color")
+    termcondition_button_color : String @doc(description: "Model Button Color")
+    termcondition_model_background : String @doc(description: "Model Background Color")
+    termcondition_animate : String @doc(description: "Model Animation Type")
+    termcondition_is_html : Int @doc(description: "Show Content as HTML")
+    termcondition_termcondition : String @doc(description: "Terms and Conditions")
+    termcondition_privacy : String @doc(description: "Privacy and Cookie Policy")
+}
+
+type Query {
+    mpVendorGroupList(
+        filter: MpVendorGroupFilters @doc(description: "Identifies which vendor group to search for and return.")
+        ): MpVendorGroupList @resolver(class:"Webkul\\MpVendorAttributeManager\\Model\\Resolver\\Admin\\VendorGroupList") @doc(description: "Return query of vendor groups list")
+
+    mpVendorAttributeList(
+        filter: MpVendorAttributeFilters @doc(description: "Identifies which vendor attribute to search for and return.")
+        ): MpVendorAttributeList @resolver(class:"Webkul\\MpVendorAttributeManager\\Model\\Resolver\\Admin\\VendorAttributeList") @doc(description: "Return query of vendor attributes list")
+
+    getMpVendorAttributeDataForAdmin(
+        id: Int @doc(description: "Mp vendor attribute id")
+        ): MpVendorAttributeDataOutput @resolver(class:"Webkul\\MpVendorAttributeManager\\Model\\Resolver\\Admin\\MpVendorAttributeData") @doc(description: "Return query of vendor attribute data for admin end form")
+
+    getMpVendorAttributes(
+        purpose: AttributePurposeEnum! @doc(description: "Identifies the purpose to get data.")
+        ): GetMpVendorAttributesOutput @resolver(class:"Webkul\\MpVendorAttributeManager\\Model\\Resolver\\GetMpVendorAttributes") @doc(description: "Return mp vendor attributes information")
+
+    getMpVendorAttributesFormData(
+        purpose: AttributeFormPurposeEnum! @doc(description: "Identifies the purpose to get data.")
+        ): GetMpVendorAttributesFormData @resolver(class:"Webkul\\MpVendorAttributeManager\\Model\\Resolver\\GetMpVendorAttributesFormData") @doc(description: "Return mp vendor attributes form data")
+
+    getAttributesForSellerProfile(
+        shopUrl: String! @doc(description: "Seller profile url")
+        ): GetAttributesForSellerProfileOutput @resolver(class:"Webkul\\MpVendorAttributeManager\\Model\\Resolver\\GetAttributesForSellerProfile") @doc(description: "Return mp vendor attributes information to show on seller profile")
+}
+
+type Mutation {
+    saveMpVendorAttributes(
+        purpose: AttributePurposeEnum! @doc(description: "Identifies the purpose of saving data.")
+        attributesData: [AttributeSaveData]
+        ): MpVendorAttributeDefaultResponse @resolver(class:"Webkul\\MpVendorAttributeManager\\Model\\Resolver\\SaveMpVendorAttributes") @doc(description: "Save mp vendor attributes information")
+
+    createCustomerV2 (
+        input: CustomerCreateInput! @doc(description: "An input object that defines the customer to be created.")
+        attributesData: [AttributeSaveData]
+        ): CustomerOutput @resolver(class: "\\Webkul\\MpVendorAttributeManager\\Model\\Resolver\\CreateCustomer") @doc(description:"Create a customer account.")
+
+    sellerBecomePartner(
+        shopUrl: String @doc(description: "Shop Url of the Seller"),
+        isSeller: Int @doc(description: "It should be 1")
+        attributesData: [AttributeSaveData]
+        ): MpVendorAttributeDefaultResponse @resolver(class:"Webkul\\MpVendorAttributeManager\\Model\\Resolver\\Seller\\BecomePartner") @doc(description: "Request to become Seller")
+
+    manageMpVendorGroups(
+        groupIds: [Int]! @doc(description: "Array of group Ids")
+        action: MpVendorGroupActionEnum! @doc(description: "Identifies the action on vendor group.")
+        ): MpVendorAttributeDefaultResponse @resolver(class:"Webkul\\MpVendorAttributeManager\\Model\\Resolver\\Admin\\ManageMpVendorGroups") @doc(description: "Manage vendor groups.")
+
+    saveMpVendorGroup(
+        input: MpVendorGroupInput! @doc(description: "Vendor group input data")
+        ): MpVendorAttributeDefaultResponse @resolver(class:"Webkul\\MpVendorAttributeManager\\Model\\Resolver\\Admin\\SaveMpVendorGroup") @doc(description: "Save vendor group.")
+
+    manageMpVendorAttributes(
+        attributeIds: [Int]! @doc(description: "Array of vendor attribute Ids")
+        action: MpVendorAttributeActionEnum! @doc(description: "Identifies the action on vendor attribute.")
+        ): MpVendorAttributeDefaultResponse @resolver(class:"Webkul\\MpVendorAttributeManager\\Model\\Resolver\\Admin\\ManageMpVendorAttributes") @doc(description: "Manage vendor attributes.")
+
+    assignMpVendorAttributesToGroup(
+        attributeIds: [Int]! @doc(description: "Array of vendor attribute Ids")
+        groupId: Int! @doc(description: "Group Id")
+        ): MpVendorAttributeDefaultResponse @resolver(class:"Webkul\\MpVendorAttributeManager\\Model\\Resolver\\Admin\\AssignAttributesToGroup") @doc(description: "assign vendor attributes to group")
+
+    saveMpVendorAttribute(
+        input: MpVendorAttributeInput! @doc(description: "Vendor attribute input data")
+        ): MpVendorAttributeDefaultResponse @resolver(class:"Webkul\\MpVendorAttributeManager\\Model\\Resolver\\Admin\\SaveMpVendorAttribute") @doc(description: "Save vendor attribute.")
+}
+
+input MpVendorGroupFilters @doc(description: "Filters to fetch Vendor Groups") {
+    entity_id: FilterTypeInput @doc(description: "Vendor Group Id")
+    group_name: FilterTypeInput @doc(description: "Group Name")
+    status: FilterTypeInput @doc(description: "Status")
+}
+
+type MpVendorGroupList {
+    total_count: Int
+    items: [MpVendorGroupItem]
+}
+
+type MpVendorGroupItem {
+    entity_id: Int
+    group_name: String
+    status: Int
+}
+
+input MpVendorAttributeFilters @doc(description: "Filters to fetch Vendor Attributes") {
+    entity_id: FilterTypeInput @doc(description: "Vendor Attribute Id")
+    attribute_id: FilterTypeInput @doc(description: "Magento Attribute Id")
+    attribute_code: FilterTypeInput @doc(description: "Attribute Code")
+    frontend_label: FilterTypeInput @doc(description: "Attribute Label")
+    required_field	: FilterTypeInput @doc(description: "Required Field")
+    show_in_front: FilterTypeInput @doc(description: "Show In Front")
+    wk_attribute_status: FilterTypeInput @doc(description: "Wk Attribute Status")
+    attribute_used_for: FilterTypeInput @doc(description: "Attribute used For")
+}
+
+type MpVendorAttributeList {
+    total_count: Int
+    items: [MpVendorAttributeItem]
+}
+
+type MpVendorAttributeItem {
+    entity_id: Int
+    attribute_id: Int
+    attribute_code: String
+    frontend_label: String
+    required_field: Int
+    show_in_front: Int
+    wk_attribute_status: Int
+    attribute_used_for: Int
+}
+
+type MpVendorAttributeDataOutput {
+    optionsData: VendorAttributeFieldOptions
+    stores: [VendorAttributeSortedStore]
+    option: VendorAttributeOptionData
+    frontend_label: [VendorAttributeFrontendLabelData]
+    attributeData: VendorAttributeDataForAdmin
+}
+
+type VendorAttributeFieldOptions {
+    frontend_input: [AttributeOptions]
+    is_required: [AttributeOptions]
+    frontend_class: [AttributeOptions]
+    assign_group: [AttributeOptions]
+    attribute_used_for: [AttributeOptions]
+    wk_attribute_status: [AttributeOptions]
+    is_wysiwyg_enabled: [AttributeOptions]
+}
+
+type VendorAttributeSortedStore {
+    store_id: Int
+    name: String
+}
+
+type VendorAttributeOptionData {
+    order: [VendorAttributeOptionOrderData]
+    value: [VendorAttributeOptionValueData]
+}
+
+type VendorAttributeOptionOrderData {
+    option_id: Int
+    value: Int
+}
+
+type VendorAttributeOptionValueData {
+    option_id: Int
+    value: [VendorAttributeOptionValue]
+}
+
+type VendorAttributeOptionValue {
+    store_id: Int
+    value: String
+}
+
+type VendorAttributeFrontendLabelData {
+    store_id: Int
+    value: String
+}
+
+type VendorAttributeDataForAdmin {
+    entity_id: Int
+    attribute_id: Int
+    attribute_code: String
+    attribute_label: String
+    frontend_input: String
+    is_required: Int
+    frontend_class: String
+    sort_order: Int
+    assign_group: String
+    attribute_used_for: Int
+    wk_attribute_status: Int
+}
+
+type GetMpVendorAttributesOutput {
+    purpose: AttributePurposeEnum
+    attributesData: [VendorAttributeData]
+}
+
+type VendorAttributeData {
+    attribute_code: String
+    frontend_input: String
+    frontend_label: String
+    frontend_class: String
+    required_field: Int
+    sort_order: Int
+    show_in_front: Int
+    wk_attribute_status: Int
+    attribute_used_for: Int
+    value: String
+    options: [AttributeOptions]
+}
+
+type GetMpVendorAttributesFormData {
+    purpose: AttributeFormPurposeEnum
+    attributesData: [VendorAttributeFormData],
+    groupsData: [VendorGroupFormData]
+}
+
+type VendorGroupFormData {
+    group_id: Int
+    group_name: String
+    attributesData: [VendorAttributeFormData]
+}
+
+type VendorAttributeFormData {
+    attribute_code: String
+    frontend_input: String
+    frontend_label: String
+    frontend_class: String
+    required_field: Int
+    sort_order: Int
+    show_in_front: Int
+    wk_attribute_status: Int
+    attribute_used_for: Int
+    options: [AttributeOptions]
+}
+
+type GetAttributesForSellerProfileOutput {
+    attributesData: [AttributeSellerProfileData]
+}
+
+type AttributeSellerProfileData {
+    frontend_input: String
+    frontend_label: String
+    sort_order: Int
+    value: String
+}
+
+type AttributeOptions {
+    label: String
+    value: String
+}
+
+input AttributeSaveData {
+    code: String!
+    value: String!
+}
+
+input MpVendorGroupInput {
+    entity_id: Int
+    group_name: String!
+    status: Int!
+    attributeIds: [Int]!
+}
+
+input MpVendorAttributeInput {
+    attribute_id: Int
+    frontend_label: [VendorAttributeFrontendLabelInput]!
+    attribute_code: String!
+    frontend_input: String
+    is_required: Int
+    frontend_class: String
+    sort_order: Int!
+    assign_group: Int
+    attribute_used_for: Int!
+    wk_attribute_status: Int!
+    is_wysiwyg_enabled: Int
+    option: VendorAttributeOptionInput
+}
+
+input VendorAttributeFrontendLabelInput {
+    store_id: Int
+    value: String
+}
+
+input VendorAttributeOptionInput {
+    order: [VendorAttributeOptionOrderInput]
+    value: [VendorAttributeOptionValueInput]
+    delete: [VendorAttributeOptionOrderInput]
+}
+
+input VendorAttributeOptionOrderInput {
+    option_id: Int
+    value: Int
+}
+
+input VendorAttributeOptionValueInput {
+    option_id: Int
+    value: [VendorAttributeOptionValueInfo]
+}
+
+input VendorAttributeOptionValueInfo {
+    store_id: Int
+    value: String
+}
+
+type MpVendorAttributeDefaultResponse {
+    status: Int
+    message: String
+}
+
+enum AttributePurposeEnum @doc(description: "The list of purpose to get/save vendor attributes data.") {
+    EDIT_CUSTOMER
+    EDIT_SELLER_PROFILE
+}
+
+enum AttributeFormPurposeEnum @doc(description: "The list of purpose to get/save vendor attributes form data.") {
+    CREATE_CUSTOMER
+    CREATE_SELLER
+    BECOME_SELLER
+}
+
+enum MpVendorGroupActionEnum @doc(description: "The list of actions for vendor group by admin.") {
+    ENABLE
+    DISABLE
+    DELETE
+}
+
+enum MpVendorAttributeActionEnum @doc(description: "The list of actions for vendor attribute by admin.") {
+    DELETE
+    ENABLE
+    DISABLE
+    DISPLAY_ON_SELLER_PROFILE
+    HIDE_FROM_SELLER_PROFILE
+    ASSIGN_TO_CUSTOMER_AND_SELLER
+    ASSIGN_ONLY_TO_CUSTOMER
+    ASSIGN_ONLY_TO_SELLER
+}

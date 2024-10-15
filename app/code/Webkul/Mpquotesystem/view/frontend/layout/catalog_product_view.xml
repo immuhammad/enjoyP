@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpquotesystem
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+        <css src="Webkul_Mpquotesystem::css/mpquotesystem.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Webkul\Mpquotesystem\Block\Mpquoteproduct" name="mpquoteProduct" template="Webkul_Mpquotesystem::catalog/product/quoteproduct.phtml" ifconfig="mpquotesystem/quotesystem_settings/enable_quote"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Magento\Customer\Block\Account\AuthenticationPopup" name="ajaxlogin-popup" as="ajaxlogin-popup"
+                   before="-" template="Webkul_Mpquotesystem::account/ajaxlogin-popup.phtml">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="ajaxLogin" xsi:type="array">
+                                <item name="component" xsi:type="string">Webkul_Mpquotesystem/js/view/ajaxlogin-popup</item>
+                                <item name="children" xsi:type="array">
+                                    <item name="messages" xsi:type="array">
+                                        <item name="component" xsi:type="string">Magento_Ui/js/view/messages</item>
+                                        <item name="displayArea" xsi:type="string">messages</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,27 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpMassUpload
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<script type="text/javascript">
+    require([
+        "jquery"
+    ], function ($) {
+        var myForm = $('#edit_form');
+        var clickCount=0;
+        $("#save").on('click', function (event) {  
+            if (myForm.validation("isValid")) {
+                event.preventDefault();
+                var buttonElement = $(this);
+                buttonElement.prop('disabled', true);
+            }
+     });
+        
+    });
+</script>

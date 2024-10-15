@@ -1,0 +1,251 @@
+<?php
+    $quickOrderBlock =  $block->getLayout()
+    ->createBlock(\Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class);
+    $helper = $quickOrderBlock->helper(\Webkul\B2BMarketplace\Helper\Data::class);
+    $mpHelper = $quickOrderBlock->helper(\Webkul\Marketplace\Helper\Data::class);
+    $baseUrl = $helper->getBaseUrl()."pub/media/b2b/";
+    $customer = $helper->getCurrentSupplierMageData();
+    $regions = $helper->getAllRegions();
+    $defaultAddress = $helper->getDefaultAddress();
+    $responseDetails = $helper->getSupplResponseTimeDetails();
+    $partner = $block->getPersistentData();
+    $partner=$mpHelper->getSeller();
+?>
+<div class="wk-supplier-company-overview-container">
+    <form method="post" action="<?= /* @noEscape */
+    $quickOrderBlock->getUrl('b2bmarketplace/supplier/info_update'); ?>" 
+    id="wk-supplier-supplier-info-form" enctype="multipart/form-data" 
+    data-mage-init='{"validation":{}}'>
+        <fieldset class="fieldset">
+            <?= /* @noEscape */ $block->getBlockHtml('seller.formkey')?>
+            <?= /* @noEscape */ $block->getBlockHtml('formkey') ?>
+            <div class="field required">
+                <label class="label" for="first_name">
+                <span><?= /* @noEscape */ __('First Name')?></span></label>
+                <div class="control">
+                    <input data-validate="{required:true}" type="text" id="firstname" 
+                    name="firstname" title="<?= /* @noEscape */ __('First Name')?>" 
+                    class="input-text validate-no-html-tags" 
+                    value="<?= /* @noEscape */ $customer->getFirstname(); ?>" />
+                </div>
+            </div>
+
+            <div class="field required">
+                <label class="label" for="last_name">
+                <span><?= /* @noEscape */ __('Last Name')?></span></label>
+                <div class="control">
+                    <input data-validate="{required:true}" type="text" id="lastname" 
+                    name="lastname" title="<?= /* @noEscape */ __('Last Name')?>" 
+                    class="input-text validate-no-html-tags" 
+                    value="<?= /* @noEscape */ $customer->getLastname(); ?>"/>
+                </div>
+            </div>
+
+            <div class="field required">
+                <label class="label" for="role">
+                <span><?= /* @noEscape */ __('Role/Designation')?></span></label>
+                <div class="control">
+                    <input data-validate="{required:true}" type="text" id="role" 
+                    name="wk_supplier_role" title="<?= /* @noEscape */ __('Role/Designation')?>" 
+                    class="input-text validate-no-html-tags" 
+                    value="<?= $block->escapeHtml($customer->getWkSupplierRole()); ?>"/>
+                </div>
+            </div>
+
+            <div class="field required">
+                <label class="label" for="role">
+                <span><?= /* @noEscape */ __('Response Time')?></span></label>
+                <div class="control">
+                    <div class="wk-supplier-response-time-block">
+                        <div class="wk-supplier-response-time-col">
+                            <div class="wk-supplier-response-time-col-label">From</div>
+                            <div class="wk-supplier-response-time-col-content">
+                                <input placeholder="<?= /* @noEscape */ __('From'); ?>" 
+                                data-validate="{required:true, 'validate-number':true}" type="text" 
+                                name="wk_supplier_response_from_time" 
+                                title="<?= /* @noEscape */ __('Response Time')?>" 
+                                class="input-text validate-no-html-tags" 
+                                value="<?= $block->escapeHtml($responseDetails['from']); ?>"/>
+                            </div>
+                        </div>
+                        <div class="wk-supplier-response-time-col">
+                            <div class="wk-supplier-response-time-col-label">To</div>
+                            <div class="wk-supplier-response-time-col-content">
+                                <input placeholder="<?= /* @noEscape */ __('To'); ?>" 
+                                data-validate="{required:true,'validate-number':true}" type="text" 
+                                id="role" name="wk_supplier_response_to_time" 
+                                title="<?= /* @noEscape */ __('Response Time')?>" 
+                                class="input-text validate-no-html-tags" 
+                                value="<?= $block->escapeHtml($responseDetails['to']); ?>"/>
+                            </div>
+                        </div>
+                        <div class="wk-supplier-response-time-col">
+                            <div class="wk-supplier-response-time-col-label">Time unit</div>
+                            <div class="wk-supplier-response-time-col-content">
+                                <select data-validate="{required:true}" name="wk_supplier_response_time_unit" 
+                                title="<?= /* @noEscape */ __('Response Time')?>" class="input-text">
+                                    <?php foreach ($helper->getUnits() as $value => $label): ?>
+                                        <?php if ($customer->getWkSupplierResponseTimeUnit() == $value): ?>
+                                            <option selected value="<?= /* @noEscape */
+                                            $value; ?>"><?= /* @noEscape */ $label; ?></option>
+                                        <?php else: ?>
+                                            <option value="<?= /* @noEscape */
+                                            $value; ?>"><?= /* @noEscape */ $label; ?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field required">
+                <label class="label" for="contact"><span><?= /* @noEscape */ __('Contact Number')?></span></label>
+                <div class="control">
+                    <input data-validate="{required:true, 'validate-number':true}" 
+                    type="text" id="contact" name="phone" 
+                    title="<?= /* @noEscape */ __('Contact Number')?>" 
+                    class="input-text validate-no-html-tags validate-no-html-tags" 
+                    value="<?= $block->escapeHtml($defaultAddress['telephone']) ?>"/>
+                </div>
+            </div>
+
+            <div class="field required">
+                <label class="label" for="email"><span><?= /* @noEscape */ __('Email Address')?></span></label>
+                <div class="control">
+                    <input data-validate="{required:true}" type="text" 
+                    id="email" readonly title="<?= /* @noEscape */ __('Email Address')?>" 
+                    class="input-text validate-no-html-tags validate-no-html-tags" 
+                    value="<?= $block->escapeHtml($customer->getEmail()); ?>"/>
+                </div>
+            </div>
+
+            <div class="field required wk-country-field">
+                <label class="label" for="supplier-country"><span><?= /* @noEscape */ __("Country"); ?></span></label>
+                <div class="control">
+                    <?= /* @noEscape */
+                    $helper->getCountryHtmlSelect($defaultAddress['country']); ?>
+                </div>
+            </div>
+
+            <div class="field required wk-state-field">
+                <label class="label" for="supplier-state"><span><?= /* @noEscape */ __("State"); ?></span></label>
+                <div class="control">
+                    <?php if (array_key_exists($defaultAddress['country'], $regions)): ?>
+                        <input style="display:none;" type="text" 
+                        data-validate="{required:true}" 
+                        class="input-text validate-no-html-tags required-entry" 
+                        title="<?= /* @noEscape */ __("State"); ?>" 
+                        id="supplier-state" name="state" 
+                        value="<?= $block->escapeHtml($defaultAddress['region']) ?>">
+                        <select data-validate="{required:true}" name="state_id" class="input-text required-entry">
+                            <?php foreach ($regions[$defaultAddress['country']] as $regionId => $region): ?>
+                                <?php if ($defaultAddress['region_id'] == $regionId): ?>
+                                    <option selected value="<?= /* @noEscape */
+                                    $regionId; ?>"><?= /* @noEscape */ $region; ?></option>
+                                <?php else: ?>
+                                    <option value="<?= /* @noEscape */
+                                    $regionId; ?>"><?= /* @noEscape */ $region; ?></option>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </select>
+                    <?php else: ?>
+                        <input type="text" data-validate="{required:true}" 
+                        class="input-text validate-no-html-tags required-entry" 
+                        title="<?= /* @noEscape */ __("State"); ?>" id="supplier-state"
+                         name="state" 
+                         value="<?= $block->escapeHtml($defaultAddress['region']) ?>">
+                        <select style="display:none;"
+                         data-validate="{required:true}" 
+                         name="state_id" class="input-text required-entry"></select>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label" for="supplier-city"><span><?= /* @noEscape */ __("City"); ?></span></label>
+                <div class="control">
+                    <input type="text" data-validate="{required:true}" 
+                    class="input-text validate-no-html-tags required-entry" 
+                    title="<?= /* @noEscape */ __("City"); ?>" id="supplier-city" 
+                    name="city" 
+                    value="<?= $block->escapeHtml($defaultAddress['city']) ?>">
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label" for="supplier-address">
+                <span><?= /* @noEscape */ __("Address Line"); ?></span></label>
+                <div class="control">
+                    <input type="text" data-validate="{required:true}" 
+                    class="input-text validate-no-html-tags required-entry" 
+                    title="<?= /* @noEscape */ __("Address Line"); ?>" 
+                    id="supplier-address" name="address" 
+                    value="<?= $block->escapeHtml($defaultAddress['street']) ?>">
+                </div>
+            </div>
+
+            <div class="field required">
+                <label class="label" for="supplier-postcode">
+                <span><?= /* @noEscape */ __("Zip/Postal code"); ?></span></label>
+                <div class="control">
+                    <input type="text" data-validate="{required:true}" 
+                    class="input-text validate-no-html-tags required-entry" 
+                    title="<?= /* @noEscape */ __("Zip/Postcode"); ?>" 
+                    id="postcode" name="postcode" 
+                    value="<?=$block->escapeHtml($defaultAddress['postcode']) ?>">
+                </div>
+            </div>
+            
+            <div class="wk-mp-design">
+                <fieldset class="fieldset info wk-mp-fieldset">
+                    <legend class="legend"><span><?= /* @noEscape */ __('Payment Information') ?></span></legend>
+                    <div class="field">
+                        <label><?= /* @noEscape */ __('Payment Details') ?></label>
+                        <div class="control">
+                            <textarea class="input-text" name="payment_source" 
+                            id="payment-source" title="payment source" 
+                            cols="1" rows="3" ><?= /* @noEscape */ $partner['payment_source']; ?></textarea>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button id="supplier-info" name="section" 
+                    value="supplier_info" class="action primary" type="submit">
+                        <span><?= /* @noEscape */ __("Update Information"); ?></span>
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    <?php if ($mpHelper->getMinOrderSettings()): ?>
+    <form action="<?= $escaper
+    ->escapeUrl($block
+    ->getUrl('marketplace/account/saveMinOrder', ["_secure" => $block->getRequest()->isSecure()])) ?>" 
+    method="post" data-mage-init='{"validation":{}}'>
+    <div class="wk-mp-page-title page-title">
+            <h2><?= /* @noEscape */ __('Set Minimum Order Amount') ?></h1>
+            <button class="button wk-mp-btn" title="<?= /* @noEscape */ __('Save') ?>" type="submit">
+                <span><span><?= /* @noEscape */ __('Save') ?></span></span>
+            </button>
+        </div>
+        <?= $block->getBlockHtml('seller.formkey')?>
+        <?= $block->getBlockHtml('formkey')?>
+
+    <div class="wk-mp-design">
+                    <div class="field">
+                        <label><?= /* @noEscape */ __('Minimum Amount') ?></label>
+                        <div class="control">
+                        <input type="text" 
+                        class="input-text validate-number required-entry validate-greater-than-zero" 
+                        name="min_order_amount" title="Minimum Order Amount" 
+                        value ="<?=/* @noEscape */ $helper->getMinimumOrderValue()?>" 
+                        id="min_order_amount" />
+
+                        </div>
+                    </div>
+            </div>
+        <form>
+        <?php endif; ?>
+</div>

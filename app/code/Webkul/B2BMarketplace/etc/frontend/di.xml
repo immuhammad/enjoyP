@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Customer\Controller\Plugin\Account">
+        <arguments>
+            <argument name="allowedActions" xsi:type="array">
+                <item name="b2bmarketplace_supplier_register" xsi:type="string">register</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Customer\Controller\Account\ForgotPasswordPost">
+        <plugin name="ForgotPasswordPostAfterRedirect" type="Webkul\B2BMarketplace\Plugin\ForgotPasswordPostAfterRedirect" />
+    </type>
+    <type name="Magento\Customer\Block\Account\Forgotpassword">
+        <plugin name="ForgotPasswordPostAfterRedirect" type="Webkul\B2BMarketplace\Plugin\Customer\Block\Account\Forgotpassword" />
+    </type>
+    
+    <!-- Only this line is required for check captach during forgotpassword ovrrided -->
+    <preference for="Magento\Captcha\Observer\CheckForgotpasswordObserver" type="Webkul\B2BMarketplace\Observer\CheckForgotpasswordObserver"/>
+</config>

@@ -1,0 +1,109 @@
+{
+    "wk_affiliate_sale": {
+        "column": {
+            "entity_id": true,
+            "order_id": true,
+            "order_increment_id": true,
+            "aff_customer_id": true,
+            "order_status": true,
+            "price": true,
+            "commission": true,
+            "affiliate_status": true,
+            "come_from": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "wk_affiliate_clicks": {
+        "column": {
+            "entity_id": true,
+            "hit_type": true,
+            "hit_id": true,
+            "aff_customer_id": true,
+            "commission": true,
+            "customer_ip": true,
+            "customer_domain": true,
+            "come_from": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "wk_affiliate_payment": {
+        "column": {
+            "entity_id": true,
+            "transaction_id": true,
+            "transaction_email": true,
+            "ipn_transaction_id": true,
+            "aff_customer_id": true,
+            "transaction_amount": true,
+            "transaction_currency": true,
+            "transaction_data": true,
+            "payment_method": true,
+            "transaction_status": true,
+            "come_from": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "wk_affiliate_user_balance": {
+        "column": {
+            "entity_id": true,
+            "aff_customer_id": true,
+            "aff_name": true,
+            "clicks": true,
+            "unique_clicks": true,
+            "payment_method": true,
+            "balance_amount": true,
+            "pay_notify": true
+        },
+        "index": {
+            "WK_AFFILIATE_USER_BALANCE_AFF_CUSTOMER_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "WK_AFFILIATE_USER_BALANCE_AFF_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID": true
+        }
+    },
+    "wk_affiliate_text_banner": {
+        "column": {
+            "entity_id": true,
+            "title": true,
+            "text": true,
+            "link": true,
+            "link_title": true,
+            "banner_size": true,
+            "status": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "wk_affiliate_user": {
+        "column": {
+            "entity_id": true,
+            "customer_id": true,
+            "enable": true,
+            "current_payment_method": true,
+            "pay_per_click": true,
+            "pay_per_unique_click": true,
+            "commission_type": true,
+            "commission": true,
+            "blog_url": true,
+            "created_at": true
+        },
+        "index": {
+            "WK_AFFILIATE_USER_CUSTOMER_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "WK_AFFILIATE_USER_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID": true
+        }
+    }
+}

@@ -1,0 +1,297 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpVendorAttributeManager
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+$helper = $block->getHelper();
+$mpHelper = $block->getMpHelper();
+$jsonHelper = $block->getJsonHelper();
+$mediaUrl = $mpHelper->getMediaUrl();
+$customerAttributes = $block->getAttributeCollection();
+$customer = $block->loadCustomer();
+if ($helper->getConfigData('group_display') && $customer->getIsVendorGroup()) {
+    $customerAttributes = $block->getAttributeCollectionByGroup($customer->getIsVendorGroup());
+}
+
+if ($customerAttributes) {
+    ?>
+<div class="wkeditprofile">
+    <form name="customer-additional-attribute" action="<?= /**@noEscape */ $block->getCustomerActionUrl();?>"
+         enctype="multipart/form-data" method="post" data-role="form-profile-validate"
+         data-mage-init='{"validation":{}}'>
+        <?= /**@noEscape */ $block->getBlockHtml('formkey');?>
+        <div class="wk-mp-design">
+            <fieldset class="fieldset info wk-mp-fieldset custom-fieldset customer-attributes">
+                <div class="wk-mp-page-title page-title">
+                    <button class="button wk-mp-btn"
+                        title="<?= /**@noEscape */ __('Save Attributes') ?>"
+                        type="submit" id="save-btn">
+                        <span><span><?= /**@noEscape */ __('Save Attributes') ?></span></span>
+                    </button>
+                    <legend class="legend"><span><?= /**@noEscape */
+                        $block->getConfigData('profile_label') ?></span></legend>
+                </div>
+
+                <?php
+                foreach ($customerAttributes as $attribute) {
+                    $isRequired = $block->checkIfRequired($attribute->getId());
+                    ?>
+                    <div class="field profile
+                        <?= /**@noEscape */ $isRequired ? 'required' : '' ?>">
+                        <?php if ($attribute->getFrontendInput() != "boolean") { ?>
+                            <label for="<?= /**@noEscape */ $attribute->getStoreLabel(); ?>" class="label">
+                                <span><?= /**@noEscape */ $attribute->getStoreLabel(); ?></span>
+                            </label>
+                        <?php } ?>
+                        <div class="control">
+                            <?php
+                            $attributeCode = $attribute->getAttributeCode();
+
+                            switch ($attribute->getFrontendInput()) {
+                                case "text":
+                                    ?>
+                                <input type="text" name="<?= /**@noEscape */ $attributeCode; ?>"
+                                                    id="<?= /**@noEscape */ $attributeCode; ?>"
+                                                    value="<?= /**@noEscape */
+                                                        $block->escapeHtml($customer->getData($attributeCode)); ?>"
+                                                    <?= /**@noEscape */ $isRequired ?
+                                                        'data-validate=
+                                                            "{required:true,'."'validate-no-html-tags':true".'}"' :
+                                                            'data-validate="{'."'validate-no-html-tags':true".'}"' ?>
+                                                    class="input-text
+                                                        <?= /**@noEscape */ $attribute->getFrontendClass();?>"
+                                                    autocomplete="off" />
+                                    <?php
+                                    break;
+                                case "textarea":
+                                    $attributeValue = $customer->getData($attributeCode);
+                                    $textAreaValue = $block->getFilterData($attributeValue);
+                                    ?>
+                                <textarea name="<?= /**@noEscape */ $attributeCode; ?>"
+                                    id="<?= /**@noEscape */ $attributeCode; ?>"
+                                    <?= $isRequired ? 'data-validate="{required:true}"' : '' ?>
+                                    class="input-text validate-no-html-tags
+                                    <?= /**@noEscape */ $attribute->getFrontendClass(); ?>
+                                    "
+                                    ><?= /**@noEscape */ $textAreaValue; ?></textarea>
+                                    <?php
+                                    break;
+                                case "date":
+                                    $attributeValue = $customer->getData($attributeCode);
+                                    $dateValue = $attributeValue
+                                        ? $block->convertDateFormat($attributeValue)
+                                        : '';
+                                    ?>
+                                <input type="text" name="<?= /**@noEscape */ $attributeCode; ?>"
+                                                    id="<?= /**@noEscape */ $attributeCode; ?>"
+                                                    value="<?= /**@noEscape */ $dateValue; ?>"
+                                                    class="dob_type <?= /**@noEscape */
+                                                        $attribute->getFrontendClass(); ?>"
+                                                    <?= /**@noEscape */ $isRequired ?
+                                                        'data-validate="
+                                                            {required:true,'."'validate-no-html-tags':true".'}"' :
+                                                        'data-validate="{'."'validate-no-html-tags':true".'}"' ?>
+                                                    autocomplete="off" />
+                                    <?php
+                                    break;
+                                case "boolean":
+                                    $value = $customer->getData($attributeCode);
+                                    ?>
+                                <input type="checkbox" name="<?= /**@noEscape */ $attributeCode; ?>"
+                                                       id="<?= /**@noEscape */ $attributeCode; ?>"
+                                                       class="input-text <?= /**@noEscape */
+                                                        $attribute->getFrontendClass(); ?>"
+                                                       value="<?= /**@noEscape */
+                                                        $customer->getData($attributeCode); ?>"
+                                                       onchange="this.value = this.checked ? 1 : 0;"
+                                                       <?= /**@noEscape */ $isRequired ?
+                                                        'data-validate="{required:true}"' : '' ?>
+                                                       <?= /**@noEscape */
+                                                        $customer->getData($attributeCode) ? 'checked' : '' ; ?> />
+                                <label for="<?= /**@noEscape */ $attribute->getStoreLabel(); ?>"
+                                    class="label <?= /**@noEscape */ $isRequired ? 'wkboolreq' : '' ?>">
+                                <span><?= /**@noEscape */ $attribute->getStoreLabel(); ?></span>
+                            </label>
+                                    <?php
+                                    break;
+                                case "multiselect":
+                                    $options = $attribute->getSource()->getAllOptions();
+                                    $selectedoptions = $customer->getData($attributeCode);
+                                    ?>
+                                <select name="<?= /**@noEscape */ $attributeCode; ?>[]"
+                                        id="<?= /**@noEscape */ $attributeCode; ?>"
+                                        class="input-select <?= /**@noEscape */
+                                            $attribute->getFrontendClass(); ?>"
+                                        <?= /**@noEscape */ $isRequired ?
+                                            'data-validate="{required:true}"':''?>
+                                        multiple="multiple">
+                                        <?php
+                                        foreach ($options as $option) {
+                                            $selected = in_array(
+                                                $option['value'],
+                                                $selectedoptions
+                                            ) ? "selected" : ""; ?>
+                                        ?>
+                                            <option  value="<?= /**@noEscape */ $option['value'] ?>"
+                                                <?= /**@noEscape */ $selected; ?>>
+                                                <?= /**@noEscape */ $option['label'] ?>
+                                            </option>
+                                        <?php } ?>
+                                </select>
+                                    <?php
+                                    break;
+                                case "select":
+                                    $options = $attribute->getSource()->getAllOptions();
+                                    $selectedOption = $customer->getData($attributeCode);
+                                    ?>
+                                <select name="<?= /**@noEscape */ $attributeCode; ?>"
+                                        id="<?= /**@noEscape */ $attributeCode; ?>"
+                                        class="input-select
+                                            <?= /**@noEscape */ $attribute->getFrontendClass(); ?>"
+                                        >
+                                        <?php
+                                        foreach ($options as $option) {
+                                            $selected = ($option['value'] == $selectedOption) ? "selected" : ""; ?>
+                                        ?>
+                                            <option  value="<?= /**@noEscape */ $option['value'] ?>"
+                                            <?= /**@noEscape */ $selected; ?>>
+                                            <?= /**@noEscape */ $option['label'] ?></option>
+                                        <?php } ?>
+                                </select>
+                                    <?php
+                                    break;
+                                case "image":
+                                    $imageValue = $customer->getData($attributeCode);
+                                    if (isset($imageValue) && $imageValue != 1) {
+                                        $imageUrl = $mediaUrl."vendorfiles/image/".$imageValue;
+                                    }
+                                    $fieldId = "customfields_image_".$attributeCode;
+                                    ?>
+                                    <input type="file" name="<?= /**@noEscape */ $attributeCode; ?>"
+                                        id="<?= /**@noEscape */ $attributeCode; ?>"
+                                        data-allowed="<?= /**@noEscape */
+                                            $helper->getConfigData('allowede_image_extension'); ?>"
+                                        class="input-text custom_file <?= /**@noEscape */ $attributeCode; ?>"
+                                        <?= /**@noEscape */ $isRequired && !isset($imageUrl) ?
+                                         'data-validate="{required:true}"' : '' ?>
+                                        data-value="<?= /**@noEscape */ $imageValue; ?>" />
+                                    <?php if (isset($imageValue) && $imageValue != 1) { ?>
+                                    <a href="<?= /**@noEscape */ $imageUrl ?>"
+                                        onclick="imagePreview('<?= /**@noEscape */ $fieldId ?>'); return false;">
+                                        <img src="<?= /**@noEscape */ $imageUrl ?>"
+                                            id="<?= /**@noEscape */ $fieldId ?>"
+                                            title="<?= /**@noEscape */ __("Preview Image"); ?>"
+                                            height="22" width="22" class="small-image-preview v-middle">
+                                    </a>
+                                <?php } ?>
+
+                                    <?php if (!$isRequired && isset($imageValue) && $imageValue != 1) { ?>
+                                    <span class="delete-image">
+                                        <input type="checkbox" name="<?= /**@noEscape */
+                                            $attributeCode; ?>['delete']" value=""
+                                            onchange="this.value = this.checked ? 1 : 0;" class="checkbox">
+                                        <label for="customfields_your_image_delete">
+                                            <?= /**@noEscape */ __('Delete Image') ?></label>
+                                    </span>
+                                    <input type="hidden"
+                                        name="customer['<?= /**@noEscape */ $attributeCode; ?>']"
+                                        value="<?= /**@noEscape */ $imageValue; ?>" />
+                                <?php } ?>
+                                <br/>
+                                <span class="note">
+                                    <?= /**@noEscape */ __("Allowed Extension's : "); ?>
+                                    <span><?= /**@noEscape */
+                                        $block->getConfigData('allowede_image_extension') ?></span>
+                                </span>
+                                    <?php
+                                    break;
+                                case "file":
+                                    $fileValue = $customer->getData($attributeCode);
+                                    if (isset($fileValue) && $fileValue != 1) {
+                                        $fileUrl = $mediaUrl."vendorfiles/file/".$fileValue;
+                                    }
+                                    ?>
+                                    <?php if (isset($fileValue) && $fileValue != 1) { ?>
+                                    <a href="<?= /**@noEscape */ $fileUrl
+                                        //$helper->encodeFileName($attribute->getFrontendInput(), $fileValue); ?>">
+                                        <img alt="Download" title="Download"
+                                            src="<?= /**@noEscape */
+                                            $block->
+                                                getViewFileUrl('Webkul_MpVendorAttributeManager::images/download.gif');
+                                            ?>"
+                                            class="v-middle wk_download_link" style="float: left;width: 22px;">
+                                        <?= /**@noEscape */ __('Download'); ?>
+                                    </a>
+                                <?php } ?>
+                                <input type="file" name="<?= /**@noEscape */ $attributeCode; ?>"
+                                                    id="<?= /**@noEscape */ $attributeCode; ?>"
+                                                    data-allowed="<?= /**@noEscape */
+                                                        $helper->getConfigData('allowede_file_extension'); ?>"
+                                                    class="input-text custom_file
+                                                        <?= /**@noEscape */ $attributeCode; ?>"
+                                                    <?= /**@noEscape */ $isRequired && !isset($fileUrl) ?
+                                                        'data-validate="{required:true}"' : '' ?>
+                                                    data-value="<?= /**@noEscape */ $fileValue; ?>" />
+                                    <?php if (!$isRequired && isset($fileValue) && $fileValue != 1) { ?>
+                                    <span class="delete-image">
+                                        <input type="checkbox"
+                                            name="<?= /**@noEscape */ $attributeCode; ?>['delete']"
+                                            value="" onchange="this.value = this.checked ? 1 : 0;"
+                                            class="checkbox">
+                                        <label for="customfields_your_image_delete">
+                                            <?= /**@noEscape */ __('Delete File') ?></label>
+                                    </span>
+                                    <input type="hidden"
+                                        name="customer['<?= /**@noEscape */ $attributeCode; ?>']"
+                                        value="<?= /**@noEscape */ $fileValue; ?>" />
+                                <?php } ?>
+                                <br>
+                                <span class="note">
+                                    <?= /**@noEscape */ __("Allowed Extension's : "); ?>
+                                    <span><?= /**@noEscape */
+                                        $block->getConfigData('allowede_file_extension') ?></span>
+                                </span>
+                                    <?php
+                                    break;
+                                default:
+                                    ?>
+                                <input type="text" name="<?= /**@noEscape */ $attributeCode; ?>"
+                                            id="<?= /**@noEscape */ $attributeCode; ?>"
+                                            data-type= "<?= /**@noEscape */ $attribute->getFrontendType(); ?>"
+                                            value=""
+                                            class="input-text" autocomplete="off" />
+                                    <?php
+                            }
+                            ?>
+                        </div>
+                    </div>
+                <?php } ?>
+            </fieldset>
+        </div>
+    </form>
+</div>
+<?php } else {
+    echo "<p style='color:red'>".$block->escapeHtml(__("Sorry! No attributes are assigned to Customer."))."</p>";
+} ?>
+<?php
+    $optionData = [
+        'dateField'     => '.dob_type',
+        'dateFormat'     => 'yyyy-MM-dd',
+        'imageField'    => '.custom_file',
+        'wysiwygUrl'    => $block->getWysiwygUrl()
+    ];
+    $serializedData = $jsonHelper->jsonEncode($optionData);
+    ?>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "editProfile": <?= /**@noEscape */ $serializedData; ?>
+    }
+}
+</script>

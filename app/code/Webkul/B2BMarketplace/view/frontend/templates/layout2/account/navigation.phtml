@@ -1,0 +1,199 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+// updated file to add notification for seller.
+$quickOrderBlock =  $block->getLayout()->createBlock(
+    \Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class
+);
+
+$_helper = $quickOrderBlock->helper(\Webkul\Marketplace\Helper\Data::class);
+$isPartner= $_helper->isSeller();
+$magentoCurrentUrl = $block->getCurrentUrl();
+$allow_pro_type=$_helper->getAllowedProductType();
+$isSellerGroup = $_helper->isSellerGroupModuleInstalled();
+$productNotificationCount = $block->getProductNotificationCount();
+$orderNotificationCount = $block->getOrderNotificationCount();
+$transactionCount = $block->getTransactionNotificationCount();
+?>
+<nav data-mage-init='{"Webkul_Marketplace/js/sellerNavigation": {}}' class="wk-mp-menu wk-mp-main">
+    <ul id="wk-mp-nav">
+        <?php if ($isPartner): ?>
+            <?php if (($isSellerGroup &&
+            $_helper->isAllowedAction('marketplace/account/dashboard')) || !$isSellerGroup): ?>
+                <li class="wk-mp-item-dashboard level-0 <?= $block
+                ->escapeHtml(strpos($magentoCurrentUrl, 'marketplace/account/dashboard')? "current active":"");?>" 
+                id="wk-mp-menu-dashboard" >
+                    <a href="<?= $block->escapeHtml($block->getUrl('marketplace/account/dashboard', [
+                        '_secure' => $block->getRequest()->isSecure()])); ?>" 
+                        class="<?= $block
+                        ->escapeHtml(strpos($magentoCurrentUrl, 'marketplace/account/dashboard')? "active":"");?>">
+                        <span><?= $block->escapeHtml(__('Dashboard')) ?></span>
+                    </a>
+                </li>
+            <?php endif; ?>
+
+            <li class="level-0 <?= $block
+            ->escapeHtml(strpos($magentoCurrentUrl, 'b2bmarketplace/supplier/message')? "current active":"");?>" 
+            id="wk-mp-menu-messages" >
+                <a href="<?= $block->escapeHtml($block->getUrl('b2bmarketplace/supplier/message', [
+                    '_secure' => $block->getRequest()->isSecure()])); ?>" 
+                    class="<?= $block
+                    ->escapeHtml(strpos($magentoCurrentUrl, 'b2bmarketplace/supplier/message')? "active":"");?>">
+                    <span><?= $block->escapeHtml(__('Messages')) ?></span>
+                </a>
+            </li>
+
+            <?php if (($isSellerGroup && $_helper->isAllowedAction('marketplace/order/history')) || !$isSellerGroup): ?>
+                <li class="nav item notification-link wk-mp-item-order level-0 <?=
+                    $block->escapeHtml(strpos($magentoCurrentUrl, 'marketplace/order') &&
+                    (!strpos($magentoCurrentUrl, 'marketplace/order/shipping/'))? "current active":"");?>" 
+                    id="wk-mp-menu-order" >
+                    <a href="<?= $block->escapeHtml($block->getUrl('marketplace/order/history', [
+                        '_secure' => $block->getRequest()->isSecure()])); ?>" 
+                        class="<?= $block->escapeHtml(strpos($magentoCurrentUrl, 'marketplace/order') &&
+                        (!strpos($magentoCurrentUrl, 'marketplace/order/shipping/'))? "active":"");?>">
+                        <span><?= $block->escapeHtml(__('Orders')) ?></span>
+                    </a>
+                </li>
+            <?php endif; ?>
+            <?php if (($isSellerGroup &&
+            $_helper->isAllowedAction('marketplace/product/add')) ||
+            ($isSellerGroup && $_helper->isAllowedAction('marketplace/product/productlist')) ||
+            ($isSellerGroup && $_helper->isAllowedAction('marketplace/product_attribute/new')) ||
+            !$isSellerGroup): ?>
+                <li class="wk-mp-item-product level-0 <?= $block
+                ->escapeHtml(strpos($magentoCurrentUrl, 'marketplace/product/')? "current active":"");?>" 
+                id="wk-mp-menu-product">
+                    <a href="#" onclick="return false;" class="">
+                        <span><?= $block->escapeHtml(__('Products'))?></span>
+                    </a>
+                    <div class="wk-mp-submenu">
+                        <strong class="wk-mp-submenu-title"><?= $block->escapeHtml(__('Products'))?></strong>
+                        <a href="#" class="action-close _close" data-role="wk-mp-close-submenu"></a>
+                        <ul>
+                            <li data-ui-id="menu-webkul-marketplace-menu" class="item-menu  parent  level-1">
+                                <strong class="wk-mp-submenu-group-title">
+                                    <span><?= $block->escapeHtml(__('Menu'))?></span>
+                                </strong>
+                                <div class="wk-mp-submenu">
+                                    <ul>
+                                        <?php if (($isSellerGroup &&
+                                        $_helper->isAllowedAction('marketplace/product/add')) ||
+                                                            !$isSellerGroup): ?>
+                                            <li class="level-2">
+                                                <a href="<?= $block
+                                                ->escapeHtml($block->getUrl('marketplace/product/add', [
+                                                    '_secure' => $block->getRequest()->isSecure()])); ?>">
+                                                    <span><?= $block->escapeHtml(__('Add Products')) ?></span>
+                                                </a>
+                                            </li>
+                                        <?php endif; ?>
+                                        <?php if (($isSellerGroup && $_helper
+                                        ->isAllowedAction('marketplace/product/productlist')) ||
+                                        !$isSellerGroup): ?>
+                                            <li class="level-2">
+                                                <a href="<?= $block
+                                                ->escapeHtml($block->getUrl('marketplace/product/productlist', [
+                                                    '_secure' => $block->getRequest()->isSecure()])); ?>">
+                                                    <span><?= $block->escapeHtml(__('My Products List')) ?></span>
+                                                </a>
+                                            </li>
+                                        <?php endif; ?>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            <?php endif; ?>
+            <?php if (($isSellerGroup && $_helper
+            ->isAllowedAction('marketplace/account/customer')) ||
+            !$isSellerGroup): ?>
+                <?php if ($_helper->getSellerProfileDisplayFlag()): ?>
+                    <li class="nav item notification-link wk-mp-item-customer level-0 <?= $block
+                    ->escapeHtml(strpos($magentoCurrentUrl, 'marketplace/account/customer')? "current active":"");?>" 
+                    id="wk-mp-menu-customer" >
+                        <a href="<?= $block->escapeHtml($block->getUrl('marketplace/account/customer/', [
+                            '_secure' => $block->getRequest()->isSecure()])); ?>" 
+                            class="<?= $block
+                            ->escapeHtml(strpos($magentoCurrentUrl, 'marketplace/account/customer')? "active":"");?>">
+                            <span><?= $block->escapeHtml(__('Customers')) ?></span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+            <?php endif; ?>
+            <?php if (($isSellerGroup &&
+            $_helper->isAllowedAction('marketplace/transaction/history')) ||
+            !$isSellerGroup) { ?>
+                <li class="nav item notification-link wk-mp-item-transaction level-0 <?= $block
+                ->escapeHtml(strpos($magentoCurrentUrl, 'marketplace/transaction/history')? "current active":"");?>" 
+                id="wk-mp-menu-transaction" >
+                    <a href="<?= $block
+                    ->escapeHtml($block->getUrl('marketplace/transaction/history', [
+                        '_secure' => $block->getRequest()->isSecure()])); ?>" 
+                        class="<?= $block
+                        ->escapeHtml(strpos($magentoCurrentUrl, 'marketplace/transaction/history')? "active":"");?>">
+                        <span><?= $block
+                        ->escapeHtml(__('Transactions')) ?></span>
+                    </a>
+                </li>
+            <?php } ?>
+            <?php if (($isSellerGroup &&
+            $_helper->isAllowedAction('marketplace/account/review')) ||
+            !$isSellerGroup) { ?>
+                <?php if ($_helper->getSellerProfileDisplayFlag()) { ?>
+                    <li class="wk-mp-item-review level-0 <?= $block
+                    ->escapeHtml(strpos($magentoCurrentUrl, 'marketplace/account/review')? "current active":"");?>" 
+                    id="wk-mp-menu-review" >
+                        <a href="<?= $block->escapeHtml($block->getUrl('marketplace/account/review', [
+                            '_secure' => $block->getRequest()->isSecure()])); ?>" 
+                            class="<?= $block
+                            ->escapeHtml(strpos($magentoCurrentUrl, 'marketplace/account/review')? "active":"");?>">
+                            <span><?= $block->escapeHtml(__('Review')) ?></span>
+                        </a>
+                    </li>
+                <?php } ?>
+            <?php } ?>
+
+            <?= /* @noEscape */ $block->getChildHtml('layout2_seller_account_navigation');?>
+            <?php if (($isSellerGroup && $_helper
+            ->isAllowedAction('b2bmarketplace/supplier/verification')) || !$isSellerGroup): ?>
+                <li class="nav item wk-mp-item-settings level-0 <?= $block
+                ->escapeHtml(strpos($magentoCurrentUrl, 'b2bmarketplace/supplier/verification')?
+                "current active":"");?>" 
+                id="wk-mp-item-verification" >
+                    <a href="<?= $block
+                    ->escapeHtml($block->getUrl('b2bmarketplace/supplier/verification/', [
+                        '_secure' => $block->getRequest()->isSecure()])); ?>" 
+                        class="<?= $block
+                        ->escapeHtml(strpos($magentoCurrentUrl, 'b2bmarketplace/supplier/verification')?
+                        "active":"");?>">
+                        <span><?= $block->escapeHtml(__('Verification')) ?></span>
+                    </a>
+                </li>
+            <?php endif; ?>
+            <?= /* @noEscape */ $block->getChildHtml('layout2_seller_account_navigation_settings_menu'); ?>
+        <?php else: ?>
+            <?= /* @noEscape */ $block->getChildHtml('layout2_seller_account_navigation');?>
+            <li class="wk-mp-item-order-shipping level-0 <?= $block
+            ->escapeHtml(strpos($magentoCurrentUrl, 'marketplace/account/becomeseller')? "current active":"");?>" 
+            id="wk-mp-menu-becomeseller" >
+                <a href="<?= $block
+                ->escapeHtml($block->getUrl('marketplace/account/becomeseller/', [
+                    '_secure' => $block->getRequest()->isSecure()])); ?>" 
+                    class="<?= $block
+                    ->escapeHtml(strpos($magentoCurrentUrl, 'marketplace/account/becomeseller')? "active":"");?>">
+                    <span><?= $block->escapeHtml(__('Become Supplier')) ?></span>
+                </a>
+            </li>
+        <?php endif; ?>
+    </ul>
+</nav>

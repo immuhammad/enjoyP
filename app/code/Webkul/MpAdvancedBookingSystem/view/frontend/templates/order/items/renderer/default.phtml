@@ -1,0 +1,124 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpAdvancedBookingSystem
+ * @author    Webkul Software Private Limited
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+/** @var  $block \Magento\Sales\Block\Order\Item\Renderer\DefaultRenderer */
+$_item = $block->getItem();
+$viewModel = $block->getBookingViewModel();
+if ($viewModel === null) {
+    $viewModel = $block->getLayout()->createBlock(
+        \Webkul\MpAdvancedBookingSystem\Block\GetViewModel::class
+    )->getBookingViewModel();
+}
+
+$helper = $viewModel->getHelper();
+$cancellationAvail = $helper->getConfigData('mpadvancedbookingsystem/cancellation/cancellation_available');
+$cancelStatus = $helper->getCancellationStatus($_item->getOrderId(), $_item->getItemId());
+$cancellationInfo = $helper->getCancellationInfo($_item->getOrderId(), $_item->getItemId());
+?>
+<tr id="order-item-row-<?= /** @escapeNotVerified */ $_item->getId() ?>">
+    <td class="col name" data-th="<?= $block->escapeHtml(__('Product Name')) ?>">
+        <strong class="product name product-item-name"><?= $block->escapeHtml($_item->getName()) ?></strong>
+        <?php if ($_options = $block->getItemOptions()): ?>
+            <dl class="item-options">
+            <?php foreach ($_options as $_option): ?>
+                <dt><?= $block->escapeHtml(__($_option['label'])) ?></dt>
+                <?php if (!$block->getPrintStatus()): ?>
+                    <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+                    <dd>
+                        <?php if (isset($_formatedOptionValue['full_view'])): ?>
+                            <?= $block->escapeHtml(__($_formatedOptionValue['full_view']), ['a']) ?>
+                        <?php else: ?>
+                            <?= $block->escapeHtml(__($_formatedOptionValue['value']), ['a']) ?>
+                        <?php endif; ?>
+                    </dd>
+                <?php else: ?>
+                    <dd>
+                        <?php if (!empty($_option['print_value'])) { ?>
+                            <?= /** @escapeNotVerified */ nl2br(__($_option['print_value'])); ?>
+                        <?php } else { ?>
+                            <?= /** @escapeNotVerified */ nl2br(__($_option['value'])); ?>
+                        <?php } ?>
+                    </dd>
+                <?php endif; ?>
+            <?php endforeach; ?>
+            </dl>
+        <?php endif; ?>
+        <?php if (empty($cancellationInfo->getData())): ?>
+            <?php if ($helper->isCustomerLoggedIn()): ?>
+                <?php $cancelUrl = $block->getUrl('mpadvancebooking/cancellation/', [
+                    'id' => $_item->getId(),
+                    'order_id' => $_item->getOrderId()
+                    ]) ?>
+            <?php else: ?>
+                <?php $cancelUrl = $block->getUrl('mpadvancebooking/cancellation/guestindex', [
+                    'id' => $_item->getId(),
+                    'order_id' => $_item->getOrderId()
+                    ]) ?>
+            <?php endif; ?>
+            <?php if ($cancellationAvail && $_item->getIsCancellationAvailable()
+                && $_item->canRefund() && $cancelStatus): ?>
+                <a style="padding: 3px 7px; margin-top: 5px;" class="action primary"
+                    href="<?= /** @escapeNotVerified */ $cancelUrl?>">
+                    <?= $block->escapeHtml(__('Cancel Booking')) ?>
+                </a>
+            <?php endif; ?>
+        <?php else: ?>
+            <?php if ($cancellationInfo->getStatus() == 1) { ?>
+                <?php $status = __('Cancellation completed') ?>
+            <?php } else { ?>
+                <?php $status = __('Cancellation request already created') ?>
+            <?php } ?>
+            <strong><?= /** @escapeNotVerified */ $status ?></strong>
+        <?php endif; ?>
+        <?php $addtInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+        <?php if ($addtInfoBlock): ?>
+            <?= /** @escapeNotVerified */ $addtInfoBlock->setItem($_item)->toHtml() ?>
+        <?php endif; ?>
+        <?= $block->escapeHtml($_item->getDescription()) ?>
+    </td>
+    <td class="col sku" data-th="<?= $block->escapeHtml(__('SKU')) ?>">
+        <?= /** @escapeNotVerified */ $block->prepareSku($block->getSku()) ?>
+    </td>
+    <td class="col price" data-th="<?= $block->escapeHtml(__('Price')) ?>">
+        <?= /** @escapeNotVerified */ $block->getItemPriceHtml() ?>
+    </td>
+    <td class="col qty" data-th="<?= $block->escapeHtml(__('Qty')) ?>">
+        <ul class="items-qty">
+        <?php if ($block->getItem()->getQtyOrdered() > 0): ?>
+            <li class="item">
+                <span class="title"><?= /** @escapeNotVerified */ __('Ordered') ?></span>
+                <span class="content"><?= /** @escapeNotVerified */ $block->getItem()->getQtyOrdered()*1 ?></span>
+            </li>
+        <?php endif; ?>
+        <?php if ($block->getItem()->getQtyShipped() > 0): ?>
+            <li class="item">
+                <span class="title"><?= /** @escapeNotVerified */ __('Shipped') ?></span>
+                <span class="content"><?= /** @escapeNotVerified */ $block->getItem()->getQtyShipped()*1 ?></span>
+            </li>
+        <?php endif; ?>
+        <?php if ($block->getItem()->getQtyCanceled() > 0): ?>
+            <li class="item">
+                <span class="title"><?= /** @escapeNotVerified */ __('Canceled') ?></span>
+                <span class="content"><?= /** @escapeNotVerified */ $block->getItem()->getQtyCanceled()*1 ?></span>
+            </li>
+        <?php endif; ?>
+        <?php if ($block->getItem()->getQtyRefunded() > 0): ?>
+            <li class="item">
+                <span class="title"><?= /** @escapeNotVerified */ __('Refunded') ?></span>
+                <span class="content"><?= /** @escapeNotVerified */ $block->getItem()->getQtyRefunded()*1 ?></span>
+            </li>
+        <?php endif; ?>
+        </ul>
+    </td>
+    <td class="col subtotal" data-th="<?= $block->escapeHtml(__('Subtotal')) ?>">
+        <?= /** @escapeNotVerified */ $block->getItemRowTotalHtml() ?>
+    </td>
+</tr>

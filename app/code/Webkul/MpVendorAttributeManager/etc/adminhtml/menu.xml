@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpVendorAttributeManager
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="Webkul_MpVendorAttributeManager::index" translate="title" title="Attribute Manager" module="Webkul_MpVendorAttributeManager" sortOrder="30" parent="Webkul_MpVendorAttributeManager::menu" action="vendorattribute/attribute" resource="Webkul_MpVendorAttributeManager::index"/>
+		<add id="Webkul_MpVendorAttributeManager::group" translate="title" title="Attribute Group Manager" module="Webkul_MpVendorAttributeManager" sortOrder="30" parent="Webkul_MpVendorAttributeManager::menu" action="vendorattribute/group" resource="Webkul_MpVendorAttributeManager::group"/>
+		<add id="Webkul_MpVendorAttributeManager::menu" translate="title" title="Attribute Manager" module="Webkul_MpVendorAttributeManager" sortOrder="30" parent="Webkul_Marketplace::marketplace" resource="Webkul_MpVendorAttributeManager::menu"/>
+	</menu>
+</config>

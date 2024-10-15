@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpquotesystem
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="min_quote_qty" xsi:type="array">
+                    <item name="class" xsi:type="string">Webkul\Mpquotesystem\Ui\DataProvider\Product\Form\Modifier\MinQuoteQty</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+        <preference for="Magento\Catalog\Controller\Adminhtml\Product\Save" type="Webkul\Mpquotesystem\Controller\Adminhtml\Rewrite\Product\Save" />
+    <type name="Webkul\Mpquotesystem\Ui\Component\MassAction\Status\QuoteOptions">		
+        <arguments>		
+            <argument name="data" xsi:type="array">		
+                <item name="urlPath" xsi:type="string">mpquotesystem/managequotes/massUpdate</item>		
+                <item name="paramName" xsi:type="string">quoteupdate</item>		
+                <item name="confirm" xsi:type="array">		
+                    <item name="title" xsi:type="string" translatable="true">Quote Status</item>		
+                    <item name="message" xsi:type="string" translatable="true">Are you sure you want to update status of selected quotes?</item>		
+                </item>		
+            </argument>		
+        </arguments>		
+    </type>
+</config>

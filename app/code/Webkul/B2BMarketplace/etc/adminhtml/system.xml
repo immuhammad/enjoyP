@@ -1,0 +1,202 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="marketplace">
+            <label>B2B Configuration</label>
+            <group id="general_settings">
+                <field id="adminemail">
+                    <label>Admin Email</label>
+                </field>
+                <field id="order_manage">
+                    <label>Allow Supplier to Manage Orders</label>
+                </field>
+                <field id="tax_manage">
+                    <label>Move Product Tax to Supplier Account</label>
+                </field>
+                <field id="seller_approval">
+                    <label>Supplier Approval Required</label>
+                </field>
+            </group>
+            <group id="layout_settings">
+                <label>Supplier Dashboard Layout Settings</label>
+                <field id="is_separate_panel" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>Allow supplier separate dashboard</label>
+                </field>
+                <field id="logo">
+                    <label>Supplier dashboard logo image</label>
+                </field>
+            </group>
+            <group id="product_settings">
+                <label>Supplier Product's Settings</label>
+                <field id="categoryids">
+                    <label>Allowed Categories for supplier to add products</label>
+                </field>
+                <field id="allow_for_seller">
+                    <label>Product Type For Supplier</label>
+                </field>
+                <field id="sku_type">
+                    <label>Allow Supplier to add products with sku type</label>
+                </field>
+                <field id="allow_related_product">
+                    <label>Allow Supplier to Add Related Products</label>
+                </field>
+                <field id="allow_upsell_product">
+                    <label>Allow Supplier to Add Up-Sell Products</label>
+                </field>
+                <field id="allow_crosssell_product">
+                    <label>Allow Supplier to Add Cross-Sell Products</label>
+                </field>
+                <field id="allow_product_limit">
+                    <label>Allow Supplier to Add Limit on Product Purchase for Customer</label>
+                </field>
+            </group>
+            <group id="inventory_settings">
+                <field id="low_stock_notification">
+                    <comment>Allow to send low stock notification mail to suppliers</comment>
+                </field>
+                <field id="low_stock_amount">
+                    <comment>Allow to send low stock notification mail to suppliers when product quantity will be equal or less then this quantity</comment>
+                </field>
+            </group>
+            <group id="order_settings">
+                <label>Supplier Order's Settings</label>
+            </group>
+            <group id="review_settings">
+                <label>Supplier Review Settings</label>
+                <field id="review_status">
+                    <comment>Allow only authorize buyers to review for supplier</comment>
+                </field>
+            </group>
+            <group id="profile_settings">
+                <label>Supplier Profile Page Settings</label>
+                <field id="seller_profile_display" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>Display Supplier Profile</label>
+                </field>
+                <field id="activecolorpicker" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <comment>Allow suppliers to change their profile page background color</comment>
+                </field>
+                <field id="seller_policy_approval">
+                    <label>Supplier Policies Enable at frontend</label>
+                </field>
+                <field id="url_rewrite">
+                    <label>Rewrite Supplier's Shop URL</label>
+                    <comment>Allow supplier to manage their shop URL</comment>
+                </field>
+                <field id="auto_url_rewrite">
+                    <label>Allow to automatic create supplier public url on supplier registration</label>
+                    <comment>Automatic create supplier public url as profile url - yourwebsite.com/supplier-shop-url, collection url - yourwebsite.com/supplier-shop-url/collection, location url - yourwebsite.com/supplier-shop-url/location, feedback url - yourwebsite.com/supplier-shop-url/feedback on supplier registration</comment>
+                </field>
+            </group>
+            <group id="landingpage_settings">
+                <field id="allow_seller_registration_block" sortOrder="0" showInDefault="0" showInWebsite="0" showInStore="0">
+                    <label>Display Supplier registration block on customer registration page</label>
+                </field>
+                <field id="marketplacelabel2">
+                    <comment>e.g Suppliers with Taste (will be display above top 4 supplier's block)</comment>
+                </field>
+                <field id="marketplacelabel3">
+                    <comment>e.g More than 500 shop owners have joined us last month (will be display above "View All Suppliers" button)</comment>
+                </field>
+                <field id="sellerlisttop">
+                    <label>Marketplace Supplier List Page Top Label</label>
+                </field>
+                <field id="sellerlistbottom">
+                    <label>Marketplace Supplier List Page Bottom Label</label>
+                </field>
+                <field id="termConditionLinkLayout2">
+                    <comment>e.g Terms and Conditions link(cms page link) where customer will see all the terms of becoming supplier, url will be look like - http://www.yourwebsite.com/terms-conditions</comment>
+                </field>
+                <field id="marketplacelabel3Layout3">
+                    <comment>e.g Open your online shop and Explore a new world of market with more than millions of shoppers(will be display above "View All Suppliers" button)</comment>
+                </field>
+                <field id="termConditionLinkLayout3">
+                    <comment>e.g Terms and Conditions link(cms page link) where customer will see all the terms of becoming supplier, url will be look like -www.yourwebsite.com/terms-conditions</comment>
+                </field>
+            </group>
+            <group id="profilehint_settings" showInDefault="0" showInWebsite="0" showInStore="0"></group>
+            <group id="email">
+                <field id="seller_approve_notification_template">
+                    <label>Supplier Approved Template</label>
+                </field>
+                <field id="becomeseller_request_notification_template">
+                    <label>Supplier Request Template</label>
+                </field>
+                <field id="seller_disapprove_notification_template">
+                    <label>Supplier Unsubscribe Template</label>
+                </field>
+                <field id="seller_deny_notification_template">
+                    <label>Supplier Deny by Admin Template</label>
+                </field>
+                <field id="askproductquery_seller_template">
+                    <label>Ask Question to Supplier Regarding Product Template</label>
+                </field>
+                <field id="askquery_seller_template">
+                    <label>Ask Question to Supplier Template</label>
+                </field>
+                <field id="askquery_admin_template">
+                    <label>Ask Question to Admin By Supplier Template</label>
+                </field>
+                <field id="product_approve_notification_template">
+                    <label>Product approval Mail to Supplier Template</label>
+                </field>
+                <field id="product_disapprove_notification_template">
+                    <label>Product disapproval Mail to Supplier Template</label>
+                </field>
+                <field id="order_placed_notification_template">
+                    <label>Supplier Order Placed Notification Mail Template</label>
+                </field>
+                <field id="order_invoiced_notification_template">
+                    <label>Supplier Order Invoiced Notification Mail Template</label>
+                </field>
+                <field id="seller_transaction_notification_template">
+                    <label>Supplier Transaction Mail Template</label>
+                </field>
+                <field id="low_stock_template">
+                    <label>Supplier Low Stock Notification Template</label>
+                </field>
+                <field id="b2b_marketplace_new_message_template" translate="label comment" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send New Message Mail Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="b2b_marketplace_verified_supplier_template" translate="label comment" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Verified Supplier Mail Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="rfq_mail_to_seller_template" translate="label comment" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Request for Quote Mail to Supplier Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <!-- This model return all transactional email template list of magento -->
+                </field>
+                <field id="rfq_reply_mail_to_seller_template" translate="label comment" type="select" sortOrder="101" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Request for Quote Reply Mail to Supplier Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <!-- This model return all transactional email template list of magento -->
+                </field>
+                <field id="rfq_reply_mail_to_customer_template" translate="label comment" type="select" sortOrder="102" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Request for Quote Reply Mail to Customer Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <!-- This model return all transactional email template list of magento -->
+                </field>
+            </group>
+            <!-- <group id="quote_settings" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Quote Settings</label>
+                <field id="forward_quote_time" translate="label comment" sortOrder="1" type="text" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Time in which forward quote to other suppliers if quote was not replied by respective supplier</label>
+                    <validate>validate-digits</validate>
+                    <comment>Set Time in hours</comment>
+                </field>
+            </group> -->
+        </section>
+    </system>
+</config>

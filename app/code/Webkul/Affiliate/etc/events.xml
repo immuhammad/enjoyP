@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Affiliate Events xml.
+ *
+ * @category  Webkul
+ * @package   Webkul_Affiliate
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="customer_register_success">
+        <observer name="webkul_affiliate_customer_register_success_observer" instance="Webkul\Affiliate\Observer\CustomerRegisterSuccessObserver" />
+    </event>
+    <event name="controller_action_predispatch">
+        <observer name="webkul_affiliate_controller_action_predispatch" instance="Webkul\Affiliate\Observer\ControllerActionPredispatch" />
+    </event>
+    <event name="checkout_submit_all_after">
+        <observer name="webkul_affiliate_sales_order_place_after" instance="Webkul\Affiliate\Observer\CheckoutSubmitAllAfter" />
+    </event>
+    <event name="adminhtml_customer_save_after">
+        <observer name="webkul_affiliate_user_save_after" instance="Webkul\Affiliate\Observer\CustomerSaveAfter" />
+    </event>
+    <event name="sales_order_save_commit_after">
+        <observer name="webkul_affiliate_sales_order_status_change" instance="Webkul\Affiliate\Observer\ChangeOrderStatus" />
+    </event>
+</config>

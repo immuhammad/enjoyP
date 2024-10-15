@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Affiliate
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="wk_affiliate_sale" resource="default" engine="innodb" comment="Affiliate Product Sale Record">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="order_id" unsigned="true" nullable="false" comment="Magento Order Id"/>
+        <column xsi:type="varchar" name="order_increment_id" length="255" nullable="false" comment="Order Increment Id"/>
+        <column xsi:type="int" name="aff_customer_id" unsigned="true" nullable="false" comment="Affilate User Id"/>
+        <column xsi:type="varchar" name="order_status" length="255" comment="Order Status"/>
+        <column xsi:type="decimal" name="price" scale="4" precision="12" default="0.0000" nullable="false" comment="Product Price"/>
+        <column xsi:type="decimal" name="commission" scale="4" precision="12" default="0.0000" nullable="false" comment="Affiliate Commission"/>
+        <column xsi:type="int" name="affiliate_status" unsigned="true" nullable="false" default="0" comment="Affiliate Status"/>
+        <column xsi:type="text" name="come_from" comment="Come From"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" default="CURRENT_TIMESTAMP" comment="Product Order Place Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="wk_affiliate_clicks" resource="default" engine="innodb" comment="Affiliate Click Record">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="varchar" name="hit_type" length="255" comment="Buyer Email"/>
+        <column xsi:type="int" name="hit_id" unsigned="true" nullable="false" comment="Hit Id"/>
+        <column xsi:type="int" name="aff_customer_id" unsigned="true" nullable="false" comment="Affilate User Id"/>
+        <column xsi:type="decimal" name="commission" scale="4" precision="12" default="0.0000" nullable="false" comment="Commission Price"/>
+        <column xsi:type="varchar" name="customer_ip" length="255" comment="Customer IP"/>
+        <column xsi:type="varchar" name="customer_domain" length="255" comment="Customer Domain"/>
+        <column xsi:type="text" name="come_from" comment="Come From"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" default="CURRENT_TIMESTAMP" comment="Customer View Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="wk_affiliate_payment" resource="default" engine="innodb" comment="Affiliate Payment Record">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="varchar" name="transaction_id" length="255" comment="Transaction Id"/>
+        <column xsi:type="varchar" name="transaction_email" length="255" comment="Transaction Email"/>
+        <column xsi:type="varchar" name="ipn_transaction_id" length="255" comment="IPN Transaction Id"/>
+        <column xsi:type="int" name="aff_customer_id" unsigned="true" nullable="false" comment="Affilate User Id"/>
+        <column xsi:type="decimal" name="transaction_amount" scale="4" precision="12" default="0.0000" nullable="false" comment="Transaction Amount"/>
+        <column xsi:type="varchar" name="transaction_currency" length="255" comment="Transaction Currency"/>
+        <column xsi:type="longtext" name="transaction_data" comment="Transaction Data"/>
+        <column xsi:type="varchar" name="payment_method" length="255" comment="Payment Method Used In Transaction"/>
+        <column xsi:type="varchar" name="transaction_status" length="255" comment="Transaction Status"/>
+        <column xsi:type="text" name="come_from" comment="Come From"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" default="CURRENT_TIMESTAMP" comment="Transaction Date"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="wk_affiliate_user_balance" resource="default" engine="innodb" comment="Affiliate User Balance Record">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="aff_customer_id" unsigned="true" nullable="false" comment="Affilate User Id"/>
+        <column xsi:type="varchar" name="aff_name" length="255" comment="Affilate User Name"/>
+        <column xsi:type="int" name="clicks" unsigned="true" nullable="false" comment="Number Of Clicks"/>
+        <column xsi:type="int" name="unique_clicks" unsigned="true" nullable="false" comment="Number Of Unique Clicks"/>
+        <column xsi:type="varchar" name="payment_method" length="255" comment="Payment Method Availabe For User"/>
+        <column xsi:type="decimal" name="balance_amount" scale="4" precision="12" default="0.0000" nullable="false" comment="Balance Amount"/>
+        <column xsi:type="int" name="pay_notify" unsigned="true" nullable="false" comment="Payment notify for month"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="WK_AFFILIATE_USER_BALANCE_AFF_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID" table="wk_affiliate_user_balance" column="aff_customer_id" referenceTable="customer_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="WK_AFFILIATE_USER_BALANCE_AFF_CUSTOMER_ID" indexType="btree">
+            <column name="aff_customer_id"/>
+        </index>
+    </table>
+    <table name="wk_affiliate_text_banner" resource="default" engine="innodb" comment="Affiliate Banner Record">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="varchar" name="title" length="255" comment="Banner Title"/>
+        <column xsi:type="text" name="text" comment="Banner Text"/>
+        <column xsi:type="text" name="link" comment="Banner Link"/>
+        <column xsi:type="text" name="link_title" comment="Banner Link Title"/>
+        <column xsi:type="varchar" name="banner_size" length="255" comment="Banner Dimension"/>
+        <column xsi:type="varchar" name="status" length="255" comment="Banner Status"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" default="CURRENT_TIMESTAMP" comment="Banner Create Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="wk_affiliate_user" resource="default" engine="innodb" comment="Affiliate User Record">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="false" comment="Affilate User Id"/>
+        <column xsi:type="int" name="enable" unsigned="true" nullable="false" comment="User Status"/>
+        <column xsi:type="text" name="current_payment_method" comment="Current Payment Method"/>
+        <column xsi:type="decimal" name="pay_per_click" scale="4" precision="12" default="0.0000" nullable="false" comment="Pay Per Click"/>
+        <column xsi:type="decimal" name="pay_per_unique_click" scale="4" precision="12" default="0.0000" nullable="false" comment="Pay Per Unique Click"/>
+        <column xsi:type="varchar" name="commission_type" length="255" comment="Commission Type"/>
+        <column xsi:type="decimal" name="commission" scale="4" precision="12" default="0.0000" nullable="false" comment="Commission"/>
+        <column xsi:type="varchar" name="blog_url" length="255" comment="Blog Url"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" default="CURRENT_TIMESTAMP" comment="Affiliate Registration Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="WK_AFFILIATE_USER_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID" table="wk_affiliate_user" column="customer_id" referenceTable="customer_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="WK_AFFILIATE_USER_CUSTOMER_ID" indexType="btree">
+            <column name="customer_id"/>
+        </index>
+    </table>
+</schema>

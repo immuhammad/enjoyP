@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpquotesystem
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="marketplace_quotes" resource="default" engine="innodb" comment="Marketplace Quote Table">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" padding="11" identity="true" comment="Entity ID"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="false" padding="11" default="0" comment="Customer ID"/>
+        <column xsi:type="int" name="seller_id" unsigned="true" nullable="false" padding="11" default="0" comment="Seller ID"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="false" padding="11" default="0" comment="Product ID"/>
+        <column xsi:type="int" name="order_id" unsigned="true" nullable="false" padding="11" default="0" comment="Order ID"/>
+        <column xsi:type="text" name="product_name" nullable="true" comment="Product Name"/>
+        <column xsi:type="decimal" name="product_price" scale="4" precision="12" default="0.0000" unsigned="false" nullable="false" comment="Product Price"/>
+        <column xsi:type="text" name="product_option" nullable="true" comment="Product Options"/>
+        <column xsi:type="int" name="item_id" unsigned="true" nullable="false" padding="11" default="0" comment="Item Id"/>
+        <column xsi:type="int" name="quote_qty" unsigned="true" nullable="false" padding="11" default="0" comment="Quote Quantity"/>
+        <column xsi:type="decimal" name="quote_price" scale="4" precision="12" default="0.0000" unsigned="false" nullable="false" comment="Quote Price"/>
+        <column xsi:type="text" name="quote_desc" nullable="true" comment="Quote Description"/>
+        <column xsi:type="text" name="links" nullable="true" comment="Product links"/>
+        <column xsi:type="text" name="bundle_option" nullable="true" comment="Product Bundle option"/>
+        <column xsi:type="text" name="super_attribute" nullable="true" comment="Product Super Attribute"/>
+        <column xsi:type="int" name="status" unsigned="true" nullable="false" padding="11" default="0" comment="Quote status"/>
+        <column xsi:type="datetime" name="created_at" nullable="false" default="NULL" comment="Widget code for template directive"/>
+        <column xsi:type="text" name="quote_currency_symbol" nullable="true" comment="Quote Currency Symbol"/>
+        <column xsi:type="text" name="quote_currency_code" nullable="true" comment="Quote Currency Code"/>
+        <column xsi:type="text" name="attachment" nullable="false" comment="attachment"/>
+        <column xsi:type="smallint" name="seller_pending_notification" unsigned="true" padding="5" nullable="false" default="0" comment="Quote Notification flag for sellers"/>
+        <column xsi:type="smallint" name="admin_pending_notification" unsigned="true" padding="5" nullable="false" default="0" comment="Quote Notification flag for admin"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="marketplace_quote_conversation" resource="default" engine="innodb" comment="Marketplace Quote Conversation Table">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" padding="11" identity="true" comment="Entity ID"/>
+        <column xsi:type="text" name="sender" nullable="true" comment="Sender"/>
+        <column xsi:type="int" name="receiver" unsigned="true" nullable="false" padding="11" default="0" comment="Receiver"/>
+        <column xsi:type="text" name="conversation" nullable="true" comment="Conversation"/>
+        <column xsi:type="int" name="quote_id" unsigned="true" nullable="false" padding="11" default="0" comment="Quote Id"/>
+        <column xsi:type="timestamp" name="created_at" nullable="true" comment="Creation Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="marketplace_quote_config" resource="default" engine="innodb" comment="Seller quote configuration">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" padding="11" identity="true" comment="Entity ID"/>
+        <column xsi:type="varchar" name="categories" length="255" nullable="true" comment="Category Ids"/>
+        <column xsi:type="int" name="min_qty" unsigned="true" nullable="false" padding="11" comment="Minimum Qty"/>
+        <column xsi:type="int" name="seller_id" unsigned="true" nullable="false" padding="11" comment="Seller Id"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="marketplace_quote_config" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+    </table>
+</schema>

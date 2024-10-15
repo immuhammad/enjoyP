@@ -1,0 +1,242 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $helper = $block->helper('Webkul\B2BMarketplace\Helper\Quote');
+    $id = $block->getRequest()->getParam('id');
+    $itemId = $helper->getCurrentQuoteItemId();
+    $itemName = $block->getCurrentQuoteItemName($itemId);
+    $tabs = $block->getTabs();
+    $quoteStatusCount = count($tabs);
+    $currentTab = $block->getCurrentTab();
+    $totalQuote = $block->getCustomerQuoteList()->getSize();
+    $quoteItems = $helper->getCurrentQuoteItems();
+    $currentStatus = 'new';
+    $i = 0;
+if ($block->getRequest()->getParam('status')) {
+    $currentStatus = $block->getRequest()->getParam('status');
+}
+?>
+<div class="wk-quote-details-container">
+    <div class="wk-quote-details-head">
+        <span class="wk-quote-details-product-name">
+            <span class="wk-b2b-quote-item-selected"><?= /* @noEscape */ $itemName?></span>
+            <ul class="wk-b2b-quote-item-select wk-b2b-hide">
+                <?php foreach ($quoteItems as $quoteItem): ?>
+                    <?php
+                        $entityId = $quoteItem->getEntityId();
+                        $url = $block->getUrl('b2bmarketplace/customer/quote/', [
+                            'id' => $quoteItem->getQuoteId(), 'item_id' => $entityId]);
+                    ?>
+                    <?php if ($entityId == $itemId): ?>
+                        <li data-value="<?= /* @noEscape */ $url; ?>"><?= /* @noEscape */ $quoteItem->getName(); ?></li>
+                    <?php else: ?>
+                        <li data-value="<?= /* @noEscape */ $url; ?>"><?= /* @noEscape */ $quoteItem->getName(); ?></li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </ul>
+        </span>
+        <span class="wk-quote-details-info-label"><?= /* @noEscape */ $totalQuote; ?> 
+        <?= /* @noEscape */ __("Quote(s)"); ?></span>
+        <a href="<?= /* @noEscape */ $block->getUrl('b2bmarketplace/customer_quote/view/', [
+            'id' => $id, '_secure' => $block->getIsSecure()]) ?>">
+            <span><?= /* @noEscape */ __("View Quote Information"); ?></span>
+        </a>
+    </div>
+    <div class="fieldset wk-b2b-fieldset">
+        <div class="wk-response-tabs">
+            <div class="product data items" role="tablist">
+                <?php foreach ($tabs as $key => $label): ?>
+                    <?php $i++;?>
+                    <div class="data item title <?php if ($key == $currentStatus): ?>active 
+                    <?php endif ?> <?php if ($i == $quoteStatusCount):?>wk-b2b-tab-last <?php endif ?>" 
+                    aria-labeledby="tab-label-<?= /* @noEscape */ $key?>-title" 
+                    data-role="collapsible" id="tab-label-<?= /* @noEscape */ $key?>" 
+                    role="tab" data-collapsible="true" aria-selected="false" 
+                    aria-expanded="false" tabindex="0">
+                        <a class="data switch" 
+                            tabindex="-1" 
+                            data-toggle="switch" 
+                            href="<?= /* @noEscape */ $block->getUrl('b2bmarketplace/customer/quote', [
+                                '_secure' => $block->getRequest()->isSecure(), 'id' => $id,
+                                'item_id' => $itemId, 'status' => $key])?>" 
+                            id="tab-label-<?= /* @noEscape */ $key?>-title">
+                            <span><?= /* @noEscape */ $label["label"]; ?></span>
+                            <span class="wk-item-count"><?= /* @noEscape */ $label["count"]; ?></span>
+                        </a>
+                    </div>
+                    <?php if ($key == $currentStatus): ?>
+                        <div class="data item content" id="new" data-role="content" 
+                        aria-labelledby="tab-label-new" role="tabpanel" aria-hidden="false">
+                            <div class="table-wrapper">
+                                <?php if ($totalQuote == 0): ?>
+                                    <div class="fieldset wk_mp_fieldset">
+                                        <div class="wk_emptymsg">
+                                            <?= /* @noEscape */ __('No Quotes Available') ?>
+                                        </div>
+                                    </div>
+                                <?php else: ?>
+                                    <table cellspacing="0" class="data table mpquote-list">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" class="col">
+                                                    <span class="label">
+                                                        <?= /* @noEscape */ __('Supplier Name')?>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="col">
+                                                    <span class="label">
+                                                        <?= /* @noEscape */ __('Quoted Qty')?>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="col">
+                                                    <span class="label">
+                                                        <?= /* @noEscape */ __('Quoted Price')?>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="col">
+                                                    <span class="label">
+                                                        <?= /* @noEscape */ __('Thread')?>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="col">
+                                                    <span class="label">
+                                                        <?= /* @noEscape */ __('Last Activity')?>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="col action">
+                                                    <span class="label">
+                                                    </span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <?php foreach ($block->getCustomerQuoteList() as $quote): ?>
+                                            <tbody>
+                                                <tr>
+                                                    <td data-th="<?= /* @noEscape */ __("Supplier Name")?>" 
+                                                    class="col">
+                                                        <span class="label">
+                                                            <?= /* @noEscape */ $quote->getSupplierName(); ?>
+                                                        </span>
+                                                    </td>
+                                                    <td data-th="<?= /* @noEscape */ __("Quoted Quantity")?>" 
+                                                    class="col">
+                                                        <span class="label">
+                                                            <?= /* @noEscape */ $quote->getQty(); ?>
+                                                        </span>
+                                                    </td>
+                                                    <td data-th="<?= /* @noEscape */ __("Quoted Price")?>" class="col">
+                                                        <span class="label">
+                                                            <?= /* @noEscape */ $helper
+                                                            ->getFormattedPrice($quote->getPrice()); ?>
+                                                        </span> 
+                                                    </td>
+                                                    <td data-th="<?= /* @noEscape */ __("Thread")?>" 
+                                                    class="col wk_qs_quote_suppliers">
+                                                        <?php
+                                                        if ($quote->getTotalThread()) {
+                                                            /* @noEscape */
+                                                            echo $quote->getTotalThread();
+                                                        } else {
+                                                            /* @noEscape */
+                                                            echo __('N/A');
+                                                        }
+                                                        ?>
+                                                    </td>
+
+                                                    <td data-th="<?= /* @noEscape */ __("Last Activity")?>" class="col">
+                                                        <span class="label">
+                                                            <?= /* @noEscape */
+                                                            $block
+                                                            ->helper('Webkul\B2BMarketplace\Helper\Data')
+                                                            ->formatDate(
+                                                                $quote->getCreatedAt(),
+                                                                \IntlDateFormatter::LONG,
+                                                                true
+                                                            );
+                                                            ?>
+                                                        </span> 
+                                                    </td>
+
+                                                    <td data-th="<?= /* @noEscape */ __("Action")?>" class="col action">
+                                                        <a href="<?= /* @noEscape */
+                                                        $block->getUrl('b2bmarketplace/customer/quote_request/', [
+                                                            'id' => $quote->getRequestId(),
+                                                            '_secure' => $block->getIsSecure()]) ?>">
+                                                        <span class="label">
+                                                            <?= /* @noEscape */ __('Respond')?>
+                                                        </span>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        <?php endforeach; ?>
+                                    </table>
+                                    
+                                <?php endif; ?>
+                            </div>
+                            <?php if ($block->getPagerHtml()): ?>
+                                <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml(); ?></div>
+                            <?php endif ?>
+                        </div>
+                        <?php
+                    endif;
+                    ?>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script id="wk-quote-items" type="text/x-magento-template">
+    <tr class="wk-child-items">
+        <td data-th="Product Name" class="col proname">
+            <span class="label">
+                <%- data.product_name %>
+            </span>
+        </td>
+        <td data-th="Quantity" class="col quote_qty wk_qs_quote_qty">
+            <span class="label qty"><%- data.qty %></span>
+        </td>
+        <td data-th="Quote Price" class="col quote_price">
+            <span class="label"><%- data.price %></span>
+        </td>
+        <td data-th="Status" class="col status">
+            <span class="wk-quote-status-label <%- data.css_class %>"><%- data.status %></span>
+        </td>
+        <td data-th="Requested On" class="col">
+        </td>
+        <td data-th="Action" class="col action">
+        </td>
+    </tr>
+</script>
+
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/alert',
+        "mage/template",
+        "mage/calendar",
+        'mage/mage'
+    ], function($, alertBox, template) {
+        var warningLable = "Warning";
+        $(document).ready(function() {
+            $(".wk-b2b-quote-item-selected").click(function(){
+                //location.href = $(this).val();
+                $(".wk-b2b-quote-item-select").toggleClass('wk-b2b-hide');
+            });
+            $(".wk-b2b-quote-item-select li").click(function(){
+                location.href = $(this).attr('data-value');
+            });
+        });
+    });
+</script>

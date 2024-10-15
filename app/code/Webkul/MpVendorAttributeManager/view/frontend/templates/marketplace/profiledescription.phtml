@@ -1,0 +1,15 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpVendorAttributeManager
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$partner=$block->getProfileDetail();
+if (!empty($partner['shop_url'])) { ?>
+    <?= $block->getChildHtml();?>
+    <?php
+} ?>

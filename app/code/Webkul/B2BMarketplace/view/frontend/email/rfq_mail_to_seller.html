@@ -1,0 +1,33 @@
+<!--@subject Requested quote  @-->
+<!--@vars {
+"var this.getUrl($store, 'b2bmarketplace/supplier/login/')"
+"var customer.email":"Customer Email",
+"var customer.name":"Customer Name"
+} @-->
+ 
+{{template config_path="design/email/header_template"}} <!-- pathe of template header-->
+ 
+<!-- here $myvar1 , $myvar2, $myvar3 are variables in which we
+                                     asssign values when we use this template for send mail-->
+ 
+<!-- you can Modify content of template according to your requirement-->
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">{{trans 'Hello %customer_name,' customer_name=$myvar1}}</p>
+            <p>
+                {{trans 'A request for quote has been arrived. Please <a href="%account_url">login into your account</a>.' account_url=$this.getUrl($store,'b2bmarketplace/supplier/login/',[_nosid:1]) |raw}}
+            </p>
+        </td>
+    </tr>
+    <tr class="email-summary">
+        <td>
+            <h4>{{trans 'Please find the following details:'}}</h4>
+            <h4>{{trans 'Requested Quote Topic <span class="no-link">: %subject</span>' subject=$myvar2 |raw}}</h4>
+            <h4>{{trans 'Requested Quote Description <span class="no-link">: %subject</span>' subject=$myvar3 |raw}}</h4>
+            {{var myvar4|raw}}
+        </td>
+    </tr>
+</table>
+ 
+{{template config_path="design/email/footer_template"}} <!--footer of template-->

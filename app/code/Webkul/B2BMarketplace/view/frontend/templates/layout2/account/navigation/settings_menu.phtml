@@ -1,0 +1,55 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$quickOrderBlock =  $block->getLayout()->createBlock(
+    \Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class
+);
+
+$_helper = $quickOrderBlock->helper(\Webkul\Marketplace\Helper\Data::class);
+$magentoCurrentUrl = $block->getCurrentUrl();
+$isSellerGroup = $_helper->isSellerGroupModuleInstalled();
+?>
+<li class="wk-mp-item-settings level-0 <?= $block
+->escapeHtml(strpos($magentoCurrentUrl, 'b2bmarketplace/supplier/settings')?
+"current active":"");?>" id="wk-mp-menu-settings">
+    <a href="#" onclick="return false;" class="">
+        <span><?= $block->escapeHtml(__('Settings'))?></span>
+    </a>
+    <div class="wk-mp-submenu">
+        <strong class="wk-mp-submenu-title"><?= $block->escapeHtml(__('Settings'))?></strong>
+        <a href="#" class="action-close _close" data-role="wk-mp-close-submenu"></a>
+        <ul>
+            <li data-ui-id="menu-webkul-marketplace-setting-menu" class="item-menu parent level-1">
+                <strong class="wk-mp-submenu-group-title">
+                    <span><?= $block->escapeHtml(__('Menu'))?></span>
+                </strong>
+                <div class="wk-mp-submenu">
+                    <ul>
+                        <?php if (($isSellerGroup &&
+                        $_helper->isAllowedAction('b2bmarketplace/supplier/settings')) ||
+                                            !$isSellerGroup) { ?>
+                                                <?php if ($_helper->getSellerProfileDisplayFlag()) { ?>
+                                <li class="level-2">
+                                    <a href="<?= /* @noEscape */ $block
+                                    ->escapeHtml($block->getUrl('b2bmarketplace/supplier/settings', [
+                                        '_secure' => $block->getRequest()->isSecure()])); ?>">
+                                        <span><?= $block->escapeHtml(__('Account Settings')) ?></span>
+                                    </a>
+                                </li>
+                            <?php } ?>
+                        <?php } ?>
+                    </ul>
+                </div>
+            </li>
+            <?= /* @noEscape */$block->getChildHtml('layout2_seller_account_navigation_shipping_menu'); ?>
+            <?= /* @noEscape */$block->getChildHtml('layout2_seller_account_navigation_payment_menu'); ?>
+        </ul>
+    </div>
+</li>

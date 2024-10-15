@@ -1,0 +1,22 @@
+<?= /* @noEscape */ $block->getChildHtml();
+$storeId = $block->getRequest()->getParam('store');
+if (!$storeId) {
+    $storeId = 0;
+}
+$sellerId = $block->getRequest()->getParam('id');
+$helper = $block->helper(\Webkul\SellerSubDomain\Helper\Data::class);
+$currentDomain = $helper->getCurrentDomainUrl($block->getRequest()->getParam('store'), $sellerId);
+
+?>
+<div class="admin__fieldset-wrapper opened">
+    <div class="admin__fieldset-wrapper-content">
+        <fieldset class="admin__fieldset">
+            <div class="admin__field">
+                <label class="admin__field-label"><?= /* @noEscape */ __('Vendor Domain') ?>:</label>
+                <div class="admin__field-control">
+                    <input data-form-part="customer_form" class="admin__control-text validate-url wk-elements" type="text" name="vendor_domain" value='<?= /* @noEscape */ $currentDomain; ?>' />
+                </div>
+            </div>   
+        </fieldset>
+    </div>
+<div>

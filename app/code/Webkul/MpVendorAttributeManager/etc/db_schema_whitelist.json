@@ -1,0 +1,36 @@
+{
+    "marketplace_vendor_attribute": {
+        "column": {
+            "entity_id": true,
+            "attribute_id": true,
+            "required_field": true,
+            "show_in_front": true,
+            "wk_attribute_status": true,
+            "attribute_used_for": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "marketplace_vendor_group": {
+        "column": {
+            "entity_id": true,
+            "group_name": true,
+            "status": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "marketplace_vendor_assign_group": {
+        "column": {
+            "entity_id": true,
+            "attribute_id": true,
+            "group_id": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_FD966AE9DC22F54FEFB0C287913F26DC": true
+        }
+    }
+}

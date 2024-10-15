@@ -1,0 +1,269 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpquotesystem
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+//edit quote at seller end.
+$quoteHelper = $block->getHelper();
+$currencySymbol = $quoteHelper->getBaseCurrencySymbol();
+$params = $block->getParameters();
+$entityId = $params["entity_id"];
+$quote = $block->getQuoteData($entityId);
+$disabled = true;
+$qtyDisabled = false;
+$priceDisabled = false;
+$statusDisable = false;
+$url = null;
+$attachments = [];
+if ($quote->getAttachment()) {
+    $attachments = $quoteHelper->getQuoteAttachmentsArr($quote->getAttachment());
+}
+?>
+<?php
+if ($block->quoteStatusIsNotSold($quote->getStatus())) {
+        $disabled = false;
+}
+if ($quote->getStatus()== \Webkul\Mpquotesystem\Model\Quotes::STATUS_SOLD) {
+        $qtyDisabled = true;
+        $priceDisabled = true;
+}
+if ($quote->getStatus()== \Webkul\Mpquotesystem\Model\Quotes::STATUS_DECLINE ||
+$quote->getStatus() == \Webkul\Mpquotesystem\Model\Quotes::STATUS_APPROVED) {
+        $statusDisable = true;
+}
+?>
+<div class="wk_mp_design block">
+    <fieldset class="fieldset info wk-mp-fieldset">
+        <legend class="legend">
+            <?php
+            if ($disabled) { ?>
+                <span><?= $block->escapeHtml(__('Edit Quote'))?></span>
+            <?php } else { ?>
+                <span><?= $block->escapeHtml(__('View Quote'))?></span>
+            <?php } ?>
+        </legend>
+        <div class="grid">
+            <div class="hor-scroll">
+                <input type="hidden"
+                    class="len"
+                    name="id"
+                    id="id"
+                    value="<?=$block->escapeHtmlAttr($entityId)?>"
+                />
+                <?php   $product = $block->getProductData($quote->getProductId());
+                        $imageUrl = $block->imageHelperObj()
+                            ->init($product, 'product_listing_thumbnail_preview')
+                            ->resize(100, 100)
+                            ->getUrl();
+                        $minQty = $quoteHelper->checkProductHasQuote($product)['min_qty'];
+                ?>
+                <table class="data-table border wk-mp-list-table">
+                    <thead>
+                        <tr class="first last">
+                            <th rowspan="1">
+                                <span><?= $block->escapeHtml(__("Product"))?></span>
+                            </th>
+                            <th rowspan="1">&nbsp;</th>
+                            <th colspan="1" class="a-right cart-price-head">
+                                <span title="<?=$block->escapeHtmlAttr(__('Price After Configuration'))?>">
+                                    <?=$block->escapeHtml(__("Price"))?>
+                                </span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="first odd">
+                            <td class="product-cart-image">
+                                <img alt="<?=$block->escapeHtmlAttr($product->getName())?>"
+                                    src="<?=$block->escapeHtmlAttr($imageUrl)?>"
+                                >
+                            </td>
+                            <td class="product-cart-info">
+                                <h2 class="product-name">
+                                        <?=$block->escapeHtml($product->getName())?>
+                                </h2>
+                                <div class="product-cart-sku">
+                                    <label class="label"><?= $block->escapeHtml(__("SKU"))?> : </label>
+                                        <?=$block->escapeHtml($product->getSku())?>
+                                </div>
+                                <?php
+                                    $optionAndPrice = $quoteHelper->getOptionNPrice($product, $quote);
+                                    $optionAndPriceArr = explode("~|~", $optionAndPrice);
+                                ?>
+                                <dl class="item-options">
+                                    <?=$block->escapeHtml($optionAndPriceArr[0])?>
+                                </dl>
+                            </td>
+                            <td class="a-right">
+                                <span class="cart-price">
+                                    <span class="price">
+                                        <?= $block->escapeHtml(
+                                            $quoteHelper->getformattedPrice($quote->getProductPrice())
+                                        )?>
+                                    </span>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="last even">
+                            <td colspan="1">
+                                <b>
+                                    <?=$block->escapeHtml(__("Quote Description")." : ")?>
+                                </b>
+                            </td>
+                            <td colspan="2"><?= $block->escapeHtml($quote->getQuoteDesc())?></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </fieldset>
+</div>
+<div class="wk_qs_message_container">
+    <div class="wk-mp-design">
+        <fieldset class="fieldset info wk-mp-fieldset">
+            <legend class="legend">
+                <span><?= $block->escapeHtml(__('Quote Detail'))?></span>
+            </legend>
+            <div class="field">
+                <?php $price = number_format($quote->getQuotePrice(), 2);?>
+                <label class="label"><?= $block->escapeHtml(__('Quoted Price').
+                "(".$quote->getQuoteCurrencySymbol().")")?>:</label>
+                <div class="control">
+                    <input type="text"
+                        class='input-text required-entry validate-greater-than-zero'
+                            <?=($priceDisabled) ? $block->escapeHtmlAttr("readonly='readonly'"):''?>
+                        value="<?=$block->escapeHtmlAttr($price)?>"
+                        name='quote_price'
+                    />
+                </div>
+            </div>
+            <div class="field">
+                <label class="label"><?= $block->escapeHtml(__('Quoted Quantity'))?>:</label>
+                <div class="control">
+                    <input type="text"
+                        class='input-text required-entry validate-number integer 
+                        validate-greater-than-zero validate-digits-range digits-range- 
+                        <?=$block->escapeHtmlAttr($minQty)?>-'
+                            <?=($qtyDisabled) ? $block->escapeHtmlAttr("readonly='readonly'"):''?>
+                        value="<?=$block->escapeHtmlAttr($quote->getQuoteQty())?>"
+                        name='quote_qty'
+                    />
+                    <span class="wk-qs-min-qty"> 
+                    <?=$block->escapeHtml(__('minimum quote quantity limit is '. $minQty))?></span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label"><?= $block->escapeHtml(__('Attachment'))?>:</label>
+                <div class="control">
+                    <div class="quote attachment">
+                        <?php
+                        foreach ($attachments as $attachmentKey => $attachmentVal) {
+                            $attachmentUrl = $quoteHelper->getAttachFullUrl($attachmentKey);
+                            ?>
+                            <div>
+                                <a href="<?= $block->escapeUrl($attachmentUrl)?>" 
+                                    target="blank" 
+                                    title="<?= $block->escapeHtml($attachmentVal)?>">
+                                    <?= $block->escapeHtml($attachmentVal)?>
+                                </a>
+                            </div>
+                            <?php
+                        } ?>
+                    </div>
+                    <input id="quote_attachment" type="file" name="quote_attachment" 
+                    class="input-text" data-allowed-types =  
+                    <?=$block->escapeHtml($quoteHelper->getAllowedTypes())?>>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label"><?= $block->escapeHtml(__('Customer Email'))?>:</label>
+                <div class="control">
+                    <input type="text"
+                        class='input-text'
+                        readonly='readonly'
+                        value="<?=$block->escapeHtmlAttr($block->getCustomerData(
+                            $quote->getCustomerId()
+                        )->getEmail())?>"
+                        name='customer_email'
+                    />
+                </div>
+            </div>
+            <div class="field">
+                <label class="label"><?= $block->escapeHtml(__('Product Name'))?>:</label>
+                <div class="control">
+                    <input type="text"
+                        class='input-text'
+                        readonly='readonly'
+                        value="<?=$block->escapeHtmlAttr($quote->getProductName())?>"
+                        name='product_name'
+                    />
+                </div>
+            </div>
+            <div class="field">
+                <label class="required label"><?= $block->escapeHtml(__('Status'))?>:</label>
+                <div class="control">
+                    <?php if ($quote->getStatus() == \Webkul\Mpquotesystem\Model\Quotes::STATUS_SOLD): ?>
+                    <input type="text"
+                        class='input-text'
+                        readonly='readonly'
+                        value="<?=$block->escapeHtmlAttr(__("Sold"))?>"
+                        name='status'
+                        />
+                    <?php else:?>
+                        <select name="status">
+                            <?php if (!$statusDisable):?>
+                            <option value="1" <?php if ($quote->getStatus() ==
+                            \Webkul\Mpquotesystem\Model\Quotes::STATUS_UNAPPROVED) { ?>
+                                <?= $block->escapeHtmlAttr("selected"); }?>>
+                                <?=$block->escapeHtml(__("Unapproved"))?>
+                            </option>
+                            <?php endif;?>
+                            <option value="2" <?php if ($quote->getStatus() ==
+                            \Webkul\Mpquotesystem\Model\Quotes::STATUS_APPROVED) { ?>
+                                <?= $block->escapeHtmlAttr("selected"); }?>>
+                                <?=$block->escapeHtml(__("Approved"))?>
+                            </option>
+                            <option value="3" <?php if ($quote->getStatus() ==
+                            \Webkul\Mpquotesystem\Model\Quotes::STATUS_DECLINE) { ?>
+                                <?= $block->escapeHtmlAttr("selected"); }?>> 
+                                <?=$block->escapeHtml(__("Declined"))?>
+                            </option>
+                            
+                        </select>
+                    <?php endif; ?>
+
+                </div>
+            </div>
+        <?php if (!$disabled) { ?>
+            <input type="hidden" name="quote_id" value="<?=$block->escapeHtmlAttr($entityId)?>">
+                <div class="field required">
+                    <label class="label admin__field-label">
+                        <span>
+                             <?=$block->escapeHtml(__("Enter Message:"))?>
+                        </span>
+                    </label>
+                    <div class="control">
+                        <textarea id="wk_qs_msg_area"
+                            type="text"
+                            class="required-entry input-text"
+                            name="quote_message"
+                            data-validate="{'validate-no-html-tags':true}"
+                        ></textarea>
+                    </div>
+                </div>
+        <?php } ?>
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Webkul_Mpquotesystem/js/imageuploader": {}
+        }
+    }
+</script>

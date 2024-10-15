@@ -1,0 +1,91 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpVendorAttributeManager
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $jsonHelper = $block->getJsonHelper();
+    $data = $block->getModel();
+    $fileSignal = 0;
+    $textSignal = 0;
+    $codeSignal = 0;
+    $booleanSignal = 0;
+    $textarea_signal = 0;
+    $dependable_textarea_signal = 0;
+    $selectSignal = 0;
+    $selectoption_signal = 0;
+    $file_extension_value='';
+    $selectoption='';
+    $textAreaValue = 0;
+    $is_wysiwyg_enabled = 0;
+    $dependable_allowed_extensions='';
+if ($data->getFrontendInput() == "file" || $data->getFrontendInput() == "image") {
+    $fileSignal = 1;
+    $file_extension_value = $data->getNote();
+}
+if ($data->getFrontendInput() == "text") {
+    $textSignal = 1;
+}
+if ($data->getFrontendInput() == "boolean") {
+    $booleanSignal = 1;
+}
+if ($data->getAttributeId()) {
+    $codeSignal = 1;
+}
+if ($data->getFrontendInput() == "textarea") {
+    $textarea_signal = 1;
+    $textAreaValue = (int)$data->getDefaultValue();
+    $is_wysiwyg_enabled = in_array('wysiwyg_enabled', explode(' ', $data->getFrontendClass() ?? ''))?1:0;
+}
+if ($data->getFrontendInput() == "select" || $data->getFrontendInput() == "multiselect") {
+    $selectSignal = 1;
+    $options = $data->getSource()->getAllOptions();
+    foreach ($options as $key => $value) {
+        if ($value['value'] != '') {
+            $selectoption .=$value['label'].',';
+        }
+    }
+}
+?>
+<script id="wysiwyg_editor_template" type="text/x-magento-template">
+    <div class="admin__field field field-is_wysiwyg_enabled default_value_type_container" 
+        data-ui-id="vendor-attribute-edit-content-form-fieldset-element-form-field-default-value">
+        <label class="label admin__field-label" for="customfields_default_value" 
+            data-ui-id="vendor-attribute-edit-content-form-fieldset-element-select-default-value-label">
+                <span><?= /**@noEscape */ __('As WYSIWYG Editor') ?></span></label>
+        <div class="admin__field-control control">
+            <select id="customfields_default_value" name="is_wysiwyg_enabled" 
+                title="<?= /**@noEscape */ __('As WYSIWYG Editor') ?>" 
+                class=" select admin__control-select" 
+                data-ui-id="vendor-attribute-edit-content-form-fieldset-element-select-default-value">
+                <option value="0"><?= /**@noEscape */ __('No') ?></option>
+                <option value="1" <?= /**@noEscape */ $is_wysiwyg_enabled ? 'selected':'' ?>>
+                    <?= /**@noEscape */ __('Yes') ?></option>            </select>
+        </div>
+    </div>
+</script>
+<?php
+        $optionData = [
+        'fileSignal'                    => $fileSignal,
+        'textSignal'                    => $textSignal,
+        'codeSignal'                    => $codeSignal,
+        'textareaSignal'                => $textarea_signal,
+        'selectSignal'                  => $selectSignal,
+        'fileExtensionValue'            => $file_extension_value,
+        'booleanSignal'                 => $booleanSignal
+        ];
+        $serializedData = $jsonHelper->jsonEncode($optionData);
+        ?>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "dependableField": <?= /* @noEscape */ $serializedData; ?>
+    }
+}
+</script>

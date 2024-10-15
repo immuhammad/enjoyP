@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpServiceFee
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Webkul_MpServiceFee::servicefee" title="Service Fee" sortOrder="10" >
+                    <resource id="Webkul_MpServiceFee::createfees" title="Create Service Fees" sortOrder="100" />
+                    <resource id="Webkul_MpServiceFee::listadminfees" title="List Admin Service Fees" sortOrder="100" />
+                    <resource id="Webkul_MpServiceFee::listsellerfees" title="List Seller Service Fees" sortOrder="100" />
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Webkul_MpServiceFee::config_servicefee" title="Service Fee Configurations" sortOrder="50" />
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

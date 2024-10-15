@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="checkout_cart_product_add_after">
+        <observer name="webkul_b2bmarketplace_checkout_cart_product_add_after_observer" instance="Webkul\B2BMarketplace\Observer\CheckoutCartProductAddAfterObserver" />
+    </event>
+    <event name="sales_quote_item_save_after">
+        <observer name="webkul_b2bmarketplace_sales_quote_item_save_after_observer" instance="Webkul\B2BMarketplace\Observer\SalesQuoteItemSaveAfterObserver" />
+    </event>
+    <event name="customer_register_success">
+        <observer name="webkul_b2bmarketplace_customer_register_success_observer" instance="Webkul\B2BMarketplace\Observer\CustomerRegisterSuccessObserver" />
+    </event>
+    <event name="adminhtml_customer_save_after">
+        <observer name="webkul_b2bmarketplace_adminhtml_customer_save_after_observer" instance="Webkul\B2BMarketplace\Observer\AdminhtmlCustomerSaveAfterObserver" />
+    </event>
+    <event name="controller_action_postdispatch_marketplace_account_becomesellerPost">
+        <observer name="webkul_b2bmarketplace_marketplace_account_becomesellerPost_after_observer" instance="Webkul\B2BMarketplace\Observer\BecomesellerPostAfterObserver" />
+    </event>
+    <event name="mp_approve_seller">
+        <observer name="webkul_b2bmarketplace_marketplace_seller_massApprove_after_observer" instance="Webkul\B2BMarketplace\Observer\MassApproveAfterObserver" />
+    </event>
+    <event name="controller_action_predispatch">
+        <observer name="webkul_b2bmarketplace_controller_action_predispatch" instance="Webkul\B2BMarketplace\Observer\ControllerActionPredispatchObserver" />
+    </event>
+    <event name="checkout_cart_save_before">
+        <observer name="webkul_b2bmarketplace_checkout_cart_save_before_observer" instance="Webkul\B2BMarketplace\Observer\CheckoutCartSaveBeforeObserver" />
+    </event>
+    <event name="controller_action_predispatch_checkout_index_index">
+        <observer name="webkul_b2bmarketplace_checkout_before_observer" instance="Webkul\B2BMarketplace\Observer\CheckoutBeforeObserver" />
+    </event>
+</config>

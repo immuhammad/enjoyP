@@ -1,0 +1,17 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpServiceFee
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+
+<?php $serviceHelper = $block->getServiceHelper(); ?>
+
+<script>
+    window.wkServiceFeeEnable = <?= /* @escapeNotVerified */ \Zend_Json::encode($serviceHelper->isModuleEnable()) ?>;
+</script>

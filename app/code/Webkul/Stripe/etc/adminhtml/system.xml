@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!-- /**
+* Webkul Software.
+*
+* @category Webkul
+* @package Webkul_Stripe
+* @author Webkul
+* @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+* @license https://store.webkul.com/license.html
+*/ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="stripe" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label><![CDATA[Stripe Payment]]></label>
+                
+                <field id="active" translate="label" type="select" sortOrder="101" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="title" translate="label" type="text" sortOrder="102" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Title</label>
+                </field> 
+
+                <field id="debug" translate="label" type="select" sortOrder="103" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Debug</label>
+                    <source_model>Webkul\Stripe\Model\Source\Environment</source_model>
+                </field>
+
+                <field id="api_publish_key" translate="label" type="obscure" sortOrder="104" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>API Publishable Key</label>
+                    <validate>required-entry</validate>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field> 
+
+                <field id="api_secret_key" translate="label" type="obscure" sortOrder="105" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>API Secret Key</label>
+                    <validate>required-entry</validate>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+
+                <field id="payment_method_types" translate="label" type="multiselect" sortOrder="106" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Allowed Payment Methods Types</label>
+                    <source_model>Webkul\Stripe\Model\Source\PaymentMethodTypes</source_model>
+                    <validate>required-entry</validate>
+                    <comment>Please ensure the provided type is activated in your dashboard . 
+                    Also check the supported payment method, currency, and country combinations. 
+                    (https://dashboard.stripe.com/account/payments/settings) </comment>
+                </field>
+
+                <field id="image_on_form" translate="label comment" type="image" sortOrder="108" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Set Image</label>
+                    <backend_model>Webkul\Stripe\Model\Config\Backend\Image</backend_model>
+                    <base_url type="media" scope_info="1">wkstripe/config</base_url>
+                    <comment>Allowed file types: jpg, jpeg, gif, png, svg.Upload any Image that you want to show on stripe payment method at checkout page</comment>
+                </field>  
+
+                <field id="allowspecific" translate="label" type="allowspecific" sortOrder="109" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Payment from Applicable Countries</label>
+                    <source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+                </field>
+                
+                <field id="specificcountry" translate="label" type="multiselect" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Payment from Specific Countries</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="model"></field>
+
+                <field id="min_order_total" translate="label" type="text" sortOrder="115" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Minimum Order Total</label>
+                    <comment>$0.50 is the minimum amount allowed by Stripe</comment>
+                    <validate>validate-zero-or-greater</validate>
+                </field>
+
+                <field id="max_order_total" translate="label" type="text" sortOrder="116" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Maximum Order Total</label>
+                    <validate>validate-zero-or-greater</validate>
+                </field>
+
+                <field id="sort_order" translate="label" type="text" sortOrder="117" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sort Order</label>
+                    <validate>validate-number</validate>
+                </field>
+                
+                <field id="webhook" translate="label comment tooltip" type="button" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <frontend_model>Webkul\Stripe\Block\Adminhtml\System\Config\Button</frontend_model>
+                </field>
+                <group id="stripe_product_information" translate="label" type="text" sortOrder="700" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Show Product Information</label>
+                <field id="author" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[<p>Author: <a target="_blank" title="Webkul Software Private Limited" href="https://webkul.com/">Webkul</a></p>
+                        <p>Vesion: 5.0.3</p>
+                        <p>User Guide: <a target="_blank" href="http://webkul.com/blog/stripe-payment-gateway-magento2">Click Here</a></p>
+                        <p>Store Extension: <a target="_blank" href="https://store.webkul.com/magento2-stripe-payment-gateway.html">Click Here</a></p>
+                        <p>Ticket/Customisations: <a target="_blank" href="https://webkul.uvdesk.com/en/customer/create-ticket/">Click Here</a></p>
+                        <p>Services: <a target="_blank" href="https://webkul.com/magento-development/">Click Here</a></p>
+					]]>                    </label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                </field>
+            </group>
+
+            </group>
+        </section>
+    </system>
+</config>

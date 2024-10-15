@@ -1,0 +1,104 @@
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Marketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+/* .wk-report-flag-link{
+    margin-left:110px;
+} */
+.wk-mp-collection-seller-title.wk-mp-collection-header-css {
+    margin-left:110px;
+}
+.sellersubdomain-collection-index .wk_mp_design .block-account {
+    display: inline-block;
+    width: 100%;
+}
+.sellersubdomain-collection-index.page-layout-1column .sections.nav-sections,
+.sellersubdomain-collection-index.page-layout-seller-1column .sections.nav-sections,
+.sellersubdomain-feedback-index.page-layout-1column .sections.nav-sections,
+.sellersubdomain-location-index.page-layout-1column .sections.nav-sections,
+.sellersubdomain-profile-index.page-layout-1column .sections.nav-sections {
+    margin-bottom: 0;
+}
+.sellersubdomain-collection-index.page-layout-1column .page-title-wrapper,
+.sellersubdomain-collection-index.page-layout-seller-1column .page-title-wrapper,
+.sellersubdomain-feedback-index.page-layout-1column .page-title-wrapper,
+.sellersubdomain-location-index.page-layout-1column .page-title-wrapper,
+.sellersubdomain-profile-index.page-layout-1column .page-title-wrapper {
+    display: none;
+}
+.sellersubdomain-collection-index.page-layout-1column .page-main,
+.sellersubdomain-collection-index.page-layout-seller-1column .page-main,
+.sellersubdomain-feedback-index.page-layout-1column .page-main,
+.sellersubdomain-location-index.page-layout-1column .page-main,
+.sellersubdomain-profile-index.page-layout-1column .page-main {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    max-width: 100%;
+}
+.sellersubdomain-collection-index .wk-mp-collection-product-count-container,
+.sellersubdomain-profile-index .wk-mp-collection-product-count-container,
+.sellersubdomain-feedback-index .wk-mp-collection-rating-count-container {
+    text-align: center;
+    border: 1px solid #ccc;
+    border-bottom: 3px solid #fff;
+    border-top: none;
+    box-sizing: content-box;
+}
+@media all and (max-width: 320px) {
+    .sellersubdomain-collection-index.page-layout-1column .page-products .products-grid .product-item,
+    .sellersubdomain-collection-index.page-layout-seller-1column .page-products .products-grid .product-item,
+    .sellersubdomain-profile-index.page-layout-1column .page-products .products-grid .product-item {
+        width: 100%;
+    }
+    .sellersubdomain-collection-index .column.main .product-items,
+    .sellersubdomain-profile-index .column.main .product-items {
+        margin-left: 0;
+    }
+}
+@media all and (max-width: 767px) {
+    .sellersubdomain-collection-index .wk-mp-collection-container {
+        padding-top: 60px;
+    }
+}
+@media all and (min-width: 768px) {
+    .sellersubdomain-collection-index.page-layout-1column .toolbar-products,
+    .sellersubdomain-collection-index.page-layout-seller-1column .toolbar-products,
+    .sellersubdomain-profile-index.page-layout-1column .toolbar-products {
+        position: relative;
+    }
+    .sellersubdomain-collection-index.page-layout-1column .filter.block,
+    .sellersubdomain-collection-index.page-layout-seller-1column .filter.block,
+    .sellersubdomain-profile-index.page-layout-1column .filter.block {
+        margin-top: 0;
+        border: none;
+    }
+    .sellersubdomain-collection-index.page-layout-1column .filter-subtitle,
+    .sellersubdomain-collection-index.page-layout-seller-1column .filter-subtitle,
+    .sellersubdomain-profile-index.page-layout-1column .filter-subtitle {
+        display: block;
+        padding: 0;
+        border: none;
+    }
+    .sellersubdomain-collection-index.page-layout-1column .filter-content,
+    .sellersubdomain-collection-index.page-layout-seller-1column .filter-content,
+    .sellersubdomain-profile-index.page-layout-1column .filter-content {
+        margin-top: 0;
+    }
+    /* .sellersubdomain-collection-index .column.main .product-items {
+        margin-left: -20px;
+    } */
+}
+.wk-mp-collection-left {
+    float: left;
+    width: 25%;
+    padding-right: 2%;
+    box-sizing: border-box;
+}

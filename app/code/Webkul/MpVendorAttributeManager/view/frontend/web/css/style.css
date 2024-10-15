@@ -1,0 +1,134 @@
+.wk_images{
+    border: 2px solid #e2e2e2;
+    box-shadow: 0 0 4px 2px;
+    display: inline-block;
+    height: 75px;
+    margin: 2px;
+    width: 75px;
+}
+.admin__table-secondary {
+    width: 100%;
+}
+.admin__table-secondary tbody tr:nth-child(odd) th, .admin__table-secondary tbody tr:nth-child(odd) td {
+    background-color: #f1f1f1;
+}
+.admin__table-secondary tbody th {
+    vertical-align: top;
+}
+.admin__table-secondary th {
+    color: #676056;
+    font-weight: 600;
+}
+.admin__table-secondary th, .admin__table-secondary td {
+    padding: 1rem 1rem;
+    text-align: left;
+}
+.admin__table-secondary tbody tr:nth-child(odd) td {
+    background-color: #f1f1f1;
+}
+.admin__table-secondary td, .order-information-table td, .order-account-information-table td {
+    text-align: right;
+}
+.mceEditor table {
+max-width:none; /* Bug in computation of fullscreen */
+}
+
+.mceEditor table.mceLayout {
+width:100% !important;
+height:auto !important;
+}
+
+table.mceToolbar { float:left; }
+body .mceToolbar div {
+white-space:normal;
+}
+.mceToolbar td {
+    display:table-row;
+    float: left;
+}
+.mceToolbar td:nth-of-type(11){
+    clear: left;
+}
+.wk-list-container-registration .button.back{
+    padding: 5px!important;
+    position: relative;
+    top: -3px;
+    float: right;
+    margin: 5px;
+}
+
+.wkboolreq::after{
+    color: #e02b27;
+    content: "*";
+    font-size: 1.2rem;
+    margin: 0 0 0 5px;
+}
+
+.wk-list-container-registration fieldset.vendorfields{
+    opacity: 0;
+    position: fixed;
+    z-index: -9999;
+    padding: 4px!important;
+}
+.wk-list-container-registration form.form-create-account{
+    overflow-x: hidden;
+    height: 450;
+    position: relative;
+}
+.wk-list-container-registration #vendor-component{
+    opacity: 0;
+    position: fixed;
+    z-index: -9999;
+}
+.wk-mp-design input[type=text].dob_type{
+    margin-right: 10px;
+    width: calc(100% - 33px);
+}
+
+/* on mobile browsers, I set a width of 100% */
+table.mceLayout, textarea.tinyMCE {
+    width: 100% !important;
+}
+
+/* on large screens, I use a different layout, so 600px are sufficient */
+@media only screen and (min-width: 600px) {
+    table.mceLayout, textarea.richEditor {
+       width: 600px !important;
+    }
+}
+/* make the toolbar wrap */
+.mceToolbar td {
+    display:table-row;
+    float: left;
+}
+.mceToolbar td:nth-of-type(11){
+    clear: left;
+}
+
+.vendorform #wk-mp-become-seller-box-wrapper .available{
+    float: none;
+}
+.vendorfields input.dob_type {
+    width: calc(100% - 33px);
+    margin-right: 10px;
+}
+.vendorfields input.input-text.custom_file {
+    width: 100%;
+}
+.vendorfields span.note.custom_file span {
+    float: left;
+}
+.customer-attributes span.note{
+    float: left;
+    clear:left;
+}
+div#vendor-component .fieldset.vendorfields{
+    margin-top: 1.2em;
+    opacity: inherit;
+    position: inherit;
+    z-index: inherit;
+}
+
+.mce-btn button {
+    padding: 2px 6px!important;
+}

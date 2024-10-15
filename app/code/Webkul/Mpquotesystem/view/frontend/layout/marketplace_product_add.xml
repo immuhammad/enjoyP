@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpquotesystem
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<!-- Use to add quote attributes in marketplace product add page -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceContainer name="marketplace_product_add">
+            <block class="Webkul\Mpquotesystem\Block\Mpquotesystem" name="seller_mpquotesystem_add" template="Webkul_Mpquotesystem::product/product.phtml" cacheable="false" ifconfig="mpquotesystem/quotesystem_settings/enable_quote">
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Affiliate module xml
+ * @category  Webkul
+ * @package   Webkul_Affiliate
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+    <system>
+        <tab id="webkul" translate="label" sortOrder="10" class="wk-config-tab-class">
+            <label>Webkul</label>
+        </tab>
+        <section id="affiliate" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Affiliate System</label>
+            <tab>webkul</tab>
+            <resource>Webkul_Affiliate::config_affiliate</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="enable" translate="label comment" sortOrder="1" type="select" showInDefault="1" showInWebsite="1" >
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                 <!-- <field id="referUrlCompare" translate="label comment" sortOrder="1" type="select" showInDefault="1" showInWebsite="1" >
+                    <label>Refer Url Compare</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field> -->
+                <field id="blog" translate="label comment" sortOrder="2" type="select" showInDefault="1" showInWebsite="1" >
+                    <label>Display blog link on registration</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="registration" translate="label comment" sortOrder="2" type="select" showInDefault="1" showInWebsite="1">
+                    <label>Allow affiliate registrations</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="auto_approve" translate="label comment" sortOrder="3" type="select" showInDefault="1" showInWebsite="1" >
+                    <label>Automatically approve affiliates</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="priority" translate="label comment" sortOrder="3" type="select" showInDefault="1" showInWebsite="1" >
+                    <label>Set Commission Priority</label>
+                    <source_model>Webkul\Affiliate\Model\Config\Source\CommissionPriority</source_model>
+                    <comment></comment>
+                </field>
+                <field id="min_pay_bal" translate="label comment" sortOrder="4" type="text" showInDefault="1" showInWebsite="1" >
+                    <label>Minimum payout balance</label>
+                    <validate>required-entry validate-number validate-not-negative-number</validate>
+                </field>
+                <field id="pay_date" translate="label comment" sortOrder="5" type="text" showInDefault="1" showInWebsite="1" >
+                    <label>Payment day of the month</label>
+                    <validate>required-entry validate-digits validate-digits-range digits-range-1-31</validate>
+                    <comment>days from 1 to 31 </comment>
+                </field>
+                <field id="blog_url_hint" translate="label comment" sortOrder="6" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Blog URL Hint</label>
+                     <validate>validate-no-html-tags</validate>
+                </field>
+                <field id="manager_email" translate="label comment" sortOrder="7" type="text" showInDefault="1" showInWebsite="1" >
+                    <label>Affiliate Manage E-mail</label>
+                    <validate>required-entry validate-email</validate>
+                </field>
+                <field id="aff_user_update_email_template" translate="label comment" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Affiliate user account update email template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>On affiliate user account status update </comment>
+                </field>
+                <field id="aff_user_notify_by_admin_email_template" translate="label comment" type="select" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Affiliate user notification by admin email template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>When affiliate manager send any notification to user </comment>
+                </field>
+                <field id="email_campaign_template" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>E-mail campaign template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>For e-mail campaign </comment>
+                </field>
+                <field id="manager_email_template" translate="label comment" type="select" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Manager email template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>To admin for affiliate sales order approve </comment>
+                </field>
+                <field id="payment_credit_notify_email_template" translate="label comment" type="select" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Payment credit notification email template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>When affiliate user payment credited in bank </comment>
+                </field>
+                <field id="aff_user_email_template" translate="label comment" type="select" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Affiliate user email template on order approve</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>On affiliate sales order approved notification </comment>
+                </field>
+                <field id="listbutton" translate="label" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Webkul\Affiliate\Block\System\Config\Form\Button</frontend_model>
+                </field>
+            </group>
+            <group id="payment" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Payment Information</label>
+                <field id="sandbox" translate="label comment" sortOrder="6" type="select" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Sandbox</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="payment_methods" translate="label comment" sortOrder="7" type="multiselect" showInDefault="1" showInWebsite="1">
+                    <label>Assign Payment Methods</label>
+                    <source_model>Webkul\Affiliate\Model\Config\Source\AffiliateAllowedPaymentMethodsList</source_model>
+                    <validate>required-entry</validate>
+                </field>
+            </group>
+            <group id="commission" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Manage Affiliate General Commission Rates</label>
+                <field id="per_click" translate="label comment" sortOrder="1" type="text" showInDefault="1" showInWebsite="1">
+                    <label>Pay Per Click</label>
+                    <validate>required-entry validate-number validate-not-negative-number</validate>
+                    <comment>Set payment for per click</comment>
+                </field>
+                <field id="unique_click" translate="label comment" sortOrder="2" type="text" showInDefault="1" showInWebsite="1">
+                    <label>Per Unique Click</label>
+                    <validate>required-entry validate-number validate-not-negative-number</validate>
+                    <comment>Set payment for per unique click</comment>
+                </field>
+                <field id="type_on_sale" translate="label comment" sortOrder="4" type="select" showInDefault="1" showInWebsite="1" >
+                    <label>Set Commission Type For Sale</label>
+                    <source_model>Webkul\Affiliate\Model\Config\Source\CommissionType</source_model>
+                    <comment></comment>
+                </field>
+                <field id="rate" translate="label comment" sortOrder="5" type="text" showInWebsite="1" showInDefault="1" >
+                    <label>Set Commission</label>
+                    <validate>required-entry validate-number validate-not-negative-number</validate>
+                    <comment>Set commsion in case of fixed type or in percentage %</comment>
+                </field>
+            </group>
+            <group id="terms" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Affiliate Program Terms</label>
+                <field id="editor_textarea" translate="label comment" sortOrder="1" type="editor" showInStore="1" showInWebsite="1" showInDefault="1" >
+                    <label>Must agree to Affiliate Program Terms?</label>
+                    <frontend_model>Webkul\Affiliate\Block\Adminhtml\System\Config\Editor</frontend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

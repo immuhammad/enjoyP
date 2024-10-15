@@ -1,0 +1,307 @@
+Save,Save
+"Add Banner","Add Banner"
+"Edit Banner","Edit Banner"
+"Banner Title","Banner Title"
+Content,Content
+Link,Link
+Size,Size
+"Select Page","Select Page"
+"Cms Pages","Cms Pages"
+"Product Link","Product Link"
+"∞ (Fluid)","∞ (Fluid)"
+"88x31 (Micro Bar)","88x31 (Micro Bar)"
+"240x120 (Vertical Banner)","240x120 (Vertical Banner)"
+"160x600 (Wide Skyscraper)","160x600 (Wide Skyscraper)"
+"234x60 (Half Banner)","234x60 (Half Banner)"
+"300x600 (Half Page Ad)","300x600 (Half Page Ad)"
+"468x60 (Full Banner)","468x60 (Full Banner)"
+"728x90 (Leaderboard)","728x90 (Leaderboard)"
+"Select Size","Select Size"
+"Affiliate Payment Preference","Affiliate Payment Preference"
+"Affiliate Detail","Affiliate Detail"
+"Affiliate Information","Affiliate Information"
+"Affiliate Enable","Affiliate Enable"
+"Pay Per Click","Pay Per Click"
+"Pay Per Unique Click","Pay Per Unique Click"
+"Commission Type","Commission Type"
+Commission,Commission
+"Blog URL","Blog URL"
+January,January
+February,February
+March,March
+April,April
+May,May
+June,June
+July,July
+August,August
+September,September
+October,October
+November,November
+December,December
+"Send Mail To Affiliate","Send Mail To Affiliate"
+"Affiliate User","Affiliate User"
+Subject,Subject
+Message,Message
+"Email Content","Email Content"
+"All Affiliate User","All Affiliate User"
+"Send mail","Send mail"
+"Please accept affiliate terms for register as affiliate user.","Please accept affiliate terms for register as affiliate user."
+"Update Payment Notify","Update Payment Notify"
+"Create Affiliate Customer Account","Create Affiliate Customer Account"
+01,01
+02,02
+03,03
+04,04
+05,05
+06,06
+07,07
+08,08
+09,09
+10,10
+11,11
+12,12
+13,13
+14,14
+15,15
+16,16
+17,17
+18,18
+19,19
+20,20
+21,21
+22,22
+23,23
+24,24
+25,25
+26,26
+27,27
+28,28
+29,29
+30,30
+31,31
+"Affiliate Banner","Affiliate Banner"
+"Affiliate Banner List","Affiliate Banner List"
+"A total of %1 banner(s) have been deleted.","A total of %1 banner(s) have been deleted."
+"Description has to be completed","Description has to be completed"
+"Text Banner has been successfully saved.","Text Banner has been successfully saved."
+"Statistics Graph","Statistics Graph"
+"Payment Record List","Payment Record List"
+"Sales Record List","Sales Record List"
+"A total of %1 record(s) have been updated.","A total of %1 record(s) have been updated."
+"Traffic Record List","Traffic Record List"
+"Your e-mail was successfully sent.","Your e-mail was successfully sent."
+"Invalid request","Invalid request"
+"Send Email To Affiliate User","Send Email To Affiliate User"
+"Send Mail To Affiliate User","Send Mail To Affiliate User"
+"Today is the payment day.","Today is the payment day."
+"Affiliate User List","Affiliate User List"
+Approved,Approved
+"A total of %1 users(s) have been approved.","A total of %1 users(s) have been approved."
+"A total of %1 users(s) have been rejected.","A total of %1 users(s) have been rejected."
+"Transaction detail saved successfully.","Transaction detail saved successfully."
+"Your affiliate user account balance credited in your bank account","Your affiliate user account balance credited in your bank account"
+"Payment credited notification","Payment credited notification"
+"Invalid amount or user balance is less than minimum payout","Invalid amount or user balance is less than minimum payout"
+"invalid request","invalid request"
+"Affiliate user payment notify updated successfully.","Affiliate user payment notify updated successfully."
+"your payment has been declined.","your payment has been declined."
+"Your affiliate user account balance credited in your paypal account","Your affiliate user account balance credited in your paypal account"
+"Your payment has been done successfully.","Your payment has been done successfully."
+"Affiliate User Summary","Affiliate User Summary"
+"Product Ads","Product Ads"
+"Banner/Text Ads","Banner/Text Ads"
+"Total of %1 e-mail(s) have been sent successfully.","Total of %1 e-mail(s) have been sent successfully."
+"E-mail Campaign","E-mail Campaign"
+"see error log for details","see error log for details"
+"Service unavailable: %1","Service unavailable: %1"
+Payments,Payments
+"Payment method saved successfully.","Payment method saved successfully."
+"Payment Preference","Payment Preference"
+Sales,Sales
+Statistics,Statistics
+"Successfully applied for affiliate user.","Successfully applied for affiliate user."
+"Accept affiliate terms for register as affiliate user.","Accept affiliate terms for register as affiliate user."
+"Affiliate User Status","Affiliate User Status"
+"Blog Url Successfully saved.","Blog Url Successfully saved."
+"Blog Url is invalid.","Blog Url is invalid."
+Summary,Summary
+Traffic,Traffic
+"Unable to Send Mail","Unable to Send Mail"
+noreply,noreply
+"Affiliate Manager","Affiliate Manager"
+"Please review this order","Please review this order"
+" and approve affiliate order status"," and approve affiliate order status"
+"Order No. #","Order No. #"
+" placed with your reference approved and payment added to your account"," placed with your reference approved and payment added to your account"
+"Your Affiliate account status updated","Your Affiliate account status updated"
+"Your Affiliate account ","Your Affiliate account "
+"--Please Select--","--Please Select--"
+"Check / Money order","Check / Money order"
+"Bank Transfer Payment","Bank Transfer Payment"
+"PayPal Standard Payment","PayPal Standard Payment"
+"Affiliate account created successfully.","Affiliate account created successfully."
+"Affiliate Registrations are not allowed.","Affiliate Registrations are not allowed."
+"Not Approved","Not Approved"
+Rejected,Rejected
+Edit,Edit
+Preview,Preview
+N/A,N/A
+"Not Available","Not Available"
+"Pay To Affiliate","Pay To Affiliate"
+"Pay to affiliate by paypal","Pay to affiliate by paypal"
+"Affiliate User Transaction Detail","Affiliate User Transaction Detail"
+"Save Detail","Save Detail"
+Cancel,Cancel
+View,View
+"Select Payment Method","Select Payment Method"
+"Payment Method","Payment Method"
+"Payable To","Payable To"
+"PayPal E-mail","PayPal E-mail"
+"Account Holder","Account Holder"
+"Bank Name","Bank Name"
+"Account Number","Account Number"
+"Bank Address","Bank Address"
+"S.W.I.F.T Code","S.W.I.F.T Code"
+"Traffic Graph Daily","Traffic Graph Daily"
+"Affiliate User Statistics Graph","Affiliate User Statistics Graph"
+"Traffic Graph Monthly","Traffic Graph Monthly"
+"Banners/Text Ad","Banners/Text Ad"
+Product,Product
+"HTML Code","HTML Code"
+"No Product Available","No Product Available"
+Back,Back
+"Banners/Text Ads","Banners/Text Ads"
+Title,Title
+"No Ads Banner Available","No Ads Banner Available"
+"Email Address","Email Address"
+"add multiple email address using comma (,) separate","add multiple email address using comma (,) separate"
+"Add Product Links","Add Product Links"
+Affiliate,Affiliate
+Summary,Summary
+"Banner & Ads","Banner & Ads"
+"Payment Records","Payment Records"
+"Blog Url","Blog Url"
+"Become Affiliate User","Become Affiliate User"
+"Payment Summary","Payment Summary"
+"Transaction Id","Transaction Id"
+"IPN Transaction Id","IPN Transaction Id"
+"Transaction Amount","Transaction Amount"
+"Transaction Date","Transaction Date"
+"No payment Summary","No payment Summary"
+" Payment Method"," Payment Method"
+Blog,Blog
+"Affilate Terms Accept","Affilate Terms Accept"
+"I agree to the","I agree to the"
+"Affiliate Terms","Affiliate Terms"
+"Sales Summary","Sales Summary"
+"Order Id","Order Id"
+Status,Status
+"View Date","View Date"
+"No Sales Order Record","No Sales Order Record"
+Daily,Daily
+Monthly,Monthly
+"Traffic Graph","Traffic Graph"
+"Waiting for approval..","Waiting for approval.."
+"Unapproved by admin..","Unapproved by admin.."
+"Approved by admin..","Approved by admin.."
+"Over All Record","Over All Record"
+Clicks,Clicks
+"Unique Click","Unique Click"
+"Approved Sales","Approved Sales"
+"Pending Sales","Pending Sales"
+Balance,Balance
+"Commission Rates","Commission Rates"
+"Per Click","Per Click"
+"Per Unique Click","Per Unique Click"
+"Per Sale","Per Sale"
+"Traffic Summary","Traffic Summary"
+"IP Address","IP Address"
+"Referring URL","Referring URL"
+"No Traffic Summary","No Traffic Summary"
+Attention,Attention
+"Banner Layout","Banner Layout"
+Ok,Ok
+"Go to Details Page","Go to Details Page"
+"Add Transaction Detail","Add Transaction Detail"
+"Save Transaction Detail","Save Transaction Detail"
+"Payment amount is not available","Payment amount is not available"
+"Pay to Affiliate By Paypal","Pay to Affiliate By Paypal"
+"Payment method is not set by user","Payment method is not set by user"
+"Banner Preview","Banner Preview"
+"Affiliate Terms","Affiliate Terms"
+"Some of the emails are not valid.","Some of the emails are not valid."
+"Products <input type=""text"" id=""aff_campaign_product_search"">","Products <input type=""text"" id=""aff_campaign_product_search"">"
+Webkul,Webkul
+"Affiliate System","Affiliate System"
+"General Settings","General Settings"
+Enable,Enable
+Affiliate Registration,Affiliate Registration
+"Display blog link on registration","Display blog link on registration"
+"Allow affiliate registrations","Allow affiliate registrations"
+"Automatically approve affiliates","Automatically approve affiliates"
+"Set Commission Priority","Set Commission Priority"
+"Minimum payout balance","Minimum payout balance"
+"Payment day of the month","Payment day of the month"
+"days from 1 to 31","days from 1 to 31"
+"Blog URL Hint","Blog URL Hint"
+"Affiliate Manage E-mail","Affiliate Manage E-mail"
+"Affiliate user account update email template","Affiliate user account update email template"
+"On affiliate user account status update","On affiliate user account status update"
+"Affiliate user notification by admin email template","Affiliate user notification by admin email template"
+"When affiliate manager send any notification to user","When affiliate manager send any notification to user"
+"E-mail campaign template","E-mail campaign template"
+"For e-mail campaign","For e-mail campaign"
+"Manager email template","Manager email template"
+"To admin for affiliate sales order approve","To admin for affiliate sales order approve"
+"Payment credit notification email template","Payment credit notification email template"
+"When affiliate user payment credited in bank","When affiliate user payment credited in bank"
+"Affiliate user email template on order approve","Affiliate user email template on order approve"
+"On affiliate sales order approved notification","On affiliate sales order approved notification"
+"Payment Information","Payment Information"
+Sandbox,Sandbox
+"Assign Payment Methods","Assign Payment Methods"
+"Manage Affiliate General Commission Rates","Manage Affiliate General Commission Rates"
+"Set payment for per click","Set payment for per click"
+"Set payment for per unique click","Set payment for per unique click"
+"Set Commission Type For Sale","Set Commission Type For Sale"
+"Set Commission","Set Commission"
+"Set commsion in case of fixed type or in percentage %","Set commsion in case of fixed type or in percentage %"
+"Affiliate Program Terms","Affiliate Program Terms"
+"Must agree to Affiliate Program Terms?","Must agree to Affiliate Program Terms?"
+"Add New Banner","Add New Banner"
+Delete,Delete
+"Do you want to delete selected banners record?","Do you want to delete selected banners record?"
+"Banner Size","Banner Size"
+"Banner Link","Banner Link"
+"Created Date","Created Date"
+Approve,Approve
+"Do you want to approve selected sales record ?","Do you want to approve selected sales record ?"
+"# Order ID","# Order ID"
+"Purchased On","Purchased On"
+"Affiliate User Name","Affiliate User Name"
+"Total Order","Total Order"
+"Order Status","Order Status"
+"Affilate Status","Affilate Status"
+"Customer IP","Customer IP"
+"Do you want to approve selected affiliate users?","Do you want to approve selected affiliate users?"
+Reject,Reject
+"Do you want to reject selected affiliate users?","Do you want to reject selected affiliate users?"
+"Blog link","Blog link"
+"Total Clicks","Total Clicks"
+"Total Unique Clicks","Total Unique Clicks"
+"Total Sale","Total Sale"
+"Total Traffic","Total Traffic"
+"Total Transaction","Total Transaction"
+"Affiliate Comission Type","Affiliate Comission Type"
+"Comission for Affiliate","Comission for Affiliate"
+ID,ID
+Name,Name
+"Affiliate Link","Affiliate Link"
+"Affiliate Manage","Affiliate Manage"
+"Manage Affiliate","Manage Affiliate"
+"Email Affiliate","Email Affiliate"
+"Banner/Text Ad","Banner/Text Ad"
+"Refer Url Compare","Refer Url Compare"
+"Summary","Summary"
+"Payment Method","Payment Method"
+"Copy HTML Code","Copy HTML Code"

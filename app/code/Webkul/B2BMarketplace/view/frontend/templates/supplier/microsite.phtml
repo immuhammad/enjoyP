@@ -1,0 +1,31 @@
+<?php if ($detailedInfoGroup = $block->getGroupChildNames('microsite_details', 'getChildHtml')):?>
+    <div class="product info detailed wk-supplier-tabs">
+        <?php $layout = $block->getLayout(); ?>
+        <div class="product data items" data-mage-init='{"tabs":{"openedState":"active"}}'>
+            <?php foreach ($detailedInfoGroup as $name):?>
+                <?php
+                    $html = $layout->renderElement($name);
+                if (!trim($html)) {
+                    continue;
+                }
+                    $alias = $layout->getElementAlias($name);
+                    $label = $block->getChildData($alias, 'title');
+                ?>
+                <div class="data item title"
+                     aria-labeledby="tab-label-<?= /* @noEscape */ $alias ?>-title"
+                     data-role="collapsible" id="tab-label-<?= /* @noEscape */ $alias ?>">
+                    <a class="data switch"
+                       tabindex="-1"
+                       data-toggle="switch"
+                       href="#<?= /* @noEscape */ $alias ?>"
+                       id="tab-label-<?= /* @noEscape */ $alias ?>-title">
+                        <?= /* @noEscape */ $label ?>
+                    </a>
+                </div>
+                <div class="data item content wk-display-none" id="<?= /* @noEscape */ $alias ?>" data-role="content">
+                    <?= /* @noEscape */ $html ?>
+                </div>
+            <?php endforeach;?>
+        </div>
+    </div>
+<?php endif; ?>

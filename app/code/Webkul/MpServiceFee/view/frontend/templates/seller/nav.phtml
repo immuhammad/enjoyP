@@ -1,0 +1,52 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category   Webkul
+ * @package    Webkul_MpServiceFee
+ * @author     Webkul Software Private Limited
+ * @copyright  Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license    https://store.webkul.com/license.html
+ */
+// @var block  Webkul\Marketplace\Block\Account\Navigation
+$currentHelper = $block->getDataByKey("curHelper");
+$helper =  $currentHelper->getMarketplaceHelper();
+$isPartner = $helper->isSeller();
+$isSellerGroup = $helper->isSellerGroupModuleInstalled();
+$magentoCurrentUrl = $block->getCurrentUrl();
+?>
+<div class="wk-mp-servicefee" id="servicefee-submenu-setting">
+<?php
+if ($isPartner && $currentHelper->isModuleEnable()) {
+
+    if (($isSellerGroup && $helper->isAllowedAction('servicefee/fees/index')) || !$isSellerGroup) {
+        ?>
+        <li
+        id="servicefee-submenu-hover"  class="nav item <?=/* @noEscape */
+         strpos($magentoCurrentUrl, 'servicefee/fees/index') !== false ? "current" : "";?>">
+            <?php
+            if (strpos($magentoCurrentUrl, 'servicefee/fees/index') !== false) {
+                ?>
+                <strong>
+                <?=
+            /* @noEscape */
+                         __('Service Fees')
+                ?>
+                </strong>
+                <?php
+            } else {
+                ?>
+                <a href="<?=$escaper->escapeUrl($block
+                ->getUrl('servicefee/fees/index', ['_secure' => $block->getRequest()->isSecure()]));?>"
+                >
+                    <?= /* @noEscape */ __('Service Fees') ?>
+                </a>
+                <?php
+            }
+            ?>
+        </li>
+    </div>
+        <?php
+    }
+}
+?>

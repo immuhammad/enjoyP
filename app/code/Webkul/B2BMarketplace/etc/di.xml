@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Captcha\Observer\CheckUserLoginObserver" type="Webkul\B2BMarketplace\Preference\CheckUserLoginObserver" />
+    <preference for="Webkul\B2BMarketplace\Api\Data\QuoteInterface" type="Webkul\B2BMarketplace\Model\Quote" />
+    <preference for="Webkul\B2BMarketplace\Api\Data\ItemInterface" type="Webkul\B2BMarketplace\Model\Item" />
+    <preference for="Webkul\B2BMarketplace\Api\Data\QuoteAttachmentInterface" type="Webkul\B2BMarketplace\Model\QuoteAttachment" />
+    <preference for="Webkul\B2BMarketplace\Api\Data\ItemAttachmentInterface" type="Webkul\B2BMarketplace\Model\ItemAttachment" />
+    <preference for="Webkul\B2BMarketplace\Api\Data\AttachmentInterface" type="Webkul\B2BMarketplace\Model\Attachment" />
+    <preference for="Webkul\B2BMarketplace\Api\QuoteManagementInterface" type="Webkul\B2BMarketplace\Model\QuoteManagement" />
+    <preference for="Webkul\B2BMarketplace\Api\QuoteRepositoryInterface" type="Webkul\B2BMarketplace\Model\QuoteRepository" />
+    <preference for="Webkul\B2BMarketplace\Api\QuoteAttachmentRepositoryInterface" type="Webkul\B2BMarketplace\Model\QuoteAttachmentRepository" />
+    <preference for="Webkul\B2BMarketplace\Api\ItemAttachmentRepositoryInterface" type="Webkul\B2BMarketplace\Model\ItemAttachmentRepository" />
+    <preference for="Webkul\B2BMarketplace\Api\AttachmentRepositoryInterface" type="Webkul\B2BMarketplace\Model\AttachmentRepository" />
+    <!-- for product minimum quantity issue -->
+    <type name="\Webkul\Marketplace\Controller\Product\Save">
+        <plugin name="Webkul_B2BMarketplace::aroundProductSave"
+                type="Webkul\B2BMarketplace\Plugin\Marketplace\Controller\ProductSave"
+                sortOrder="12"/>
+    </type>
+    <!-- For creating empty quote if product is ordered from quickorder page -->
+    <type name="\Magento\Checkout\Model\DefaultConfigProvider">
+        <plugin name="Webkul_B2BMarketplace::aroundGetConfig"
+                type="Webkul\B2BMarketplace\Plugin\Checkout\Model\DefaultConfigProvider"
+                sortOrder="11" />
+    </type>
+    <!-- Admin cannot delete supplier's corporate and operation addresses from customer edit page -->
+    <type name="Magento\Customer\Model\Customer\DataProvider">
+        <plugin name="Webkul_B2BMarketplace::DataProvider" type="Webkul\B2BMarketplace\Plugin\Customer\Model\Customer\DataProvider" sortOrder="11" />
+    </type>
+    <type name="Webkul\Marketplace\Controller\Account\Editprofile">
+        <plugin name="Webkul_B2BMarketplace::Editprofile" type="Webkul\B2BMarketplace\Plugin\Marketplace\Controller\Account\Editprofile" sortOrder="11" />
+    </type>
+    <!-- If supplier login then redirect to supplier dashboard -->
+    <type name="Magento\Customer\Model\Account\Redirect">
+        <plugin name="Webkul_B2BMarketplace::Redirect" type="Webkul\B2BMarketplace\Plugin\Customer\Model\Account\Redirect" />
+    </type>
+    <type name="Webkul\Marketplace\Helper\Data">
+        <plugin name="Webkul_B2BMarketplace::Helper" type="Webkul\B2BMarketplace\Plugin\Marketplace\Helper\Data" />
+    </type>
+    <!-- If RFQ product added to cart then display that product image -->
+    <preference for="Magento\Checkout\CustomerData\Cart" type="Webkul\B2BMarketplace\CustomerData\Rewrite\Checkout\Cart" />
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="b2bmarketplace_quote_list_data_source" xsi:type="string">Webkul\B2BMarketplace\Model\ResourceModel\Item\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Webkul\B2BMarketplace\Model\ResourceModel\Item\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">wk_b2b_requestforquote_quote_item</argument>
+            <argument name="eventPrefix" xsi:type="string">wk_b2b_requestforquote_quote_item_collection</argument>
+            <argument name="eventObject" xsi:type="string">wk_b2b_requestforquote_quote_item_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\B2BMarketplace\Model\ResourceModel\Item</argument>
+        </arguments>
+    </type>
+    <virtualType name="B2BMarketplaceGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="ProductGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Webkul\B2BMarketplace\Model\ResourceModel\Item\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">B2BMarketplaceGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <!-- For assigning is_featured_product status for newly assigned product from admin panel -->
+    <type name="Webkul\Marketplace\Observer\AdminhtmlCustomerSaveAfterObserver">
+        <plugin name="Webkul_B2BMarketplace::AdminhtmlCustomerSaveAfterObserver" type="Webkul\B2BMarketplace\Plugin\Marketplace\Observer\AdminhtmlCustomerSaveAfterObserver" />
+    </type>
+    <type name="Webkul\B2BMarketplace\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Webkul\B2BMarketplace\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">b2BMarketplace</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">Webkul\B2BMarketplace\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

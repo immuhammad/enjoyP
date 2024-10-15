@@ -1,0 +1,116 @@
+<?php
+/**
+ * Webkul Affiliate Payment.
+ *
+ * @category  Webkul
+ * @package   Webkul_Affiliate
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$allowedPayMethod = $block->getAllowedPaymentMethod(); ?>
+<fieldset class="info wk-affiliate-fieldset fieldset" id="affiliate-preferences">
+    <legend class="legend">
+        <span><?= /* @noEscape */  __('Select Payment Method') ?></span>
+    </legend>          
+    <?= /* @noEscape */ $block->getBlockHtml('formkey'); ?>
+    <div class="fieldset form-list" id="cust">
+        <div class="field">
+            <label class="label"><?= /* @noEscape */  __('Payment Method') ?> : </label>
+            <div class="control">
+               <select data-form-part="customer_form" name="aff_payment_method" id="payment_method">
+                <?php foreach ($allowedPayMethod as $method) {?>
+                    <option value="<?= /* @noEscape */  $method?>">
+                        <?= /* @noEscape */  $block->getPayMethodLabel($method)?>
+                    </option>
+                <?php } ?>
+               </select>                    
+           </div>
+        </div>
+        <div id="payment-data" class="fieldset" ></div>
+    </div>
+    <script type="custom-template" id="checkmo-template">
+        <div class="field">
+            <label class="label"><?= /* @noEscape */  __('Payable To') ?> : </label>
+            <div class="control">
+                <textarea value="<?php ?>" style="width:100%;" data-form-part="customer_form" 
+                    class="required-entry input-text" name="account_data[payable_to]" id="payable_to" />
+            </div>
+        </div>
+    </script>
+    <script type="custom-template" id="paypal_standard-template">
+        <div class="field">
+            <label class="label"><?= /* @noEscape */  __('PayPal E-mail') ?> : </label>
+            <div class="control">
+                <input type="text" value="<?php ?>" data-form-part="customer_form" 
+                class="required-entry input-text validate-email" name="account_data[paypal_email]" id="paypal_email" />
+            </div>
+        </div>
+    </script>
+    <script type="custom-template" id="banktransfer-template">
+        <div class="field">
+            <label class="label"><?= /* @noEscape */  __('Account Holder') ?> : </label>
+            <div class="control">
+                <input type="text" value="<?php ?>" data-form-part="customer_form" 
+                class="required-entry input-text" name="account_data[account_holder]" id="account_holder" />
+            </div>
+        </div>
+        <div class="field">
+            <label class="label"><?= /* @noEscape */  __('Bank Name') ?> : </label>
+            <div class="control">
+                <input type="text" value="<?php ?>" data-form-part="customer_form" 
+                class="required-entry input-text" name="account_data[bank_name]" id="bank_name" />
+            </div>
+        </div>
+        <div class="field">
+            <label class="label"><?= /* @noEscape */  __('Account Number') ?> : </label>
+            <div class="control">
+                <input type="text" value="<?php ?>" data-form-part="customer_form" 
+                class="required-entry input-text" name="account_data[account_number]" id="account_number" />
+            </div>
+        </div>
+        <div class="field">
+            <label class="label"><?= /* @noEscape */  __('Bank Address') ?> : </label>
+            <div class="control">
+                <input type="text" value="<?php ?>" data-form-part="customer_form" 
+                class="required-entry input-text" name="account_data[bank_address]" id="bank_address" />
+            </div>
+        </div>
+        <div class="field">
+            <label class="label"><?= /* @noEscape */  __('S.W.I.F.T Code') ?> : </label>
+            <div class="control">
+                <input type="text" value="<?php ?>" data-form-part="customer_form" 
+                class="required-entry input-text" name="account_data[code]" id="code" />
+            </div>
+        </div>
+    </script>
+    <script type="text/x-magento-init" >
+    {
+        "*": {
+            "preferences": <?= /* @noEscape */ $block->getPaymentMethodData(); ?>
+        }
+    }
+    </script>
+    <script type="text/javascript">
+        require(
+            ["jquery"],
+            function ($) {
+                methodOpts = jQuery.parseJSON('<?= /* @noEscape */ $block->getPaymentMethodData()?>');
+                jQuery('body').delegate(
+                        '#payment_method',
+                        'change',
+                        function () {
+                            jQuery('#payment-data').html(jQuery('#'+jQuery(this).val()+'-template').clone().html());
+                            jQuery.each(
+                                methodOpts['account_data'],
+                                function (index, value) {
+                                    jQuery('#'+index).val(value);
+                                }
+                            );
+                        }
+                    );
+                jQuery('#payment_method').val(methodOpts['payment_method']).trigger('change');
+            }  
+        );
+    </script>
+</fieldset>

@@ -1,0 +1,20 @@
+{
+    "name": "webkul/marketplace-vendor-attribute-manager",
+    "description": "Marketplace Vendor Attribute Manager",
+    "require": {
+        "webkul/module-marketplace": "5.0.*"
+    },
+    "type": "magento2-module",
+    "version": "5.0.5",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Webkul\\MpVendorAttributeManager\\": ""
+        }
+    }
+}

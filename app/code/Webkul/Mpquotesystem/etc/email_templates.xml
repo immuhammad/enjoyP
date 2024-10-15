@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpquotesystem
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="mpquotesystem_email_new_quote" label="New Quote is processed" file="new_quote.html" type="html" module="Webkul_Mpquotesystem" area="frontend"/>
+    <template id="mpquotesystem_email_quote_status" label="Quote Status" file="quote_status.html" type="html" module="Webkul_Mpquotesystem" area="frontend"/>
+    <template id="mpquotesystem_email_quote_message" label="Quote Message" file="quote_message.html" type="html" module="Webkul_Mpquotesystem" area="frontend"/>
+    <template id="mpquotesystem_email_quote_edit" label="Quote Edited" file="quote_edit.html" type="html" module="Webkul_Mpquotesystem" area="frontend"/>
+</config>

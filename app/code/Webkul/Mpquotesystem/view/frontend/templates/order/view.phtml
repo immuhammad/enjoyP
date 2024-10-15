@@ -1,0 +1,23 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpquotesystem
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php $orderDataArray = $block->isQuoteProductOrder();
+if ($orderDataArray[0]) {
+    $itemId = $orderDataArray[1];
+    ?>
+    <script type="text/x-magento-init">
+    {
+        "*": {
+            "Webkul_Mpquotesystem/js/order-data": {}
+        }
+    }
+    </script>
+<?php } ?>

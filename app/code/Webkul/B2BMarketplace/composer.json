@@ -1,0 +1,21 @@
+{
+    "name": "webkul/b2b-marketplace",
+    "description": "Webkul Magento2 B2b Marketplace Module",
+    "require": {
+        "webkul/module-marketplace": "5.0.*",
+        "webkul/vendor-sub-domain": "5.0.*"
+    },
+    "type": "magento2-module",
+    "version": "5.0.0",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Webkul\\B2BMarketplace\\": ""
+        }
+    }
+}

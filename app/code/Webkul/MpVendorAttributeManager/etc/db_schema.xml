@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpVendorAttributeManager
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="marketplace_vendor_attribute" resource="default" engine="innodb" comment="Vendor Attribute Table">
+    <column xsi:type="int" name="entity_id" padding="11" unsigned="false" nullable="false" identity="true" comment="ID"/>
+    <column xsi:type="int" name="attribute_id" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Attribute Id"/>
+    <column xsi:type="int" name="required_field" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Required Field"/>
+    <column xsi:type="int" name="show_in_front" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Show in Front"/>
+    <column xsi:type="int" name="wk_attribute_status" padding="10" unsigned="true" nullable="false" identity="false" default="1" comment="Attribute Status"/>
+    <column xsi:type="int" name="attribute_used_for" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Attribute Used For"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="marketplace_vendor_group" resource="default" engine="innodb" comment="Vendor Group Table">
+    <column xsi:type="int" name="entity_id" padding="11" unsigned="false" nullable="false" identity="true" comment="ID"/>
+    <column xsi:type="text" name="group_name" nullable="false" comment="Group Name"/>
+    <column xsi:type="int" name="status" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Status"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="marketplace_vendor_assign_group" resource="default" engine="innodb" comment="Vendor Group Assign Table">
+    <column xsi:type="int" name="entity_id" padding="11" unsigned="false" nullable="false" identity="true" comment="ID"/>
+    <column xsi:type="int" name="attribute_id" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Attribute ID"/>
+    <column xsi:type="int" name="group_id" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Group ID"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="FK_FD966AE9DC22F54FEFB0C287913F26DC" table="marketplace_vendor_assign_group" column="group_id" referenceTable="marketplace_vendor_group" referenceColumn="entity_id" onDelete="CASCADE"/>
+  </table>
+</schema>

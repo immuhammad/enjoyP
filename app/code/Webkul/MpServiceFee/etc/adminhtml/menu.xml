@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Webkul Software.
+*
+* @category  Webkul
+* @package   Webkul_MpServiceFee
+* @author    Webkul
+* @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+* @license   https://store.webkul.com/license.html
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Webkul_MpServiceFee::servicefee"
+         title="Webkul Service Fees"
+         translate="title"
+         module="Webkul_MpServiceFee"
+         sortOrder="11"
+         dependsOnConfig="webkul_service_fee/service_fee_settings/enable_disable_service_fee"
+         resource="Webkul_MpServiceFee::servicefee"/>
+
+        <add id="Webkul_MpServiceFee::createfees"
+        title="Create New Service fees"
+        translate="title"
+        module="Webkul_MpServiceFee" sortOrder="10"
+        action="servicefee/fees/create"
+        parent="Webkul_MpServiceFee::servicefee"
+        resource="Webkul_MpServiceFee::createfees"/>
+
+        <add id="Webkul_MpServiceFee::listsellerfees"
+        title="List Service Fees"
+        translate="title"
+        module="Webkul_MpServiceFee" sortOrder="11"
+        action="servicefee/fees/attributeslist"
+        parent="Webkul_MpServiceFee::servicefee"
+        resource="Webkul_MpServiceFee::listsellerfees"/>
+    </menu>
+</config>

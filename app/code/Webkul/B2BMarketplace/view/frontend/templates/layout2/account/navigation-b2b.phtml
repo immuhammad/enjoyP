@@ -1,0 +1,206 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $quickOrderBlock =  $block->getLayout()->createBlock(
+        \Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class
+    );
+    $_helper = $quickOrderBlock->helper(\Webkul\Marketplace\Helper\Data::class);
+    $isPartner= $_helper->isSeller();
+    $magentoCurrentUrl = $block->getCurrentUrl();
+    $allow_pro_type=$_helper->getAllowedProductType();
+    $isSellerGroup = $_helper->isSellerGroupModuleInstalled();
+    $productNotificationCount = $block->getProductNotificationCount();
+    $orderNotificationCount = $block->getOrderNotificationCount();
+    $transactionCount = $block->getTransactionNotificationCount();
+    ?>
+<nav data-mage-init='{"Webkul_Marketplace/js/sellerNavigation": {}}' class="wk-mp-menu wk-mp-main">
+    <ul id="wk-mp-nav">
+        <li class="level-0">
+            <a href="<?= /* @noEscape */ $block->getUrl('marketplace/account/review', [
+                '_secure' => $quickOrderBlock->getRequest()->isSecure()]); ?>" class="">
+                <span><?= /* @noEscape */ __('Dashboard') ?></span>
+            </a>
+        </li>
+        <li class="level-0">
+            <a href="<?= /* @noEscape */ $block->getUrl('marketplace/account/review', [
+                '_secure' => $quickOrderBlock->getRequest()->isSecure()]); ?>" class="">
+                <span><?= /* @noEscape */ __('Messages') ?></span>
+            </a>
+        </li>
+        <li class="level-0">
+            <a href="<?= /* @noEscape */ $block->getUrl('marketplace/account/review', [
+                '_secure' => $quickOrderBlock->getRequest()->isSecure()]); ?>" class="">
+                <span><?= /* @noEscape */ __('Order and Quotes') ?></span>
+            </a>
+        </li>
+        <li class="level-0">
+            <a href="<?= /* @noEscape */ $block->getUrl('marketplace/account/review', [
+                '_secure' => $quickOrderBlock->getRequest()->isSecure()]); ?>" class="">
+                <span><?= /* @noEscape */ __('Customers') ?></span>
+            </a>
+        </li>
+        <li class="wk-mp-item-product level-0" id="wk-mp-menu-product">
+            <a href="#" onclick="return false;" class="">
+                <span><?= /* @noEscape */ __('Products')?></span>
+            </a>
+            <div class="wk-mp-submenu">
+                <strong class="wk-mp-submenu-title"><?= /* @noEscape */ __('Products')?></strong>
+                <a href="#" class="action-close _close" data-role="wk-mp-close-submenu"></a>
+                <ul>
+                    <li data-ui-id="menu-webkul-marketplace-menu" class="item-menu  parent  level-1">
+                        <strong class="wk-mp-submenu-group-title">
+                            <span><?= /* @noEscape */ __('Menu')?></span>
+                        </strong>
+                        <div class="wk-mp-submenu">
+                            <ul>
+                                <?php if (($isSellerGroup &&
+                                $_helper->isAllowedAction('marketplace/product/add')) ||
+                                                    !$isSellerGroup): ?>
+                                    <li class="level-2">
+                                        <a href="<?= /* @noEscape */ $block->getUrl('marketplace/product/add', [
+                                            '_secure' => $quickOrderBlock->getRequest()->isSecure()]); ?>">
+                                            <span><?= /* @noEscape */ __('Add Products') ?></span>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+                                <?php if (($isSellerGroup &&
+                                $_helper->isAllowedAction('marketplace/product/productlist')) ||
+                                !$isSellerGroup): ?>
+                                    <li class="level-2">
+                                        <a href="<?= /* @noEscape */ $block->getUrl('marketplace/product/productlist', [
+                                            '_secure' => $quickOrderBlock->getRequest()->isSecure()]); ?>">
+                                            <span><?= /* @noEscape */ __('My Products List') ?></span>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+                                <?php if (($isSellerGroup &&
+                                $_helper->isAllowedAction('marketplace/product_attribute/new')) || !$isSellerGroup): ?>
+                                    <?php if (strpos($allow_pro_type, 'configurable') !== false): ?>
+                                        <li class="level-2">
+                                            <a href="<?= /* @noEscape */ $block
+                                            ->getUrl('marketplace/product_attribute/new', [
+                                                '_secure' => $quickOrderBlock->getRequest()->isSecure()]); ?>">
+                                                <span><?= /* @noEscape */ __('Configurable Attribute') ?></span>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="level-0">
+            <a href="<?= /* @noEscape */ $block->getUrl('marketplace/account/review', [
+                '_secure' => $quickOrderBlock->getRequest()->isSecure()]); ?>" class="">
+                <span><?= /* @noEscape */ __('Buying Leads') ?></span>
+            </a>
+        </li>
+        <li class="level-0">
+            <a href="<?= /* @noEscape */ $block->getUrl('marketplace/account/review', [
+                '_secure' => $quickOrderBlock->getRequest()->isSecure()]); ?>" class="">
+                <span><?= /* @noEscape */ __('Microsite') ?></span>
+            </a>
+        </li>
+        <li class="level-0">
+            <a href="<?= /* @noEscape */ $block->getUrl('marketplace/account/review', [
+                '_secure' => $quickOrderBlock->getRequest()->isSecure()]); ?>" class="">
+                <span><?= /* @noEscape */ __('Verification') ?></span>
+            </a>
+        </li>
+        <li class="level-0">
+            <a href="<?= /* @noEscape */ $block->getUrl('marketplace/account/review', [
+                '_secure' => $quickOrderBlock->getRequest()->isSecure()]); ?>" class="">
+                <span><?= /* @noEscape */ __('Settings') ?></span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+
+<style>
+.wk-b2b-menu-wrapper {
+    box-sizing:border-box;
+}
+.wk-b2b-menu-wrapper * {
+    box-sizing:border-box;
+}
+.wk-b2b-page-wrapper {
+    box-sizing:border-box;
+}
+.wk-b2b-page-wrapper * {
+    box-sizing:border-box;
+}
+
+.wk-mp-page-header.wk-mp-row {
+    display: inline-block;
+    width: 100%;
+    padding: 5px 15px;
+    box-sizing: border-box;
+    position : relative;
+    z-index : 99;
+}
+.wk-mp-page-header-actions {
+    float : right;
+}
+.wk-b2b-menu-wrapper {
+    display: inline-block;
+    width: 300px;
+    background: #444445;
+    float: left;
+    padding: 0px 15px;
+}
+.wk-b2b-menu-wrapper::after {
+    position:fixed;
+    width : 300px;
+    top : 0;
+    left : 0;
+    bottom : 0;
+    background: #444445;
+    content: '';
+    
+}
+.wk-b2b-menu-wrapper::before {
+    position:fixed;
+    width : 300px;
+    top : 0;
+    left : 0;
+    bottom : 0;
+    background: #444445;
+    content: '';
+    
+}
+.wk-b2b-page-wrapper {
+    width: calc(100% - 300px);
+    float: left;
+}
+.wk-mp-logo {
+    display : none;
+}
+.wk-mp-menu a::before {
+    display : none !important;
+}
+.wk-mp-menu .level-0 > a:hover {
+    background: #444445;
+}
+.wk-mp-menu a {
+    padding : 10px !important;
+}
+.wk-mp-menu .wk-mp-item-review > a {
+    padding : 10px !important;
+}
+.wk-b2b-page-wrapper .page-title {
+    font-size: 25px;
+    font-weight: 500;
+}
+</style>

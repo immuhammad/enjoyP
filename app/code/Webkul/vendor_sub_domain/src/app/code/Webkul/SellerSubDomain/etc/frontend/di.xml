@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_SellerSubDomain
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Store\Model\Store">
+        <plugin name="Webkul_SellerSubDomain::getBaseUrl"
+        type="Webkul\SellerSubDomain\Plugin\Store"
+        sortOrder="1" />
+    </type>
+    <type name="\Webkul\Marketplace\Helper\Data">
+        <plugin name="Webkul_SellerSubDomain::getReWriteUrl"
+                type="Webkul\SellerSubDomain\Plugin\Data"
+                sortOrder="10" />
+    </type>
+    <preference for="Magento\Cms\Helper\Page" type="Webkul\SellerSubDomain\Helper\Page" />
+    <type name="\Magento\Framework\App\Action\Action">
+      <plugin name="Webkul_SellerSubDomain::pathvalidator"
+              type="Webkul\SellerSubDomain\Plugin\Homepage"
+              sortOrder="10" />
+    </type>
+    <type name="\Webkul\Marketplace\Block\Profile">
+        <plugin name="Webkul_SellerSubDomain::profile-ProfileDetail"
+                type="Webkul\SellerSubDomain\Plugin\Marketplace\Block\Profile"
+                sortOrder="10" />
+    </type>
+    <type name="Magento\Review\Observer\CatalogBlockProductCollectionBeforeToHtmlObserver">
+        <plugin name="Webkul_SellerSubDomain::aroundExecute"
+                type="Webkul\SellerSubDomain\Plugin\CatalogBlockProductCollectionBeforeToHtmlObserver"
+                sortOrder="10" />
+    </type>
+    <type name="Magento\CatalogSearch\Model\Advanced">
+        <plugin name="Webkul_SellerSubDomain::afterGetProductCollection"
+                type="Webkul\SellerSubDomain\Plugin\Advanced"
+                sortOrder="10" />
+    </type>
+    <type name="Magento\Store\Model\StoreCookieManager">
+        <plugin name="Webkul_SellerSubDomain::cookiemanger"
+                type="Webkul\SellerSubDomain\Plugin\StoreCookieManager"
+                sortOrder="10" />
+    </type>
+    <type name="Magento\Theme\Block\Html\Header\Logo">
+        <plugin name="Webkul_SellerSubDomain::afterIsHomePage"
+                type="Webkul\SellerSubDomain\Plugin\Block\Html\Header\Logo"
+                sortOrder="10" />
+    </type>
+    <preference for="Magento\Theme\Block\Html\Header\Logo" type="Webkul\SellerSubDomain\Block\Html\Header\Logo" />
+    <type name="\Magento\Framework\App\Action\Action">
+        <plugin name="Webkul_SellerSubDomain::actionredirector"
+                type="Webkul\SellerSubDomain\Plugin\Action\Action"
+                sortOrder="10" />
+    </type>
+    <type name="\Magento\Elasticsearch7\SearchAdapter\Adapter">
+        <plugin name="Webkul_SellerSubDomain::aroundQuery"
+                type="Webkul\SellerSubDomain\Plugin\Elasticsearch7\SearchAdapter\Adapter"
+                sortOrder="1" />
+    </type>
+    <type name="\Magento\Store\ViewModel\SwitcherUrlProvider">
+    <plugin name="aroundGetTargetStoreRedirectUrl"
+                type="Webkul\SellerSubDomain\Plugin\Store\ViewModel\SwitcherUrlProvider"
+                sortOrder="10" />
+    </type>
+    <type name="Magento\Catalog\Model\Layer">
+        <plugin name="LayerPlugin" type="Webkul\SellerSubDomain\Plugin\Catalog\Model\Layer"/>
+    </type>
+    <type name="Magento\Store\Controller\Store\Redirect">
+        <plugin name="LayerPlugin" type="Webkul\SellerSubDomain\Plugin\Store\Controller\Store\Redirect"/>
+    </type>
+        <type name="\Magento\Store\Controller\Store\SwitchAction">
+        <plugin name="Webkul_SellerSubDomain::aroundSwitchExecute"
+                type="Webkul\SellerSubDomain\Plugin\Store\Controller\Store\SwitchAction"
+                sortOrder="10" />
+    </type>
+
+</config>

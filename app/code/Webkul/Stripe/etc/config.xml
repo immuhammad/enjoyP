@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!-- /**
+* Webkul Software
+*
+* @category Webkul
+* @package Webkul_Stripe
+* @author Webkul
+* @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+* @license https://store.webkul.com/license.html
+*/ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+        	<stripe>
+                <active>0</active>
+            	<model>Webkul\Stripe\Model\PaymentMethod</model>
+            	<payment_action>authorize</payment_action>
+                <order_status>pending_payment</order_status>
+            	<title>Stripe</title>
+            	<name_on_form>Stripe Pay</name_on_form>
+                <min_order_total>0.50</min_order_total>
+                <shipping_address>0</shipping_address>
+                <billing_address>0</billing_address>
+                <payment_method_types>card</payment_method_types>
+            </stripe>
+    	</payment>
+    </default>
+</config>

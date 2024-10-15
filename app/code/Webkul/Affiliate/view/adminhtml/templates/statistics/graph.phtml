@@ -1,0 +1,86 @@
+<!--
+/**
+ * Webkul Affiliate Graph page
+ * @category  Webkul
+ * @package   Webkul_Affiliate
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ -->
+<fieldset class="info wk-affiliate-traffic-graph-fieldset fieldset" id="affiliate-user-traffic-graph">
+    <legend class="legend"><span><?= /* @noEscape */  __('Traffic Graph Daily') ?></span></legend>
+    <div id="line_top_x"></div>   
+</fieldset>
+<fieldset class="info wk-affiliate-traffic-graph-fieldset fieldset" id="affiliate-user-traffic-graph">
+    <legend class="legend"><span><?= /* @noEscape */  __('Traffic Graph Monthly') ?></span></legend>
+    <div id="line_top_x-month"></div>  
+</fieldset>
+<?php
+$data = [];
+foreach ($block->getAffiMonthTraficGraph() as $key => $value) {
+    $val = [];
+    $val[0] = $key;
+    $val[1] = $value;
+    $data[] =$val;
+}
+$dataMonth = [];
+foreach ($block->getAffiYearTraficStatisticsGraph() as $key => $value) {
+    $val = [];
+    $val[0] = $key;
+    $val[1] = $value;
+    $dataMonth[] =$val;
+}
+?>
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['line']});
+      google.charts.setOnLoadCallback(drawChart);
+      google.charts.setOnLoadCallback(drawChartMonth);
+
+    function drawChart() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'Day');
+      data.addColumn('number', 'Traffic Graph Daily');
+      data.addRows(<?= /* @noEscape */ json_encode($data); ?>);
+
+      var options = {
+        chart: {
+          title: '',
+          subtitle: ''
+        },
+        width: 900,
+        height: 500,
+        axes: {
+          x: {
+            0: {side: 'top'}
+          }
+        }
+      };
+
+      var chart = new google.charts.Line(document.getElementById('line_top_x'));
+      chart.draw(data, google.charts.Line.convertOptions(options));
+    }
+    function drawChartMonth() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'Month');
+      data.addColumn('number', 'Traffic Graph Monthly');
+      data.addRows(<?= /* @noEscape */ json_encode($dataMonth); ?>);
+
+      var options = {
+        chart: {
+          title: '',
+          subtitle: ''
+        },
+        width: 900,
+        height: 500,
+        axes: {
+          x: {
+            0: {side: 'top'}
+          }
+        }
+      };
+
+      var chart = new google.charts.Line(document.getElementById('line_top_x-month'));
+      chart.draw(data, google.charts.Line.convertOptions(options));
+    }
+  </script>

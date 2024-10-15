@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+        <css src="Webkul_B2BMarketplace::css/supplier/collection.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Webkul\Marketplace\Block\Location" name="marketplace_sellerlocation" template="Webkul_B2BMarketplace::supplier/profile/location.phtml" before="-">
+                <block class="Webkul\Marketplace\Block\Location" name="marketplace_seller_top_block" template="Webkul_B2BMarketplace::supplier/profile/top-block.phtml" cacheable="false"/>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="marketplace_seller_top_block">
+            <block class="Webkul\Marketplace\Block\Location" name="marketplace_seller_profile_contact" template="Webkul_B2BMarketplace::supplier/profile/contact.phtml" cacheable="false"/>
+            <block class="Webkul\Marketplace\Block\Location" name="marketplace_seller_profile_menu" template="Webkul_B2BMarketplace::supplier/profile/menu.phtml" before="-"/>
+        </referenceContainer>
+    </body>
+</page>

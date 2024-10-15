@@ -1,0 +1,258 @@
+"Update Quote","Update Quote"
+"Delete Quote","Delete Quote"
+"Edit quote '%1'","Edit quote '%1'"
+"New Quote","New Quote"
+"Manage quotes","Manage quotes"
+"Marketplace Quotes","Marketplace Quotes"
+"General Information","General Information"
+"Quote Price","Quote Price"
+"Quote Quantity","Quote Quantity"
+"Product Id","Product Id"
+"Product Name","Product Name"
+Status,Status
+Unapproved,Unapproved
+Approved,Approved
+Declined,Declined
+Sender,Sender
+Receiver,Receiver
+Conversation,Conversation
+"Created At","Created At"
+"Manage Quotes Information","Manage Quotes Information"
+"Marketplace Quote Manager","Marketplace Quote Manager"
+"marketplace Quote Manager","marketplace Quote Manager"
+"Quote Conversation","Quote Conversation"
+Admin,Admin
+(Customer),(Customer)
+(Seller),(Seller)
+Select,Select
+Name,Name
+SKU,SKU
+Price,Price
+Action,Action
+"Add Quote","Add Quote"
+"Add Multiple Quote","Add Multiple Quote"
+"Read error!","Read error!"
+Author,Author
+Version,Version
+"User Guide","User Guide"
+"Click Here","Click Here"
+"Store Extension","Store Extension"
+Ticket/Customisations,Ticket/Customisations
+Services,Services
+"Sorry some error occured!!!","Sorry some error occured!!!"
+"Sorry!! Quote can't be saved.","Sorry!! Quote can't be saved."
+"Your Quote has been successfully sent","Your Quote has been successfully sent"
+"Quote Quantity can contain only integer value","Quote Quantity can contain only integer value"
+"Quote Price can contain only decimal or integer value","Quote Price can contain only decimal or integer value"
+"Please enter the quote description","Please enter the quote description"
+"Sorry!! Quantity of this product in stock is zero.","Sorry!! Quantity of this product in stock is zero."
+"""Sorry you are not allowed to quote such a low quantity for "" .","""Sorry you are not allowed to quote such a low quantity for "" ."
+"Quote is Successfully deleted","Quote is Successfully deleted"
+"Something went wrong while Deleting the data.","Something went wrong while Deleting the data."
+"Manage Marketplace Quotes","Manage Marketplace Quotes"
+"This quote no longer exists.","This quote no longer exists."
+"Edit Quote","Edit Quote"
+"Edit Marketplace Quote","Edit Marketplace Quote"
+"View Quote","View Quote"
+"View Marketplace Quote","View Marketplace Quote"
+"Can not update Quote(s) Status to sold.","Can not update Quote(s) Status to sold."
+"Quote Status is updated by %1.","Quote Status is updated by %1."
+"A Total of %1 record(s) successfully updated.","A Total of %1 record(s) successfully updated."
+"Something went wrong while Updating the data.","Something went wrong while Updating the data."
+"Quote id %1 Already has been sold","Quote id %1 Already has been sold"
+"Can not update status for quote id %1","Can not update status for quote id %1"
+"Requested quantity is not available for quote id %1.","Requested quantity is not available for quote id %1."
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"Quote is not exists.","Quote is not exists."
+"Not Allowed to update.","Not Allowed to update."
+"Sorry!! Quote Quantity should not be less than %1.","Sorry!! Quote Quantity should not be less than %1."
+"Sorry!! This much product quantity is not available","Sorry!! This much product quantity is not available"
+"Message Sent Successfully","Message Sent Successfully"
+"Quote Already has been sold","Quote Already has been sold"
+"Mimimum Quote Quantity cannot be empty if Quote Status is enabled.","Mimimum Quote Quantity cannot be empty if Quote Status is enabled."
+"Mimimum Quote Quantity cannot be empty if Quote Status is enabled","Mimimum Quote Quantity cannot be empty if Quote Status is enabled"
+"Quote does not exists, please contact to admin.","Quote does not exists, please contact to admin."
+"Same Product is already added to cart.","Same Product is already added to cart."
+"A Quote item of same product is already added in cart.","A Quote item of same product is already added in cart."
+"Quote Product Is added In cart","Quote Product Is added In cart"
+Attachment,Attachment
+"View Attachment","View Attachment"
+"You are not authorized to access this quote","You are not authorized to access this quote"
+"Quotes are successfully deleted.","Quotes are successfully deleted."
+"Quote Does Not exists.","Quote Does Not exists."
+"Quotesystem is disabled by admin, Please contact to admin!","Quotesystem is disabled by admin, Please contact to admin!"
+"My Quotes","My Quotes"
+"Unauthorized to access quote id %1","Unauthorized to access quote id %1"
+"Please select checkbox first.","Please select checkbox first."
+"Sorry!! Quote can't be saved","Sorry!! Quote can't be saved"
+"Please check the file attached","Please check the file attached"
+"Your Quote has been successfully saved","Your Quote has been successfully saved"
+"Sorry you are not allowed to quote such a low quantity","Sorry you are not allowed to quote such a low quantity"
+"Data Validation Failed","Data Validation Failed"
+"Something Went Wrong, Please try again later.","Something Went Wrong, Please try again later."
+"Quote not found","Quote not found"
+"Quote Successfully updated","Quote Successfully updated"
+"Quote Quantity can not less then default value.","Quote Quantity can not less then default value."
+"Sorry!! Quote Status Changed previously","Sorry!! Quote Status Changed previously"
+"Quote Settings","Quote Settings"
+"Manage Quotes","Manage Quotes"
+"Something went wrong.","Something went wrong."
+"You are not authorized to access quote by id %1","You are not authorized to access quote by id %1"
+"Sorry!! Data can't be saved","Sorry!! Data can't be saved"
+"Saved quote settings data.","Saved quote settings data."
+"Can not save the quote config data","Can not save the quote config data"
+"Please select quote category","Please select quote category"
+"Format of min qty is not correct","Format of min qty is not correct"
+"This quote no longer exists","This quote no longer exists"
+Links,Links
+"%1 is not a valid image file","%1 is not a valid image file"
+"%1 is not a valid pdf file","%1 is not a valid pdf file"
+"%1 is not a valid doc file","%1 is not a valid doc file"
+"Thanks for your quote, will contact you soon.","Thanks for your quote, will contact you soon."
+"New Quote has been created Please Check.","New Quote has been created Please Check."
+"Your Quote Status has been changed now.","Your Quote Status has been changed now."
+"Quote Status has been changed now.","Quote Status has been changed now."
+"Quote Status changed successfully.","Quote Status changed successfully."
+"Your Message send successfully.","Your Message send successfully."
+"New Message has been appended to quote id : %1","New Message has been appended to quote id : %1"
+"You just Edited your previous quote, details are below.","You just Edited your previous quote, details are below."
+"Customer just Edited his/her quote, details are below.","Customer just Edited his/her quote, details are below."
+"%1 have just Edited a quote, details are below.","%1 have just Edited a quote, details are below."
+"You have just Edited a quote, details are below.","You have just Edited a quote, details are below."
+.,.
+Default,Default
+" Disabled"," Disabled"
+" Enabled"," Enabled"
+Yes,Yes
+No,No
+"Unable to remove quote %1","Unable to remove quote %1"
+"You can't edit quote items","You can't edit quote items"
+"Status for Quote Product ""%1"" is declined","Status for Quote Product ""%1"" is declined"
+"Sorry, but you can only add maximum %1 quantity of %2 in this cart.","Sorry, but you can only add maximum %1 quantity of %2 in this cart."
+"Add to cart for this product is not allowed","Add to cart for this product is not allowed"
+Edit,Edit
+Delete,Delete
+"Delete quotes","Delete quotes"
+"Are you sure you wan't to delete quotes?","Are you sure you wan't to delete quotes?"
+"View Customer","View Customer"
+"View Order","View Order"
+"View Product","View Product"
+Sold,Sold
+"Quote Product","Quote Product"
+Quantity,Quantity
+"Price per Item","Price per Item"
+Description,Description
+"Add Attachment(s)","Add Attachment(s)"
+Product,Product
+"Price After Configuration","Price After Configuration"
+"Quote Description","Quote Description"
+"Quote Detail","Quote Detail"
+"Quoted Price","Quoted Price"
+"Quoted Quantity","Quoted Quantity"
+"'minimum quote quantity limit is ' .","'minimum quote quantity limit is ' ."
+"Customer Email","Customer Email"
+"Enter Message:","Enter Message:"
+"Marketplace Quote System","Marketplace Quote System"
+Conversations:,Conversations:
+Me,Me
+"Check To Update Quote","Check To Update Quote"
+"Enter Message","Enter Message"
+Back,Back
+Update,Update
+Pending,Pending
+"No Quotes Available","No Quotes Available"
+"Quote Id","Quote Id"
+"Quote Product Name","Quote Product Name"
+"Quote Product Status","Quote Product Status"
+"Search by Quote Id","Search by Quote Id"
+"Search by product name","Search by product name"
+All,All
+Submit,Submit
+"Delete Quotes","Delete Quotes"
+ID,ID
+"Add To Cart","Add To Cart"
+View,View
+"Multi-Address checkout is not available for Quote Products","Multi-Address checkout is not available for Quote Products"
+"Allowed Types :","Allowed Types :"
+"Please select options","Please select options"
+"Quote This Product","Quote This Product"
+"Enter Quote Details","Enter Quote Details"
+"Minimum quote quantity limit is %1","Minimum quote quantity limit is %1"
+Reset,Reset
+Login,Login
+Menu,Menu
+"Enter a valid minimum quantity","Enter a valid minimum quantity"
+"Quote Status","Quote Status"
+Disabled,Disabled
+Enabled,Enabled
+"Minimum Quote Quantity","Minimum Quote Quantity"
+Save,Save
+"Quote Category","Quote Category"
+"To BECOME SELLER PLEASE CONTACT TO ADMIN.","To BECOME SELLER PLEASE CONTACT TO ADMIN."
+%customer_name,%customer_name
+%quoteTitle,%quoteTitle
+"Quote Qty","Quote Qty"
+Sku,Sku
+"Product Price","Product Price"
+Description:,Description:
+"New message:","New message:"
+"New Message :","New Message :"
+"New Status :","New Status :"
+"Create an Account","Create an Account"
+"Creating an account has many benefits:","Creating an account has many benefits:"
+"See order and shipping status","See order and shipping status"
+"Track order history","Track order history"
+"Check out faster","Check out faster"
+"*You will be redirected to Create Account Page","*You will be redirected to Create Account Page"
+"Email Address","Email Address"
+Password,Password
+"Sign In","Sign In"
+"Forgot Your Password?","Forgot Your Password?"
+or,or
+"* Required Fields","* Required Fields"
+"We don't recognize or support this file extension type.","We don't recognize or support this file extension type."
+"Bundle Product can't be Quoted.","Bundle Product can't be Quoted."
+"Invalid Image Extension. Allowed extensions are ","Invalid Image Extension. Allowed extensions are "
+" Are you sure you want to edit this quote ? "," Are you sure you want to edit this quote ? "
+" No Checkbox is checked "," No Checkbox is checked "
+" Are you sure you want to delete these quotes ? "," Are you sure you want to delete these quotes ? "
+" Are you sure you want to delete this quote ? "," Are you sure you want to delete this quote ? "
+"Requested Amount is not available please contact Admin","Requested Amount is not available please contact Admin"
+"Something Went Wrong, Please try again later","Something Went Wrong, Please try again later"
+"There is some error during executing this process, please try again later.","There is some error during executing this process, please try again later."
+"Confirm Action","Confirm Action"
+"You will be redirected to Login/Sign Up page","You will be redirected to Login/Sign Up page"
+Saving,Saving
+"Add to Quote","Add to Quote"
+Adding...,Adding...
+Added,Added
+"Minimum quote quantity limit is ","Minimum quote quantity limit is "
+"Are you sure you want to update status of selected quotes?","Are you sure you want to update status of selected quotes?"
+Webkul,Webkul
+"Marketplace QuoteSystem","Marketplace QuoteSystem"
+"Marketplace QuoteSystem Settings","Marketplace QuoteSystem Settings"
+"Enable Quote System for products","Enable Quote System for products"
+"Allow To use Discount while quote product is in cart","Allow To use Discount while quote product is in cart"
+"Allow customer to apply discount when customer added quote product in cart","Allow customer to apply discount when customer added quote product in cart"
+"Show Product Price","Show Product Price"
+"Show Add to Cart","Show Add to Cart"
+"Marketplace Quote Configuration","Marketplace Quote Configuration"
+"Allowed Type For Attachment","Allowed Type For Attachment"
+"Transactional Emails Setting","Transactional Emails Setting"
+"New Quote Email","New Quote Email"
+"Quote Edit Email","Quote Edit Email"
+"Quote Message Email","Quote Message Email"
+"Quote Status Update Email","Quote Status Update Email"
+"Marketplace QuoteSystem Product Information","Marketplace QuoteSystem Product Information"
+Email,Email
+Phone,Phone
+"ZIP/Post Code","ZIP/Post Code"
+Country,Country
+State/Province,State/Province
+"Signed-up Point","Signed-up Point"
+Website,Website
+"Add New Quote","Add New Quote"
+"Are you sure to delete selected Quotes?","Are you sure to delete selected Quotes?"
+"Update Quotes","Update Quotes"
+"Customer Name","Customer Name"
+"Are you sure you want to delete selected products?","Are you sure you want to delete selected products?"

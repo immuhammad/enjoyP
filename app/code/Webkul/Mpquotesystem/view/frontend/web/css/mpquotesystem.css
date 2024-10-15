@@ -1,0 +1,412 @@
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpquotesystem
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ 
+.wk-mp-model-popup .wk-modal-body {
+    overflow: auto;
+}
+.wk-back-buttons-set {
+    display: inline-block;
+}
+.wk-block {
+    display: block;
+}
+td.quote_attachment .label {
+    margin: 0 30px;
+}
+._attachment-hide{
+    display:none;
+}
+/* attachment css */
+.wk_qs_message_container .attachment {
+    display: inline-block;
+    width: 25%;
+}
+.attach-link{
+    padding: 0 10px;
+}
+.product-view .add-to-cart-buttons .button {
+    width: auto!important;
+}
+.popover {
+    background-clip: padding-box;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    text-align: center;
+    white-space: normal;
+    width: 40%;
+}
+.popover_head {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #ebebeb;
+    border-radius: 5px 5px 0 0;
+    min-height: 40px;
+    padding: 8px 14px;
+}
+.popover_foot {
+    background-color: #f7f7f7;
+    border-radius: 0 0 5px 5px;
+    border-top: 1px solid #ebebeb;
+    min-height: 40px;
+    padding: 8px 14px;
+}
+.popover_content {
+    padding: 9px 14px;
+}
+.popover_title{
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 23px;
+}
+.popover_background{
+    background-color: rgba(227, 227, 227, 0.59);
+    display: none;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99;
+}
+.quote_row{
+    margin-bottom: 5px;
+}
+.quote_label{
+    display: inline-block;
+    text-align: right;
+    width: 25%;
+}
+.quote_input{
+    background: none repeat scroll 0 0 #fff;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-shadow: 0 0 1px 1px #cccccc inset;
+    padding: 5px !important;
+    width: 60% !important;
+}
+.submit_button{
+    background-color: #428bca;
+    border: 1px solid #357ebd;
+    border-radius: 4px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 6px 10px;
+    width: 100px;
+}
+.submit_button:hover {
+    background-color: #3276b1;
+    border-color: #285e8e;
+}
+.wk_qs_front_loader {
+    background: none repeat scroll 0 0 rgba(255, 244, 232, 0.61);
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+}
+.wk_qs_front_loader > div {
+    background: url("../images/loader.gif") no-repeat scroll 0 0 transparent;
+    border-radius: 18px 18px 18px 18px;
+    height: 32px;
+    left: 48%;
+    position: fixed;
+    top: 48%;
+    width: 32px;
+}
+.wk_qs_status_decline{
+    color: #F4101F;
+    font-weight: bold;
+}
+.wk_qs_status_sold{
+    color: #0FBE00;
+    font-weight: bold;
+}
+.wk_qs_status_pending{
+    color: #da9011;
+    font-weight: bold;
+}
+.wk_qs_action_delete{
+    background: url("../images/sprite.png") no-repeat scroll -28px -2px rgba(0, 0, 0, 0);
+    display: inline-block;
+    height: 21px;
+    width: 20px;
+}
+.wk_qs_action_view{
+    background: url("../images/sprite.png") no-repeat scroll -1px -2px rgba(0, 0, 0, 0);
+    display: inline-block;
+    height: 21px;
+    width: 24px;
+}
+.wk_qs_separator{
+    border: 1px dashed #000;
+    display: inline-block;
+    height: 22px;
+}
+.wk_qs_row{
+    margin-bottom: 10px;
+}
+.wk_qs_label{
+    display: inline-block;
+    margin-right: 13px;
+    text-align: right;
+    width: 15%;
+}
+.wk_qs_field{
+    display: inline-block;
+}
+.wk_qs_onereply {
+    box-shadow: 2px 2px 5px;
+    margin: 10px;
+}
+.wk_qs_onereply_customer {
+    background: none repeat scroll 0 0 #B9CDF8 !important;
+}
+.wk_qs_onereply_head {
+    background: none repeat scroll 0 0 #96c986;
+    display: block;
+    padding: 10px;
+}
+.wk_qs_onereply_cntnt_container {
+    background: none repeat scroll 0 0 #dfe8e6;
+    padding: 10px;
+}
+.wk_qs_onereply_cntnt {
+    font-family: tahoma;
+    line-height: 25px;
+}
+.wk_qs_onereply_head_left {
+    color: #000000;
+    display: inline-block;
+    font-size: 10pt;
+    font-weight: bold;
+    text-align: left;
+    width: 48%;
+}
+.wk_qs_onereply_head_right {
+    color: #888888;
+    display: inline-block;
+    font-size: 11pt;
+    font-weight: bold;
+    text-align: right;
+    width: 50%;
+}
+.popover_close{
+    color: #d21d1d;
+    cursor: pointer;
+    font-weight: bold;
+    line-height: 11px;
+    position: absolute;
+    right: 12px;
+    top: 15px;
+}
+.wk-mp-list-table th,.wk-mp-list-table tr{
+    border-bottom: 1px solid #CCCCCC;
+}
+.modal-title {
+    margin: 0;
+    line-height: 1.42857143;
+    font-size: 18px;
+    font-family: inherit;
+    font-weight: 500;
+    display: inline-block;
+}
+.modal-header {
+  border-bottom: 1px solid #EEEEEE;
+  border-radius: 4px 4px 0 0;
+  padding: 9px 15px;
+  text-align: left;
+}
+.modal-header h3 {
+    display: inline-block;font-size: 20px;opacity: 0.6;
+}
+.ask-que{
+    cursor:pointer;
+}
+#mass_delete_butn{
+    margin-bottom: 10px;
+}
+.wk-qs-min-qty{
+    font-size: 12px;
+    color: green;
+    font-weight: 600;
+}
+.wk_action .mp_quote_edit, .wk_action .mp_quote_delete {
+    cursor: pointer;
+}
+.wk_qs_quote_button.button.btn-cart.action.primary {
+    line-height: 2.2rem;
+    padding: 14px 8%;
+    font-size: 1.6rem;
+    margin-top: 10px;
+    width: 49%;
+}
+#mpquotesystem_quote_add_cat .fieldset div{
+    padding:10px;
+}
+.wk-mp-qs-wrapper .wk-mp-qs-btn {
+    margin: 20px;
+    float: right;
+}
+.wk-float-right{
+    float:right !important;
+}
+.wk-cart-notification-message{
+    margin-top: 6px;
+}
+.wk_option_select_message{
+    color:red;
+    margin-top:15px;
+}
+.mpquotesystem-nav:hover .mpquotesystem-sub-nav{display:block;}
+.mpquotesystem-nav{position:relative}
+.mpquotesystem-child-menu{display:none;}
+.mpquotesystem-sub-nav{
+    top: 30px;
+    padding: 0;
+    position: absolute;
+    background-color: #f5f5f5;
+    margin-left: 30%;
+    border: 1px solid #ccc;
+    right: 0%;
+    z-index:+99;
+}
+.no-border a{
+    border: 0 !important;
+    padding: 2px 0 !important;
+}
+.product-cart-image{
+    width: 110px;
+}
+/*Updated for issue #186*/
+.table-comparison .product-item-actions .actions-primary.quote_button {
+    margin-left: 5px;
+}
+@media screen and (min-width: 767px) and (max-width: 900px) {
+    .product-item-actions {
+        display: block !important;
+    }
+}
+@media screen and (min-width: 1024px) {
+    .page-products .products-grid .product-item {
+        margin-left: calc((100% - 4*24.439%)/3);
+        padding: 0;
+        width: 24.439% !important;
+    }
+}
+/*Updated for issue #181 */
+@media screen and (min-width: 768px) {
+    .products-grid.wishlist .product-item .fieldset .product-item-actions {
+        display: table-cell !important;
+        vertical-align: bottom;
+    }
+}
+.product-item .product-item-info .product-item-actions .quote_button {
+    display: block;
+    margin: 10px 0 0 0;
+}
+.product-item .product-item-info .product-item-actions .quote_button .toquote {
+    font-size: 1.1rem;
+}
+@media screen and (min-width: 768px) {
+    .products-grid.wishlist .product-item .fieldset .field.qty {
+        display: block !important;
+    }
+}
+div.sidebar.sidebar-additional div.actions-primary.quote_button {
+    white-space: nowrap;
+}
+/*Updated for issue #152*/
+@media screen and (min-width: 768px) {
+    .product-info-main .box-tocart .field.qty, .product-options-bottom .box-tocart .field.qty {
+        display: contents !important;
+    }
+}
+.product-info-main .box-tocart .actions, .product-options-bottom .box-tocart .actions {
+    display: block !important;
+    padding-top: 25px !important;
+    text-align: unset !important;
+}
+/*Only for Bundle Product in issue #152*/
+.bundle-options-container .block-bundle-summary .box-tocart .actions {
+    display: block !important;
+    margin-bottom: 10px;
+}
+.bundle-options-container .block-bundle-summary .box-tocart .action.primary{
+    line-height: 2.2rem;
+    padding: 14px 17px !important;
+    font-size: 1.8rem;
+    width: 49% !important;
+}
+/*Update for issue #182*/
+#mpqsaskbtn, #mpqsresetbtn {
+    background-color: #eeeeee !important;
+    border: 1px solid #cccccc !important;
+    border-radius: 4px !important;
+    color: #333333 !important;
+    cursor: pointer;
+    font-weight: 600 !important;
+    font-size: 1.4rem !important;
+    padding: 6px 10px;
+    width: 100px;
+    margin-right: 10px;
+}
+
+/* add css buttons for Add to Quote || starts */
+.box-tocart .actions-primary .action.tocart:not(:last-child) {
+    margin-bottom: 0;
+}
+@media (min-width: 640px) {
+    .product-item-actions .actions-primary {
+        display: flex;
+    }
+    #wishlist-sidebar .product-item-actions .actions-primary {
+        display: inline-block;
+    }
+}
+@media (min-width: 769px), print {
+    .products-grid.wishlist .product-item .box-tocart .actions-primary {
+        display: flex;
+    }
+}
+@media (max-width: 639px) {
+    .wishlist .product-items .product-item .tocart.mpquotesystem_cat_add {
+        margin-left: 0;
+        width: 100%;
+        padding: 10px 15px;
+        margin-top: 2%;
+    }
+    .product-item-actions .actions-primary .tocart.mpquotesystem_cat_add {
+        margin-left: 0;
+        margin-top: 2%;
+        width: 61%;
+        padding: 10px 0px;
+    }
+}
+.product-item .tocart.mpquotesystem_cat_add {
+    width: 50%;
+    padding: 10px 0px;
+    margin-left: 1%;
+}
+.product-item-actions .tocart.mpquotesystem_cat_add {
+    margin-left: 1%;
+}
+#wishlist-sidebar .product-item-actions .tocart.mpquotesystem_cat_add {
+    margin-left: 0;
+    margin-top: 1%;
+    width: auto;
+    padding: 10px 9px;
+}
+/* add css buttons for Add to Quote || stops */

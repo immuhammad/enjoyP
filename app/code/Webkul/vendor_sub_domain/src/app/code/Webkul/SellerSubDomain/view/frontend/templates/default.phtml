@@ -1,0 +1,49 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_SellerSubDomain
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$removeStaticBlock = false;
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$helper = $objectManager->create(\Webkul\SellerSubDomain\Helper\Data::class);
+$mpHelper = $objectManager->create(\Webkul\Marketplace\Helper\Data::class);
+$actionName = $helper->getDefaultWebUrl($mpHelper->getCurrentStoreId())."_index_index";
+if ($block->getRequest()->getFullActionName() == $actionName && $helper
+->checkShopExistsByCurrentUrl($mpHelper->getCurrentStoreId())) {
+    $removeStaticBlock = true;
+}
+if ($removeStaticBlock) {
+    ?>
+<style>
+    .page-main .block {
+        display:none !important;
+    }
+    .page-title-wrapper {
+        display:none;
+    }
+    .page-main {
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+    .sections.nav-sections {
+        margin-bottom:0;
+    }
+</style>
+<?php } ?>
+<script>
+    require([
+        'Magento_Customer/js/customer-data'
+    ], function (customerData) {
+        var sections = ['cart'];
+        customerData.invalidate(sections);
+    });
+</script>

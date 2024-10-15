@@ -1,0 +1,265 @@
+{
+    "wk_b2b_message_history": {
+        "column": {
+            "id": true,
+            "list_id": true,
+            "sender_id": true,
+            "receiver_id": true,
+            "parent_id": true,
+            "seen_status": true,
+            "msg": true,
+            "type": true,
+            "response_rate_cal_flag": true,
+            "created_at": true
+        },
+        "index": {
+            "WK_B2B_MESSAGE_HISTORY_ID": true
+        },
+        "constraint": {
+            "WK_B2B_MESSAGE_HISTORY_SENDER_ID_CUSTOMER_ENTITY_ENTITY_ID": true,
+            "PRIMARY": true
+        }
+    },
+    "wk_b2b_message_list": {
+        "column": {
+            "id": true,
+            "supplier_id": true,
+            "customer_id": true,
+            "customer_status": true,
+            "supplier_status": true,
+            "created_at": true
+        },
+        "index": {
+            "WK_B2B_MESSAGE_LIST_ID": true
+        },
+        "constraint": {
+            "WK_B2B_MESSAGE_LIST_SUPPLIER_ID_CUSTOMER_ENTITY_ENTITY_ID": true,
+            "PRIMARY": true
+        }
+    },
+    "wk_message_attachments": {
+        "column": {
+            "id": true,
+            "msg_id": true,
+            "type": true,
+            "value": true,
+            "created_at": true,
+            "file_name": true
+        },
+        "index": {
+            "WK_MESSAGE_ATTACHMENTS_ID": true
+        },
+        "constraint": {
+            "WK_MESSAGE_ATTACHMENTS_MSG_ID_WK_B2B_MESSAGE_LIST_ID": true,
+            "PRIMARY": true
+        }
+    },
+    "marketplace_userdata": {
+        "column": {
+            "default_address_id": true,
+            "operational_address_id": true,
+            "corporate_address_id": true,
+            "token": true
+        }
+    },
+    "wk_b2b_requestforquote_buying_leads": {
+        "column": {
+            "entity_id": true,
+            "quote_id": true,
+            "quote_item_id": true,
+            "seller_id": true,
+            "expiry_date": true,
+            "created_at": true
+        },
+        "index": {
+            "WK_B2B_REQUESTFORQUOTE_BUYING_LEADS_ENTITY_ID": true
+        },
+        "constraint": {
+            "WK_B2B_REQUESTFORQUOTE_BUYING_LEADS_SELLER_ID_CSTR_ENTT_ENTT_ID": true,
+            "PRIMARY": true
+        }
+    },
+    "wk_b2b_requestforquote_quote": {
+        "column": {
+            "entity_id": true,
+            "customer_id": true,
+            "status": true,
+            "quote_title": true,
+            "quote_desc": true,
+            "customer_name": true,
+            "customer_company_name": true,
+            "customer_address": true,
+            "customer_contact_no": true,
+            "attachments": true,
+            "forward_quote": true,
+            "is_buying_lead": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "WK_B2B_REQUESTFORQUOTE_QUOTE_ENTITY_ID": true
+        },
+        "constraint": {
+            "WK_B2B_REQUESTFORQUOTE_QUOTE_CSTR_ID_CSTR_ENTT_ENTT_ID": true,
+            "PRIMARY": true
+        }
+    },
+    "wk_b2b_requestforquote_quote_conversation": {
+        "column": {
+            "entity_id": true,
+            "seller_quote_id": true,
+            "response": true,
+            "sample_images": true,
+            "sender_type": true,
+            "item_id": true,
+            "sender_id": true,
+            "receiver_id": true,
+            "quote_status": true,
+            "created_at": true,
+            "updated_at": true,
+            "rule_id": true
+        },
+        "index": {
+            "WK_B2B_REQUESTFORQUOTE_QUOTE_CONVERSATION_ENTITY_ID": true
+        },
+        "constraint": {
+            "FK_0AEAF53F8D312739A20E460072590322": true,
+            "PRIMARY": true
+        }
+    },
+    "wk_b2b_requestforquote_quote_item": {
+        "column": {
+            "entity_id": true,
+            "quote_id": true,
+            "seller_id": true,
+            "product_id": true,
+            "name": true,
+            "description": true,
+            "qty": true,
+            "currency_rate": true,
+            "price": true,
+            "has_samples": true,
+            "status": true,
+            "buying_lead_status": true,
+            "forward_quote": true,
+            "categories": true
+        },
+        "index": {
+            "WK_B2B_REQUESTFORQUOTE_QUOTE_ITEM_ENTITY_ID": true
+        },
+        "constraint": {
+            "FK_414AEBE3C6BBB51D2A9B58FAB37D86F8": true,
+            "PRIMARY": true
+        }
+    },
+    "wk_b2b_requestforquote_quote_products": {
+        "column": {
+            "entity_id": true,
+            "quote_id": true,
+            "product_id": true,
+            "approved_quote_id": true,
+            "original_product_id": true,
+            "mage_quote_item_id": true,
+            "mage_order_item_id": true,
+            "status": true,
+            "created_at": true
+        },
+        "index": {
+            "WK_B2B_REQUESTFORQUOTE_QUOTE_PRODUCTS_ENTITY_ID": true
+        },
+        "constraint": {
+            "WK_B2B_REQUESTFORQUOTE_QUOTE_PRDS_PRD_ID_CAT_PRD_ENTT_ENTT_ID": true,
+            "PRIMARY": true
+        }
+    },
+    "wk_b2b_requestforquote_sent_quotes": {
+        "column": {
+            "entity_id": true,
+            "request_id": true,
+            "quote_id": true,
+            "quote_item_id": true,
+            "seller_id": true,
+            "currency_rate": true,
+            "price": true,
+            "qty": true,
+            "status": true,
+            "customer_status": true,
+            "has_samples": true,
+            "sample_unit": true,
+            "sample_charges": true,
+            "sample_charge_per_unit": true,
+            "shipping_days": true,
+            "shipping_charges": true,
+            "shipping_charge_per_unit": true,
+            "created_at": true
+        },
+        "index": {
+            "WK_B2B_REQUESTFORQUOTE_SENT_QUOTES_ENTITY_ID": true
+        },
+        "constraint": {
+            "WK_B2B_REQUESTFORQUOTE_SENT_QUOTES_SELLER_ID_CSTR_ENTT_ENTT_ID": true,
+            "PRIMARY": true
+        }
+    },
+    "wk_b2b_supplier_categories": {
+        "column": {
+            "entity_id": true,
+            "supplier_id": true,
+            "category_id": true
+        },
+        "index": {
+            "WK_B2B_SUPPLIER_CATEGORIES_ENTITY_ID": true
+        },
+        "constraint": {
+            "WK_B2B_SUPPLIER_CATEGORIES_SUPPLIER_ID_CUSTOMER_ENTITY_ENTITY_ID": true,
+            "WK_B2B_SUPPLIER_CATEGORIES_CTGR_ID_CAT_CTGR_ENTT_ENTT_ID": true,
+            "PRIMARY": true
+        }
+    },
+    "wk_b2b_quote_attachment": {
+        "column": {
+            "attachment_id": true,
+            "quote_id": true,
+            "file_name": true,
+            "file_path": true,
+            "category_id": true
+        },
+        "index": {
+            "WK_B2B_QUOTE_ATTACHMENT_ATTACHMENT_ID": true
+        },
+        "constraint": {
+            "FK_E9906EA861F2FDA057984CA60FDBF0D4": true,
+            "PRIMARY": true
+        }
+    },
+    "wk_b2b_quote_item_attachment": {
+        "column": {
+            "attachment_id": true,
+            "quote_item_id": true,
+            "file_name": true,
+            "file_path": true
+        },
+        "index": {
+            "WK_B2B_QUOTE_ITEM_ATTACHMENT_ATTACHMENT_ID": true
+        },
+        "constraint": {
+            "FK_51BDEF5A55086061BDB32E4E5C75B100": true,
+            "PRIMARY": true
+        }
+    },
+    "wk_b2b_quote_conversation_attachment": {
+        "column": {
+            "attachment_id": true,
+            "quote_conversation_id": true,
+            "file_name": true,
+            "file_path": true
+        },
+        "index": {
+            "WK_B2B_QUOTE_CONVERSATION_ATTACHMENT_ATTACHMENT_ID": true
+        },
+        "constraint": {
+            "FK_CE86D8BCAD5BF3CD42030743191ECB81": true,
+            "PRIMARY": true
+        }
+    }
+}

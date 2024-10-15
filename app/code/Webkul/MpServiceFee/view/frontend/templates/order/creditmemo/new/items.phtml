@@ -1,0 +1,55 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpServiceFee
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$value = 0;
+$baseValue = 0;
+$order = $block->getOrder();
+$orderItems = $block->getItems();
+$orderId = $order->getId();
+$templateHelper = $block->getData("view_model");
+$helper = $templateHelper->getMpHelper();
+$currHelper = $templateHelper->getCurrentHelper();
+$sellerIdInSession = $helper->getCustomerId();
+$orderHelper = $templateHelper->getMpOrderHelper();
+$tracking = $orderHelper->getOrderinfo($orderId);
+$invoiceId = $tracking->getInvoiceId();
+$creditmemoBaseTotalAmount = 0;
+$creditmemoIds = explode(',', $tracking->getCreditmemoId());
+$creditmemoCollection = $block->getOrderCreditmemo($creditmemoIds);
+foreach ($creditmemoCollection as $creditmemo) {
+    $creditmemoBaseTotalAmount = $creditmemoBaseTotalAmount + $creditme['base_grand_total'];
+}
+$invoice = $block->getOrderInvoice($invoiceId);
+$invoiceBaseGrandTotal = $invoice->getBaseGrandTotal();
+$grandTotal = $invoiceBaseGrandTotal - $creditmemoBaseTotalAmount;
+
+foreach ($orderItems as $orderItem) {
+        $sellerId = $currHelper->getSellerId($orderItem->getProductId());
+    if ($sellerId == $sellerIdInSession) {
+            $value += $orderItem->getCurrentCurrencyServiceFees();
+            $baseValue += $orderItem->getServiceFees();
+    }
+}
+$serviceFee = $baseValue;
+$displayTotalWithoutFee = $order->formatBasePrice($grandTotal - $serviceFee);
+
+$formData = [
+    'reducedTotal' => $displayTotalWithoutFee,
+    'serviceFee' => $serviceFee
+];
+$serializedFormData = $templateHelper->getJsonHelper()->jsonEncode($formData);
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "items": <?= /* @noEscape */ $serializedFormData; ?>
+        }
+    }
+</script>

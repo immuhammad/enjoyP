@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Stripe
+ * @author    Webkul Software Private Limited
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+
+    <event name="checkout_submit_all_after">
+        <observer name="stripe_checkout_submit_all_after" instance="Webkul\Stripe\Observer\SalesOrderSaveAfter"/>
+    </event>
+    <event name="controller_action_predispatch_adminhtml_system_config_save">
+        <observer name="stripe_config_save_observer" instance="Webkul\Stripe\Observer\PreDispatchConfigSaveObserver"/>
+    </event>
+</config>

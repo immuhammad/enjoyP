@@ -1,0 +1,39 @@
+button.wk-ui-datepicker-trigger.v-middle{
+    background-image: none;
+    background: none;
+    -moz-box-sizing: content-box;
+    border: 0;
+    box-shadow: none;
+    line-height: inherit;
+    margin: 0;
+    padding: 0;
+    text-shadow: none;
+    font-weight: 400;
+    text-decoration: none;
+    display: inline-block;
+    height: 3.2rem;
+    margin-left: 9.8rem;
+    overflow: hidden;
+    margin-top: -2px;
+    position: absolute;
+    vertical-align: top;
+    z-index: 1;
+}
+button.wk-ui-datepicker-trigger.v-middle + input{
+    width:130px;
+}
+button.wk-ui-datepicker-trigger.v-middle:after{
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 2.1rem;
+    line-height: 32px;
+    color: #514943;
+    content: '\e627';
+    font-family: 'Admin Icons';
+    vertical-align: middle;
+    display: inline-block;
+    font-weight: normal;
+    overflow: hidden;
+    speak: none;
+    text-align: center;
+}

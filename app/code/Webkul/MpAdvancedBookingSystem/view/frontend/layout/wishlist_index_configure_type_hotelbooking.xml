@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpAdvancedBookingSystem
+ * @author    Webkul Software Private Limited
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance dc" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Webkul_MpAdvancedBookingSystem::css/style.css"/>
+        <css src="Webkul_MpAdvancedBookingSystem::css/product/seller-block.css"/>
+        <css src="Webkul_MpAdvancedBookingSystem::css/styles-fontawesome.css"/>
+    </head>
+    <referenceBlock name="product.info.options.wrapper">
+        <action method="setTemplate">
+            <argument name="template" xsi:type="string">Webkul_MpAdvancedBookingSystem::catalog/product/view/options/wrapper.phtml</argument>
+        </action>        
+    </referenceBlock>
+    <referenceBlock name="product.info.addtocart.additional">
+        <block class="Magento\Catalog\Block\Product\View" name="mainBooking" template="Webkul_MpAdvancedBookingSystem::catalog/product/view/booking/main.phtml">
+            <arguments>
+                <argument name="booking_view_model" xsi:type="object">Webkul\MpAdvancedBookingSystem\ViewModel\BookingView</argument>
+            </arguments>
+        </block>
+        <action method="setTemplate">
+            <argument name="template" xsi:type="string">Webkul_MpAdvancedBookingSystem::catalog/product/view/addtocart.phtml</argument>
+        </action>
+    </referenceBlock>
+    <!-- <move element="product.info.addtocart" destination="product.info.main" after="-"/> -->
+    <referenceBlock name="mainBooking">
+        <block class="Magento\Catalog\Block\Product\View" name="hotelTypeBooking" template="Webkul_MpAdvancedBookingSystem::catalog/product/view/hotelbooking/default.phtml">
+            <arguments>
+                <argument name="booking_view_model" xsi:type="object">Webkul\MpAdvancedBookingSystem\ViewModel\BookingView</argument>
+            </arguments>
+        </block>
+    </referenceBlock>
+    <referenceContainer name="product.info.type">
+            <block class="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable" name="product.info.configurable" as="product_type_data" template="Magento_Catalog::product/view/type/default.phtml"/>
+            <container name="product.info.configurable.extra" after="product.info.configurable" as="product_type_data_extra" label="Product Extra Info">
+                <block class="Magento\ConfigurableProduct\Block\Stockqty\Type\Configurable" name="product.info.configurable.extra.catalog_inventory_stockqty_composite" template="Magento_CatalogInventory::stockqty/composite.phtml"/>
+            </container>
+    </referenceContainer>
+    <referenceContainer name="content">
+            <container name="product.info.nearbymap" htmlTag="div" htmlClass="product map" after="product.info.media">
+                <block class="Magento\Catalog\Block\Product\View" name="nearbyMap" template="Webkul_MpAdvancedBookingSystem::catalog/product/view/hotelbooking/nearbymap.phtml">
+                    <arguments>
+                        <argument name="booking_view_model" xsi:type="object">Webkul\MpAdvancedBookingSystem\ViewModel\BookingView</argument>
+                    </arguments>
+                </block>
+            </container>
+    </referenceContainer>
+    <referenceBlock name="content">
+            <block class="Magento\Catalog\Block\Product\View" name="bookingContactUs" template="Webkul_MpAdvancedBookingSystem::catalog/product/view/booking/contact_us.phtml">
+                <arguments>
+                    <argument name="booking_view_model" xsi:type="object">Webkul\MpAdvancedBookingSystem\ViewModel\BookingView</argument>
+                </arguments>
+            </block>
+    </referenceBlock>
+    <referenceBlock name="product.info.details">
+            <block class="Magento\Catalog\Block\Product\View" name="product.hotelbooking.amenities" template="Webkul_MpAdvancedBookingSystem::catalog/product/view/hotelbooking/amenities.phtml" after="product.attributes" group="detailed_info" >
+                <arguments>
+                    <argument name="booking_view_model" xsi:type="object">Webkul\MpAdvancedBookingSystem\ViewModel\BookingView</argument>
+                    <argument translate="true" name="title" xsi:type="string">Amenities</argument>
+                    <argument name="priority" xsi:type="string">3</argument>
+                </arguments>
+            </block>
+            <block class="Webkul\MpAdvancedBookingSystem\Block\Product\View" name="product.hotelbooking.askquestion" template="Webkul_MpAdvancedBookingSystem::catalog/product/view/hotelbooking/askques.phtml" after="product.hotelbooking.amenities" group="detailed_info" >
+                <arguments>
+                    <argument name="booking_view_model" xsi:type="object">Webkul\MpAdvancedBookingSystem\ViewModel\BookingView</argument>
+                    <argument translate="true" name="title" xsi:type="string">Ask a Question</argument>
+                    <argument name="priority" xsi:type="string">4</argument>
+                </arguments>
+            </block>
+    </referenceBlock>
+    <referenceBlock name="product.attributes">
+            <arguments>
+                <argument name="booking_view_model" xsi:type="object">Webkul\MpAdvancedBookingSystem\ViewModel\BookingView</argument>
+            </arguments>
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Webkul_MpAdvancedBookingSystem::catalog/product/view/attributes.phtml</argument>
+            </action>
+    </referenceBlock>
+    <move element="product.info" destination="content" after="product.info.media" />
+</page>

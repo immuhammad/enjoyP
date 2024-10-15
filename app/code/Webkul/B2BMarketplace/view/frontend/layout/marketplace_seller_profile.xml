@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+        <css src="Webkul_B2BMarketplace::css/supplier/collection.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Webkul\Marketplace\Block\Profile" name="marketplace_sellerprofile" template="Webkul_B2BMarketplace::supplier/profile/profile.phtml" before="-">
+                <block class="Webkul\Marketplace\Block\Profile" name="marketplace_seller_top_block" template="Webkul_B2BMarketplace::supplier/profile/top-block.phtml"/>
+                <block class="Webkul\B2BMarketplace\Block\Supplier\Profile\FeaturedProducts" name="marketplace_sellerprofile_featured_products" template="Webkul_B2BMarketplace::supplier/profile/featured_products.phtml">
+                </block>
+                <block class="Webkul\Marketplace\Block\Profile" name="marketplace_sellerprofile_recently_added_products" template="Webkul_B2BMarketplace::supplier/profile/recently_added_products.phtml"/>
+                <block class="Webkul\Marketplace\Block\Profile" name="marketplace_seller_description" template="Webkul_B2BMarketplace::supplier/profile/description.phtml"/>
+                <block class="Webkul\Marketplace\Block\Profile" name="marketplace_sellerprofile_rating" template="Webkul_B2BMarketplace::supplier/profile/rating.phtml"/>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="marketplace_sellerprofile">
+            <block class="Webkul\Marketplace\Block\Profile" name="supplier_profile_contact_info" template="Webkul_B2BMarketplace::supplier/profile/contactinfo.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="marketplace_seller_top_block">
+            <block class="Webkul\Marketplace\Block\Profile" name="marketplace_seller_profile_contact" template="Webkul_B2BMarketplace::supplier/profile/contact.phtml"/>
+            <block class="Webkul\Marketplace\Block\Profile" name="marketplace_seller_profile_menu" template="Webkul_B2BMarketplace::supplier/profile/menu.phtml" before="-"/>
+        </referenceContainer>
+    </body>
+</page>

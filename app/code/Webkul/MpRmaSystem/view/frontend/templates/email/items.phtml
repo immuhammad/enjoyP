@@ -1,0 +1,72 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpRmaSystem
+ * @author    Webkul Software Private Limited
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $helper = $block->helper();
+    $items = $block->getAllItems();
+?>
+<table cellspacing="0" cellpadding="0" border="0" width="650" style="border:1px solid #eaeaea">
+    <thead>
+        <tr>
+            <th align="left" bgcolor="#EAEAEA" style="font-size:13px;padding:3px 9px">
+                <?= $escaper->escapeHtml(__("Product Name")); ?>
+            </th>
+            <th align="left" bgcolor="#EAEAEA" style="font-size:13px;padding:3px 9px">
+                <?= $escaper->escapeHtml(__("Sku")); ?>
+            </th>
+            <th align="center" bgcolor="#EAEAEA" style="font-size:13px;padding:3px 9px">
+                <?= $escaper->escapeHtml(__("Return Qty")); ?>
+            </th>
+            <th align="right" bgcolor="#EAEAEA" style="font-size:13px;padding:3px 9px">
+                <?= $escaper->escapeHtml(__("Reason")); ?>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($items as $item): ?>
+            <tr>
+                <td align="left" 
+                    style="font-size:12px;
+                        padding:7px 9px 9px 9px;
+                        border-left:1px solid #EAEAEA;
+                        border-bottom:1px solid #EAEAEA;
+                        border-right:1px solid #EAEAEA;">
+                    <?= $escaper->escapeHtml($item->getName()); ?>
+                    <?= /* @noEscape */ $helper->getOptionsHtml($item); ?>
+                </td>
+                <td align="left" 
+                    style="font-size:12px;
+                        padding:7px 9px 9px 9px;
+                        border-left:1px solid #EAEAEA;
+                        border-bottom:1px solid #EAEAEA;
+                        border-right:1px solid #EAEAEA;">
+                    <?= $escaper->escapeHtml($item->getSku()); ?>
+                </td>
+                <td align="center" 
+                    style="font-size:12px;
+                        padding:7px 9px 9px 9px;
+                        border-left:1px solid #EAEAEA;
+                        border-bottom:1px solid #EAEAEA;
+                        border-right:1px solid #EAEAEA;">
+                    <?= $escaper->escapeHtml($item->getQty()); ?>
+                </td>
+                <td align="right" 
+                    style="font-size:12px;
+                        padding:7px 9px 9px 9px;
+                        border-left:1px solid #EAEAEA;
+                        border-bottom:1px solid #EAEAEA;
+                        border-right:1px solid #EAEAEA;">
+                    <?= $escaper->escapeHtml($helper->getReasonById($item->getReasonId()));?>
+                </td>
+            </tr>
+        <?php endforeach;?>
+    </tbody>
+</table>

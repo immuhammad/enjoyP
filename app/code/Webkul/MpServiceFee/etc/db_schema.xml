@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Webkul Software
+*
+* @category  Webkul
+* @package   Webkul_MpServiceFee
+* @author    Webkul
+* @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+* @license   https://store.webkul.com/license.html
+*/
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="service_fees" resource="default" engine="innodb" comment="Service Fees Details Table">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="int" name="service_status" padding="10" unsigned="true" nullable="false" identity="false" default="1" comment="Service Status"/>
+        <column xsi:type="text" name="service_code" nullable="false" comment="Service Code"/>
+        <column xsi:type="text" name="service_title" nullable="false" comment="Title"/>
+        <column xsi:type="decimal" name="service_value" scale="2" precision="10" nullable="false" comment="Value"/>
+        <column xsi:type="text" name="service_type" nullable="false" comment="Type"/>
+        <column xsi:type="int" name="seller_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Seller Id"/>
+        <column xsi:type="int" name="store_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Store Id"/>
+        <column xsi:type="int" name="position" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Position"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="sales_order" resource="sales" engine="innodb" comment="Sales Flat Order">
+        <column xsi:type="decimal" name="service_fees" scale="2" precision="10" unsigned="true" nullable="true" comment="Service Fees"/>
+        <column xsi:type="decimal" name="current_currency_service_fees" scale="2" precision="10" unsigned="true" nullable="true" comment="converted_service_fees"/>
+        <column xsi:type="text" name="service_code" nullable="true" comment="Service Code"/>
+        <column xsi:type="text" name="service_title" nullable="true" comment="Service Title"/>
+    </table>
+    <table name="quote" resource="checkout" engine="innodb" comment="Sales Flat Quote">
+        <column xsi:type="decimal" name="service_fees" scale="2" default="0" precision="10" unsigned="true" nullable="true" comment="Service Fees"/>
+        <column xsi:type="decimal" name="current_currency_service_fees" default="0" scale="2" precision="10" unsigned="true" nullable="true" comment="Converted Service Fees"/>
+    </table>
+    <table name="quote_item" resource="checkout" engine="innodb" comment="Sales Flat Quote item">
+        <column xsi:type="decimal" name="service_fees" scale="2" default="0" precision="10" unsigned="true" nullable="true" comment="Service Fees"/>
+        <column xsi:type="decimal" name="current_currency_service_fees" default="0" scale="2" precision="10" unsigned="true" nullable="true" comment="Converted Service Fees"/>
+        <column xsi:type="text" name="service_title" nullable="false" comment="Title"/>
+        <column xsi:type="text" name="service_title_list" nullable="false" comment="Title List"/>
+    </table>
+    <table name="sales_order_item" resource="checkout" engine="innodb" comment="Sales order item">
+        <column xsi:type="decimal" name="service_fees" scale="2" default="0" precision="10" unsigned="true" nullable="true" comment="Service Fees"/>
+        <column xsi:type="decimal" name="current_currency_service_fees"  default="0" scale="2" precision="10" unsigned="true" nullable="true" comment="Converted Service Fees"/>
+        <column xsi:type="text" name="service_title" nullable="false" comment="Title"/>
+        <column xsi:type="text" name="service_title_list" nullable="false" comment="Title List"/>
+    </table>
+    <table name="marketplace_saleslist" resource="checkout" engine="innodb" comment="Marketplace sales order item">
+        <column xsi:type="decimal" name="service_fees" scale="2" default="0" precision="10" unsigned="true" nullable="true" comment="Service Fees"/>
+        <column xsi:type="decimal" name="current_currency_service_fees" default="0" scale="2" precision="10" unsigned="true" nullable="true" comment="Converted Service Fees"/>
+    </table>
+    <table name="marketplace_orders" resource="checkout" engine="innodb" comment="Marketplace order item">
+        <column xsi:type="decimal" name="service_fees" scale="2" precision="10" default="0" unsigned="true" nullable="true" comment="Service Fees"/>
+        <column xsi:type="decimal" name="current_currency_service_fees" default="0" scale="2" precision="10" unsigned="true" nullable="true" comment="Converted Service Fees"/>
+    </table>
+</schema>

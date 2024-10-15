@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpAdvancedBookingSystem
+ * @author    Webkul Software Private Limited
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ -->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/mpadvancebooking/bookings/list" method="POST">
+        <service class="Webkul\MpAdvancedBookingSystem\Api\BookingSystemInterface" method="getBookingsList"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+    </route>
+    <route url="/V1/mpadvancebooking/save/bookingProduct" method="POST">
+        <service class="Webkul\MpAdvancedBookingSystem\Api\BookingProductInterface" method="saveBookingProduct"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+</routes>

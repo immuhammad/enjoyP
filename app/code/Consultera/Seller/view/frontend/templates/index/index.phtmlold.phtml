@@ -1,0 +1,604 @@
+<div class="container-fluid ">
+   <div id="custom-popup-modal">
+        <div class="container">
+            <div class="row py-5 mb-5 seller-row-new">     
+                <div class="col-sm-4">
+                   <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/why-register.png'); ?>"  class="register" />
+                </div>
+                <div class="col-sm-8">
+                      <h1 class="why-regis"> Why Register as supplier?</h1>
+                      <p class="why-content-modal">
+                            Are you looking for an effective way to expand your reach to the European market and increase your sales? Look no further than Enjoy Palestine, 
+                             the leading online marketplace for 
+                            high-quality Palestinian products!<br>
+                            By registering with Enjoy Palestine, you'll gain access to our unparalleled co-distribution, co-marketing, and after-sales services, which are 
+                             designed to help you succeed in the 
+                            competitive European market. Our team of experienced marketing professionals will work closely with you to develop a customized marketing plan 
+                             that will help you promote your 
+                            products to a wider audience and increase your sales.<br>
+                            Plus, with our state-of-the-art fulfillment center located in Sweden near Arlanda Airport, you'll be able to take advantage of fast, efficient 
+                             shipping to customers throughout 
+                            Europe. This means you can focus on what you do best creating amazing products while we handle the logistics of getting your products to your 
+                             customers on time and in perfect 
+                            condition      
+                        </p>
+                        <div class="col-sm-12">
+                             <a href="/b2bmarketplace/supplier/create/"> <button class="btn btn-success  register-btn" > Register </button></a> 
+                         </div>
+                </div>        
+            </div>
+              
+        </div>      
+
+    </div>
+
+<script>
+require(
+    [
+        'jquery',
+        'Magento_Ui/js/modal/modal'
+    ],
+    function(
+        $,
+        modal
+    ) {
+        var options = {
+            type: 'popup',
+            // responsive: true,
+            innerScroll: true,
+            modalClass: 'custom-popup-modal',
+            backdrop:'static',
+            // buttons: [{
+            //     text: $.mage.__('Close'),
+            //     class: '',
+            //     click: function () {
+            //         this.closeModal();
+            //     }
+            // }]
+        };
+
+        var popup = modal(options, $('#custom-popup-modal'));
+
+        $( document ).ready(function() {
+            $('#custom-popup-modal').modal('openModal');
+        });     
+    }
+);
+function myFunction() {
+  var dots = document.getElementById("dots");
+  var moreText = document.getElementById("more");
+  var btnText = document.getElementById("myBtn");
+
+  if (dots.style.display === "none") {
+    dots.style.display = "inline";
+    btnText.innerHTML = "Read more";
+    moreText.style.display = "none";
+  } else {
+    dots.style.display = "none";
+    btnText.innerHTML = "Read less";
+    moreText.style.display = "inline";
+  }
+}
+</script>
+	<?php  $url = '/static/frontend/Smartwave/porto_child/en_US/Consultera_Seller/images/background.png';?>
+    <div class="row py-5 seller-row-1" >
+				    <div class="container">
+                            <div class="row">
+					            <div class="col-sm-6 ">
+                                        <span class="hoyland-title" >Expand your sales to global markets</span>
+                                        <h1 class="seller-title"><span>Become a merchant on </span> <br>
+                                        <span> Enjoy Palestine</span> </h1>
+                                                <span class="seller-button py-5">
+                                                <a href="/b2bmarketplace/supplier/login/"> <button class="btn btn-success btn-1 m-2"> Start Selling </button></a> 
+                                                <a href=""> <button class="btn btn-secondary  btn-2 m-2" > How It works </button></a> 
+                                        </span>
+                                </div> 
+                                <div class="col-sm-6">
+                                   <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/sell_earn.png'); ?>"  />
+                                </div>
+					        </div>
+					</div>
+    </div>
+   
+                    <h2 class="py-3 text-center sell-products">How to sell your products?</h2>
+    <div class="row py-5 seller-row-2">
+			<div class="container">
+					<div class="row">
+                                <div class="col-sm-4">
+                                        <div class="card">
+                                             <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/register.png'); ?>"  class="card-img-top"/>
+                                            <div class="card-body">
+                                                    <h4 class="card-title mt-5">Register as seller</h4>
+                                                    <p class="card-text" >
+                                                      To become a seller on our platform, you'll need to register by providing some basic information about your business. 
+                                                    </p> 
+                                                <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/arrow-down.png'); ?>"  class="mobile d-block d-lg- 
+                                                 none"/>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="card">
+                                    <img  class="desktop" src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/arrow.png'); ?>"  />
+                                    <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/upload_product.png'); ?>"  class="card-img-top"/>
+                                        <div class="card-body">
+                                                <h4 class="card-title  mt-5">Upload your product</h4>
+                                                <p class="card-text" >
+                                                Once you've been approved as a seller, you can then listings your product. Once you've listing products, it will be visible 
+                                                 to buyers.
+                                            </p> 
+                                            <img  src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/arrow-down.png'); ?>"  class="mobile d-block d-lg-none" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="card">
+                                        <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/arrow.png'); ?>"  class="desktop" />
+                                        <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/sell-earn.png'); ?>"  class="card-img-top"/>
+                                        <div class="card-body">
+                                                <h4 class="card-title  mt-5">Start sell and earning</h4>
+                                                <p class="card-text" >
+                                                Once your product will visible to customer then you will receive order. Deliver your product and receive payment securely.
+                                                </p> 
+                                    
+                                        </div>
+                                    </div>
+                                </div>
+                    </div>
+                        <div class="col-sm-12 text-center m-5">
+                            <a href="/b2bmarketplace/supplier/login/"><button class="btn btn-success  center-btn" > Start Selling </button></a> 
+                        </div>
+                       
+       
+            </div>   
+    </div>
+      
+    <div class="container">
+            <div class="row py-5 mb-5 seller-row-new d-none d-lg-flex">     
+                        <div class="col-sm-4">
+                           <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/why-register.png'); ?>" style="max-width:350px; max-height:350px;" 
+                            class="register" />
+                        </div>
+                        <div class="col-sm-8">
+                                <h1 class="why-regis"> Why Register as supplier?</h1>
+                                <p class="why-content">Are you looking for an effective way to expand your reach to the European market and increase your sales? Look no 
+                                     further 
+                                    than Enjoy Palestine, the leading online marketplace for high- quality Palestinian products!
+                                By registering with Enjoy Palestine, you'll gain access to our unparalleled co-distribution, co-marketing, and after-sales services, which 
+                                 are 
+                                designed to help you succeed in the competitive European market. Our team of experienced marketing professionals will work closely with you 
+                                 to 
+                                develop a customized marketing plan that will help you promote your products to a wider audience and increase your sales.<span id="dots">... 
+                                    </span><span id="more">Plus, with our state-of-the-art fulfillment center located in Sweden near Arlanda Airport, you'll be able to take 
+                                        advantage of fast, efficient shipping to customers throughout Europe. This means you can focus on what you do best – creating amazing 
+                                        products – while we handle the logistics of getting your products to your customers on time and in perfect condition.At Enjoy 
+                                         Palestine, 
+                                        we're passionate about promoting Palestinian culture and supporting Palestinian producers. That's why we're dedicated to providing a 
+                                            platform that helps you succeed and reach a wider audience than ever before.
+                                        So why wait? Register with Enjoy Palestine today and start enjoying the benefits of co-distribution, co-marketing, and after-sales 
+                                         services, 
+                                        along with our fast and efficient fulfillment center located in Sweden. We look forward to helping you succeed!
+                                        </span><strong onclick="myFunction()" id="myBtn">Read more</strong>
+                                 </p>
+                      
+                                            <div class="col-sm-12">
+                                                <a href="/b2bmarketplace/supplier/create/"> <button class="btn btn-success  register-btn" > Register </button></a> 
+                                            </div>
+                        </div>
+              
+            </div>     
+    </div>	
+    <div class="py-5 seller-row-3">
+			<div class="container">
+				<div class="row">
+                        <div class="col-sm-4">
+                                       <h1  class="learn-steps"><span>Learn steps to selling </span><br>
+                                       <span> on our platform</span> </h1>
+                                        <ul class="steps">
+                                            <li class="first-step"><img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/Vector.png'); ?>" /> <a href 
+                                            ="/b2bmarketplace/supplier/create/"> Click 
+                                                start selling button </a></li>
+                                            <li  class="second-step"><img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/Vector.png'); ?>" /> <a href 
+                                            ="/b2bmarketplace/supplier/create/"> 
+                                                Register As Seller </a></li> 
+                                            <li  class="third-step"><img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/Vector.png'); ?>" /> <a href 
+                                            ="/mpstripe/seller/connect/"> Tell us more 
+                                                About your business</a> </li>
+                                            <li  class="fourth-step"><img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/Vector.png'); ?>" /><a href =""> 
+                                                 Start listing your 
+                                                Products </a> </li>
+                                            <li  class="fifth-step"><img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/Vector.png'); ?>" /> <a href 
+                                            ="/mpstripe/seller/connect/"> Update your  
+                                                Tax  deatils </a> </li>
+                                            <li  class="sixth-step"><img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/Vector.png'); ?>" /><a href =""> 
+                                                 Launch Your Business 
+                                                
+                                            </a> </li>
+                                            <li  class="seventh-step"><img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/Vector.png'); ?>" /><a href =""> 
+                                                 Start Selling </a> 
+                                            </li>
+                                        </ul>
+                                        <div class="col-sm-12 m-2 center-button d-none d-lg-block" >
+                                            <a href="/b2bmarketplace/supplier/login/"><button class="btn btn-success  mt-5"> Start Selling </button></a> 
+                                        </div>
+                        </div>   
+                        <div class="col-sm-8 vedio">
+                             <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/Frame.png'); ?>"  />  
+                        </div>
+				</div>
+                            <div class="col-sm-12 m-2 center-button d-block d-lg-none" >
+                                     <a href="/b2bmarketplace/supplier/login/"> <button class="btn btn-success  mt-5"> Start Selling </button></a> 
+                            </div>
+		    </div>
+    </div>
+    
+                            <h2 class="py-3 text-center choose-us">Why choose us ?</h2>
+    <div class="row py-5 seller-row-4">
+		<div class="container">
+			<div class="row">
+                <div class="col-sm-4">
+                            <div class="card">
+                                   <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/transparent.png'); ?>"  class="card-img-top"/>
+                                    <div class="card-body">
+                                            <h4 class="card-title m-5">Transparent pricing</h4>
+                                            <p class="card-text" >
+                                            Enjoy Palestine publicly displaying its fee structure publicly on all fee related pages on its website.
+                                            </p> 
+                                    </div>
+                            </div>
+                </div>
+                <div class="col-sm-4">
+                            <div class="card">
+                            <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/secure.png'); ?>"  class="card-img-top"/>
+                                <div class="card-body">
+                                        <h4 class="card-title  m-5">Secure Payments</h4>
+                                        <p class="card-text" >
+                                        Funds are deposited directly to your bank account every 7 days, including for Pay on Delivery order.
+                                    </p> 
+                        
+                                </div>
+                            </div>
+                </div>
+                <div class="col-sm-4">
+                            <div class="card">
+                                    <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/unbeatable.png'); ?>"  class="card-img-top"/>
+                                <div class="card-body">
+                                        <h4 class="card-title  m-5">Unbeatable Profit</h4>
+                                        <p class="card-text" >
+                                        Deliver to 100% of India's serviceable pincodes*, through Easy Ship & Fulfillment by Holyland Produced Products.
+                                        </p> 
+                            
+                                </div>
+                            </div>
+                </div>
+	     	</div>
+	    </div>
+                <div class="col-sm-12 text-center m-5 center-button ">
+                    <a href="/b2bmarketplace/supplier/login/"><button class="btn btn-success center-button "> Start Selling </button></a> 
+                </div>
+    </div>
+    <div class="container">
+        <div class="row py-5 seller-row-5" style="background:black;" >
+                        <div class="col-sm-6 m-2  d-block d-lg-none">
+                            <img src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/ceo.png'); ?>" /><br>
+                            <span class="mt-4">Jenny Wilson</span><br>
+                            <span class="mt-0">CEO, Wilson.co</span>
+                        </div>
+                        <img  class="arrow d-block d-lg-none" src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/comma.png'); ?>"  style="max-width:25px;"/>
+                        <div class="col-sm-12 ml-3 mr-3  d-block d-lg-none" style= "background:#EBF3F1">
+                             <b>B2B e-commerce platforms like Wholesale Channel, Technology Manager, and B2B Self Service Portal offer powerful tools to increase 
+                            efficiency and ultimately lead to greater success. These platforms are essential for sellers to transact with buyers and access a vast pool of 
+                             potential customers</b>
+                        </div> 
+                        <div class=" col-sm-12 d-flex d-lg-none" >
+                        <a href="#" "> <img class="backward"  src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/backward-new.png'); ?>"  width="40" /></a> 
+                         <a href="#" "> <img   class="forward" src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/forward-new.png'); ?>"  width="50" /></a> 
+                        </div>
+                       
+	        <div class="row">
+                        <div class="col-sm-4 p-2 d-none d-lg-block">
+                        <img  class="ceo" src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/ceo.png'); ?>" /><br>
+                        <strong class="ambasdor-ceo-title">Jenny Wilson</strong><br>
+                        <strong class="follower"> CEO, Wilson.co</strong>
+                        </div>
+                        <div class="col-sm-7 p-3 d-none d-lg-block">
+                            <div class="text">
+                                    <p class="ambasdor-text" style="background: #E6FCF4;"> 
+                                    <img  class="comma" src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/comma.png'); ?>"  style="max-width:25px;"/>
+                                        B2B e-commerce platforms like Wholesale Channel, Technology Manager, and B2B Self Service Portal offer powerful tools to increase  
+                                        efficiency and  ultimately lead to greater 
+                                        success. These platforms are essential for sellers to transact with buyers and access a vast pool of potential customers.
+                                    </p>
+                                    <div class="arrow"  style="display:flex;">
+                                        <a href="#" "> <img class="backward" src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/backward-new.png'); ?>"  
+                                            width="40"/></a> 
+                                        <a href="#" "> <img   class="forward" src="<?php echo $this->getViewFileUrl('Consultera_Seller::images/forward-new.png'); ?>"   
+                                        width="50"/></a> 
+                                        
+                            </div>         
+                        </div>
+            </div>
+	    </div>
+       </div>
+    </div>
+</div>
+<style>
+#newsletter_popup h3.text-center.choose-product-type {display:block; margin-top:0;}
+.prelaunch-index-index #maincontent, .seller-index-index  #maincontent, .ambasdor-index-index #maincontent {max-width:100%;padding-top: 0;}
+.prelaunch-index-index #maincontent .container-fluid,  .seller-index-index  #maincontent .container-fluid, #maincontent, .ambasdor-index-index #maincontent .container-fluid {padding:0;}
+.all-content-desktop {background-size:cover;}
+.row.py-5.mb-5.seller-row-new.d-none.d-lg-flex {padding:30px; margin-bottom: 120px!important;}
+body .row.py-5.mb-5.seller-row-new .col-sm-4 img.register {margin-top:0;} 
+strong#myBtn {cursor: pointer;}
+.learn-steps {color: #fff;}
+.learn-steps span {font-size: 40px; line-height: 64px;}
+.learn-steps span:last-child {font-size: 32px;}
+ul.steps li {list-style-type: none; margin-bottom: 24px;}
+ul.steps {
+	padding-inline-start: 0;
+	font-size: 20px;
+    line-height: 28px;
+}
+ul.steps li a {color: rgba(240, 240, 240, 0.9);}
+.row.py-5.seller-row-4 .card .card-body h4.card-title.m-5 {margin: 30px 0 15px 0!important;}
+h2.py-3.text-center.choose-us {margin-top:120px; padding-top:0;}
+@media only screen and (min-width: 992px) {
+                .row.py-5.seller-row-1{
+                    background-image: url('<?php echo $url ?>');
+                   /* max-width:1328px; */
+                    max-height:653px;
+
+                }
+                .row.py-5.seller-row-5 {
+                    padding-top: unset;
+                }
+                .row.py-5.seller-row-3 .col-sm-8.vedio {
+                    max-width: 800px;
+                    max-height: 550px;
+                }
+                .row.py-5.mb-5.seller-row-new .col-sm-4 img.register {
+                    border-radius: 50%;
+                    margin-top:66px;
+                }
+                .col-sm-8 p.why-content-modal {
+                    font-size: 16px;
+                    line-height: 24px;
+                    font-weight: 400;
+                    font-style: normal;
+                    font-family: 'Poppins';
+                }
+                .col-sm-8 .col-sm-12 button.btn.btn-success.register-btn {
+                    background-color: #046f4F;
+                    color: white;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 13px;
+                    font-family: Poppins;
+                }
+
+
+.row.py-5.seller-row-5 .col-sm-4.p-2.d-none.d-lg-block img.ceo {
+    margin: 58px;
+}
+strong.ambasdor-ceo-title {
+    margin-left: 65px;
+    font-size: 29px;
+    font-weight: 600;
+    line-height: 32px;
+    font-family: 'POPPINS';
+    font-style: normal;
+    color: #F0F0F0;
+}
+.col-sm-7.p-3.d-none.d-lg-block p.ambasdor-text {
+    margin-top: 144px;
+    margin-left: 40px;
+    font-size: 16px;
+    line-height: 28px;
+    font-weight: 400;
+    font-family: 'Poppins';
+    font-style: normal;
+    padding: 15px;
+}
+  .col-sm-12.ambasdor-center span.choose-btn button:hover {
+    color: unset!important;
+    background-color: unset!important;
+    border-color: #046F4F;
+}
+.text p.ambasdor-text img.comma {
+    margin-top: -61px;
+}
+ .text .arrow {
+    display: flex;
+    justify-content: center;
+    margin-top: 69px;
+}
+.text .arrow img {
+    border-radius: 50%;
+}
+.text .arrow img.backward {
+    margin-right: 20px;
+    margin-top:5px;
+}
+.col-sm-4.p-2 strong.follower {
+    margin-left: 65px;
+    font-size: 21px;
+    font-weight: 400;
+    font-family: 'Poppins';
+    font-style: normal;
+    line-height: 21px;
+    color: #F0F0F0;
+
+}
+
+
+
+    }  
+@media only screen and (max-width: 600px) { 
+            .row.py-5.seller-row-1{
+                    background-image: url('<?php echo $url ?>');
+                    max-width:336px;max-height:648px;
+                    }
+            .seller-row-1 .hoyland-title {
+                font-size: 15px;
+                font-style: normal;
+                font-family: Poppins;
+                font-weight: 500;
+                line-height: 32px;
+                color: black;
+            }
+            .seller-row-1 .seller-title {
+                font-size: 25px;
+                font-family: Poppins;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 113%;
+                }
+            span.seller-button.py-5 {
+                display: flex;
+                justify-content: center;
+            }
+            .seller-row-1 .seller-button .btn-2 {
+                color: #046f4F;
+                font-size: 10px;
+            }
+            .seller-row-1 .seller-button .btn-1 {
+                background-color: #046f4F;
+                color: white;
+                font-size: 10px;
+            }
+            h2.sell-products {
+                font-size: 22px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 30px;
+                font-family: Poppins;
+                margin-top: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .row.py-5.seller-row-3 h1.learn-steps {
+                color: white;
+                margin-inline-start: 20px;
+                font-weight: 500;
+                font-style: normal;
+                font-family: Poppins;
+                line-height: 32px;
+                font-size: 24px;
+                margin-left: 16px;
+            }
+            .row.py-5.seller-row-3 ul.steps {
+                font-size: 13px;
+                font-weight: 500;
+                font-style: normal;
+                font-family: Poppins;
+                line-height: 20px;
+                list-style: none;
+                margin-left: -24px;
+            }
+            .row.py-5.seller-row-3 .col-sm-8.vedio {
+                margin-top: 26px;
+            }
+            .row.py-5.seller-row-3 button.btn.btn-success.mt-5 {
+                background-color: #046f4F;
+                color: white;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 13px;
+                font-family: Poppins;
+                margin-left: 63px;
+            }
+            h2.py-3.text-center.choose-us {
+                font-size: 24px;
+                font-weight: 700;
+                font-style: normal;
+                font-family: Poppins;
+                line-height: 12px;
+                margin-top: 20px;
+            }
+            .card img.card-img-top {
+                /* max-width: 238px; */
+                 /* max-height: 166px; */
+            }
+            .row.py-5.seller-row-4 .card .card-body p.card-text {
+                font-size: 14px;
+                font-weight: 400;
+                font-style: normal;
+                font-family: Poppins;
+                line-height: 20px;
+            }
+            .row.py-5.seller-row-4 .card .card-body h4.card-title.m-5 {
+                font-size: 18px;
+                font-weight: 600;
+                font-style: normal;
+                font-family: Poppins;
+                line-height: 20px;
+            }
+            .seller-row-2 .center-btn {
+                background-color: #046f4F;
+                color: white;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 13px;
+                font-family: Poppins;
+            }
+            button.btn.btn-success.center-button {
+                background-color: #046f4F;
+                color: white;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 13px;
+                font-family: Poppins;
+            }
+            .row.py-5.seller-row-5 .col-sm-6.m-2.d-block.d-lg-none img {
+          max-width: 166px;
+           max-height: 208px;
+           }
+           .row.py-5.seller-row-5 {
+           background: #0D1412;
+            }
+            .col-sm-6.m-2.d-block.d-lg-none span.mt-4 {
+                font-size: 24px;
+                font-weight: 600;
+                line-height: 28px;
+                color: #F0F0F0;
+            }
+            .col-sm-6.m-2.d-block.d-lg-none span.mt-0 {
+                font-size: 18px;
+                line-height: 20px;
+                font-weight: 300;
+                font-family: 'Poppins';
+                font-style: normal;
+                color: #FFFFFFCC;
+            }
+          .row.py-5.seller-row-5 img.arrow {
+              margin-left: 21px;
+              }
+            .col-sm-12.d-flex.d-lg-none {
+                justify-content: center;
+                margin-top: 30px;
+             }
+             .col-sm-12.d-flex.d-lg-none img {
+                border-radius: 50%;
+             }
+              .col-sm-12.d-flex.d-lg-none img.backward{
+              margin-right: 20px;
+              margin-top:5px;
+            }
+            .row.py-5.seller-row-2 img.mobile.d-block.d-lg-none {
+            margin-left: 143px;
+             }
+             .row.py-5.seller-row-2 img.desktop {
+                    display: none;
+                }
+     }        
+
+
+           
+    </style>
+
+ 

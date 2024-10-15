@@ -1,0 +1,45 @@
+/**
+ * Webkul Affiliate Pay To User list style.
+ *
+ * @category  Webkul
+ * @package   Webkul_Affiliate
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+.wk-affiliate-pay-form .field .admin__control-text{
+    width:75%;
+}
+.wk-affiliate-pay-form .field .label{
+    display: inline-block;
+}
+.wk-affiliate-pay-form .field{
+    margin-bottom: 10px;
+}
+.affiliate.message::before {
+    font-size: 1rem;
+}
+.affiliate.message::before {
+    left: 3.9rem;
+    margin-top: 0.2rem;
+}
+.affiliate.message {
+    font-size: 1.3rem;
+    display: inline-block;
+    height: 15px;
+    line-height: 0.30;
+    margin-right: 15px;
+    vertical-align: middle;
+}
+.transaction-button.paypal {
+    position: relative;
+    right: 38%;
+}
+.modal-header {
+    border-bottom: 1px solid #adadad;
+    margin-bottom: 10px;
+}
+
+.wk-affiliate-pay-form .tran .field .label{
+    width: 20%;
+}

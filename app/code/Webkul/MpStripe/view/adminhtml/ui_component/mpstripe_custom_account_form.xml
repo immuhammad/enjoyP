@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+* Webkul Software.
+*
+* @category Webkul
+* @package Webkul_MpStripe
+* @author Webkul
+* @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+* @license https://store.webkul.com/license.html
+*/    
+ -->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">mpstripe_custom_account_form.mpstripe_custom_account_form_data_source</item>
+            <item name="deps" xsi:type="string">mpstripe_custom_account_form.mpstripe_custom_account_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Stripe Account Information</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">mpstripe_custom_account_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+
+        <item name="buttons" xsi:type="array">
+            <item name="save" xsi:type="string">Webkul\MpStripe\Block\Adminhtml\General\Edit\SaveButton</item>
+        </item>
+
+    </argument>
+    <dataSource name="mpstripe_custom_account_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Webkul\MpStripe\Model\DataProvider</argument>
+            <argument name="name" xsi:type="string">mpstripe_custom_account_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">seller_id</argument>
+            <argument name="requestFieldName" xsi:type="string">seller_id</argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="mpstripe/manage/save"/>
+        </settings>
+    </dataSource>
+    <fieldset name="stripe_user_details">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="collapsible" xsi:type="boolean">false</item>
+                <item name="label" xsi:type="string" translate="true">Stripe Account Details</item>
+                <item name="sortOrder" xsi:type="number">20</item>
+            </item>
+        </argument>
+        <!-- already connected account details -->
+            <container name="stripe_container" >
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="sortOrder" xsi:type="number">30</item>
+                    </item>
+                </argument>
+                <htmlContent name="html_content">
+                    <argument name="block" xsi:type="object">Webkul\MpStripe\Block\Adminhtml\Manage\ConnectAccount</argument>
+                </htmlContent>
+            </container>
+        <!-- end here -->
+        <field name="user_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">User Id</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">mpstripe</item>
+                    <item name="dataScope" xsi:type="string">stripe_user.user_id</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </field>
+        <field name="account_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Account Id</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">mpstripe</item>
+                    <item name="dataScope" xsi:type="string">stripe_user.account_id</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </field>
+        <field name="country">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Webkul\MpStripe\Model\Source\Country</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Country</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">mpstripe</item>
+                    <item name="dataScope" xsi:type="string">stripe_user.country</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="email">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Email</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">mpstripe</item>
+                    <item name="dataScope" xsi:type="string">stripe_user.email</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="business_type">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Webkul\MpStripe\Model\Source\AccountType</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Business Type</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">mpstripe</item>
+                    <item name="dataScope" xsi:type="string">stripe_user.business_type</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="external_accounts">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="collapsible" xsi:type="boolean">false</item>
+                <item name="label" xsi:type="string" translate="true">Bank Account Details</item>
+                <item name="sortOrder" xsi:type="number">120</item>
+            </item>
+        </argument>
+        <field name="country">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Webkul\MpStripe\Model\Source\Country</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Bank Account Country</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">mpstripe</item>
+                    <item name="dataScope" xsi:type="string">stripe_user.external_accounts.country</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="currency">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Webkul\MpStripe\Model\Source\CurrencyList</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Bank Account Currency</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">mpstripe</item>
+                    <item name="dataScope" xsi:type="string">stripe_user.external_accounts.currency</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="account_holder_type">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Webkul\MpStripe\Model\Source\AccountType</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Bank Account Holder Type</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">mpstripe</item>
+                    <item name="dataScope" xsi:type="string">stripe_user.external_accounts.account_holder_type</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="account_holder_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Bank Account Holder Name:</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">mpstripe</item>
+                    <item name="dataScope" xsi:type="string">stripe_user.external_accounts.account_holder_name</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="routing_number">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="notice" xsi:type="string" translate="true">The routing number, or other country-appropriate institution number for the bank account</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Bank Account Routing Number:</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">mpstripe</item>
+                    <item name="dataScope" xsi:type="string">stripe_user.external_accounts.routing_number</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="account_number">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="notice" xsi:type="string" translate="true">The account number for the bank account, in string form. Must be a checking account.</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Bank Account Number:</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">mpstripe</item>
+                    <item name="dataScope" xsi:type="string">stripe_user.external_accounts.account_number</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <container name="banner_container" >
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="sortOrder" xsi:type="number">140</item>
+            </item>
+        </argument>
+        <htmlContent name="html_content">
+            <argument name="block" xsi:type="object">Webkul\MpStripe\Block\Adminhtml\Manage\StripeConsent</argument>
+        </htmlContent>
+    </container>
+</form>

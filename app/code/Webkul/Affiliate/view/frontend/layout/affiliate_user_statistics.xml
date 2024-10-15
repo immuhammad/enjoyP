@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Affiliate Statistics layout.
+ * @category  Webkul
+ * @package   Webkul_Affiliate
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+     <head>
+        <script src="Webkul_Affiliate::js/loader.js"/>
+        <css src="Webkul_Affiliate::css/styles.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Webkul\Affiliate\Block\User\Statistics" name="affiliate_user_statistics" template="Webkul_Affiliate::user/statistics.phtml" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

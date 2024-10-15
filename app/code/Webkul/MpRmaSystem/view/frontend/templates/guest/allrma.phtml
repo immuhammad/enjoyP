@@ -1,0 +1,183 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpRmaSystem
+ * @author    Webkul Software Private Limited
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $helper = $block->helper();
+    $allRma = $block->getAllRma();
+    $url = $block->getUrl("mprmasystem/guest/newrma");
+    $viewUrl = $block->getUrl("mprmasystem/guest/rma/");
+    $cancelUrl = $block->getUrl("mprmasystem/guest/cancel/");
+
+    $data = $helper->jsonEncodeData([
+                "filterUrl" => $block->getUrl("mprmasystem/rma/filter"),
+                "sortingUrl" => $block->getUrl("mprmasystem/rma/sorting"),
+                "confirmationLabel" => __("Confirmation"),
+                "cancelRmaLabel" => __("Do you want to cancel RMA ?"),
+                "type" => 1,
+            ]);
+    ?>
+<div class="wk-mprma-container">
+    <div class="wk-loading-mask wk-display-none">
+        <div class="wk-loader"></div>
+    </div>
+    <div class="wk-mp-rma-newrma">
+        <a href="<?= $escaper->escapeUrl($url); ?>"><?= $escaper->escapeHtml(__("Request New RMA")); ?></a>
+    </div>
+    <div class="wk-mp-rma-allrma">
+        <div class="wk-mprma-container">
+            <fieldset class="fieldset wk-mprma-fieldset table-wrapper">
+                <table id="my-rma-table" class="data table wk-buyer-rma-table">
+                    <caption class="table-caption"><?= $escaper->escapeHtml(__("RMA History")); ?></caption>
+                    <thead class="wk-table-head-title <?= $escaper->escapeHtml($helper->getSortingFieldClass()); ?> 
+                        <?= $escaper->escapeHtml($helper->getSortingOrderClass()); ?>">
+                        <tr>
+                            <th class="col wk-sorting-col" scope="col" data-col="wk_rma_id">
+                                <?= $escaper->escapeHtml(__("RMA Id")); ?>
+                            </th>
+                            <th class="col wk-sorting-col" scope="col" data-col="wk_order_ref">
+                                <?= $escaper->escapeHtml(__("Order #")); ?>
+                            </th>
+                            <th class="col" scope="col">
+                                <?= $escaper->escapeHtml(__("Status")); ?>
+                            </th>
+                            <th class="col wk-sorting-col" data-col="wk_date">
+                                <?= $escaper->escapeHtml(__("Date")); ?>
+                            </th>
+                            <th class="col actions" scope="col"></th>
+                        </tr>
+                    </thead>
+                    <thead class="wk-table-head-action">
+                        <tr>
+                            <th class="col" scope="col">
+                                <input id="wk-filter-rma-id" type="text" 
+                                    placeholder="<?= $escaper->escapeHtml(__("RMA Id")); ?>" 
+                                    value="<?= $escaper->escapeHtml($helper->getBuyerFilterRmaId()); ?>">
+                            </th>
+                            <th class="col" scope="col">
+                                <input id="wk-filter-order-ref" type="text" 
+                                    placeholder="<?= $escaper->escapeHtml(__("Order #")); ?>" 
+                                    value="<?= $escaper->escapeHtml($helper->getBuyerFilterOrderRef()); ?>">
+                            </th>
+                            <th class="col" scope="col">
+                                <select id="wk-filter-rma-status">
+                                    <?php foreach ($helper->getAllRmaStatus() as $key => $rmaStatus): ?>
+                                        <?php if ($key === $helper->getBuyerFilterStatus()): ?>
+                                            <option selected value="<?= $escaper->escapeHtml($key); ?>">
+                                                <?= $escaper->escapeHtml(__($rmaStatus)); ?>
+                                            </option>
+                                        <?php else: ?>
+                                            <option value="<?= $escaper->escapeHtml($key); ?>">
+                                                <?= $escaper->escapeHtml(__($rmaStatus)); ?>
+                                            </option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </select>
+                            </th>
+                            <th class="col wk-date-filter-col" scope="col">
+                                <span class="wk-date-filter-box">
+                                    <input id="wk-filter-date-from" type="text" 
+                                        placeholder="<?= $escaper->escapeHtml(__("From")); ?>" 
+                                        value="<?= $escaper->escapeHtml($helper->getBuyerFilterFromDate()); ?>">
+                                </span>
+                                <span class="wk-date-filter-box">
+                                    <input id="wk-filter-date-to" type="text" 
+                                        placeholder="<?= $escaper->escapeHtml(__("To")); ?>" 
+                                        value="<?= $escaper->escapeHtml($helper->getBuyerFilterToDate()); ?>">
+                                </span>
+                            </th>
+                            <th class="col" scope="col">
+                                <button type="button" class="wk-apply-filter-btn">
+                                    <?= $escaper->escapeHtml(__("Apply Filter")); ?>
+                                </button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <?php if ($allRma->getSize()): ?>
+                        <tbody>
+                            <?php foreach ($allRma as $rma): ?>
+                                <?php
+                                    $status = $rma->getStatus();
+                                    $finalStatus = $rma->getFinalStatus();
+                                    $rmaStatus = $helper->getRmaStatusTitle($status, $finalStatus);
+                                ?>
+                                <tr>
+                                    <td class="col" data-th="Id">
+                                        <?= $escaper->escapeHtml($rma->getId()); ?>
+                                    </td>
+                                    <td class="col" data-th="Order #">
+                                        <?= $escaper->escapeHtml($rma->getOrderRef()); ?>
+                                    </td>
+                                    <td class="col" data-th="Status">
+                                        <?= $escaper->escapeHtml(__($rmaStatus)); ?>
+                                    </td>
+                                    <td class="col" data-th="Date">
+                                        <?= /*@noEscape */$block->formatDate(
+                                            $rma->getCreatedDate(),
+                                            \IntlDateFormatter::MEDIUM,
+                                            true
+                                        ); ?>
+                                    </td>
+                                    <td class="col actions" data-th="Actions">
+                                        <?php if ($rma->getFinalStatus() > 0): ?>
+                                            <a class="action view" 
+                                                href="<?= $escaper->escapeUrl($viewUrl."id/".$rma->getId()); ?>">
+                                                <span><?= $escaper->escapeHtml(__("View")); ?></span>
+                                            </a>
+                                        <?php else: ?>
+                                            <a class="action view wk-view" 
+                                                href="<?= $escaper->escapeUrl($viewUrl."id/".$rma->getId()); ?>">
+                                                <span><?= $escaper->escapeHtml(__("View")); ?></span>
+                                            </a>
+                                            <a class="action order wk-cancel-rma" 
+                                                href="<?= $escaper->escapeUrl($cancelUrl."id/".$rma->getId()); ?>">
+                                                <span><?= $escaper->escapeHtml(__("Cancel")); ?></span>
+                                            </a>
+                                        <?php endif; ?>
+                                        
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    <?php else: ?>
+                        <tbody>
+                            <tr>
+                                <td colspan="5">
+                                    <div class="message info empty">
+                                        <span><?= $escaper->escapeHtml($helper->getMessage()); ?></span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    <?php endif; ?>
+                </table>
+                <?php if ($block->getPagerHtml()): ?>
+                    <div class="order-products-toolbar toolbar bottom">
+                        <?= /* @noEscape */ $block->getPagerHtml(); ?>
+                    </div>
+                <?php endif ?>
+            </fieldset>
+        </div>
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        "body": {
+            "Webkul_MpRmaSystem/js/cancel": <?= /* @noEscape */ $data ?>
+        }
+    }
+</script>
+<script type="text/x-magento-init">
+    {
+        "body": {
+            "Webkul_MpRmaSystem/js/allRma": <?= /* @noEscape */ $data ?>
+        }
+    }
+</script>

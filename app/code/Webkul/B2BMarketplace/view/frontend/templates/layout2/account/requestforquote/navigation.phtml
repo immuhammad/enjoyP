@@ -1,0 +1,30 @@
+<?php
+    $quickOrderBlock =  $block->getLayout()->createBlock(
+        \Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class
+    );
+    $_helper = $quickOrderBlock->helper(\Webkul\Marketplace\Helper\Data::class);
+    $isPartner = $_helper->isSeller();
+    $isSellerGroup = $_helper->isSellerGroupModuleInstalled();
+    $magentoCurrentUrl = $block->getCurrentUrl();
+    ?>
+<?php if ($isPartner): ?>
+    <?php if (($isSellerGroup && $_helper->isAllowedAction('b2bmarketplace/supplier/quotes')) || !$isSellerGroup): ?>
+        <li  class="nav item notification-link level-0 <?= /* @noEscape */
+        strpos($magentoCurrentUrl, 'b2bmarketplace/supplier/quotes')? "current active":"";?>">
+            <a href="<?= /* @noEscape */ $block->getUrl('b2bmarketplace/supplier/quotes', [
+                '_secure' => $block->getRequest()->isSecure()]); ?>">
+                <span><?= /* @noEscape */ __('RFQ') ?></span>
+            </a>
+        </li>
+    <?php endif; ?>
+    <?php if (($isSellerGroup && $_helper->isAllowedAction('b2bmarketplace/supplier/buyingleads')) ||
+    !$isSellerGroup): ?>
+        <li  class="nav item notification-link level-0 <?= /* @noEscape */
+        strpos($magentoCurrentUrl, 'b2bmarketplace/supplier/buyingleads')? "current active":"";?>">
+            <a href="<?= /* @noEscape */ $block->getUrl('b2bmarketplace/supplier/buyingleads', [
+                '_secure' => $block->getRequest()->isSecure()]); ?>">
+                <span><?= /* @noEscape */ __('Buying Leads') ?></span>
+            </a>
+        </li>
+    <?php endif; ?>
+<?php endif;?>

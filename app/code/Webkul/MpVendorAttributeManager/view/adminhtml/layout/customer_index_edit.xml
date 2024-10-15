@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpVendorAttributeManager
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+      <update handle="editor"/>
+      <head>
+       <!-- for js file -->
+       <script src="Webkul_MpVendorAttributeManager::js/remove.js"/>
+       <css src="Webkul_MpVendorAttributeManager::css/customeredit.css"/>
+     </head>
+    <body>
+        <referenceBlock name="customer_form">
+            <block class="Webkul\MpVendorAttributeManager\Block\Adminhtml\Customer\Edit\CustomerTab" name="customer_attribute_edit_tab_view" />
+            <block class="Webkul\MpVendorAttributeManager\Block\Adminhtml\Customer\Edit\Tabs" name="vendor_attribute_edit_tab_view" />
+        </referenceBlock>
+    </body>
+</page>

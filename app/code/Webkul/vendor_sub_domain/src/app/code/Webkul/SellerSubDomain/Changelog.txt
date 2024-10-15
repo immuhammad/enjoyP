@@ -1,0 +1,38 @@
+Legend
+
++ Features
+- Bugs
+-------------------------------- Version 5.0.0 --------------------------------------
+		+ Compatible with Magento 2.4.x.
+    + Updated according to Marketplace 5.0.*
+
+-------------------------------- Version 3.0.1 --------------------------------------
+    + Updated according to Magento 2.3.*
+    + Updated according to Marketplace 3.0.*
+
+-------------------------------- Version 3.0.0 --------------------------------------
+    + Updated according to Magento 2.3.3
+    + Updated according to Marketplace 3.0.*
+
+-------------------------------- Version 2.1.0 --------------------------------------
+    + Composer update according Magento 2.3.0
+
+-------------------------------- Version 2.0.3 --------------------------------------
+    + Admin can allow to display only vendor's public pages on vendor's domain/subdomain
+    - Fixed other bugs
+
+-------------------------------- Version 2.0.2 --------------------------------------
+    - Fixed store wise seller information display issue
+    - Fixed conflict with Default Web URL setting
+
+-------------------------------- Version 2.0.1 --------------------------------------
+    + Admin can enable or disable custom vendor domain setting
+    + Admin can set custom url for each vendor
+
+-------------------------------- Version 2.0.0 --------------------------------------
+
+    + the vendors can have their own subdomain.
+    + easy to read and identify URLs for vendor’s subdomain.
+    + allows admin to add prefix with seller's subdomain
+    + customer can access to seller page via seller's subdomain
+    + customer can do any action(add product to cart, process checkout, ...) on seller's subdomain

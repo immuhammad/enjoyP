@@ -1,0 +1,27 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php if ($productCartMinLimit = $_product->getAllowedMinQtyToOrder()) { ?>
+    <div class="wk-supplier-collection-header-txt wk-product-min-allowed-qty no-display">
+        <?= $block->escapeHtml(__('Minimum Qty. To Order - %1', $productCartMinLimit)); ?>
+    </div>
+    <script>
+        require([
+            'jquery'
+        ], function($){
+            $('.wk-product-min-allowed-qty').insertBefore($('.box-tocart'));
+            $('.wk-product-min-allowed-qty').removeClass('no-display');
+        });
+    </script>
+<?php } ?>

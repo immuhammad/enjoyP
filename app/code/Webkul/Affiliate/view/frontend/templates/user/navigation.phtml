@@ -1,0 +1,129 @@
+<?php
+/**
+ * Webkul Affiliate User Navigation.
+ *
+ * @category  Webkul
+ * @package   Webkul_Affiliate
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+$isAffiliate = $block->isAffiliate();
+$config = $block->getAffiliateConfig();
+if (($isAffiliate || $config['registration']) && $config['enable']) { ?>
+<div class="block account-nav block-collapsible-nav wk-affiliate-main">
+    <div class="title block-collapsible-nav-title" 
+    data-mage-init='{"toggleAdvanced": 
+        {"toggleContainers": "#block-collapsible-nav-affiliate", "selectorsToggleClass": "active"}}'>
+        <strong><?= /* @noEscape */  __('Affiliate'); ?></strong>
+    </div>
+    <div class="content block-collapsible-nav-content" id="block-collapsible-nav-affiliate">
+        <nav class="account-nav">
+            <ul class="nav items">
+                <?php
+                if ($isAffiliate && $isAffiliate['status']==1) { ?>
+                    <li class="nav item <?= /* @noEscape */ $block->getNavSelectClass('affiliate/user/summary'); ?>">
+                        <?php if ($block->getNavSelectClass('affiliate/user/summary')) { ?>
+                            <strong><?= /* @noEscape */ __('Summary') ?></strong>
+                        <?php } else { ?>
+                            <a href="<?= /* @noEscape */ $block->getNavUrl('affiliate/user/summary'); ?>">
+                                <?= /* @noEscape */ __('Summary') ?>
+                            </a>
+                        <?php } ?>
+                    </li>
+                    <?php
+                        $navSelectClass = $block->getNavSelectClass('affiliate/user/banner')
+                                                        .$block->getNavSelectClass('affiliate/user/ads');
+                    ?>
+                    <li class="nav item <?= /* @noEscape */ $navSelectClass; ?>">
+                        <?php if ($navSelectClass) { ?>
+                            <strong><?= /* @noEscape */ __('Banner & Ads') ?></strong>
+                        <?php } else { ?>
+                            <a href="<?= /* @noEscape */ $block->getNavUrl('affiliate/user/ads'); ?>">
+                                <?= /* @noEscape */ __('Banner & Ads') ?>
+                            </a>
+                        <?php } ?>
+                    </li>
+                    <li class="nav item <?= /* @noEscape */ $block->getNavSelectClass('affiliate/user/campaign'); ?>">
+                        <?php if ($block->getNavSelectClass('affiliate/user/campaign')) { ?>
+                            <strong><?= /* @noEscape */ __('E-mail Campaign') ?></strong>
+                        <?php } else { ?>
+                            <a href="<?= /* @noEscape */ $block->getNavUrl('affiliate/user/campaign'); ?>">
+                                <?= /* @noEscape */ __('E-mail Campaign') ?>
+                            </a>
+                        <?php } ?>
+                    </li>
+                    <li class="nav item <?= /* @noEscape */ $block->getNavSelectClass('affiliate/user/traffic'); ?>">
+                        <?php if ($block->getNavSelectClass('affiliate/user/traffic')) { ?>
+                            <strong><?= /* @noEscape */ __('Traffic') ?></strong>
+                        <?php } else { ?>
+                            <a href="<?= /* @noEscape */ $block->getNavUrl('affiliate/user/traffic'); ?>">
+                                <?= /* @noEscape */ __('Traffic') ?>
+                            </a>
+                        <?php } ?>
+                    </li>
+                    <li class="nav item <?= /* @noEscape */ $block->getNavSelectClass('affiliate/user/sales'); ?>">
+                        <?php if ($block->getNavSelectClass('affiliate/user/sales')) { ?>
+                            <strong><?= /* @noEscape */ __('Sales') ?></strong>
+                        <?php } else { ?>
+                            <a href="<?= /* @noEscape */ $block->getNavUrl('affiliate/user/sales'); ?>">
+                                <?= /* @noEscape */ __('Sales') ?>
+                            </a>
+                        <?php } ?>
+                    </li>
+                    <li class="nav item <?= /* @noEscape */ $block->getNavSelectClass('affiliate/user/payments'); ?>">
+                        <?php if ($block->getNavSelectClass('affiliate/user/payments')) { ?>
+                            <strong><?= /* @noEscape */ __('Payment Records') ?></strong>
+                        <?php } else { ?>
+                            <a href="<?= /* @noEscape */ $block->getNavUrl('affiliate/user/payments'); ?>">
+                                <?= /* @noEscape */ __('Payment Records') ?>
+                            </a>
+                        <?php } ?>
+                    </li>
+                    <li class="nav item <?= /* @noEscape */ $block->getNavSelectClass('affiliate/user/statistics'); ?>">
+                        <?php if ($block->getNavSelectClass('affiliate/user/statistics')) { ?>
+                            <strong><?= /* @noEscape */ __('Statistics') ?></strong>
+                        <?php } else { ?>
+                            <a href="<?= /* @noEscape */ $block->getNavUrl('affiliate/user/statistics'); ?>">
+                                <?= /* @noEscape */ __('Statistics') ?>
+                            </a>
+                        <?php } ?>
+                    </li>
+                    <li class="nav item <?= /* @noEscape */
+                    $block->getNavSelectClass('affiliate/user/preferences'); ?>">
+                        <?php if ($block->getNavSelectClass('affiliate/user/preferences')) { ?>
+                            <strong><?= /* @noEscape */ __('Payment Preference') ?></strong>
+                        <?php } else { ?>
+                            <a href="<?= /* @noEscape */ $block->getNavUrl('affiliate/user/preferences'); ?>">
+                                <?= /* @noEscape */ __('Payment Preference') ?>
+                            </a>
+                        <?php } ?>
+                    </li>
+                    <li class="nav item <?= /* @noEscape */ $block->getNavSelectClass('affiliate/user/status'); ?>">
+                        <?php if ($block->getNavSelectClass('affiliate/user/status')) { ?>
+                                <strong><?= /* @noEscape */ __('Blog Url') ?></strong>
+                        <?php } else { ?>
+                            <a href="<?= /* @noEscape */ $block->getNavUrl('affiliate/user/status'); ?>">
+                                <?= /* @noEscape */ __('Blog Url') ?>
+                            </a>
+                        <?php } ?>
+                    </li>
+                    <?= /* @noEscape */ $block->getChildHtml();
+                } elseif ($config['registration']) { ?>
+                    <?= /* @noEscape */ $block->getChildHtml();?>
+                    <li class="nav item <?= /* @noEscape */ $block->getNavSelectClass('affiliate/user/status') ?>">
+                        <?php if ($block->getNavSelectClass('affiliate/user/status')) { ?>
+                            <strong><?= /* @noEscape */ __('Become Affiliate User') ?></strong>
+                        <?php } else { ?>
+                            <a href="<?= /* @noEscape */ $block->getNavUrl('affiliate/user/status'); ?>">
+                                <?= /* @noEscape */ __('Become Affiliate User') ?>
+                            </a>
+                        <?php } ?>
+                    </li>
+                <?php } ?>
+            </ul>
+        </nav>
+    </div>
+</div>
+<?php } ?>

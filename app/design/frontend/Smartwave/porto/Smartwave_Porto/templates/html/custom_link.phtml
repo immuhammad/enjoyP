@@ -1,0 +1,124 @@
+<?php
+$porto_helper = $this->helper('Smartwave\Porto\Helper\Data');
+?>
+
+<!-- <ul>
+    <li class="customer-welcome">
+        <span
+              role="link"
+              tabindex="0"
+              data-mage-init='{"dropdown":{}}'
+              data-toggle="dropdown"
+              data-trigger-keypress-button="true"
+              >
+            
+                 <button type="button"
+                    class="action switch"
+                    tabindex="-1"
+                    data-action="customer-menu-toggle">
+                <span><?php /* @escapeNotVerified */ echo __('REGISTER')?></span>
+                
+                 
+            </button>
+            </a>
+        </span>
+        <div  class="customer-menu" data-target="dropdown">
+            <ul class="header links">
+                <li><a href="/customer/account/create/">REGISTER AS CUSTOMER</a></li>
+                <li><a href="/b2bmarketplace/supplier/create/">REGISTER AS MERCHNAT</a></li>
+                <li><a href="/ambasdor">REGISTER AS AMBASSADOR</a></li>
+            </ul>
+        </div>
+    </li>
+</ul>
+<script type="text/x-magento-init">
+        {
+            "*": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "customer": {
+                            "component": "Magento_Customer/js/view/customer"
+                        }
+                    }
+                }
+            }
+        }
+        </script>
+
+<style type="text/css">
+    .customer-welcome {
+        margin-right: 61px;
+    }
+    .customer-welcome:before{
+        content: '|';
+
+    }
+    .customer-welcome .action.dwsswitch:after {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 16px;
+    line-height: 22px;
+    color: inherit;
+    content: '\e622';
+    font-family: 'luma-icons';
+    margin: 0;
+    vertical-align: top;
+    display: inline-block;
+    font-weight: normal;
+    overflow: hidden;
+    speak: none;
+    text-align: center;
+    text-transform:uppercase;
+}
+.customer-welcome.active .action.dwsswitch:after {
+    content: '\e621';
+}
+</style>  -->
+
+
+
+
+    
+<!-- <li class="customer-welcome">
+        <span class="customer-name"
+              role="link"
+              tabindex="0"
+              data-mage-init='{"dropdown":{}}'
+              data-toggle="dropdown"
+              data-trigger-keypress-button="true"
+              data-bind="scope: 'customer'">
+          
+            <button type="button"
+                    class="action switch"
+                    tabindex="-1"
+                    data-action="customer-menu-toggle">
+                <span><?php /* @escapeNotVerified */ //echo __('SIGN IN')?></span>
+                
+                 
+            </button>
+        </span>
+        <script type="text/x-magento-init">
+        {
+            "*": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "customer": {
+                            "component": "Magento_Customer/js/view/customer"
+                        }
+                    }
+                }
+            }
+        }
+        </script>
+       
+        <div class="customer-menu" data-target="dropdown">
+            <ul class="header links">
+                <li><a href="/customer/account/login/">CUSTOMER SIGN IN</a></li>
+                <li><a href="/b2bmarketplace/supplier/login/">MERCHNAT SIGN IN</a></li>
+                <li><a href="/ambasdor">AMBASSADOR SIGN IN</a></li>
+            </ul>
+            
+        </div>
+        <?php //endif; ?>
+    </li> -->
+<li><a href="<?php echo $porto_helper->getBaseLinkUrl(); ?>contact"><?php echo __('Contact Us'); ?></a></li>

@@ -1,0 +1,256 @@
+"Save and Continue Edit","Save and Continue Edit"
+"Save Attribute","Save Attribute"
+"Delete Attribute","Delete Attribute"
+"Edit Vendor Attribute ""%1""","Edit Vendor Attribute ""%1"""
+"New Vendor Attribute","New Vendor Attribute"
+"Attribute Properties","Attribute Properties"
+"Default Label","Default Label"
+"Attribute Code","Attribute Code"
+"Make sure you don't use spaces or more than 25 characters.","Make sure you don't use spaces or more than 25 characters."
+"Frontend Input Type","Frontend Input Type"
+"Values Required","Values Required"
+"Input Validation","Input Validation"
+"Input Field Sort Order","Input Field Sort Order"
+"Assign Group","Assign Group"
+"Attribute Used For","Attribute Used For"
+"Attribute Status","Attribute Status"
+Enable,Enable
+Disable,Disable
+"Media Image","Media Image"
+File,File
+"Attribute Information","Attribute Information"
+Properties,Properties
+"Manage Labels","Manage Labels"
+"Additional Information","Additional Information"
+"Allowed file types:","Allowed file types:"
+Delete,Delete
+Download,Download
+"Sorry! No attributes are assigned to Customer.","Sorry! No attributes are assigned to Customer."
+"Vendor Attribute Fields","Vendor Attribute Fields"
+"Sorry! No attributes are assigned to Vendor.","Sorry! No attributes are assigned to Vendor."
+"Save Group","Save Group"
+"Vendor Group Information","Vendor Group Information"
+"Attribute Label","Attribute Label"
+"Group Information","Group Information"
+"Group Name","Group Name"
+Status,Status
+"Group Details","Group Details"
+"Attribute Group Information","Attribute Group Information"
+"Assign Attribtues","Assign Attribtues"
+"<p>Version: %1</p>","<p>Version: %1</p>"
+"Congratulations! Your seller account is created.","Congratulations! Your seller account is created."
+"Your request to become seller is successfully raised.","Your request to become seller is successfully raised."
+"Please confirm that you want to become seller.","Please confirm that you want to become seller."
+"Shop URL already exist please set another.","Shop URL already exist please set another."
+"Edit Additional Customer Information","Edit Additional Customer Information"
+"Vendor Required Attributes can't be Empty.","Vendor Required Attributes can't be Empty."
+"Vendor Attributes has been saved.","Vendor Attributes has been saved."
+"A total of %1 record(s) have been assigned.","A total of %1 record(s) have been assigned."
+"No group found.","No group found."
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"A total of %1 record(s) Status have been Disabled.","A total of %1 record(s) Status have been Disabled."
+"A total of %1 record(s) have been enabled for Seller profile.","A total of %1 record(s) have been enabled for Seller profile."
+Vendorattribute,Vendorattribute
+"Manage Vendor Attribute","Manage Vendor Attribute"
+"This attribute no longer exists.","This attribute no longer exists."
+"This attribute cannot be edited.","This attribute cannot be edited."
+"Edit Vendor Attribute","Edit Vendor Attribute"
+"New Attribute","New Attribute"
+"A total of %1 record(s) Status has been Enabled.","A total of %1 record(s) Status has been Enabled."
+"A total of %1 record(s) have been disabled for Seller Profile.","A total of %1 record(s) have been disabled for Seller Profile."
+"Manage Attribute","Manage Attribute"
+"A total of %1 record(s) have been updated.","A total of %1 record(s) have been updated."
+"You saved the vendor attribute.","You saved the vendor attribute."
+"Attribute name ""%1"" is invalid. Please use only letters (a-z), numbers (0-9) or underscore(_) in this field and the first character should be a letter.","Attribute name ""%1"" is invalid. Please use only letters (a-z), numbers (0-9) or underscore(_) in this field and the first character should be a letter."
+"The attribute ID already exists.","The attribute ID already exists."
+"An attribute with this code already exists.","An attribute with this code already exists."
+"An attribute with the same code (%1) already exists.","An attribute with the same code (%1) already exists."
+"A total of %1 record(s) have been Saved.","A total of %1 record(s) have been Saved."
+Vendorgroup,Vendorgroup
+"Manage Vendor Group","Manage Vendor Group"
+"This group no longer exists.","This group no longer exists."
+"New Group","New Group"
+"Manage Group","Manage Group"
+"A total of %1 record(s) have been removed.","A total of %1 record(s) have been removed."
+"You saved this group","You saved this group"
+"Something went wrong while saving the Attribute Group.","Something went wrong while saving the Attribute Group."
+"Page not found.","Page not found."
+Popup,Popup
+Slide,Slide
+Text,Text
+HTML,HTML
+"Unauthorized access. Only admin can access this information.","Unauthorized access. Only admin can access this information."
+"'groupId' input argument is required.","'groupId' input argument is required."
+"Attribute id(s) cannot be empty.","Attribute id(s) cannot be empty."
+"Attribute id(s) are not valid.","Attribute id(s) are not valid."
+"Invalid Request","Invalid Request"
+"'action' input argument is not valid.","'action' input argument is not valid."
+"Group id(s) cannot be empty.","Group id(s) cannot be empty."
+"Group id(s) are not valid.","Group id(s) are not valid."
+"Text Field","Text Field"
+"Text Area","Text Area"
+"Text Editor","Text Editor"
+"Page Builder","Page Builder"
+"Date and Time","Date and Time"
+Yes/No,Yes/No
+"Multiple Select","Multiple Select"
+Dropdown,Dropdown
+"""input"" value should be specified","""input"" value should be specified"
+"'filter' input argument is required.","'filter' input argument is required."
+"Attributes data cannot be empty.","Attributes data cannot be empty."
+"Invalid %1.","Invalid %1."
+"Invalid %1 type. Please upload valid file type from %2","Invalid %1 type. Please upload valid file type from %2"
+"The current customer isn't authorized.","The current customer isn't authorized."
+"The current customer is not a seller.","The current customer is not a seller."
+"'shopUrl' & 'isSeller' input arguments are required.","'shopUrl' & 'isSeller' input arguments are required."
+"already seller","already seller"
+"Profile information was successfully saved","Profile information was successfully saved"
+"The model with the ""%1"" ID doesn't exist.","The model with the ""%1"" ID doesn't exist."
+Yes,Yes
+No,No
+Enabled,Enabled
+Disabled,Disabled
+"Invalid date","Invalid date"
+Select,Select
+Both,Both
+Customer,Customer
+Seller,Seller
+"Please Fill all the Required Fields.","Please Fill all the Required Fields."
+"Check Term and Condition & Privacy & cookie Policy.","Check Term and Condition & Privacy & cookie Policy."
+"Delete Image","Delete Image"
+Edit,Edit
+"As WYSIWYG Editor","As WYSIWYG Editor"
+"Manage Titles (Size, Color, etc.)","Manage Titles (Size, Color, etc.)"
+"Manage Options (Values of Your Attribute)","Manage Options (Values of Your Attribute)"
+"Add Option","Add Option"
+"Sort Option","Sort Option"
+"The value of Admin must be unique.","The value of Admin must be unique."
+"Manage Options (values of your attribute)","Manage Options (values of your attribute)"
+Actions,Actions
+"Mass Actions","Mass Actions"
+"Select All","Select All"
+"Unselect All","Unselect All"
+"Select Visible","Select Visible"
+"Unselect Visible","Unselect Visible"
+"Save Attributes","Save Attributes"
+"Preview Image","Preview Image"
+"Allowed Extension's : ","Allowed Extension's : "
+"Delete File","Delete File"
+"* Required Fields","* Required Fields"
+"If you have an account, sign in with your email address.","If you have an account, sign in with your email address."
+Email,Email
+Password,Password
+"Sign in","Sign in"
+"Forgot Your Password?","Forgot Your Password?"
+"Don't have account? Click here to register","Don't have account? Click here to register"
+"Terms & Conditions","Terms & Conditions"
+and,and
+"Privacy & cookie Policy","Privacy & cookie Policy"
+"Shop URLs","Shop URLs"
+"Please enter shop URL","Please enter shop URL"
+"Congratulations! Shop name is available.","Congratulations! Shop name is available."
+"Sorry! But this shop name is not available, please set another shop name.","Sorry! But this shop name is not available, please set another shop name."
+"Vendor Information","Vendor Information"
+"Seller Request Panel","Seller Request Panel"
+"Waiting for approval from admin","Waiting for approval from admin"
+Cancel,Cancel
+Save,Save
+"Shop URL","Shop URL"
+"Do you want to become a seller / vendor ?","Do you want to become a seller / vendor ?"
+Back,Back
+"Register as Supplier","Register as Supplier"
+Account,Account
+Information,Information
+Personal,Personal
+"You are","You are"
+Done,Done
+"Email Address","Email Address"
+"Confirm Password","Confirm Password"
+Proceed,Proceed
+"First Name","First Name"
+"Last Name","Last Name"
+Phone,Phone
+"Company Name","Company Name"
+"Company Url","Company Url"
+"This will be used to display your public profile","This will be used to display your public profile"
+"Address Information","Address Information"
+Country,Country
+State/Province,State/Province
+"Please select a region, state or province.","Please select a region, state or province."
+City,City
+"Address Line","Address Line"
+"Zip/Postal Code","Zip/Postal Code"
+Register,Register
+"Voila! Account Created!","Voila! Account Created!"
+"You have successfully registered as Supplier with us.","You have successfully registered as Supplier with us."
+"Go to Dashboard","Go to Dashboard"
+"Create a MicroSite","Create a MicroSite"
+"You can setup and customize your very own MicroSite for free, where you can showcase your information and products.","You can setup and customize your very own MicroSite for free, where you can showcase your information and products."
+"Choose Relevant Categories","Choose Relevant Categories"
+"You can choose the categories you want to sell forand you will only receive relevant product quotations.","You can choose the categories you want to sell forand you will only receive relevant product quotations."
+"Get Premium Badge","Get Premium Badge"
+"You can verify your business and become a Preminum Supplierfor free to receive relatively more quotations.","You can verify your business and become a Preminum Supplierfor free to receive relatively more quotations."
+"Allowed extensions: ","Allowed extensions: "
+"Filename is too long; must be 90 characters or less","Filename is too long; must be 90 characters or less"
+Next,Next
+"There was error during verifying seller shop data","There was error during verifying seller shop data"
+"* Some field(s) of previous page(s) or current page are not filled properly.","* Some field(s) of previous page(s) or current page are not filled properly."
+"Create Account","Create Account"
+"Select Customer Group","Select Customer Group"
+"Select Vendor Group","Select Vendor Group"
+Choose...,Choose...
+"Attribute Manager","Attribute Manager"
+"Attribute Group Manager","Attribute Group Manager"
+"Vendor Attributes Settings","Vendor Attributes Settings"
+"Visible on Registration","Visible on Registration"
+"Visible on Profile","Visible on Profile"
+"File Display on Vendor Profile","File Display on Vendor Profile"
+"Display Registration Fields Group Wise","Display Registration Fields Group Wise"
+"If this field set to 'Yes' make sure atleast one vendor group created.","If this field set to 'Yes' make sure atleast one vendor group created."
+"Image Display on Vendor Profile","Image Display on Vendor Profile"
+"Allowed Image Extension","Allowed Image Extension"
+"Enter File type seperated by comma(,) like jpg,png,gif","Enter File type seperated by comma(,) like jpg,png,gif"
+"Allowed File Extension","Allowed File Extension"
+"Enter File type seperated by comma(,) like pdf,zip,doc","Enter File type seperated by comma(,) like pdf,zip,doc"
+"Seller Profile Label","Seller Profile Label"
+"Terms & Conditions and  Privacy Setting","Terms & Conditions and  Privacy Setting"
+"Enable Terms and Conditions on Vendor Registration Page","Enable Terms and Conditions on Vendor Registration Page"
+"Enable Terms and Conditions on Customer Registration Page","Enable Terms and Conditions on Customer Registration Page"
+"Privacy Popup Model Heading","Privacy Popup Model Heading"
+"Term and Condition Popup Model Heading","Term and Condition Popup Model Heading"
+"Model Button Text","Model Button Text"
+"Button Text Color","Button Text Color"
+"Save hexa code e.g: #FFFFFF, leave blank for default","Save hexa code e.g: #FFFFFF, leave blank for default"
+"Model Button Color","Model Button Color"
+"Model Background Color","Model Background Color"
+"Model Animation Type","Model Animation Type"
+"Show Content as","Show Content as"
+"Privacy & Cookie Policy","Privacy & Cookie Policy"
+"Vendor Attribute Manager Product Information","Vendor Attribute Manager Product Information"
+"<p>Author: <a target=""_blank"" title=""Webkul Software Private Limited"" href=""https://webkul.com/"">Webkul</a></p>
+                        <p>User Guide: <a target=""_blank"" href=""https://webkul.com/blog/magento2-marketplace-vendor-attribute-manager/"">Click here</a></p>
+                        <p>Store Extension: <a target=""_blank"" href=""https://store.webkul.com/magento2-marketplace-vendor-attribute.html"">Click here</a></p>
+                        <p>Ticket/Customisations: <a target=""_blank"" href=""https://webkul.uvdesk.com/en/customer/create-ticket/"">Click here</a></p>
+                        <p>Services: <a target=""_blank"" href=""https://webkul.com/magento-development/"">Click here</a></p>","<p>Author: <a target=""_blank"" title=""Webkul Software Private Limited"" href=""https://webkul.com/"">Webkul</a></p>
+                        <p>User Guide: <a target=""_blank"" href=""https://webkul.com/blog/magento2-marketplace-vendor-attribute-manager/"">Click here</a></p>
+                        <p>Store Extension: <a target=""_blank"" href=""https://store.webkul.com/magento2-marketplace-vendor-attribute.html"">Click here</a></p>
+                        <p>Ticket/Customisations: <a target=""_blank"" href=""https://webkul.uvdesk.com/en/customer/create-ticket/"">Click here</a></p>
+                        <p>Services: <a target=""_blank"" href=""https://webkul.com/magento-development/"">Click here</a></p>"
+"Are you sure to assign selected Attribute to Group?","Are you sure to assign selected Attribute to Group?"
+"Add Attribute","Add Attribute"
+"Are you sure you want to delete?","Are you sure you want to delete?"
+"Manage Display Fields","Manage Display Fields"
+"Display on Seller Profile","Display on Seller Profile"
+"Hide From Seller Profile","Hide From Seller Profile"
+"Assign Attribute","Assign Attribute"
+ID,ID
+"Attribute Id","Attribute Id"
+Required,Required
+"Show in Seller Profile","Show in Seller Profile"
+"Attribute Use For","Attribute Use For"
+Action,Action
+"Add New Group","Add New Group"
+"Group Status","Group Status"
+"Additional Info","Additional Info"
+"Additional Account Information","Additional Account Information"
+"Vendor Registration","Vendor Registration"

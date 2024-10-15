@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <affiliate>
+            <general>
+                <blog_url_hint>Blog URL hint that will be visible at front-end</blog_url_hint>
+            </general>
+        </affiliate>
+    </default>
+</config>

@@ -1,0 +1,81 @@
+<?php
+/**
+ * Webkul Affiliate User Payment template.
+ * @category  Webkul
+ * @package   Webkul_Affiliate
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+$isAffiliate = $block->isAffiliate();
+$config = $block->getAffiliateConfig();
+if ($isAffiliate && $config['enable']) {
+    $paymentColl = $block->getAllPayment();
+    ?>
+    <div class="wk-mp-design ">
+        <fieldset class="fieldset info">
+            <legend class="legend">
+                <span><?= /* @noEscape */ __('Payment Summary'); ?></span>
+            </legend>
+            <div class="grid">
+                <div class="hor-scroll">
+                    <?php if ($paymentColl && $paymentColl->getSize()): ?>
+                        <table cellspacing="0" class="border table wk-affiliate-list-table">
+                            <thead>
+                                <tr class="wk-content">
+                                    <th class="wk-first-td name">
+                                        <span class="label"><?= /* @noEscape */ __('Transaction Id');?></span>
+                                    </th>
+                                    <th class="wk-first-td">
+                                        <span class="label"><?= /* @noEscape */ __('IPN Transaction Id');?></span>
+                                    </th>
+                                    <th class="wk-first-td">
+                                        <span class="label name"><?= /* @noEscape */ __('Transaction Amount');?></span>
+                                    </th>
+                                    <th class="wk-first-td">
+                                        <span class="label name"><?= /* @noEscape */ __('Transaction Date');?></span>
+                                    </th>              
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $i = 0;
+                                foreach ($paymentColl as $paymentData) {
+                                    $i++; ?>
+                                    <tr class="wk-row-view 
+                                    <?= /* @noEscape */ $i == $paymentColl->getSize()? 'wk-last_tr':''?>">
+                                        <td class="wk-first_td"><?= /* @noEscape */ $paymentData->getTransactionId(); ?>
+                                    </td>
+                                        <td>
+                                            <?= /* @noEscape */ $paymentData->getIpnTransactionId(); ?>
+                                        </td>
+                                        <td><?= /* @noEscape */
+                                        $block->getFormatedPrice($paymentData->getTransactionAmount());
+                                        ?></td>
+                                        <td><?= /* @noEscape */
+                                        $block->getDateTimeAsLocale($paymentData->getCreatedAt());
+                                        ?></td>        
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>    
+                    <?php else: ?>
+                        <div class="wk-emptymsg">
+                            <?= /* @noEscape */  __('No payment Summary') ?>
+                        </div>
+                    <?php endif ?>
+                </div>
+            </div>
+            <?php if ($block->getPagerHtml()): ?>
+                <div class="order-products-toolbar toolbar bottom"><?= /* @noEscape */  $block->getPagerHtml(); ?></div>
+            <?php endif ?>    
+        </fieldset>    
+        <div class="buttons-set">
+            <p class="back-link">
+                <a href="javascript:;" onclick="javascript: window.history.back();" 
+                class="left">&laquo; <?= /* @noEscape */  __('Back') ?></a>
+            </p>
+        </div>
+    </div>
+<?php } ?>

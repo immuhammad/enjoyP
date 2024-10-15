@@ -1,0 +1,39 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpRmaSystem
+ * @author    Webkul Software Private Limited
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<form method="post" action="<?= $escaper->escapeUrl($block->getUrl('mprmasystem/guest/loginPost')); ?>" 
+    id="wk_guest_login_form" enctype="multipart/form-data" data-mage-init='{"validation":{}}'>
+    <fieldset class="fieldset wk-guest-login">
+        <div class="field required">
+            <label class="label" for="pass">
+                <span><?= $escaper->escapeHtml(__("Order Id")); ?></span>
+            </label>
+            <div class="control">
+                <input type="text" data-validate="{required:true}" 
+                    class="input-text required-entry" title="Order Id" id="order_id" name="order_id">
+            </div>
+        </div>
+        <div class="field email required">
+            <label for="email" class="label"><span><?= $escaper->escapeHtml(__("Email")); ?></span></label>
+            <div class="control">
+                <input type="email" data-validate="{required:true, 'validate-email':true}" 
+                    title="Email" class="input-text required-entry" id="email" name="email">
+            </div>
+        </div>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button id="login" name="login" class="action login primary" type="submit">
+                    <span><?= $escaper->escapeHtml(__("Login")); ?></span>
+                </button>
+            </div>
+        </div>
+    </fieldset>
+</form>

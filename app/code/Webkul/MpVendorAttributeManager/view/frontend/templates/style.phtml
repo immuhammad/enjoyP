@@ -1,0 +1,97 @@
+<style type="text/css">
+    .term-condition .modal-inner-wrap,.term-condition .page-main-actions{
+        background: <?= /**@noEscape */ $block->getConfigData('model_background'); ?>!important;
+    }
+    .term-condition .modal-footer button{
+        background: <?= /**@noEscape */ $block->getConfigData('button_color'); ?>!important;
+        color: <?= /**@noEscape */ $block->getConfigData('button_text_color'); ?>!important;
+    }
+    .term-condition .page-actions-buttons button{
+        background: <?= /**@noEscape */ $block->getConfigData('button_color'); ?>!important;
+        color: <?= /**@noEscape */ $block->getConfigData('button_text_color'); ?>!important;
+    }
+    .privacy-condition .modal-inner-wrap,.privacy-condition .page-main-actions{
+        background: <?= /**@noEscape */ $block->getConfigData('model_background'); ?>!important;
+    }
+    .privacy-condition .modal-footer button{
+        background: <?= /**@noEscape */ $block->getConfigData('button_color'); ?>!important;
+        color: <?= /**@noEscape */ $block->getConfigData('button_text_color'); ?>!important;
+    }
+    .privacy-condition .page-actions-buttons button{
+        background: <?= /**@noEscape */ $block->getConfigData('button_color'); ?>!important;
+        color: <?= /**@noEscape */ $block->getConfigData('button_text_color'); ?>!important;
+    }
+    <?php if ($block->getConfigData('header_background') != ''): ?>
+    .term-condition .page-main-actions{
+        background: <?= /**@noEscape */ $block->getConfigData('model_background'); ?> !important;
+        border-top: none!important;
+        border-bottom: none!important;
+    }
+    <?php endif; ?>
+    <?php if ($block->getConfigData('header_background') != ''): ?>
+    .privacy-condition .page-main-actions{
+        /*background: <?= /**@noEscape */ $block->getConfigData('header_background'); ?>!important;*/
+        border-top: none!important;
+        border-bottom: none!important;
+    }
+    <?php endif; ?>
+
+
+    .news-term-condition .modal-inner-wrap{
+        background: <?= /**@noEscape */ $block->getConfigData('model_background'); ?>!important;
+    }
+    .news-term-condition .modal-footer button{
+        background: <?= /**@noEscape */ $block->getConfigData('button_color'); ?>!important;
+        color: <?= /**@noEscape */ $block->getConfigData('button_text_color'); ?>!important;
+    }
+    .news-term-condition .page-actions-buttons button{
+        background: <?= /**@noEscape */ $block->getConfigData('button_color'); ?>!important;
+        color: <?= /**@noEscape */ $block->getConfigData('button_text_color'); ?>!important;
+    }
+    .news-privacy-condition .modal-inner-wrap{
+        background: <?= /**@noEscape */ $block->getConfigData('model_background'); ?>!important;
+    }
+    .news-privacy-condition .modal-footer button{
+        background: <?= /**@noEscape */ $block->getConfigData('button_color'); ?>!important;
+        color: <?= /**@noEscape */ $block->getConfigData('button_text_color'); ?>!important;
+    }
+    .news-privacy-condition .page-actions-buttons button{
+        background: <?= /**@noEscape */ $block->getConfigData('button_color'); ?>!important;
+        color: <?= /**@noEscape */ $block->getConfigData('button_text_color'); ?>!important;
+    }
+    <?php if ($block->getConfigData('header_background') != ''): ?>
+    .news-term-condition .page-main-actions{
+        /*background: <?= /**@noEscape */ $block->getConfigData('header_background'); ?>!important;*/
+        border-top: none!important;
+        border-bottom: none!important;
+    }
+    .news-term-condition .modal-title{
+        background: <?= /**@noEscape */ $block->getConfigData('header_background'); ?>!important;
+        border-top: none!important;
+        border-bottom: none!important;
+    width: 90%;
+        padding: 7px;
+    border-radius: 4px;
+    }
+    <?php endif; ?>
+    <?php if ($block->getConfigData('header_background') != ''): ?>
+    .news-privacy-condition .page-main-actions{
+        background: <?= /**@noEscape */ $block->getConfigData('header_background'); ?>!important;
+        border-top: none!important;
+        border-bottom: none!important;
+    }
+    .news-privacy-condition  .modal-header .modal-title{
+        background: <?= /**@noEscape */ $block->getConfigData('header_background'); ?>!important;
+        border-top: none!important;
+        border-bottom: none!important;
+    width: 90%;
+        padding: 7px;
+    border-radius: 4px;
+    }
+    .page-main-actions{
+        margin-top: .5rem !important;
+    margin-bottom: .1rem !important;
+    padding: 10px !important;
+    }
+    <?php endif; ?>
+</style>

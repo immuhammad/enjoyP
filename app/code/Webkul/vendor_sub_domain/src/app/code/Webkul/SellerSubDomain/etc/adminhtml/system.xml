@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_SellerSubDomain
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="webkul" translate="label" sortOrder="10">
+            <label>Webkul</label>
+        </tab>
+        <section id="sellersubdomain" translate="label" type="text" sortOrder="500" showInDefault="2" showInWebsite="2" showInStore="2">
+            <label>Seller Subdomain</label>
+            <tab>webkul</tab>
+            <resource>Webkul_SellerSubDomain::config_sellersubdomain</resource>
+            <group id="settings" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Global Seller Subdomain Settings</label>
+                <field id="active" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If set yes then "Rewrite Seller's Shop URL" and "Allow to automatic create seller public url on seller registration" settings under "Marketplace Seller Profile Page" will not work.</comment>
+                </field>
+                <field id="prefix" translate="label comment" sortOrder="2" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Prefix</label>
+                    <frontend_model>Webkul\SellerSubDomain\Block\Prefix</frontend_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                    <validate>no-whitespace</validate>
+                    <comment>only characters(a-z), numbers(0,9), - and _ are allowed</comment>
+                </field>
+                <field id="url_display_setting" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Display Only Seller's Public Pages On Seller's Domain</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                    <comment>if set yes then only Seller public pages(profile, product collection, location and feedback) will be visible on seller's domain</comment>
+                </field>
+                <field id="admin_pro" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Display Admin's Products On Category Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="url_display_setting">0</field>
+                    </depends>
+                    <comment>If Set “Yes” then show the admin products or set “No” then only show the vendor’s product at the vendor’s subdomain.</comment>
+                </field>
+            </group>
+            <group id="localsetting" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Customer Vendor Subdomain Settings</label>
+                <field id="active" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If set yes then you have to set url for each vendor under customer->edit->Vendor Domain.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
+

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="seller-login" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Webkul_Marketplace::css/wk_block.css"/>
+        <css src="Webkul_Marketplace::css/style.css"/>
+        <css src="Webkul_Marketplace::css/product.css"/>
+        <css src="Webkul_Marketplace::css/layout.css"/>
+        <css src="Webkul_B2BMarketplace::css/login.css"/>
+        <css src="Webkul_B2BMarketplace::css/quote.css"/>
+    </head>
+    <body>
+        <move element="messages" destination="seller.login.content" before="-"/>
+        <move element="copyright" destination="seller.login.footer" before="-"/>
+        <move element="logo" destination="seller.login.header" before="-"/>
+        <referenceContainer name="seller.login.header">
+            <block class="Webkul\Marketplace\Block\Account\Navigation" name="seller_form_login_links" template="Webkul_B2BMarketplace::supplier/login/links.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="seller.login.content">
+            <block class="Magento\Framework\View\Element\FormKey" name="formkey"/>
+            <container name="customer.login.container" label="Supplier Create Container" htmlTag="div" htmlClass="wk-mp-login-container">
+                <block class="Magento\Framework\View\Element\Template" name="supplier.create" template="Webkul_B2BMarketplace::supplier/create.phtml" cacheable="false">
+                    <arguments>
+                        <argument name="view_model" xsi:type="object">Webkul\B2BMarketplace\ViewModel\SupplierViewModel</argument>
+                    </arguments>
+                </block>
+            </container>
+            <block class="Magento\PageCache\Block\Javascript" template="Magento_PageCache::javascript.phtml" name="seller.pageCache" as="seller.pageCache"/>
+            <!-- For form submit error fix -->
+            <block name="customer.section.config" class="Magento\Customer\Block\SectionConfig"
+                   template="Magento_Customer::js/section-config.phtml">
+                <arguments>
+                    <argument name="sectionNamesProvider" xsi:type="object">Magento\Customer\Block\SectionNamesProvider</argument>
+                </arguments>
+            </block>
+            <block name="seller.customer.customer.data"
+                   class="Magento\Customer\Block\CustomerData"
+                   template="Magento_Customer::js/customer-data.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

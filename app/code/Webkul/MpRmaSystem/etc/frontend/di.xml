@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpRmaSystem
+ * @author    Webkul Software Private Limited
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Webkul\Marketplace\Controller\Order\Invoice" type="Webkul\MpRmaSystem\Controller\Rewrite\Order\Invoice"/>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="seller_rma_list_data_source" xsi:type="string">Webkul\MpRmaSystem\Model\ResourceModel\Details\FrontendGrid\Collection</item>
+            </argument>
+        </arguments>
+        </type>
+        <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="customer_rma_list_data_source" xsi:type="string">Webkul\MpRmaSystem\Model\ResourceModel\Details\FrontendGrid\Customer\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Webkul\MpRmaSystem\Model\ResourceModel\Details\FrontendGrid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">marketplace_rma_details</argument>
+            <argument name="eventPrefix" xsi:type="string">seller_mprmasystem_items_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">seller_items_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\MpRmaSystem\Model\ResourceModel\Details</argument>
+        </arguments>
+    </type>
+    <type name="Webkul\MpRmaSystem\Model\ResourceModel\Details\FrontendGrid\Customer\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">marketplace_rma_details</argument>
+            <argument name="eventPrefix" xsi:type="string">customer_mprmasystem_items_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">Customer_items_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\MpRmaSystem\Model\ResourceModel\Details</argument>
+        </arguments>
+    </type>
+</config>

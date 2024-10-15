@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <update id="Webkul_Marketplace::marketplace" title="B2B Marketplace" />
+        <add id="Webkul_B2BMarketplace::rfq" title="Requested Quotes" translate="title" module="Webkul_B2BMarketplace" sortOrder="10" parent="Webkul_Marketplace::marketplace"  resource="Webkul_B2BMarketplace::rfq" />
+        <add id="Webkul_B2BMarketplace::quote_index" title="Requested Quotes" translate="title" module="Webkul_B2BMarketplace" sortOrder="20" parent="Webkul_B2BMarketplace::rfq" action="b2bmarketplace/quote/index" resource="Webkul_B2BMarketplace::quote_index" />
+    </menu>
+</config>

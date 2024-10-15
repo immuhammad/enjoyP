@@ -1,0 +1,21 @@
+<?php
+/**
+ * @category  Webkul
+ * @package   Webkul_Mpquotesystem
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+if ($block->isSortData()):
+    $styleString = <<<style
+        #wk_quotesystem_products {
+            display: block !important;
+        }
+        #sales_order_create_customer_grid {
+            display: none;
+        }
+    style;
+    ?>
+    <?= /* @noEscape */ $secureRenderer->renderTag('style', [], $styleString, false); ?>
+<?php endif; ?>
+

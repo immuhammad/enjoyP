@@ -1,0 +1,53 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category Webkul
+ * @package Webkul_MpStripe
+ * @author Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ */
+$sellerData = $block->getStripeSellerInformation();
+
+$accountLink = $block->getAccountLink();
+
+if ($sellerData) {
+    ?>
+    <div class="wk-mp-design" id="wk-bodymain">
+            <?php
+            $status = __("Not Connected");
+            $message = __('Connect to Stripe via the button below');
+            $showConnectButton = true;
+            if (!empty($sellerData['requirements']['eventually_due'])) {
+                $status = __("More Information Required");
+                $message = __('Complete your details via the button below');
+            } else {
+                $status = __("Connected");
+                $showConnectButton = false;
+                $message = __('Success! You are connected to receive payments');
+            }
+            ?>
+            <?php if (isset($accountLink['url'])) {
+                ?>
+                <div class="wk-mp-design" id="wk-bodymain">
+                    <p><?= /*@noEscape*/ __('Status') ?> : <b> <?= $block->escapeHtml($status) ?> </b></p>
+                    <i>
+                        <?=  $block->escapeHtml($message) ?>
+                    </i>
+                </div>
+                <?php if ($showConnectButton): ?>
+                    <div class="wk-mp-design" id="wk-bodymain">
+                        <a href="<?= $block->escapeUrl($accountLink['url']) ?>">
+                            <button type="button" class="action primary">
+                                <span><span><?= /*@noEscape*/ __('CONNECT TO STRIPE') ?></span></span>
+                            </button>
+                        </a>
+                    </div>
+                <?php endif; ?>
+                <?php
+            } ?>
+        </div>
+    <?php
+}
+?>

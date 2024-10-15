@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Affiliate Email Templates xml
+ * @category  Webkul
+ * @package   Webkul_Affiliate
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+	<template id="affiliate_general_aff_user_update_email_template" label="Notify to affiliate user when account status update" file="affiliate_user_status_update_notify.html" type="html" module="Webkul_Affiliate" area="frontend"/>
+	<template id="affiliate_general_payment_credit_notify_email_template" label="Payment credited notification" file="affiliate_user_payment_credit_notify.html" type="html" module="Webkul_Affiliate" area="frontend"/>
+	<template id="affiliate_general_aff_user_notify_by_admin_email_template" label="Notify to affiliate user by admin" file="affiliate_user_notify_by_admin.html" type="html" module="Webkul_Affiliate" area="frontend"/>
+    <template id="affiliate_general_manager_email_template" label="Notify to admin manager" file="affiliate_manager_notify.html" type="html" module="Webkul_Affiliate" area="frontend"/>
+    <template id="affiliate_general_aff_user_email_template" label="Notify to affiliate user" file="affiliate_user_sale_approve_notify.html" type="html" module="Webkul_Affiliate" area="frontend"/>
+    <template id="affiliate_general_email_campaign_template" label="E-mail Campaign" file="affiliate_email_campaign.html" type="html" module="Webkul_Affiliate" area="frontend"/>
+</config>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpVendorAttributeManager
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+		<update handle="marketplace_styles"/>
+		<head>
+        <css src="Webkul_MpVendorAttributeManager::css/style.css"/>
+				<css src="jquery/fileUploader/css/jquery.fileupload-ui.css"/>
+    </head>
+	<update handle="customer_account"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Webkul\MpVendorAttributeManager\Block\Account\Editprofile" name="vendor_attribute_customer_form" template="Webkul_MpVendorAttributeManager::account/editcustomer.phtml" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

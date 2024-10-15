@@ -1,0 +1,48 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+/** @var $block \Webkul\Marketplace\Block\Product\Create */
+
+$productId=$block->getRequest()->getParam('id');
+if ($productId) {
+    $productColl = $block->getProduct($productId);
+    $productTypeId = $productColl['type_id'];
+    $mpProductCartMinLimit = $productColl['allowed_min_qty_to_order'];
+    $isFeaturedProduct = $productColl['is_featured_product'];
+} else {
+    $productTypeId = $block->getRequest()->getParam('type');
+    $mpProductCartMinLimit = '';
+    $isFeaturedProduct = '';
+}
+if ($productTypeId != 'downloadable' && $productTypeId != 'virtual') {
+    ?>
+    <div class="field">
+        <label class="label"><?= $block
+        ->escapeHtml(__('Allowed Product Min Qty to Purchase for Customer')) ?>:</label>
+        <div class="control">
+            <input type="text" class="input-text validate-number" 
+            name="product[allowed_min_qty_to_order]" id="allowed_min_qty_to_order" 
+            value="<?= $block->escapeHtml($mpProductCartMinLimit); ?>"/>
+        </div>
+    </div>
+    <?php
+} ?>
+<div class="field">
+    <label class="label"><?= $block->escapeHtml(__('Is Featured Product')) ?>:</label>
+    <div class="control">
+        <select name="product[is_featured_product]" id="is_featured_product">
+            <option value="0" <?php if ($isFeaturedProduct == 0) { ?>selected="selected" <?php } ?>>
+            <?= $block->escapeHtml(__('No'))?></option>
+            <option value="1" <?php if ($isFeaturedProduct == 1) { ?>selected="selected" <?php } ?>>
+            <?= $block->escapeHtml(__('Yes'))?></option>
+        </select>
+    </div>
+</div>

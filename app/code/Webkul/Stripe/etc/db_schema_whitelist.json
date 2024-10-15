@@ -1,0 +1,18 @@
+{
+    "sales_order": {
+        "column": {
+            "stripe_payment_intent": true
+        }
+    },
+    "wk_stripe_order": {
+        "column": {
+            "entity_id": true,
+            "quote_id": true,
+            "payment_intent": true,
+            "status": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

@@ -1,0 +1,25 @@
+<!--@subject {{trans "Reply on Requested quote" store_name=$store.getFrontendName()}} @-->
+<!--@vars {
+"var this.getUrl($store, 'customer/account/')":"Customer Account URL"
+} @-->
+{{template config_path="design/email/header_template"}}
+
+<p>{{trans 'A message has been sent by supplier regarding quote. Please <a href="%account_url">login into your account</a>. for more details.' account_url=$this.getUrl($store,'customer/account/login/',[_nosid:1]) |raw}}</p>
+
+<table class="message-info">
+    <tr class="email-summary">
+        <td>
+            <p>{{trans 'Please find the following details:'}}</p>
+            <p>{{trans 'Quote Request Id <span class="no-link">: #%request_id</span>' request_id=$requestId |raw}}</p>
+            <p>{{trans 'Quote Topic <span class="no-link">: %subject</span>' subject=$myvar2 |raw}}</p>
+            <p>{{trans 'Bulk Quote Quantity <span class="no-link">: %bulk_quote_qty</span>' bulk_quote_qty=$myvar3 |raw}}</p>
+            <p>{{trans 'Quote Price Per Quantity <span class="no-link">: %quote_price</span>' quote_price=$myvar4 |raw}}</p>
+            {{depend isQuoteStatusUpdate}}
+                <p>{{trans 'Quote Item Status <span class="no-link">: %status</span>' status=$status |raw}}</p>
+                <p>{{trans 'Note Message <span class="no-link">: %message</span>' message=$message |raw}}</p>
+            {{/depend}}
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

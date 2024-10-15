@@ -1,0 +1,36 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$quickOrderBlock =  $block->getLayout()->createBlock(
+    \Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class
+);
+$magentoCurrentUrl = $block->getCurrentUrl();
+$welcomeMessage = $quickOrderBlock->helper("Webkul\B2BMarketplace\Helper\Data")->getDefaultWelcomeMessage();
+?>
+<div class="wk-supplier-account-container">
+    <ul class="header links">
+        <li class="greet welcome" data-bind="scope: 'customer'">
+            <span><?= /* @noEscape */ __($welcomeMessage)?></span>
+        </li>
+        <?php if (strpos($magentoCurrentUrl, 'b2bmarketplace/supplier/login') !== false) { ?>
+            <li class="wk-supplier-registration-link">
+                <a href="<?= /* @noEscape */ $block->getUrl('b2bmarketplace/supplier/create')?>">
+                    <?= /* @noEscape */ __('Register as Supplier')?>
+                </a>
+            </li>
+        <?php } else { ?>
+            <li class="wk-supplier-registration-link">
+                <a href="<?= /* @noEscape */ $block->getUrl('b2bmarketplace/supplier/login')?>">
+                    <?= /* @noEscape */ __('Supplier Sign In')?>
+                </a>
+            </li>
+        <?php } ?>
+    </ul>
+</div>

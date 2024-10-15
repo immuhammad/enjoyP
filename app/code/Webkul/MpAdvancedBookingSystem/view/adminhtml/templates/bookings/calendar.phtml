@@ -1,0 +1,72 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpAdvancedBookingSystem
+ * @author    Webkul Software Private Limited
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<div>
+    <label><?= $block->escapeHtml(__('Locales:')) ?></label>
+    <select class="admin__control-select" id="booking-locale"></select>
+</div>
+<br>
+<div id="booking-calendar"></div>
+<!-- Booking View Model -->
+<div id="booking-view-model">
+    <div class="admin__page-section-title">
+        <span class="title"><?= $block->escapeHtml(__('Order Information')) ?></span>
+    </div>
+    <div class="admin__page-section-item-content">
+        <table class="admin__table-secondary order-account-information-table">
+            <tbody id="booking-view-model-template-container"></tbody>
+        </table>
+    </div>
+</div>
+
+<script id="booking-view-model-template" type="text/x-magento-template">
+    <tr>
+        <th><?= $block->escapeHtml(__('Order ID')) ?></th><td>#<%- data.incrementId %></td>
+    </tr>
+    <tr>
+        <th><?= $block->escapeHtml(__('Product Name')) ?></th><td><%- data.title %></td>
+    </tr>
+    <tr>
+        <th><?= $block->escapeHtml(__('Booking From')) ?></th><td><%- data.start %></td>
+    </tr>
+    <tr>
+        <th><?= $block->escapeHtml(__('Booking Till')) ?></th><td><%- data.end %></td>
+    </tr>
+    <tr>
+        <th><?= $block->escapeHtml(__('Status')) ?></th><td><%- data.status %></td>
+    </tr>
+    <tr>
+        <th><?= $block->escapeHtml(__('Customer Email')) ?></th><td><%- data.customerEmail %></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <a target="_blank" class="action-secondary" href="<%- data.orderUrl %>">
+                <?= $block->escapeHtml(__('View Order')) ?></a>
+        </td>
+    </tr>
+</script>
+<?php
+    $data['calendarElementId'] = 'booking-calendar';
+    $data['localeElementId'] = 'booking-locale';
+    $data['bookingViewModel'] = '#booking-view-model';
+    $data['bookingViewModelTemplate'] = '#booking-view-model-template';
+    $data['eventsUrl'] = $block->getUrl('mpadvancebooking/bookings_calendar/events');
+    $data['orderUrl'] = $block->getUrl('sales/order/view');
+    $data['locale'] = 'en';
+    $data = json_encode($data);
+?>
+<script type="text/x-magento-init">
+{
+    "body": {
+        "Webkul_MpAdvancedBookingSystem/js/calendar-script": <?= /** @escapeNotVerified */ $data ?>
+    }
+}
+</script>

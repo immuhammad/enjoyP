@@ -1,0 +1,37 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpmembership
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+// @block Webkul/Mpmembership/Block/Navigation
+
+$magentoCurrentUrl = $block->getCurrentUrl();
+/*Get current URL*/
+$isPartner= $block->checkIsPartner();
+$secure = $block->getIsSecure();
+$membershipUrl = $block->getUrl('mpmembership/index/index', ['_secure' => $secure]);
+/*Check if current customer is a seller or not*/
+if ($isPartner || $block->checkVendorFeeOption()) { ?>
+<!-- if is a seller then show left link -->
+    <li class="nav item
+        <?= /* @noEscape */ strpos($magentoCurrentUrl, 'mpmembership') ? "current":"";?>">
+        <?php
+        if (strpos($magentoCurrentUrl, 'mpmembership')!==false) { ?>
+            <strong><?= /* @noEscape */ __('Pay Membership Fee') ?></strong>
+            <?php
+        } else {
+            ?>
+            <a href="<?= $escaper->escapeUrl($membershipUrl); ?>">
+                <?= /* @noEscape */ __('Pay Membership Fee') ?>
+            </a>
+            <?php
+        }
+        ?>
+    </li>
+<?php } ?>

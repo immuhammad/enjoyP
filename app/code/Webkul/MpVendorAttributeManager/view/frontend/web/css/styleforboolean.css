@@ -1,0 +1,23 @@
+.wkboolreq::after{
+    color: #e02b27;
+    content: "*";
+    font-size: 1.2rem;
+    margin: 0 0 0 5px;
+}.vendorfields label.label{
+    display: block !important;
+    clear: both;
+}.vendorfields .wkcontrol{
+    clear: both;
+}
+.wkeditprofile{
+    margin-top:20px;
+}
+.ui-datepicker-year{
+    width: 70% !important;
+    margin-right: 16px;
+}.wklabel{
+    font-weight: 600;
+}
+.vendorfields label.wkboolreq{
+    display: inline !important; 
+}

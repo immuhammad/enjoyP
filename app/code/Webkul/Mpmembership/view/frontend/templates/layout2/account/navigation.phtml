@@ -1,0 +1,35 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpmembership
+ * @author    Webkul Software Private Limited
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $mpHelper = $block->mpHelper();
+    $isPartner= $mpHelper->isSeller();
+    $magentoCurrentUrl = $block->getCurrentUrl();
+    $isSellerGroup = $mpHelper->isSellerGroupModuleInstalled();
+    $memberShipUrl = $block->getUrl('mpmembership/index/index', ['_secure' => $block->getIsSecure()]);
+?>
+<?php if ($isPartner): ?>
+    <?php if (($isSellerGroup && $mpHelper->isAllowedAction('mpmembership/index/index')) || !$isSellerGroup): ?>
+        <li class="item notification-link wk-mp-item-membership level-0
+        <?= strpos($magentoCurrentUrl, 'mpmembership')? "active":"";?>"
+        >
+            <?php if (strpos($magentoCurrentUrl, 'mpmembership') !== false): ?>
+                <a href="#">
+                    <span><?= /* @noEscape */ __('Pay Membership Fee') ?></span>
+                </a>
+            <?php else: ?>
+                <a href="<?= $escaper->escapeUrl($memberShipUrl); ?>">
+                    <span><?= /* @noEscape */__('Pay Membership Fee') ?></span>
+                </a>
+            <?php endif; ?>
+        </li>
+    <?php endif; ?>
+<?php endif; ?>

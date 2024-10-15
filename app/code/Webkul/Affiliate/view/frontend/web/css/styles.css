@@ -1,0 +1,96 @@
+.wk-row-view td {
+    vertical-align: middle;
+}
+#affiliate-user-traffic-graph {
+    border: 1px solid #c6c6c6;
+    padding:5px;
+}
+.wk-affiliate-fieldset .vartical {
+    vertical-align: middle;
+}
+.wk-affiliate-fieldset .font-bold {
+    font-weight:bold;
+}
+.wk-affiliate-main
+{
+    top: 21px;
+}
+.pager p.toolbar-amount{
+    position: relative !important;
+}
+.columns
+{
+    padding-top:35px;
+}
+.wk-affiliate-main
+{
+    z-index: 0;
+}
+.wk-mp-design .legend
+{
+    margin-left:0px !important;
+}
+.showData
+{
+     padding-bottom: 20px;
+
+}
+.showdata
+{
+   float:left;
+   margin-left: 10px;
+   height:150px;
+   cursor: pointer;
+   padding: 5px;
+   border: 1px solid #CCC;
+   width:10%;
+   
+
+}
+.showdata .emailcampaign-product-name{
+   overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+}
+
+.showfield
+{
+   border:1px solid red;
+}
+
+.actions-toolbar button.save{
+  float: right!important;
+  margin-right: 0px!important;
+}
+.affiliate-active .action.primary{
+    background-color: #eb5103;
+    border: 1px solid  #eb5103;
+}
+
+.wk-width {
+    width : 500px;
+}
+
+.wk-box {
+    width: 250px;
+    padding: 15px;
+    border: 1px solid gray;
+    margin: 5px;
+    display: inline-block;
+}
+
+.wk-digit {
+    font-size: 20px;
+    margin-right: 10px;
+    display: inline;
+}
+.wk-text {
+    font-size: 20px;
+    display: inline;
+    font-weight: 600;
+}
+.wk-second-heading {
+    margin-top: 20px;
+}

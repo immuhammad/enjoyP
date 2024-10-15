@@ -1,0 +1,721 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $requestId = (int)$block->getRequest()->getParam("id");
+    $helper = $block->helper('Webkul\B2BMarketplace\Helper\Quote');
+    $rquestedQuoteItems = $block->getAllRequestedQuoteItems();
+    $customer = $helper->getCustomer();
+    $itemIds = [];
+?>
+<div id="wk-send-message" class="wk-b2b-modal-content" style="display:none;">
+    <div class="wk-loading-mask wk-display-none">
+        <div class="wk-loader"></div>
+    </div>
+    <div class="wk-b2b-modal-content-row">
+        <div class="wk-b2b-modal-content-row-label">
+            <?= /* @noEscape */ __("Message"); ?>
+        </div>
+        <div class="wk-b2b-modal-content-row-content">
+            <textarea></textarea>
+        </div>
+    </div>
+</div>
+<div id="wk-approve-quote" class="wk-b2b-modal-content" style="display:none;">
+    <div class="wk-loading-mask wk-display-none">
+        <div class="wk-loader"></div>
+    </div>
+    <div class="wk-b2b-modal-content-row">
+        <div class="wk-b2b-modal-content-row-label">
+            <?= /* @noEscape */ __("Comments"); ?>
+        </div>
+        <div class="wk-b2b-modal-content-row-content">
+            <textarea></textarea>
+        </div>
+    </div>
+</div>
+<div id="wk-reject-quote" class="wk-b2b-modal-content" style="display:none;">
+    <div class="wk-loading-mask wk-display-none">
+        <div class="wk-loader"></div>
+    </div>
+    <div class="wk-b2b-modal-content-row">
+        <div class="wk-b2b-modal-content-row-label">
+            <?= /* @noEscape */ __("Comments"); ?>
+        </div>
+        <div class="wk-b2b-modal-content-row-content">
+            <textarea></textarea>
+        </div>
+    </div>
+</div>
+
+<?php if ($totalRquestedQuoteItems = $rquestedQuoteItems->getSize()): ?>
+    <?php
+        $quote = $block->getQuote();
+        $quoteId = $quote->getId();
+        $supplierId = $quote->getSupplierId();
+        $quoteSummary = $quote->getQuoteDesc();
+        $quoteTitle = $quote->getQuoteTitle();
+        $quoteAttachments = $block->getQuoteAttachments($quoteId);
+        $mediaUrl = $block->helper('Webkul\B2BMarketplace\Helper\Data')->getMediaUrl();
+    ?>
+    <div class="wk-mp-qs-container">
+        <div class="wk-mp-qs-data-container">
+            <div class="wk-mp-qs-data-header">
+                <?= /* @noEscape */ __("Quote for %1 Product(s)", $totalRquestedQuoteItems); ?>
+            </div>
+
+            <?php foreach ($rquestedQuoteItems as $item): ?>
+                <?php
+                    $itemId = $item->getEntityId();
+                    $itemIds[] = $itemId;
+                    $sampleImages = $block->getQuoteItemAttachments($itemId);
+                ?>
+                <div class="wk-mp-qs-item-container wk-closed">
+                    <div class="wk-mp-qs-item-row wk-primary-row">
+                        <div class="wk-mp-qs-item-name">
+                            <?= $block->escapeHtml($item->getName()); ?>
+                            <?php //echo $helper->getItemStatusLabelHtml($item); ?>
+                        </div>
+                        <div class="wk-mp-qs-item-action">
+                            <?= $helper->getBuyerQuoteItemButtonHtml($item); ?>
+                            <span class="wk-info-btn">
+                                <span class="wk-show-info-label"><?= /* @noEscape */ __("Show Info"); ?></span>
+                                <span class="wk-hide-info-label"><?= /* @noEscape */ __("Hide Info"); ?></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="wk-mp-qs-item-row">
+                        <div class="wk-mp-qs-item-desc wk-open-desc">
+                            <span class="wk-mp-qs-item-desc-label wk-show-desc-label">
+                            <?= /* @noEscape */ __("Show Description"); ?></span>
+                            <span class="wk-mp-qs-item-desc-label wk-hide-desc-label">
+                            <?= /* @noEscape */ __("Hide Description"); ?></span>
+                            <span class="wk-mp-qs-item-desc-content">
+                                <?= /* @noEscape */ $item->getDescription(); ?>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="wk-mp-qs-item-row wk-primary-row">
+                        <div class="wk-mp-qs-item-col">
+                            <span class="wk-mp-qs-item-label">
+                            <?= /* @noEscape */ __("Quantity"); ?> - </span>
+                            <span class="wk-mp-qs-item-content">
+                            <?= /* @noEscape */ __("%1 Units", $item->getQty()); ?></span>
+                        </div>
+                        <div class="wk-mp-qs-item-col">
+                            <span class="wk-mp-qs-item-label"><?= /* @noEscape */ __("Expected Price"); ?> - </span>
+                            <span class="wk-mp-qs-item-content">
+                                <?= /* @noEscape */ __("%1 Per Unit", $helper->getFormattedPrice($item->getPrice())); ?>
+                            </span>
+                        </div>
+                        <div class="wk-mp-qs-item-col">
+                            <span class="wk-mp-qs-item-label"><?= /* @noEscape */ __("Expected Total"); ?> - </span>
+                            <span class="wk-mp-qs-item-content">
+                                <?= /* @noEscape */ $helper->getFormattedPrice(($item->getQty()*$item->getPrice())); ?>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="wk-mp-qs-item-row wk-primary-row">
+                        <div class="wk-mp-qs-item-col">
+                            <span class="wk-mp-qs-item-label">
+                            <?= /* @noEscape */ __("Requires Samples"); ?> - </span>
+                            <span class="wk-mp-qs-item-content">
+                            <?= /* @noEscape */ $helper
+                            ->getSampleRequiredLabel($item->getHasSamples()) ?></span>
+                        </div>
+                    </div>
+                    <?php if ($item->getHasSamples() && !empty($sampleImages)): ?>
+                        <div class="wk-mp-qs-item-row">
+                            <div class="wk-mp-qs-sample-image wk-open-sample">
+                                <span class="wk-mp-qs-sample-image-label wk-show-sample-label">
+                                <?= /* @noEscape */ __("Show Sample Images"); ?></span>
+                                <span class="wk-mp-qs-sample-image-label wk-hide-sample-label">
+                                <?= /* @noEscape */ __("Hide Sample Images"); ?></span>
+                                <div class="wk-mp-qs-sample-image-content">
+                                    <?php foreach ($sampleImages as $file): ?>
+                                        <div class="wk-mp-qs-sample-image-content-img">
+                                            <?php $sampleUrl = $block
+                                            ->getItemAttachmentUrl($quoteId, $file->getAttachmentId())?>
+                                            <a href="<?= /* @noEscape */ $sampleUrl ?>">
+                                                <img 
+                                                    src="<?= /* @noEscape */ $sampleUrl ?>"
+                                                    title="<?= /* @noEscape */ $file->getFileName() ?>" />
+                                            </a>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <div class="wk-mp-qs-data-container">
+            <div class="wk-mp-qs-data-header">
+                <?= /* @noEscape */ __("Quote Summary"); ?>
+            </div>
+            <div class="wk-mp-qs-item-container">
+                <div class="wk-mp-qs-summary-container">
+                    <div class="wk-mp-qs-summary-icon"></div>
+                    <div class="wk-mp-qs-summary-details">
+                        <div class="wk-mp-qs-summary-buyer-name">
+                            <?= $block->escapeHtml($customer->getName()); ?>
+                            <span class="wk-mp-qs-summary-buyer-name-label"><?= /* @noEscape */ __("You"); ?></span>
+                        </div>
+                        <div class="wk-mp-qs-summary-time">
+                            <?= /* @noEscape */
+                            $block->helper('Webkul\B2BMarketplace\Helper\Data')->formatDate(
+                                $quote->getCreatedAt(),
+                                \IntlDateFormatter::LONG,
+                                true
+                            );
+                            ?>
+                        </div>
+                        <div class="wk-mp-qs-summary-quote-details">
+                            <div class="wk-mp-qs-summary-quote-title"><?= $block->escapeHtml($quoteTitle); ?></div>
+                            <div class="wk-mp-qs-summary-quote-desc"><?= $block->escapeHtml($quoteSummary); ?></div>
+                        </div>
+                        <?php if (!empty($quoteAttachments)): ?>
+                            <div class="wk-mp-qs-summary-quote-attachments">
+                                <?php
+                                foreach ($quoteAttachments as $file) { ?>
+                                    <?php /** @var $file \Webkul\B2BMarketplace\Model\QuoteAttachment */ ?>
+                                    <a class="wk-msg-attachment" 
+                                    href="<?= /* @noEscape */ $block
+                                    ->getAttachmentUrl($file->getAttachmentId()) ?>"
+                                        title="<?= /* @noEscape */ $file->getFileName() ?>">
+                                        <?= /* @noEscape */ $file->getFileName() ?>
+                                    </a>
+                                    <?php
+                                } ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wk-mp-qs-data-container">
+            <div class="wk-mp-qs-data-header">
+                <?= /* @noEscape */ __("Quote Threads"); ?>
+            </div>
+            <?php $count = 0; ?>
+            <div class="wk-mp-qs-item-container">
+                <div class="wk-mp-qs-thread-container">
+                    <?php
+                    $sentQuoteCollection = $block->getQuotations($itemIds);
+                    if (count($sentQuoteCollection)) { ?>
+                        <?php foreach ($sentQuoteCollection as $itemId => $item): ?>
+                            <?php
+                                $class = "wk-mp-qs-thread-body wk-display-none ";
+                                $buttonLabel = __("Show Threads");
+                                $btnClass = "action tocart primary wk-thread-btn";
+                                $lastQuoteId = 0;
+                                $count++;
+                                $quoteStatus = 0;
+                                $canUpdateQuote = 1;
+                            ?>
+                            <div class="wk-mp-qs-thread">
+                                <div class="wk-mp-qs-thread-head">
+                                    <div class="wk-mp-qs-thread-quote-ref">
+                                    #<?= /* @noEscape */ $itemId; ?>
+                                    </div>
+                                    <div class="wk-mp-qs-thread-quote-title">
+                                        <?= /* @noEscape */ $item['name']; ?>
+                                    </div>
+                                    <div class="wk-mp-qs-thread-quote-action">
+                                    <button title="View Threads" 
+                                    class="<?= /* @noEscape */ $btnClass; ?>" 
+                                    data-id="<?= /* @noEscape */ $itemId; ?>">
+                                        <span>
+                                            <span class="wk-thread-label"><?= /* @noEscape */ $buttonLabel; ?></span>
+                                            <span class="wk-thread-count"><?= /* @noEscape */ $item['count']; ?></span>
+                                        </span>
+                                    </button>
+                                    </div>
+                                </div>
+                                <div class="<?= /* @noEscape */ $class; ?>">
+                                    <div class="wk-mp-qs-item-summary">
+                                        <div class="wk-mp-qs-item-summary-col">
+                                            <div class="wk-mp-qs-item-summary-col-label">
+                                            <?= /* @noEscape */ __("Requested Quantity"); ?></div>
+                                            <div class="wk-mp-qs-item-summary-col-content">
+                                                <?= /* @noEscape */ __('%1 Units', $item['buyer_qty']); ?>
+                                            </div>
+                                        </div>
+                                        <div class="wk-mp-qs-item-summary-col">
+                                            <div class="wk-mp-qs-item-summary-col-label">
+                                            <?= /* @noEscape */ __("Expected Price"); ?></div>
+                                            <div class="wk-mp-qs-item-summary-col-content">
+                                                <?= /* @noEscape */ __(
+                                                    '%1 Per Unit',
+                                                    $helper->getFormattedPrice($item['buyer_price'])
+                                                ); ?>
+                                            </div>
+                                        </div>
+                                        <div class="wk-mp-qs-item-summary-col">
+                                            <div class="wk-mp-qs-item-summary-col-label">
+                                            <?= /* @noEscape */ __("Requires Sample"); ?></div>
+                                            <div class="wk-mp-qs-item-summary-col-content">
+                                                <?php if ($item['buyer_has_samples']): ?>
+                                                    <?= /* @noEscape */ __('Yes')?>
+                                                <?php else:?>
+                                                    <?= /* @noEscape */ __('No')?>
+                                                <?php endif;?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php foreach ($item['quotaions'] as $quotaionId => $quotaion): ?>
+                                        <?php
+                                        $qty = $quotaion["qty"];
+                                        $price = $quotaion["price"];
+                                        $samples = $quotaion["has_samples"];
+                                        $sampleUnit = $quotaion["sample_unit"];
+                                        $sampleCharges = $quotaion["sample_charges"];
+                                        $sampleChargePerUnit = $quotaion["sample_charge_per_unit"];
+                                        $shippingDays = $quotaion["shipping_days"];
+                                        $total = $qty*$price;
+                                        $lastQuoteId = $quotaionId;
+                                        $quoteItemId = $quotaion["quote_item_id"];
+                                        $canUpdateQuote = $quotaion["can_update_quote"];
+                                        ?>
+                                        <?php $threadIndex = 1; ?>
+                                        <?php foreach ($block->getThreadsByQuotationId($quotaionId) as $thread): ?>
+                                            <div 
+                                            class="wk-mp-qs-thread-content <?= /* @noEscape */
+                                            $thread['class']; ?>">
+                                                <div class="wk-mp-qs-summary-icon"></div>
+                                                <div class="wk-mp-qs-summary-details">
+                    <div class="wk-mp-qs-summary-buyer-name">
+                                            <?= /* @noEscape */ $thread['name']; ?> 
+                        <span class="wk-mp-qs-summary-buyer-name-label">
+                                            <?= /* @noEscape */ $thread['label']; ?></span>
+                    </div>
+                    <div class="wk-mp-qs-summary-time">
+                                            <?= /* @noEscape */ $thread['created_at']; ?>
+                    </div>
+                    <div class="wk-mp-qs-summary-quote-details">
+                                            <?php if ($thread["type"] ==
+                                            \Webkul\B2BMarketplace\Helper\Quote::TYPE_SUPPLIER): ?>
+                            <?php if ($threadIndex == 1): ?>
+                                <?php $threadIndex++; ?>
+                                <div class="wk-mp-qs-summary-quotation-block">
+                                    <div class="wk-mp-qs-summary-quotation-head">
+                                        <span>
+                                        <?= /* @noEscape */ __("Quotation #"); ?>
+                                        <?= /* @noEscape */ $quotaionId; ?></span>
+                                    </div>
+                                    <div class="wk-mp-qs-summary-quotation-body">
+                                        <div class="wk-mp-qs-summary-quotation-row">
+                                            <div class="wk-mp-qs-summary-quotation-col">
+                                                <div class="wk-mp-qs-summary-quotation-col-label">
+                                                    <span><?= /* @noEscape */ __("Quoted Quantity"); ?></span>
+                                                </div>
+                                                <div class="wk-mp-qs-summary-quotation-col-content">
+                                                    <?= /* @noEscape */ __('%1 Units', $qty); ?>
+                                                </div>
+                                            </div>
+                                            <div class="wk-mp-qs-summary-quotation-col">
+                                                <div class="wk-mp-qs-summary-quotation-col-label">
+                                                    <span><?= /* @noEscape */ __("Quoted Price"); ?></span>
+                                                </div>
+                                                <div class="wk-mp-qs-summary-quotation-col-content">
+                                                    <span>
+                                                        <?= /* @noEscape */ __(
+                                                            "%1 Per Unit",
+                                                            $helper->getFormattedPrice($price)
+                                                        ); ?>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="wk-mp-qs-summary-quotation-col">
+                                                <div class="wk-mp-qs-summary-quotation-col-label">
+                                                    <span><?= /* @noEscape */ __("Samples"); ?></span>
+                                                </div>
+                                                <div class="wk-mp-qs-summary-quotation-col-content">
+                                                    <?php if ($samples): ?>
+                                                        <span><?= /* @noEscape */ __("Yes"); ?></span>
+                                                        <span><?= /* @noEscape */ " - ".$sampleUnit; ?></span>
+                                                        <span><?= /* @noEscape */ __("Unit(s)"); ?></span>
+                                                    <?php else: ?>
+                                                        <span><?= /* @noEscape */ __("No"); ?></span>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
+                                            <div class="wk-mp-qs-summary-quotation-col">
+                                                <div class="wk-mp-qs-summary-quotation-col-label">
+                                                    <span><?= /* @noEscape */ __("Shipping"); ?></span>
+                                                </div>
+                                                <div class="wk-mp-qs-summary-quotation-col-content">
+                                                    <span><?= /* @noEscape */ $shippingDays; ?></span>
+                                                    <span><?= /* @noEscape */ __("Day(s)"); ?></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php if ($samples): ?>
+                                            <div class="wk-mp-qs-summary-quotation-row">
+                                                <div class="wk-mp-qs-summary-quotation-col">
+                                                    <div 
+                                                    class="wk-mp-qs-summary-quotation-col-label">
+                                                        <span>
+                                                        <?= /* @noEscape */ __("Sample Security Charges"); ?>
+                                                        </span>
+                                                    </div>
+                                                    <div class="wk-mp-qs-summary-quotation-col-content">
+                                                        <span>
+                                                        <?= /* @noEscape */ __(
+                                                            "%1 Per Unit",
+                                                            $helper->getFormattedPrice($sampleChargePerUnit)
+                                                        ); ?>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <div class="wk-mp-qs-summary-quotation-row">
+                                            <div class="wk-quote-total-label-col">
+                                                <span><?= /* @noEscape */ __("Total Quoted Price"); ?></span>
+                                            </div>
+                                            <div class="wk-quote-total-amount-col">
+                                                <?= /* @noEscape */ $helper->getFormattedPrice($total); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                        <!-- Displaying Quote Status -->
+                                            <?php if ($thread["note"]): ?>
+                            <div class="wk-mp-qs-summary-quotation-note-block <?= /* @noEscape */
+                            $thread["note_class"]?>">
+                                <div class="wk-mp-qs-summary-quotation-note">
+                                                <?= $block->escapeHtml($thread["note"]); ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                        <div class="wk-mp-qs-summary-quote-desc"><?= $block->escapeHtml($thread['msg']); ?></div>
+                    </div>
+                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    <?php endforeach; ?>
+                                    <div class="wk-mp-qs-thread-content">
+                                        <div class="wk-mp-qs-summary-icon"></div>
+                                        <div class="wk-mp-qs-summary-details">
+                                            <div class="wk-mp-qs-summary-buyer-name">
+                                                <?= /* @noEscape */ $customer->getName(); ?>
+                                                <span 
+                                                class="wk-mp-qs-summary-buyer-name-label">
+                                                <?= /* @noEscape */ __("you"); ?></span>
+                                            </div>
+                                            <div class="wk-mp-qs-summary-quote-details">
+                                                <div class="xyz">
+                                                    <button class="action tocart primary wk-send-message-btn" 
+                                                    data-quoteItem ="<?= /* @noEscape */ $quoteItemId; ?>"  
+                                                    data-id="<?= /* @noEscape */ $lastQuoteId; ?>">
+                                                        <span><?= /* @noEscape */ __("Message"); ?></span>
+                                                    </button>
+                                                    <?php if ($lastQuoteId > 0): ?>
+                                                        <?php if ($canUpdateQuote): ?>
+                                                            <button 
+                                                            class="action tocart primary wk-approve-quote-request-btn" 
+                                                            data-quoteItem ="<?= /* @noEscape */ $quoteItemId; ?>" 
+                                                            data-id="<?= /* @noEscape */ $lastQuoteId; ?>">
+                                                                <span>
+                                                                <?= /* @noEscape */ __("Approve Last Quote"); ?>
+                                                                </span>
+                                                            </button>
+                                                            <button 
+                                                            class="action tocart primary wk-reject-quote-request-btn" 
+                                                            data-quoteItem ="<?= /* @noEscape */ $quoteItemId; ?>" 
+                                                            data-id="<?= /* @noEscape */ $lastQuoteId; ?>">
+                                                                <span>
+                                                                <?= /* @noEscape */ __("Reject Request"); ?></span>
+                                                            </button>
+                                                        <?php endif; ?>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                        <?php
+                    } ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        require([
+            'jquery',
+            'Magento_Ui/js/modal/alert',
+            "mage/template",
+            'Magento_Ui/js/modal/modal'
+        ], function($, alert, template) {
+
+            $("body").on("click", ".wk-info-btn", function() {
+                if ($(this).hasClass("wk-opened-btn")) {
+                    $(this).parent().parent().parent().addClass("wk-closed");
+                    $(this).removeClass("wk-opened-btn");
+                } else {
+                    $(this).parent().parent().parent().removeClass("wk-closed");
+                    $(this).addClass("wk-opened-btn");
+                }
+            });
+
+            $("body").on("click", ".wk-show-desc-label", function() {
+                $(this).parent().addClass("wk-open-desc");
+            });
+
+            $("body").on("click", ".wk-hide-desc-label", function() {
+                $(this).parent().removeClass("wk-open-desc");
+            });
+
+            $("body").on("click", ".wk-show-sample-label", function() {
+                $(this).parent().addClass("wk-open-sample");
+            });
+
+            $("body").on("click", ".wk-hide-sample-label", function() {
+                $(this).parent().removeClass("wk-open-sample");
+            });
+
+            $("body").on("click", ".wk-thread-btn", function() {
+                if ($(this).hasClass("wk-active-btn")) {
+                    $(this).removeClass("wk-active-btn");
+                    $(this).find(".wk-thread-label").text("Show Threads");
+                    $(this).parent().parent().parent().find(".wk-mp-qs-thread-body").addClass("wk-display-none");
+                } else {
+                    $(this).find(".wk-thread-label").text("Hide Threads");
+                    $(this).addClass("wk-active-btn");
+                    $(this).parent().parent().parent().find(".wk-mp-qs-thread-body").removeClass("wk-display-none");
+                }
+            });
+
+            // to by default show the thread after page relaod
+            $(".wk-thread-btn").trigger("click");
+
+            $("body").on("click", ".wk-send-message-btn", function() {
+                var id = $(this).attr("data-id");
+                var options = {
+                    type: 'popup',
+                    responsive: true,
+                    modalClass : "message-send-modal",
+                    innerScroll: true,
+                    title: 'Send Message',
+                    buttons: [{
+                        text: $.mage.__('Send Message'),
+                        class: '',
+                        click: function () {
+                            var currentItem = this;
+                            var msg = $("#wk-send-message textarea").val();
+                            msg = $.trim(msg);
+                            if (msg == "") {
+                                alert({
+                                    content: '<?= /* @noEscape */ __("please enter message.")?>'
+                                });
+                                return false;
+                            }
+                            showLoader();
+                            $.ajax({
+                                url: "<?= /* @noEscape */ $block->getUrl('b2bmarketplace/quote/message'); ?>",
+                                type: 'POST',
+                                data: { id : id, msg : msg, type : 0, 
+                                    form_key : '<?= /* @noEscape */ $helper->getFormKey(); ?>' },
+                                dataType: 'json',
+                                success: function (data) {
+                                    if (data.error) {
+                                        if (data.msg) {
+                                            alert({
+                                                content: data.msg,
+                                                actions: {
+                                                    always: function() {
+                                                        if (data.reload) {
+                                                            // location.reload(true);
+                                                        }
+                                                        hideLoader();
+                                                        currentItem.closeModal();
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    } else {
+                                        hideLoader();
+                                        $("#wk-send-message").modal(options).modal('closeModal');
+                                        alert({
+                                            content: '<?= /* @noEscape */ __("Message is sent successfully.")?>',
+                                            actions: {
+                                                always: function() {
+                                                    // if (data.reload) {
+                                                        location.reload(true);
+                                                    // }
+                                                    // hideLoader();
+                                                    // currentItem.closeModal();
+                                                }
+                                            },
+                                            // buttons: []
+                                            buttons: [{
+                                                text: $.mage.__('OK'),
+                                                class: 'action-primary action-accept',
+                                                click: function () {
+                                                    location.reload(true);
+                                                }
+                                            }]
+                                        });
+                                        $('#wk-send-message').find('textarea').val('');
+                                    }
+                                }
+                            });
+                        }
+                    }]
+                };
+
+                $("#wk-send-message").modal(options).modal('openModal');
+            });
+
+            $("body").on("click", ".wk-approve-quote-request-btn", function() {
+                var id = $(this).attr("data-id");
+                var quoteItemId = $(this).attr("data-quoteitem");
+                var options = {
+                    type: 'popup',
+                    responsive: true,
+                    innerScroll: true,
+                    title: 'Approve Quote',
+                    buttons: [{
+                        text: $.mage.__('Approve Quote'),
+                        class: '',
+                        click: function () {
+                            var currentItem = this;
+                            var msg = $("#wk-approve-quote textarea").val();
+                            msg = $.trim(msg);
+                            if (msg == "") {
+                                alert({
+                                    content: '<?= /* @noEscape */ __("Please enter comments.")?>'
+                                });
+                                return false;
+                            }
+                            showLoader();
+                            $.ajax({
+                                url: "<?= /* @noEscape */ $block->getUrl('b2bmarketplace/quote/message'); ?>",
+                                type: 'POST',
+                                data: { id : id, msg : msg, type : 1, 
+                                    form_key : '<?= /* @noEscape */ $helper->getFormKey(); ?>', 
+                                    quoteItemId:quoteItemId },
+                                dataType: 'json',
+                                success: function (data) {
+                                    if (data.error) {
+                                        if (data.msg) {
+                                            alert({
+                                                content: data.msg
+                                            });
+                                        }
+                                    } else {
+                                        alert({
+                                            content: '<?= /* @noEscape */ __("Quote is approved.")?>'
+                                        });
+                                    }
+                                    location.reload();
+                                }
+                            });
+                        }
+                    }]
+                };
+
+                $("#wk-approve-quote").modal(options).modal('openModal');
+            });
+
+            $("body").on("click", ".wk-reject-quote-request-btn", function() {
+                var id = $(this).attr("data-id");
+                var  quoteItemId = $(this).attr("data-quoteitem");
+                var options = {
+                    type: 'popup',
+                    responsive: true,
+                    innerScroll: true,
+                    title: 'Reject Quote',
+                    buttons: [{
+                        text: $.mage.__('Reject Quote'),
+                        class: '',
+                        click: function () {
+                            var currentItem = this;
+                            var msg = $("#wk-reject-quote textarea").val();
+                            msg = $.trim(msg);
+                            if (msg == "") {
+                                alert({
+                                    content: '<?= /* @noEscape */ __("please enter comments.")?>'
+                                });
+                                return false;
+                            }
+                            showLoader();
+                            $.ajax({
+                                url: "<?= /* @noEscape */ $block->getUrl('b2bmarketplace/quote/message'); ?>",
+                                type: 'POST',
+                                data: { id : id, msg : msg, type : 2, 
+                                    form_key : '<?= /* @noEscape */ $helper->getFormKey(); ?>', 
+                                    quoteItemId : quoteItemId },
+                                dataType: 'json',
+                                success: function (data) {
+                                    if (data.error) {
+                                        if (data.msg) {
+                                            alert({
+                                                content: data.msg
+                                            });
+                                        }
+                                    } else {
+                                        alert({
+                                            content: '<?= /* @noEscape */ __("Quote is rejected.")?>'
+                                        });
+                                    }
+                                    location.reload();
+                                }
+                            });
+                        }
+                    }]
+                };
+
+                $("#wk-reject-quote").modal(options).modal('openModal');
+            });
+
+            $("body").on("click", ".wk-view-quote-btn", function(e) {
+                e.preventDefault();
+
+                var id = $(this).attr("data-id");
+                $(".wk-thread-btn").each(function(){
+                    if (id == $(this).attr("data-id")) {
+                        var offsetTop = $(this).offset().top;
+                        $("body, html").animate({"scrollTop": offsetTop - 20 }, 400 );
+                        $(".wk-thread-btn").removeClass("wk-active-btn");
+                        $(".wk-thread-btn").find(".wk-thread-label").
+                        text("Show Threads");
+                        $(".wk-thread-btn").parent().parent().parent().
+                        find(".wk-mp-qs-thread-body").addClass("wk-display-none");
+
+                        if (!$(this).hasClass("wk-active-btn")) {
+                            $(this).find(".wk-thread-label").text("Hide Threads");
+                            $(this).addClass("wk-active-btn");
+                            $(this).parent().parent().parent().
+                            find(".wk-mp-qs-thread-body").removeClass("wk-display-none");
+                        }
+                    }
+                });
+            });
+
+            function showLoader() {
+                $(".wk-loading-mask").removeClass("wk-display-none");
+            }
+
+            function hideLoader() {
+                $(".wk-loading-mask").addClass("wk-display-none");
+            }
+        });
+    </script>
+<?php endif; ?>

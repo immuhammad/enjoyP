@@ -1,0 +1,1463 @@
+Module's blog url: http://webkul.com/blog/magento2-marketplace-vendor-attribute-manager/
+
+Note:
+A) To generate customer token, please check: https://developer.adobe.com/commerce/webapi/graphql/schema/customer/mutations/generate-token/
+
+B) To get the admin token, check below:
+To get a token, you need to specify the user’s name and password in the payload.
+Endpoint:
+POST <host>/rest/<store_code>/V1/integration/admin/token
+
+Headers:
+Content-Type application/json
+
+Payload:
+{
+  "username": "admin",
+  "password": "123123q"
+}
+Response:
+5r8cvmpr11j6gmau8990rcj2qk7unh8i
+
+Magento returns the admin’s access token. You need to specify this token in the authorization header of every call that requires admin permissions.
+
+
+(A): GRAPHQL API
+
+1. Get Store configuration for the module
+{
+    storeConfig {
+        vendorattribute_visible_registration
+        vendorattribute_visible_profile
+        vendorattribute_file_display
+        vendorattribute_group_display
+        vendorattribute_image_display
+        vendorattribute_allowede_image_extension
+        vendorattribute_allowede_file_extension
+        vendorattribute_profile_label
+        termcondition_enable_registration
+        termcondition_customer_enable_registration
+        termcondition_privacy_heading
+        termcondition_term_heading
+        termcondition_button_text
+        termcondition_button_text_color
+        termcondition_button_color
+        termcondition_model_background
+        termcondition_animate
+        termcondition_is_html
+        termcondition_termcondition
+        termcondition_privacy
+    }
+}
+
+Response (json):
+{
+    "data": {
+        "storeConfig": {
+            "vendorattribute_visible_registration": 1,
+            "vendorattribute_visible_profile": 1,
+            "vendorattribute_file_display": 1,
+            "vendorattribute_group_display": 0,
+            "vendorattribute_image_display": 1,
+            "vendorattribute_allowede_image_extension": "jpg,png,gif",
+            "vendorattribute_allowede_file_extension": "pdf,zip,doc",
+            "vendorattribute_profile_label": "Vendor Attributes",
+            "termcondition_enable_registration": 1,
+            "termcondition_customer_enable_registration": 1,
+            "termcondition_privacy_heading": "Privacy & Cookie Policy",
+            "termcondition_term_heading": "Term and Conditions",
+            "termcondition_button_text": "Close",
+            "termcondition_button_text_color": "#ffffff",
+            "termcondition_button_color": "#1979c3",
+            "termcondition_model_background": "#ffffff",
+            "termcondition_animate": "popup",
+            "termcondition_is_html": 0,
+            "termcondition_termcondition": "<p>Minors or people below 18 years old are not allowed to use this Website.</p>",
+            "termcondition_privacy": "<p>Like any other website, we also use cookies.</p>"
+        }
+    }
+}
+
+
+2. Get customer/vendor attributes data (needs customer authorization)
+query {
+  getMpVendorAttributes(
+    purpose: EDIT_CUSTOMER
+  ) {
+    purpose
+    attributesData {
+        attribute_code
+        frontend_input
+        frontend_label
+        frontend_class
+        required_field
+        sort_order
+        show_in_front
+        wk_attribute_status
+        attribute_used_for
+        value
+        options {
+            label
+            value
+        }
+    }
+  }
+}
+Notes: 
+1. You have to use EDIT_CUSTOMER or EDIT_SELLER_PROFILE for the purpose field as per you requirement.
+
+Response (json):
+{
+    "data": {
+        "getMpVendorAttributes": {
+            "purpose": "EDIT_CUSTOMER",
+            "attributesData": [
+                {
+                    "attribute_code": "wkv_text1",
+                    "frontend_input": "text",
+                    "frontend_label": "Text1",
+                    "frontend_class": "",
+                    "required_field": 0,
+                    "sort_order": 1,
+                    "show_in_front": 1,
+                    "wk_attribute_status": 1,
+                    "attribute_used_for": 0,
+                    "value": "test1",
+                    "options": []
+                },
+                {
+                    "attribute_code": "wkv_file1",
+                    "frontend_input": "file",
+                    "frontend_label": "File1",
+                    "frontend_class": "",
+                    "required_field": 0,
+                    "sort_order": 1,
+                    "show_in_front": 1,
+                    "wk_attribute_status": 1,
+                    "attribute_used_for": 0,
+                    "value": null,
+                    "options": []
+                },
+                {
+                    "attribute_code": "wkv_bool1",
+                    "frontend_input": "boolean",
+                    "frontend_label": "Bool1",
+                    "frontend_class": "",
+                    "required_field": 0,
+                    "sort_order": 1,
+                    "show_in_front": 1,
+                    "wk_attribute_status": 1,
+                    "attribute_used_for": 0,
+                    "value": "1",
+                    "options": []
+                },
+                {
+                    "attribute_code": "wkv_image1",
+                    "frontend_input": "image",
+                    "frontend_label": "Image1",
+                    "frontend_class": "",
+                    "required_field": 0,
+                    "sort_order": 2,
+                    "show_in_front": 1,
+                    "wk_attribute_status": 1,
+                    "attribute_used_for": 0,
+                    "value": "http://<magento-url>/media/vendorfiles/image/image-about-team.jpg",
+                    "options": []
+                },
+                {
+                    "attribute_code": "wkv_date1",
+                    "frontend_input": "date",
+                    "frontend_label": "Date1",
+                    "frontend_class": "",
+                    "required_field": 0,
+                    "sort_order": 2,
+                    "show_in_front": 1,
+                    "wk_attribute_status": 1,
+                    "attribute_used_for": 0,
+                    "value": "2022-06-22",
+                    "options": []
+                },
+                {
+                    "attribute_code": "wkv_drop1",
+                    "frontend_input": "select",
+                    "frontend_label": "Drop1",
+                    "frontend_class": "",
+                    "required_field": 0,
+                    "sort_order": 2,
+                    "show_in_front": 1,
+                    "wk_attribute_status": 1,
+                    "attribute_used_for": 0,
+                    "value": "28",
+                    "options": [
+                        {
+                            "label": " ",
+                            "value": ""
+                        },
+                        {
+                            "label": "test1",
+                            "value": "28"
+                        },
+                        {
+                            "label": "test2",
+                            "value": "31"
+                        }
+                    ]
+                },
+                {
+                    "attribute_code": "wkv_multiselect",
+                    "frontend_input": "multiselect",
+                    "frontend_label": "MultiSelect",
+                    "frontend_class": "",
+                    "required_field": 0,
+                    "sort_order": 4,
+                    "show_in_front": 1,
+                    "wk_attribute_status": 1,
+                    "attribute_used_for": 0,
+                    "value": "55,58",
+                    "options": [
+                        {
+                            "label": " ",
+                            "value": ""
+                        },
+                        {
+                            "label": "One",
+                            "value": "52"
+                        },
+                        {
+                            "label": "Two",
+                            "value": "55"
+                        },
+                        {
+                            "label": "Three",
+                            "value": "58"
+                        },
+                        {
+                            "label": "Four",
+                            "value": "61"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
+
+
+3. Get customer/vendor registration attributes form data (needs customer authorization in case of BECOME_SELLER purpose)
+query {
+  getMpVendorAttributesFormData(
+    purpose: CREATE_CUSTOMER
+  ) {
+    purpose
+    attributesData {
+        attribute_code
+        frontend_input
+        frontend_label
+        frontend_class
+        required_field
+        sort_order
+        show_in_front
+        wk_attribute_status
+        attribute_used_for
+        options {
+            label
+            value
+        }
+    }
+    groupsData {
+        group_id
+        group_name
+        attributesData {
+        attribute_code
+        frontend_input
+        frontend_label
+        frontend_class
+        required_field
+        sort_order
+        show_in_front
+        wk_attribute_status
+        attribute_used_for
+        options {
+            label
+            value
+        }
+    }
+    }
+  }
+}
+Notes:
+1. You have to use CREATE_CUSTOMER or CREATE_SELLER or BECOME_SELLER for the purpose field as per you requirement.
+
+Response (json):
+{
+    "data": {
+        "getMpVendorAttributesFormData": {
+            "purpose": "CREATE_CUSTOMER",
+            "attributesData": [
+                {
+                    "attribute_code": "wkv_text1",
+                    "frontend_input": "text",
+                    "frontend_label": "Text1",
+                    "frontend_class": "",
+                    "required_field": 0,
+                    "sort_order": 1,
+                    "show_in_front": 1,
+                    "wk_attribute_status": 1,
+                    "attribute_used_for": 0,
+                    "options": []
+                },
+                {
+                    "attribute_code": "wkv_file1",
+                    "frontend_input": "file",
+                    "frontend_label": "File1",
+                    "frontend_class": "",
+                    "required_field": 0,
+                    "sort_order": 1,
+                    "show_in_front": 1,
+                    "wk_attribute_status": 1,
+                    "attribute_used_for": 0,
+                    "options": []
+                },
+                {
+                    "attribute_code": "wkv_bool1",
+                    "frontend_input": "boolean",
+                    "frontend_label": "Bool1",
+                    "frontend_class": "",
+                    "required_field": 0,
+                    "sort_order": 1,
+                    "show_in_front": 1,
+                    "wk_attribute_status": 1,
+                    "attribute_used_for": 0,
+                    "options": []
+                },
+                {
+                    "attribute_code": "wkv_image1",
+                    "frontend_input": "image",
+                    "frontend_label": "Image1",
+                    "frontend_class": "",
+                    "required_field": 0,
+                    "sort_order": 2,
+                    "show_in_front": 1,
+                    "wk_attribute_status": 1,
+                    "attribute_used_for": 0,
+                    "options": []
+                },
+                {
+                    "attribute_code": "wkv_date1",
+                    "frontend_input": "date",
+                    "frontend_label": "Date1",
+                    "frontend_class": "",
+                    "required_field": 0,
+                    "sort_order": 2,
+                    "show_in_front": 1,
+                    "wk_attribute_status": 1,
+                    "attribute_used_for": 0,
+                    "options": []
+                },
+                {
+                    "attribute_code": "wkv_drop1",
+                    "frontend_input": "select",
+                    "frontend_label": "Drop1",
+                    "frontend_class": "",
+                    "required_field": 0,
+                    "sort_order": 2,
+                    "show_in_front": 1,
+                    "wk_attribute_status": 1,
+                    "attribute_used_for": 0,
+                    "options": [
+                        {
+                            "label": " ",
+                            "value": ""
+                        },
+                        {
+                            "label": "test1",
+                            "value": "28"
+                        },
+                        {
+                            "label": "test2",
+                            "value": "31"
+                        }
+                    ]
+                },
+                {
+                    "attribute_code": "wkv_multiselect",
+                    "frontend_input": "multiselect",
+                    "frontend_label": "MultiSelect",
+                    "frontend_class": "",
+                    "required_field": 0,
+                    "sort_order": 4,
+                    "show_in_front": 1,
+                    "wk_attribute_status": 1,
+                    "attribute_used_for": 0,
+                    "options": [
+                        {
+                            "label": " ",
+                            "value": ""
+                        },
+                        {
+                            "label": "One",
+                            "value": "52"
+                        },
+                        {
+                            "label": "Two",
+                            "value": "55"
+                        },
+                        {
+                            "label": "Three",
+                            "value": "58"
+                        },
+                        {
+                            "label": "Four",
+                            "value": "61"
+                        }
+                    ]
+                }
+            ],
+            "groupsData": []
+        }
+    }
+}
+
+
+4. Get Attribute Data for seller profile display
+query {
+  getAttributesForSellerProfile(
+    shopUrl: "sellerjohndoe"
+  ) {
+    attributesData {
+        frontend_input
+        frontend_label
+        sort_order
+        value
+    }
+  }
+}
+
+Response (json):
+{
+    "data": {
+        "getAttributesForSellerProfile": {
+            "attributesData": [
+                {
+                    "frontend_input": "text",
+                    "frontend_label": "Text1",
+                    "sort_order": 1,
+                    "value": "ecsdAB"
+                },
+                {
+                    "frontend_input": "file",
+                    "frontend_label": "File1",
+                    "sort_order": 1,
+                    "value": "http://<magento-url>/media/vendorfiles/file/assignment-01_2.pdf"
+                },
+                {
+                    "frontend_input": "boolean",
+                    "frontend_label": "Bool1",
+                    "sort_order": 1,
+                    "value": "1"
+                },
+                {
+                    "frontend_input": "image",
+                    "frontend_label": "Image1",
+                    "sort_order": 2,
+                    "value": "http://<magento-url>/media/vendorfiles/image/1.png"
+                },
+                {
+                    "frontend_input": "date",
+                    "frontend_label": "Date1",
+                    "sort_order": 2,
+                    "value": "2022-05-03"
+                },
+                {
+                    "frontend_input": "select",
+                    "frontend_label": "Drop1",
+                    "sort_order": 2,
+                    "value": "test1"
+                },
+                {
+                    "frontend_input": "multiselect",
+                    "frontend_label": "MultiSelect",
+                    "sort_order": 4,
+                    "value": "One,Two,Three"
+                }
+            ]
+        }
+    }
+}
+
+
+5. Save customer/vendor attributes data in their account (needs customer authorization)
+mutation {
+  saveMpVendorAttributes(
+    purpose: EDIT_CUSTOMER
+    attributesData: [
+        {
+            code: "wkv_text1"
+            value: "test1"
+        }
+        {
+            code: "wkv_bool1"
+            value: 1
+        }
+        {
+            code: "wkv_drop1"
+            value: "28"
+        }
+        {
+            code: "wkv_multiselect"
+            value: "55,58"
+        }
+        {
+            code: "wkv_image1"
+            value: "https://<custom-url>/image-about-team.jpg"
+        }
+        {
+            code: "wkv_file1"
+            value: ""
+        }
+    ]
+  ) {
+    message
+    status
+  }
+}
+Notes:
+1. You have to use EDIT_CUSTOMER or EDIT_SELLER_PROFILE for the purpose field as per you requirement.
+
+Response (json):
+{
+    "data": {
+        "saveMpVendorAttributes": {
+            "message": "Vendor Attributes has been saved.",
+            "status": 1
+        }
+    }
+}
+
+
+6. Create customer with Mp vendor attributes
+mutation {
+  createCustomerV2(
+    input: {
+        firstname: "test"
+        lastname: "customer"
+        email: "test1236@gmail.com"
+        password: "Admin123"
+        is_subscribed: false
+    }
+    attributesData: [
+        {
+            code: "wkv_text1"
+            value: "test1"
+        }
+        {
+            code: "wkv_bool1"
+            value: 1
+        }
+        {
+            code: "wkv_drop1"
+            value: "28"
+        }
+        {
+            code: "wkv_multiselect"
+            value: "55,58"
+        }
+        {
+            code: "wkv_image1"
+            value: "https://<custom-url>/image-about-team.jpg"
+        }
+        {
+            code: "wkv_file1"
+            value: ""
+        }
+    ]
+  ) {
+    customer {
+        created_at
+        group_id
+        firstname
+        lastname
+        suffix
+        email
+        is_subscribed
+        gender
+    }
+  }
+}
+
+Response (json):
+{
+    "data": {
+        "createCustomerV2": {
+            "customer": {
+                "created_at": "2022-08-18 12:07:20",
+                "group_id": null,
+                "firstname": "test",
+                "lastname": "customer",
+                "suffix": null,
+                "email": "test1237@gmail.com",
+                "is_subscribed": false,
+                "gender": null
+            }
+        }
+    }
+}
+
+
+7. Request to become partner with Mp vendor attributes (needs customer authorization)
+mutation {
+  sellerBecomePartner(
+    shopUrl: "testseller"
+    isSeller: 1
+    attributesData: [
+        {
+            code: "wkv_text1"
+            value: "test1"
+        }
+        {
+            code: "wkv_bool1"
+            value: 1
+        }
+        {
+            code: "wkv_drop1"
+            value: "28"
+        }
+        {
+            code: "wkv_multiselect"
+            value: "55,58"
+        }
+        {
+            code: "wkv_image1"
+            value: "https://<custom-url>/image-about-team.jpg"
+        }
+        {
+            code: "wkv_file1"
+            value: ""
+        }
+    ]
+  ) {
+    status
+    message
+  }
+}
+
+Response (json):
+{
+    "data": {
+        "sellerBecomePartner": {
+            "status": 1,
+            "message": "Profile information was successfully saved"
+        }
+    }
+}
+
+
+8. Get Vendor Group List (needs admin authorization)
+query{
+    mpVendorGroupList(
+        filter: {
+            <field name to filter data>: {
+            <condition>: <value>
+            }
+        }
+    ) {
+        total_count
+        items {
+            entity_id
+            group_name
+            status
+        }
+    }
+}
+
+Response (json):
+{
+    "data": {
+        "mpVendorGroupList": {
+            "total_count": 3,
+            "items": [
+                {
+                    "entity_id": 7,
+                    "group_name": "Group1",
+                    "status": 1
+                },
+                {
+                    "entity_id": 10,
+                    "group_name": "Group2",
+                    "status": 0
+                },
+                {
+                    "entity_id": 13,
+                    "group_name": "Group3",
+                    "status": 0
+                }
+            ]
+        }
+    }
+}
+
+
+9. Add/Update Vendor Group (needs admin authorization)
+mutation {
+    saveMpVendorGroup(
+        input: {
+            entity_id: 25
+            group_name: "Group 2"
+            status: 1
+            attributeIds: [19,22]
+        }
+    ) {
+        status
+        message
+    }
+}
+Notes:
+1. Use entity_id as 0 to add new vendor group. If you want to update existing vendor group, then use the group id.
+
+Response (json):
+{
+    "data": {
+        "saveMpVendorGroup": {
+            "status": 1,
+            "message": "You saved this group"
+        }
+    }
+}
+
+
+10. Manage vendor groups: ENABLE or DISABLE or DELETE (needs admin authorization)
+mutation {
+    manageMpVendorGroups(
+        groupIds: [10,13]
+        action: DISABLE
+    ) {
+        status
+        message
+    }
+}
+Notes:
+1. Here, 10 and 13 are the group Ids.
+2. You have to use ENABLE or DISABLE or DELETE for the 'action' parameter.
+
+Response (json):
+{
+    "data": {
+        "manageMpVendorGroups": {
+            "status": 1,
+            "message": "A total of 2 record(s) have been Saved."
+        }
+    }
+}
+
+
+11. Get Vendor Attribute List (needs admin authorization)
+query{
+    mpVendorAttributeList(
+        filter: {
+            <field name to filter data>: {
+            <condition>: <value>
+            }
+        }
+    ) {
+        total_count
+        items {
+            entity_id
+            attribute_id
+            attribute_code
+            frontend_label
+            required_field
+            show_in_front
+            wk_attribute_status
+            attribute_used_for
+        }
+    }
+}
+
+
+Response (json):
+{
+    "data": {
+        "mpVendorAttributeList": {
+            "total_count": 8,
+            "items": [
+                {
+                    "entity_id": 1,
+                    "attribute_id": 436,
+                    "attribute_code": "wkv_text1",
+                    "frontend_label": "Text1",
+                    "required_field": 0,
+                    "show_in_front": 1,
+                    "wk_attribute_status": 1,
+                    "attribute_used_for": 0
+                },
+                {
+                    "entity_id": 4,
+                    "attribute_id": 445,
+                    "attribute_code": "wkv_file1",
+                    "frontend_label": "File1",
+                    "required_field": 0,
+                    "show_in_front": 1,
+                    "wk_attribute_status": 1,
+                    "attribute_used_for": 0
+                },
+                {
+                    "entity_id": 7,
+                    "attribute_id": 448,
+                    "attribute_code": "wkv_image1",
+                    "frontend_label": "Image1",
+                    "required_field": 0,
+                    "show_in_front": 1,
+                    "wk_attribute_status": 1,
+                    "attribute_used_for": 0
+                },
+                {
+                    "entity_id": 10,
+                    "attribute_id": 451,
+                    "attribute_code": "wkv_date1",
+                    "frontend_label": "Date1",
+                    "required_field": 0,
+                    "show_in_front": 1,
+                    "wk_attribute_status": 1,
+                    "attribute_used_for": 0
+                },
+                {
+                    "entity_id": 13,
+                    "attribute_id": 454,
+                    "attribute_code": "wkv_bool1",
+                    "frontend_label": "Bool1",
+                    "required_field": 0,
+                    "show_in_front": 1,
+                    "wk_attribute_status": 1,
+                    "attribute_used_for": 0
+                },
+                {
+                    "entity_id": 16,
+                    "attribute_id": 457,
+                    "attribute_code": "wkv_drop1",
+                    "frontend_label": "Drop1",
+                    "required_field": 0,
+                    "show_in_front": 1,
+                    "wk_attribute_status": 1,
+                    "attribute_used_for": 0
+                },
+                {
+                    "entity_id": 19,
+                    "attribute_id": 478,
+                    "attribute_code": "wkv_multiselect",
+                    "frontend_label": "MultiSelect",
+                    "required_field": 0,
+                    "show_in_front": 1,
+                    "wk_attribute_status": 1,
+                    "attribute_used_for": 0
+                },
+                {
+                    "entity_id": 22,
+                    "attribute_id": 481,
+                    "attribute_code": "wkv_text2",
+                    "frontend_label": "Text2",
+                    "required_field": 0,
+                    "show_in_front": 0,
+                    "wk_attribute_status": 1,
+                    "attribute_used_for": 2
+                }
+            ]
+        }
+    }
+}
+
+
+12. Manage vendor attributes (needs admin authorization)
+mutation{
+    manageMpVendorAttributes(
+        attributeIds: [19,22]
+        action: DISABLE
+    ) {
+        status
+        message
+    }
+}
+
+Notes:
+1. Here, 19 and 22 are the attribute entity_id to be taken from STEP 11.(Get Vendor Attribute List).
+2. For the 'action' parameter, you have to use one of the following:
+    DELETE, ENABLE, DISABLE, DISPLAY_ON_SELLER_PROFILE, HIDE_FROM_SELLER_PROFILE, ASSIGN_TO_CUSTOMER_AND_SELLER, ASSIGN_ONLY_TO_CUSTOMER, ASSIGN_ONLY_TO_SELLER
+
+Response (json):
+{
+    "data": {
+        "manageMpVendorAttributes": {
+            "status": 1,
+            "message": "A total of 2 record(s) Status have been Disabled."
+        }
+    }
+}
+
+
+13. Assign vendor attributes to group (needs admin authorization)
+mutation{
+    assignMpVendorAttributesToGroup(
+        attributeIds: [19,22]
+        groupId: 7
+    ) {
+        status
+        message
+    }
+}
+
+Notes:
+1. Here, 19 and 22 are the attribute entity_id to be taken from STEP 11.(Get Vendor Attribute List).
+2. Here, 7 is the group Id.
+
+Response (json):
+{
+    "data": {
+        "assignMpVendorAttributesToGroup": {
+            "status": 1,
+            "message": "A total of 2 record(s) have been assigned."
+        }
+    }
+}
+
+
+14. Get vendor attribute data and required information for admin (needs admin authorization)
+query{
+    getMpVendorAttributeDataForAdmin(
+        id: 55
+    ) {
+        attributeData {
+            entity_id
+            attribute_id
+            attribute_code
+            attribute_label
+            frontend_input
+            is_required
+            frontend_class
+            sort_order
+            assign_group
+            attribute_used_for
+            wk_attribute_status
+        }
+        stores {
+            store_id
+            name
+        }
+        option {
+            order {
+                option_id
+                value
+            }
+            value {
+                option_id
+                value {
+                    store_id
+                    value
+                }
+            }
+        }
+        frontend_label {
+            store_id
+            value
+        }
+        optionsData {
+            frontend_input {
+                label
+                value
+            }
+            is_required {
+                label
+                value
+            }
+            frontend_class {
+                label
+                value
+            }
+            assign_group {
+                label
+                value
+            }
+            attribute_used_for {
+                label
+                value
+            }
+            wk_attribute_status {
+                label
+                value
+            }
+            is_wysiwyg_enabled {
+                label
+                value
+            }
+        }
+    }
+}
+
+Notes:
+1. Here, 55 is the attribute entity_id to be taken from STEP 11.(Get Vendor Attribute List). You can use id as 0 if you want only the required information for creating new attribite.
+
+Response (json):
+{
+    "data": {
+        "getMpVendorAttributeDataForAdmin": {
+            "attributeData": {
+                "entity_id": 55,
+                "attribute_id": 511,
+                "attribute_code": "wkv_language",
+                "attribute_label": "Language",
+                "frontend_input": "multiselect",
+                "is_required": 0,
+                "frontend_class": "",
+                "sort_order": 2,
+                "assign_group": "",
+                "attribute_used_for": 0,
+                "wk_attribute_status": 0
+            },
+            "stores": [
+                {
+                    "store_id": 0,
+                    "name": "Admin"
+                },
+                {
+                    "store_id": 1,
+                    "name": "Default Store View"
+                },
+                {
+                    "store_id": 4,
+                    "name": "Test"
+                }
+            ],
+            "option": {
+                "order": [
+                    {
+                        "option_id": 121,
+                        "value": 1
+                    },
+                    {
+                        "option_id": 124,
+                        "value": 2
+                    }
+                ],
+                "value": [
+                    {
+                        "option_id": 121,
+                        "value": [
+                            {
+                                "store_id": 1,
+                                "value": "Hindi"
+                            },
+                            {
+                                "store_id": 0,
+                                "value": "Hindi"
+                            },
+                            {
+                                "store_id": 4,
+                                "value": ""
+                            }
+                        ]
+                    },
+                    {
+                        "option_id": 124,
+                        "value": [
+                            {
+                                "store_id": 1,
+                                "value": "English"
+                            },
+                            {
+                                "store_id": 0,
+                                "value": "English"
+                            },
+                            {
+                                "store_id": 4,
+                                "value": ""
+                            }
+                        ]
+                    }
+                ]
+            },
+            "frontend_label": [
+                {
+                    "store_id": 0,
+                    "value": "Language"
+                },
+                {
+                    "store_id": 1,
+                    "value": "Language"
+                },
+                {
+                    "store_id": 4,
+                    "value": ""
+                }
+            ],
+            "optionsData": {
+                "frontend_input": [
+                    {
+                        "label": "Text Field",
+                        "value": "text"
+                    },
+                    {
+                        "label": "Text Area",
+                        "value": "textarea"
+                    },
+                    {
+                        "label": "Date and Time",
+                        "value": "date"
+                    },
+                    {
+                        "label": "Yes/No",
+                        "value": "boolean"
+                    },
+                    {
+                        "label": "Multiple Select",
+                        "value": "multiselect"
+                    },
+                    {
+                        "label": "Dropdown",
+                        "value": "select"
+                    },
+                    {
+                        "label": "Media Image",
+                        "value": "image"
+                    },
+                    {
+                        "label": "File",
+                        "value": "file"
+                    }
+                ],
+                "is_required": [
+                    {
+                        "label": "Yes",
+                        "value": "1"
+                    },
+                    {
+                        "label": "No",
+                        "value": "0"
+                    }
+                ],
+                "frontend_class": [
+                    {
+                        "label": "None",
+                        "value": ""
+                    },
+                    {
+                        "label": "Decimal Number",
+                        "value": "validate-number"
+                    },
+                    {
+                        "label": "Integer Number",
+                        "value": "validate-digits"
+                    },
+                    {
+                        "label": "Email",
+                        "value": "validate-email"
+                    },
+                    {
+                        "label": "URL",
+                        "value": "validate-url"
+                    },
+                    {
+                        "label": "Letters",
+                        "value": "validate-alpha"
+                    },
+                    {
+                        "label": "Letters (a-z, A-Z) or Numbers (0-9)",
+                        "value": "validate-alphanum"
+                    }
+                ],
+                "assign_group": [
+                    {
+                        "label": "Select",
+                        "value": ""
+                    },
+                    {
+                        "label": "Group1",
+                        "value": "7"
+                    },
+                    {
+                        "label": "Test1",
+                        "value": "22"
+                    },
+                    {
+                        "label": "Test2",
+                        "value": "25"
+                    },
+                    {
+                        "label": "Test2",
+                        "value": "28"
+                    }
+                ],
+                "attribute_used_for": [
+                    {
+                        "label": "Select",
+                        "value": ""
+                    },
+                    {
+                        "label": "Both",
+                        "value": "0"
+                    },
+                    {
+                        "label": "Customer",
+                        "value": "1"
+                    },
+                    {
+                        "label": "Seller",
+                        "value": "2"
+                    }
+                ],
+                "wk_attribute_status": [
+                    {
+                        "label": "Enable",
+                        "value": "1"
+                    },
+                    {
+                        "label": "Disable",
+                        "value": "0"
+                    }
+                ],
+                "is_wysiwyg_enabled": [
+                    {
+                        "label": "Yes",
+                        "value": "1"
+                    },
+                    {
+                        "label": "No",
+                        "value": "0"
+                    }
+                ]
+            }
+        }
+    }
+}
+
+
+15. Create or Update vendor attribute (needs admin authorization)
+A) CREATE
+Note: You can get the vendor attribute form required information using the "getMpVendorAttributeDataForAdmin" api.
+mutation{
+    saveMpVendorAttribute(
+        input: {
+            attribute_id: 0
+            frontend_label: [
+                {
+                    store_id: 0
+                    value: "Language"
+                }
+                {
+                    store_id: 1
+                    value: "Language"
+                }
+                {
+                    store_id: 4
+                    value: ""
+                }
+            ]
+            attribute_code: "language"
+            frontend_input: "multiselect"
+            is_required: 0
+            frontend_class: ""
+            sort_order: 2
+            assign_group: 0
+            attribute_used_for: 0
+            wk_attribute_status: 0
+            is_wysiwyg_enabled: 0
+            option: {
+                order: [
+                    {
+                        option_id: 0
+                        value: 1
+                    }
+                    {
+                        option_id: 0
+                        value: 2
+                    }
+                ]
+                value: [
+                    {
+                        option_id: 0
+                        value: [
+                            {
+                                store_id: 0
+                                value: "Hindi"
+                            },
+                            {
+                                store_id: 1
+                                value: "Hindi"
+                            },
+                            {
+                                store_id: 4,
+                                value: ""
+                            }
+                        ]
+                    }
+                    {
+                        option_id: 0
+                        value: [
+                            {
+                                store_id: 0
+                                value: "English"
+                            },
+                            {
+                                store_id: 1
+                                value: "English"
+                            },
+                            {
+                                store_id: 4,
+                                value: ""
+                            }
+                        ]
+                    }
+                ]
+                delete: [
+                    {
+                        option_id: 0
+                        value: 0
+                    }
+                    {
+                        option_id: 0
+                        value: 0
+                    }
+                ]
+            }
+        }
+    ) {
+        status
+        message
+    }
+}
+
+Response (json):
+{
+    "data": {
+        "saveMpVendorAttribute": {
+            "status": 1,
+            "message": "You saved the vendor attribute."
+        }
+    }
+}
+
+B) UPDATE
+Note: You can get the vendor attribute data using the "getMpVendorAttributeDataForAdmin" api.
+mutation{
+    saveMpVendorAttribute(
+        input: {
+            attribute_id: 511
+            frontend_label: [
+                {
+                    store_id: 0
+                    value: "Language"
+                }
+                {
+                    store_id: 1
+                    value: "Language"
+                }
+                {
+                    store_id: 4
+                    value: ""
+                }
+            ]
+            attribute_code: "wkv_language"
+            frontend_input: "multiselect"
+            is_required: 0
+            frontend_class: ""
+            sort_order: 2
+            assign_group: 0
+            attribute_used_for: 0
+            wk_attribute_status: 1
+            is_wysiwyg_enabled: 0
+            option: {
+                order: [
+                    {
+                        option_id: 121
+                        value: 1
+                    }
+                    {
+                        option_id: 124
+                        value: 2
+                    }
+                    {
+                        option_id: 0
+                        value: 3
+                    }
+                ]
+                value: [
+                    {
+                        option_id: 121
+                        value: [
+                            {
+                                store_id: 0
+                                value: "Hindi"
+                            },
+                            {
+                                store_id: 1
+                                value: "Hindi"
+                            },
+                            {
+                                store_id: 4,
+                                value: ""
+                            }
+                        ]
+                    }
+                   {
+                        option_id: 124
+                        value: [
+                            {
+                                store_id: 0
+                                value: "English"
+                            },
+                            {
+                                store_id: 1
+                                value: "English"
+                            },
+                            {
+                                store_id: 4,
+                                value: ""
+                            }
+                        ]
+                    }
+                    {
+                        option_id: 0
+                        value: [
+                            {
+                                store_id: 0
+                                value: "French"
+                            },
+                            {
+                                store_id: 1
+                                value: "French"
+                            },
+                            {
+                                store_id: 4,
+                                value: ""
+                            }
+                        ]
+                    }
+                ]
+                delete: [
+                    {
+                        option_id: 121
+                        value: 0
+                    }
+                    {
+                        option_id: 124
+                        value: 0
+                    }
+                    {
+                        option_id: 0
+                        value: 0
+                    }
+                ]
+            }
+        }
+    ) {
+        status
+        message
+    }
+}
+
+Response (json):
+{
+    "data": {
+        "saveMpVendorAttribute": {
+            "status": 1,
+            "message": "You saved the vendor attribute."
+        }
+    }
+}

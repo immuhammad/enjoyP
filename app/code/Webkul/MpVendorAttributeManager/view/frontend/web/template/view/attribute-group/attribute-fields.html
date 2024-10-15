@@ -1,0 +1,76 @@
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpVendorAttributeManager
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ -->
+<fieldset class="fieldset vendorfields" data-bind="foreach: allFields" style="margin-top: 1.2em">
+	<div data-bind="attr: {'class': is_required == 1?' field required':'field'}">
+	<!--ko if: frontend_input != 'boolean'-->
+		<label class="label">
+			<span data-bind="text: label"></span>
+		</label>
+	<!-- /ko -->
+		<div class="control">
+			<!--ko if: frontend_input == 'text' -->
+			<input type="text"  data-bind="attr: {'id': attribute_code,
+												'name': attribute_code,
+												'data-validate': is_required == 1?'{required: true, \'validate-no-html-tags\':true}':'{\'validate-no-html-tags\':true}',
+												'class': frontend_class
+													}">
+			<!-- /ko -->
+			<!--ko if: frontend_input == 'textarea' -->
+			<textarea data-bind="attr: {'id': attribute_code,
+												'name': attribute_code,
+												'data-validate': is_required == 1?'{required: true, \'validate-no-html-tags\':true}':'{\'validate-no-html-tags\':true}',
+												'class': frontend_class
+													}"></textarea>
+			<!-- /ko -->
+			<!--ko if: frontend_input == 'select' ||  frontend_input == 'multiselect'-->
+			<select data-bind="attr: {'id': attribute_code,
+										'name': frontend_input != 'multiselect'?attribute_code:attribute_code+'[]',
+										'data-validate': is_required == 1?'{required: true}':'{}',
+										'multiple': frontend_input == 'multiselect'?'multiple':false,
+									},
+								options: option_data,
+								optionsText: 'label',
+                       			optionsValue: 'value'
+								"></select>
+			<!-- /ko -->
+			<!--ko if: frontend_input == 'image' || frontend_input == 'file'-->
+			<input type="file" data-bind="attr: {'id': attribute_code,
+												'name': attribute_code,
+												'data-validate': is_required == 1?'{required: true}':'{}',
+												'class': 'custom_file',
+												'data-allowed': extension,
+													}"><br>
+			<span class="note"><span data-bind="i18n: 'Allowed extensions: '+extension"></span></span>
+			<!-- /ko -->
+			<!--ko if: frontend_input == 'date'-->
+			<input type="text"  data-bind="attr: {'id': attribute_code,
+												'name': attribute_code,
+												'data-validate': is_required == 1?'{required: true}':'{}',
+												'class': 'dob_type '+frontend_class
+													}">
+			<!-- /ko -->
+			<!--ko if: frontend_input == 'boolean'-->
+			<input type="checkbox" data-bind="attr: {'id': attribute_code,
+												'name': attribute_code,
+												'data-validate': is_required == 1?'{required: true}':'{}',
+												'class': frontend_class,
+												'onchange':'this.value = this.checked ? 1 : 0;'
+													}" >
+			<label  data-bind="attr: {
+						'class': is_required == 1?'wklabel wkboolreq':'wklabel'
+				}" >
+				<span data-bind="text: label"></span>
+			</label>
+			<!-- /ko -->
+		</div>
+	</div>
+</fieldset>

@@ -1,0 +1,32 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpRmaSystem
+ * @author    Webkul Software Private Limited
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $helper = $block->getMpHelper();
+    $isPartner = $helper->isSeller();
+    $isSellerGroup = $helper->isSellerGroupModuleInstalled();
+    $magentoCurrentUrl = $block->getCurrentUrl();
+?>
+<?php if ($isPartner): ?>
+    <?php if (($isSellerGroup && $helper->isAllowedAction('mprmasystem/seller/allrma')) || !$isSellerGroup): ?>
+        <li class="nav item 
+            <?= $escaper->escapeHtml(strpos($magentoCurrentUrl, 'mprmasystem/seller/allrma')
+            !== false? "current":"");?>">
+            <?php if (strpos($magentoCurrentUrl, 'mprmasystem/seller/allrma') !== false) { ?>
+                <strong><?= $escaper->escapeHtml(__('Marketplace RMA')); ?></strong>
+            <?php } else { ?>
+                <a href="<?= $escaper->escapeUrl($block->getUrl('mprmasystem/seller/allrma')); ?>">
+                    <?= $escaper->escapeHtml(__('Marketplace RMA')); ?>
+                </a>
+            <?php } ?>
+        </li>
+    <?php endif; ?>
+<?php endif; ?>

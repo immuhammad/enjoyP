@@ -1,0 +1,49 @@
+Legend
+
++ Features
+- Bugs
+-------------------------------- Version 5.0.0 --------------------------------------
+	+ Compatible with Marketplace 5.0.X & Magento 2.4.x CE.
+	
+-------------------------------- Version 4.0.0 --------------------------------------
+	+ Compatible with Marketplace 4.0.X & Magento 2.4.x EE.
+
+-------------------------------- Version 3.0.0 --------------------------------------
+	+ Compatible with Marketplace 3.0.X
+
+-------------------------------- Version 2.1.0 --------------------------------------
+	+ Compatible with Magento 2.3.x.
+
+-------------------------------- Version 2.0.4 --------------------------------------
+
+	+ A column 'payment status' is added in marketplace product grid at backend
+	+ Cron setup
+	- Bugs fixed
+
+-------------------------------- Version 2.0.3 --------------------------------------
+
+	+ Compatible with Marketplace 2.1.x
+	+ Compatible with Magento 2.2.x
+	+ Compatible with Marketplace Seller Subaccount Module.
+	+ Updated composer.json as per Magento 2.2.x version
+
+-------------------------------- Version 2.0.2 --------------------------------------
+
+	+ seller can see his pending transactions
+	+ Admin can see seller's tranasctions in backend
+	+ Now Seller receives transaction emails
+	+ Admin has option to disable the module from module settings
+	- bugs fixed
+
+-------------------------------- Version 2.0.1 --------------------------------------
+
+	+ Updated composer.json file.
+
+-------------------------------- Version 2.0.0 --------------------------------------
+
+	+ Seller need to pay upfront fee to become seller or he need to pay for enabling each product of his account.
+    + PayPal API supported for membership and product upfront payment.
+    + Admin can define set amount to pay for add product for seller.
+    + Admin can restricted to a number of product that is set for certain amount pay.
+    + Admin can set number of month for expire time.
+    + Seller can view payment details in his account.

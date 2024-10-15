@@ -1,0 +1,41 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpmembership
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+// @block Webkul/Mpmembership/Block/Seller/Fee
+
+$helper = $block->getMembershipHelper();
+$feeAppliedFor = $helper->getConfigFeeAppliedFor();
+use Webkul\Mpmembership\Model\Config\Source\Feeapplied;
+
+if ($feeAppliedFor == Feeapplied::PER_VENDOR) {
+    $data = $helper->getPermission();
+    $data = $helper->getValidTransaction($data);
+    $disabled = $data['status'];
+    $message = $data['msg']; ?>
+    <h3 style="color:rgba(255, 0, 0, 0.39)">
+        <?= /* @noEscape */ $message ?>
+    </h3>
+    <?php
+    if ($disabled) {
+        ?>
+        <input type="hidden" name="type" value="">
+        <input type="hidden" name="set" value="">
+        <script type="text/x-magento-init">
+            {
+                "*": {
+                    "membershipNotice": {}
+                }
+            }
+        </script>
+        <?php
+    }
+}
+?>

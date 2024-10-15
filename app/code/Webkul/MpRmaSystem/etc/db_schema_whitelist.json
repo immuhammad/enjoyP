@@ -1,0 +1,68 @@
+{
+    "marketplace_rma_details": {
+        "column": {
+            "id": true,
+            "item_id": true,
+            "order_id": true,
+            "seller_id": true,
+            "customer_id": true,
+            "customer_email": true,
+            "reason_id": true,
+            "qty": true,
+            "status": true,
+            "order_status": true,
+            "seller_status": true,
+            "final_status": true,
+            "product_id": true,
+            "resolution_type": true,
+            "number": true,
+            "order_ref": true,
+            "additional_info": true,
+            "created_date": true,
+            "price": true,
+            "refunded_amount": true,
+            "memo_id": true,
+            "customer_name": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "marketplace_rma_reasons": {
+        "column": {
+            "id": true,
+            "reason": true,
+            "status": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "marketplace_rma_conversation": {
+        "column": {
+            "id": true,
+            "rma_id": true,
+            "sender_type": true,
+            "message": true,
+            "created_time": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "marketplace_rma_items": {
+        "column": {
+            "id": true,
+            "rma_id": true,
+            "item_id": true,
+            "reason_id": true,
+            "product_id": true,
+            "qty": true,
+            "price": true,
+            "is_qty_returned": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

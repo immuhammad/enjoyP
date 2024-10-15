@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpquotesystem
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mpquotesystem>
+            <email>
+                <new_quote>mpquotesystem_email_new_quote</new_quote>
+                <quote_edit>mpquotesystem_email_quote_edit</quote_edit>
+                <quote_message>mpquotesystem_email_quote_message</quote_message>
+                <quote_status>mpquotesystem_email_quote_status</quote_status>
+            </email>
+            <default_config>
+                <min_qty>1</min_qty>
+                <allowed_type>pdf,doc,docx,jpg,png,zip</allowed_type>
+            </default_config>
+        </mpquotesystem>
+    </default>
+</config>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpRmaSystem
+ * @author    Webkul Software Private Limited
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Webkul_MpRmaSystem::mprmasystem" title="RMA System" module="Webkul_MpRmaSystem" sortOrder="20" parent="Webkul_Marketplace::marketplace" resource="Webkul_MpRmaSystem::mprmasystem"/>
+        <add id="Webkul_MpRmaSystem::rma" title="Manage RMA" module="Webkul_MpRmaSystem" sortOrder="20" parent="Webkul_MpRmaSystem::mprmasystem" action="mprmasystem/rma/index" resource="Webkul_MpRmaSystem::rma"/>
+        <add id="Webkul_MpRmaSystem::reasons" title="Manage RMA Reasons" module="Webkul_MpRmaSystem" sortOrder="21" parent="Webkul_MpRmaSystem::mprmasystem" action="mprmasystem/reasons" resource="Webkul_MpRmaSystem::reasons"/>
+    </menu>
+</config>

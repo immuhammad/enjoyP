@@ -1,0 +1,398 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $helper = $block->helper('Webkul\B2BMarketplace\Helper\Quote');
+    $quoteData = $block->getAllRequestedQuoteItems();
+    $quoteDataIds = $block->getAllRequestedQuoteItemsId();
+    $quoteProductCount = $block->getCurrentQuoteItemCount();
+    $item = $block->getRequestedQuoteCurrentItem();
+    $products = 0;
+    $itemId = 0;
+?>
+<?php if ($itemId = $item->getEntityId()): ?>
+    <?php
+        $products = $quoteData->getSize();
+    if (!$products) {
+        $products = 1;
+    }
+        $quoteId = $block->getQuoteId();
+        $customerId = $block->getQuoteCustomerId();
+        $customer = $helper->getCustomer($customerId);
+        $sampleImages = $block->getQuoteItemAttachments($itemId);
+    ?>
+    <div class="wk-mp-qs-container">
+        <div class="wk-mp-qs-data-container">
+            <div class="wk-mp-qs-data-header">
+                <div class="wk-b2b-quote-customer-info-block">
+                    <div class="wk-b2b-user-icon"></div>
+                    <div class="wk-b2b-quote-subtitle">
+                        <?= /* @noEscape */ __("Sending Quote Request To"); ?>
+                        <span class="wk-b2b-quote-buyer-name"><?= /* @noEscape */ $customer->getName(); ?></span>
+                    </div>
+                </div>
+                <div class="wk-b2b-quote-action-block">
+                    <?php if ($products > 1): ?>
+                        <div class="wk-b2b-quote-item-control-block">
+                            <a href='<?= /* @noEscape */ $quoteDataIds["prev"]; ?>' 
+                            class="wk-b2b-quote-item-control-nav wk-b2b-quote-item-control-nav-prev"></a>
+                            <div class="wk-b2b-quote-item-control-content">
+                                <span class="wk-b2b-quote-item-current-number">
+                                <?= /* @noEscape */ $quoteProductCount ?></span>
+                                <span>/</span>
+                                <span class="wk-b2b-quote-item-total-number"><?= /* @noEscape */ $products; ?></span>
+                                <span><?= /* @noEscape */ __("Products"); ?></span>
+                            </div>
+                            <a href='<?= /* @noEscape */ $quoteDataIds["next"] ?>' 
+                            class="wk-b2b-quote-item-control-nav wk-b2b-quote-item-control-nav-next"></a>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <div class="wk-b2b-quote-item-viewport">
+                <div class="wk-b2b-quote-items-container">
+                    <div class="wk-mp-qs-item-container wk-closed">
+                        <div class="wk-mp-qs-item-row wk-primary-row">
+                            <div class="wk-mp-qs-item-name">
+                                <?= /* @noEscape */ $item->getName(); ?>
+                            </div>
+                            <div class="wk-mp-qs-item-action">
+                                <span class="wk-info-btn">
+                                    <span class="wk-show-info-label"><?= /* @noEscape */ __("Show Info"); ?></span>
+                                    <span class="wk-hide-info-label"><?= /* @noEscape */ __("Hide Info"); ?></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="wk-mp-qs-item-row">
+                            <div class="wk-mp-qs-item-desc wk-open-desc">
+                                <span class="wk-mp-qs-item-desc-label wk-show-desc-label">
+                                <?= /* @noEscape */ __("Show Description"); ?></span>
+                                <span class="wk-mp-qs-item-desc-label wk-hide-desc-label">
+                                <?= /* @noEscape */ __("Hide Description"); ?></span>
+                                <span class="wk-mp-qs-item-desc-content">
+                                    <?= /* @noEscape */ $item->getDescription(); ?>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="wk-mp-qs-item-row wk-primary-row">
+                            <div class="wk-mp-qs-item-col">
+                                <span class="wk-mp-qs-item-label">
+                                <?= /* @noEscape */ __("Quantity"); ?> - </span>
+                                <span class="wk-mp-qs-item-content">
+                                <?= /* @noEscape */ __('%1 Units', $item->getQty()); ?></span>
+                            </div>
+                            <div class="wk-mp-qs-item-col">
+                                <span class="wk-mp-qs-item-label">
+                                <?= /* @noEscape */ __("Expected Price"); ?> - </span>
+                                <span class="wk-mp-qs-item-content">
+                                    <?= /* @noEscape */ __(
+                                        '%1 Per Unit',
+                                        $helper
+                                        ->getFormattedPrice($item->getPrice())
+                                    ); ?>
+                                </span>
+                            </div>
+                            <div class="wk-mp-qs-item-col">
+                                <span class="wk-mp-qs-item-label">
+                                <?= /* @noEscape */ __("Expected Total"); ?> - </span>
+                                <span class="wk-mp-qs-item-content">
+                                    <?= /* @noEscape */ $helper
+                                    ->getFormattedPrice(($item->getQty()*$item->getPrice())); ?>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="wk-mp-qs-item-row wk-primary-row">
+                            <div class="wk-mp-qs-item-col">
+                                <span class="wk-mp-qs-item-label">
+                                <?= /* @noEscape */ __("Requires Samples"); ?> - </span>
+                                <span class="wk-mp-qs-item-content">
+                                <?= /* @noEscape */ $block
+                                ->getSampleRequiredLabel($item->getHasSamples()) ?></span>
+                            </div>
+                        </div>
+                        <?php if ($item->getHasSamples() && !empty($sampleImages)): ?>
+                            <div class="wk-mp-qs-item-row">
+                                <div class="wk-mp-qs-sample-image wk-open-sample">
+                                    <span class="wk-mp-qs-sample-image-label wk-show-sample-label">
+                                    <?= /* @noEscape */ __("Show Sample Images"); ?></span>
+                                    <span class="wk-mp-qs-sample-image-label wk-hide-sample-label">
+                                    <?= /* @noEscape */ __("Hide Sample Images"); ?></span>
+                                    <div class="wk-mp-qs-sample-image-content">
+                                        <?php foreach ($sampleImages as $file): ?>
+                                            <div class="wk-mp-qs-sample-image-content-img">
+                                                <?php $sampleUrl = $block
+                                                ->getItemAttachmentUrl($quoteId, $file->getAttachmentId())?>
+                                                <a href="<?= /* @noEscape */ $sampleUrl ?>">
+                                                    <img 
+                                                        src="<?= /* @noEscape */ $sampleUrl ?>"
+                                                        title="<?= /* @noEscape */ $file->getFileName() ?>" />
+                                                </a>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+            <div class="wk-b2b-quote-request-block">
+                <form method="post" action="<?= /* @noEscape */
+                $block->getUrl("b2bmarketplace/supplier/quote_requestPost"); ?>" 
+                data-mage-init='{"validation":{}}'>
+                    <?= /* @escapeNotVerified */ $block->getBlockHtml('formkey')?>
+                    <?= /* @escapeNotVerified */ $block->getBlockHtml('seller.formkey')?>
+                    <input type="hidden" value="<?= /* @noEscape */ $quoteId; ?>" name="quote_id">
+                    <input type="hidden" value="<?= /* @noEscape */ $itemId; ?>" name="quote_item_id">
+                    <div class="wk-b2b-quote-request-section">
+                        <div class="wk-b2b-quote-request-section-title">
+                            <?= /* @noEscape */ __("Quote Info"); ?>
+                        </div>
+                        <div class="wk-b2b-quote-request-section-content">
+                            <fieldset class="fieldset">
+                                <div class="field required">
+                                    <label class="label" for="qty">
+                                        <span><?= /* @noEscape */ __("Quote Quantity"); ?></span>
+                                    </label>
+                                    <div class="control">
+                                        <input data-validate="{required:true}" id="qty" 
+                                        name="qty" title="<?= /* @noEscape */ __("Quote Quantity"); ?>" 
+                                        class="input-text validate-digits" 
+                                        aria-required="true" type="text">
+                                    </div>
+                                </div>
+                                <div class="field required">
+                                    <label class="label" for="price">
+                                        <span><?= /* @noEscape */ __("Quote Price Per Quantity"); ?></span>
+                                    </label>
+                                    <div class="control">
+                                        <input data-validate="{required:true}" id="price" 
+                                        name="price" title="<?= /* @noEscape */ __("Quote Price Per Quantity"); ?>" 
+                                        class="input-text validate-number" aria-required="true" type="text">
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="wk-b2b-quote-request-section">
+                        <div class="wk-b2b-quote-request-section-title">
+                            <?= /* @noEscape */ __("Sample Info"); ?>
+                        </div>
+                        <div class="wk-b2b-quote-request-section-content">
+                            <fieldset class="fieldset">
+                                <div class="field required">
+                                    <label class="label" for="samples">
+                                        <span><?= /* @noEscape */ __("Samples"); ?></span>
+                                    </label>
+                                    <div class="control">
+                                        <select data-validate="{required:true}" id="samples" 
+                                        name="has_samples" title="<?= /* @noEscape */ __("Samples"); ?>" 
+                                        class="input-text wk-parent-item" aria-required="true" data-id="1">
+                                            <option value="1"><?= /* @noEscape */ __("Yes"); ?></option>
+                                            <option value="0"><?= /* @noEscape */ __("No"); ?></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="field required wk-child-block" data-id="1">
+                                    <label class="label" for="sample-unit">
+                                        <span><?= /* @noEscape */ __("Sample Unit"); ?></span>
+                                    </label>
+                                    <div class="control">
+                                        <input data-validate="{required:true}" id="sample-unit" 
+                                        name="sample_unit" title="<?= /* @noEscape */ __("Sample Unit"); ?>" 
+                                        class="input-text validate-digits" aria-required="true" type="text">
+                                    </div>
+                                </div>
+                                <div class="field required wk-child-block" data-id="1">
+                                    <label class="label" for="sample-security-charges">
+                                        <span><?= /* @noEscape */ __("Sample Security Charges"); ?></span>
+                                    </label>
+                                    <div class="control">
+                                        <select data-validate="{required:true}" id="sample-security-charges" 
+                                        name="sample_charges" 
+                                        title="<?= /* @noEscape */ __("Sample Security Charges"); ?>" 
+                                        class="input-text wk-parent-item" 
+                                        aria-required="true" data-id="2">
+                                            <option value="1"><?= /* @noEscape */ __("Yes - Applicable"); ?></option>
+                                            <option value="0"><?= /* @noEscape */ __("No - Not Applicable"); ?></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="field required wk-child-block" data-id="1,2">
+                                    <label class="label" for="sample-charge-per-unit">
+                                        <span><?= /* @noEscape */ __("Sample Charges Per Unit"); ?></span>
+                                    </label>
+                                    <div class="control">
+                                        <input data-validate="{required:true}" id="sample-charge-per-unit" 
+                                        name="sample_charge_per_unit" 
+                                        title="<?= /* @noEscape */ __("Sample Charges Per Unit"); ?>" 
+                                        class="input-text validate-number" 
+                                        aria-required="true" type="text">
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="wk-b2b-quote-request-section">
+                        <div class="wk-b2b-quote-request-section-title">
+                            <?= /* @noEscape */ __("Shipping Info"); ?>
+                        </div>
+                        <div class="wk-b2b-quote-request-section-content">
+                            <fieldset class="fieldset">
+                                <div class="field required">
+                                    <label class="label" for="shipping-days">
+                                        <span>
+                                        <?= /* @noEscape */ __("Shipping Time (In Days)"); ?>
+                                        </span>
+                                    </label>
+                                    <div class="control">
+                                        <input data-validate="{required:true}" id="shipping-days" 
+                                        name="shipping_days" 
+                                        title="<?= /* @noEscape */ __("Shipping Time (In Days)"); ?>" 
+                                        class="input-text validate-digits" aria-required="true" type="text">
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="wk-b2b-quote-request-section">
+                        <div class="wk-b2b-quote-request-section-content">
+                            <fieldset class="fieldset">
+                                <div class="field required">
+                                    <label class="label" for="note">
+                                        <span><?= /* @noEscape */ __("Note For Customer"); ?></span>
+                                    </label>
+                                    <div class="control">
+                                        <textarea data-validate="{required:true}" id="note" 
+                                        name="note" title="<?= /* @noEscape */ __("Note For Customer"); ?>" 
+                                        class="input-text" aria-required="true"></textarea>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="wk-b2b-quote-request-section">
+                        <div class="wk-b2b-quote-request-section-content">
+                            <button title="<?= /* @noEscape */ __("Send Quote"); ?>" 
+                            class="action tocart primary">
+                                <span><?= /* @noEscape */ __("Send Quote"); ?></span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        require([
+            'jquery',
+            'Magento_Ui/js/modal/confirm',
+            "mage/template"
+        ], function($, confirm, template) {
+
+            $("body").on("click", ".wk-info-btn", function() {
+                if ($(this).hasClass("wk-opened-btn")) {
+                    $(this).parent().parent().parent().addClass("wk-closed");
+                    $(this).removeClass("wk-opened-btn");
+                } else {
+                    $(this).parent().parent().parent().removeClass("wk-closed");
+                    $(this).addClass("wk-opened-btn");
+                }
+            });
+
+            $("body").on("click", ".wk-show-desc-label", function() {
+                $(this).parent().addClass("wk-open-desc");
+            });
+
+            $("body").on("click", ".wk-hide-desc-label", function() {
+                $(this).parent().removeClass("wk-open-desc");
+            });
+
+            $("body").on("click", ".wk-show-sample-label", function() {
+                $(this).parent().addClass("wk-open-sample");
+            });
+
+            $("body").on("click", ".wk-hide-sample-label", function() {
+                $(this).parent().removeClass("wk-open-sample");
+            });
+
+            $("body").on("click", ".wk-thread-btn", function() {
+                if ($(this).hasClass("wk-active-btn")) {
+                    $(this).removeClass("wk-active-btn");
+                    $(this).find(".wk-thread-label").text("Show Threads");
+                    $(this).parent().parent().parent().find(".wk-mp-qs-thread-body").addClass("wk-display-none");
+                } else {
+                    $(this).find(".wk-thread-label").text("Hide Threads");
+                    $(this).addClass("wk-active-btn");
+                    $(this).parent().parent().parent().find(".wk-mp-qs-thread-body").removeClass("wk-display-none");
+                }
+            });
+
+            var totalItems = <?= /* @noEscape */ $products; ?>;
+            var width = (100*totalItems);
+            var itemWidth = (100/totalItems);
+            var counter = 1;
+            $(".wk-b2b-quote-items-container").css({"width" : width+"%"});
+            $(".wk-b2b-quote-items-container .wk-mp-qs-item-container").css({"width" : itemWidth+"%"});
+
+            $("body").on("click", ".wk-b2b-quote-item-control-nav-next", function() {
+                if (counter < totalItems) {
+                    $(".wk-mp-qs-item-container").addClass("wk-closed");
+                    // $(".wk-b2b-quote-items-container").animate({"left": "-=100%"});
+                    counter++;
+                }
+            });
+
+            $("body").on("click", ".wk-b2b-quote-item-control-nav-prev", function() {
+                if (counter > 1) {
+                    $(".wk-mp-qs-item-container").addClass("wk-closed");
+                    // $(".wk-b2b-quote-items-container").animate({"left": "+=100%"});
+                    counter--;
+                }
+            });
+
+            $("body").on("change", ".wk-parent-item", function() {
+                var parentId = $(this).attr("data-id");
+                parentId = parseInt(parentId);
+                var val = $(this).val();
+
+                if (val == 1) {
+                    var show = true;
+                } else {
+                    var show = false;
+                }
+                $(".wk-child-block").each(function() {
+                    var id = $(this).attr("data-id");
+                    var n = id.indexOf(",");
+                    if (n > -1) {
+                        ids = id.split(",");
+                    } else {
+                        ids = [id];
+                    }
+
+                    var result = [];
+                    $.each(ids, function(i, v) {
+                        result.push(parseInt(v));
+                    });
+                    if (result.indexOf(parentId) > -1) {
+                        if (show) {
+                            $(this).removeClass("wk-display-none");
+                        } else {
+                            $(this).addClass("wk-display-none");
+                        }
+                    }
+                });
+
+            });
+        });
+    </script>
+<?php endif; ?>

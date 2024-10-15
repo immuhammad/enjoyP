@@ -1,0 +1,178 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpAdvancedBookingSystem
+ * @author    Webkul Software Private Limited
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+/** @var \Magento\Sales\Block\Adminhtml\Order\View\Items\Renderer\DefaultRenderer $block */
+
+$viewModel = $block->getBookingViewModel();
+if ($viewModel === null) {
+    $viewModel = $block->getLayout()->createBlock(
+        \Webkul\MpAdvancedBookingSystem\Block\GetViewModel::class
+    )->getBookingViewModel();
+}
+$helper = $viewModel->getHelper();
+$requestId = $block->getRequest()->getParam('request_id');
+$requestData = $helper->getCancellationInfoById($requestId);
+$_item = null;
+$_invoiceItem = null;
+$order = null;
+if (!empty($requestData->getData())) {
+    $_item = $helper->getOrderItem($requestData->getOrderItemId());
+    $_invoiceItem = $helper->getInvoiceItemByOrderItemId($requestData->getOrderItemId());
+    $block->setData('item', $_item);
+    $order = $block->getOrder();
+}
+$cancellationInfo = $requestData;
+$cancelCharge = $helper->getConfigData('mpadvancedbookingsystem/cancellation/cancellation_charge');
+$cancellationUrl = $block->getUrl(
+    'mpadvancebooking/cancellation/processcancellation'
+);
+$cancelAmount = 0;
+$totalAmount = $_invoiceItem->getRowTotal()
+    + $_invoiceItem->getTaxAmount()
+    + $_invoiceItem->getDiscountTaxCompensationAmount()
+    + $_invoiceItem->getWeeeTaxAppliedRowAmount()
+    - $_invoiceItem->getDiscountAmount();
+?>
+
+<section class="admin__page-section">
+    <div class="admin__page-section-title">
+        <span class="title"><?= $block->escapeHtml(__("Cancelled Item(s)")) ?></span>
+    </div>
+    <div class="admin__table-wrapper">
+        <table class="data-table admin__table-primary edit-order-table">
+            <thead>
+                <tr class="headings">
+                    <th class="col-product">
+                        <span><?= $block->escapeHtml(__('Product')) ?></span>
+                    </th>
+                    <th class="col-ordered-qty">
+                        <span><?= $block->escapeHtml(__('Qty')) ?></span>
+                    </th>
+                    <th class="col-subtotal">
+                        <span><?= $block->escapeHtml(__('Subtotal')) ?></span>
+                    </th>
+                    <th class="col-total">
+                        <span><?= $block->escapeHtml(__('Row Total')) ?></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="even">
+                <?= $block->getItemHtml($_invoiceItem) ?>
+                <?= $block->getItemExtraInfoHtml($_invoiceItem) ?>
+            </tbody>
+            <tfoot>
+                <tr class="ordered-qty">
+                    <td colspan="3">
+                        <?= $block->escapeHtml(__('Qty. to refund')) ?>
+                    </td>
+                    <td data-th="<?= $block->escapeHtml(__('Qty. to refund')) ?>">
+                        <span class="price">
+                            <?= /** @escapeNotVerified */ (int)$_item->getQtyToRefund() ?>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="subtotal">
+                    <td colspan="3">
+                        <?= $block->escapeHtml(__('Subtotal')) ?>
+                    </td>
+                    <td class="amount" data-th="<?= $block->escapeHtml(__('Subtotal')) ?>">
+                        <span class="price">
+                            <?= /** @escapeNotVerified */ $order->formatPrice($_invoiceItem->getRowTotal()) ?>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="tax">
+                    <td colspan="3">
+                        <?= $block->escapeHtml(__('Tax Amount')) ?>
+                    </td>
+                    <td class="amount" data-th="<?= $block->escapeHtml(__('Tax Amount')) ?>">
+                        <span class="price">
+                            <?= /** @escapeNotVerified */ $order->formatPrice($_invoiceItem->getTaxAmount()) ?>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="discount">
+                    <td colspan="3">
+                        <?= $block->escapeHtml(__('Discount Amount')) ?>
+                    </td>
+                    <td class="amount" data-th="<?= $block->escapeHtml(__('Discount Amount')) ?>">
+                        <span class="price">
+                            -<?= /** @escapeNotVerified */ $order->formatPrice($_invoiceItem->getDiscountAmount()) ?>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="grand_total">
+                    <td colspan="3">
+                        <strong><?= $block->escapeHtml(__('Grand Total')) ?></strong>
+                    </td>
+                    <td class="amount" data-th="<?= $block->escapeHtml(__('Grand Total')) ?>">
+                        <strong>
+                            <span class="price">
+                                <?= /** @escapeNotVerified */ $order->formatPrice($totalAmount) ?>
+                            </span>
+                        </strong>
+                    </td>
+                </tr>
+                <?php if (!empty($cancellationInfo->getData())) { ?>
+                    <?php $cancelAmount = $cancellationInfo->getCancellationCharge(); ?>
+                    <tr class="charge">
+                        <td colspan="3">
+                            <?= $block->escapeHtml(__('Cancellation Charge (%1%)', $cancelCharge)) ?>
+                        </td>
+                        <td class="amount" data-th="<?= $block->escapeHtml(__('Cancellation Charge')) ?>">
+                            <span class="price">
+                                -<?= /** @escapeNotVerified */ $order->formatPrice($cancelAmount) ?>
+                            </span>
+                        </td>
+                    </tr>
+                <?php } ?>
+                <tr class="grand_total">
+                    <td colspan="3">
+                        <strong><?= $block->escapeHtml(__('Total Refund Amount')) ?></strong>
+                    </td>
+                    <td class="amount" data-th="<?= $block->escapeHtml(__('Total Refund Amount')) ?>">
+                        <strong>
+                            <span class="price">
+                                <?= /** @escapeNotVerified */ $order->formatPrice($totalAmount - $cancelAmount) ?>
+                            </span>
+                        </strong>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <?php if (!empty($cancellationInfo->getData()) && $cancellationInfo->getStatus() != 1) { ?>
+        <div class="order-totals-actions" style="float: right; width: 20%;">
+            <form method="post"
+                action="<?= /** @escapeNotVerified */ $cancellationUrl ?>">
+                <?= /** @escapeNotVerified */ $block->getBlockHtml('formkey') ?>
+                <input type="hidden" name="order_id" value="<?= /** @escapeNotVerified */ $order->getId() ?>">
+                <input type="hidden" name="item_id" value="<?= /** @escapeNotVerified */ $_item->getId() ?>">
+                <input type="hidden" name="qty" value="<?= /** @escapeNotVerified */ $_item->getQtyToRefund() ?>">
+                <input type="hidden"
+                    name="cancellation_id"
+                    value="<?= /** @escapeNotVerified */ $requestData->getId() ?>">
+                <div class="field choice admin__field admin__field-option field-email-copy">
+                    <input id="send_email" class="admin__control-checkbox" name="send_email" value="1" type="checkbox">
+                    <label for="send_email" class="admin__field-label">
+                        <span><?= $block->escapeHtml(__('Email Copy of Credit Memo')) ?></span>
+                    </label>
+                </div>
+                <div class="admin__field-option">
+                    <button title="<?= $block->escapeHtml(__('Process Cancellation')) ?>"
+                        type="submit" class="action-secondary">
+                        <span><?= $block->escapeHtml(__('Process Cancellation')) ?></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    <?php } ?>
+</section>

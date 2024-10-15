@@ -1,0 +1,49 @@
+Legend
+
++ Features
+- Bugs
+
+--------------------------------Version 5.1.0 --------------------------------------
+	+ Added partial cancel items feature
+	- Fixed some bugs
+
+-------------------------------- Version 5.0.1 --------------------------------------
+	- Fixed some bugs
+
+-------------------------------- Version 5.0.0 --------------------------------------
+	+ Compatible with Magento 2.4.x Community Edition
+	+ Added print RMA in frontend and admin end.
+	+ Added exporting all RMA options.
+	+ Added configuration for enabling/disabling module.
+	
+-------------------------------- Version 3.0.1 --------------------------------------
+	- Minor issues and bugs fixed
+	
+-------------------------------- Version 3.0.0 --------------------------------------
+	+ Compatible with Marketplace 3.0.x
+	- Issue fixed multiple times saving in admin end and frontend
+	- Layout issue Fixed.
+	- Fixed minor bugs.
+
+-------------------------------- Version 2.2.0 --------------------------------------
+	+ Compatible with Marketplace 2.3.x
+	+ Online refund by seller feature added
+	- Fixed minor bugs.
+
+-------------------------------- Version 2.1.0 --------------------------------------
+	+ Compatible with Marketplace 2.2.x
+	+ Compatible with Magento 2.3.x
+	- Fixed minor bugs.
+
+-------------------------------- Version 2.0.1 --------------------------------------
+	+ Multiple items rma by seller feature added.
+	+ Multiple image in rma feature added.
+	+ Compatible with Marketplace 2.1.x
+	+ Compatible with Magento 2.2.0
+
+-------------------------------- Version 2.0.0 --------------------------------------
+	+ Return merchandise authorization for Magento Marketplace.
+	+ Buyer can generate RMA for Refund/Replace.
+	+ Buyer, Seller and Admin communication for requested RMA.
+	+ RMA history for seller and buyer with pagination.
+	+ Seller can do Full or Partial refund.

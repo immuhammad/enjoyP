@@ -1,0 +1,21 @@
+{
+    "name": "webkul/stripe",
+    "description": "Stripe payment for Magento 2",
+    "require": {
+        "magento/module-checkout": "100.4.*",
+        "stripe/stripe-php": "7.*"
+    },
+    "type": "magento2-module",
+    "version": "5.0.2",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Webkul\\Stripe\\": ""
+        }
+    }
+}

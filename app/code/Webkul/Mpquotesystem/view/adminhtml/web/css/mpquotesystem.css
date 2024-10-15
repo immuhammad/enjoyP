@@ -1,0 +1,394 @@
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpquotesystem
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+.item-options dt,.item-options dd {
+    display:inline;
+}
+.action-select-wrap ul {
+    right : 0!important;
+}
+.mpquotesystem_cat_add {
+    width:100%;
+}
+
+.product-view .add-to-cart-buttons .button {
+    width: auto!important;
+}
+.popover {
+    background-clip: padding-box;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    text-align: center;
+    white-space: normal;
+    width: 40%;
+}
+.popover_head {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #ebebeb;
+    border-radius: 5px 5px 0 0;
+    min-height: 40px;
+    padding: 8px 14px;
+}
+.popover_foot {
+    background-color: #f7f7f7;
+    border-radius: 0 0 5px 5px;
+    border-top: 1px solid #ebebeb;
+    min-height: 40px;
+    padding: 8px 14px;
+}
+.popover_content {
+    padding: 9px 14px;
+}
+.popover_title{
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 23px;
+}
+.popover_background{
+    background-color: rgba(227, 227, 227, 0.59);
+    display: none;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+}
+.wk-hide {
+    display:none;
+}
+.quote_row{
+    margin-bottom: 5px;
+}
+.quote_label{
+    display: inline-block;
+    text-align: right;
+    width: 25%;
+}
+.quote_input{
+    background: none repeat scroll 0 0 #fff;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-shadow: 0 0 1px 1px #cccccc inset;
+    padding: 5px !important;
+    width: 60% !important;
+}
+.submit_button{
+    background-color: #428bca;
+    border: 1px solid #357ebd;
+    border-radius: 4px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 6px 10px;
+    width: 100px;
+}
+.submit_button:hover {
+    background-color: #3276b1;
+    border-color: #285e8e;
+}
+.wk_qs_front_loader {
+    background: none repeat scroll 0 0 rgba(255, 244, 232, 0.61);
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+}
+.wk_qs_front_loader > div {
+    background: url("../images/loader.gif") no-repeat scroll 0 0 transparent;
+    border-radius: 18px 18px 18px 18px;
+    height: 32px;
+    left: 48%;
+    position: fixed;
+    top: 48%;
+    width: 32px;
+}
+.wk_qs_status_decline{
+    color: #F4101F;
+    font-weight: bold;
+}
+.wk_qs_status_sold{
+    color: #0FBE00;
+    font-weight: bold;
+}
+.wk_qs_status_pending{
+    color: #da9011;
+    font-weight: bold;
+}
+.wk_qs_action_delete{
+    background: url("../images/sprite.png") no-repeat scroll -28px -2px rgba(0, 0, 0, 0);
+    display: inline-block;
+    height: 21px;
+    width: 20px;
+}
+.wk_qs_action_view{
+    background: url("../images/sprite.png") no-repeat scroll -1px -2px rgba(0, 0, 0, 0);
+    display: inline-block;
+    height: 21px;
+    width: 24px;
+}
+.wk_qs_separator{
+    border: 1px dashed #000;
+    display: inline-block;
+    height: 22px;
+}
+.wk_qs_row{
+    margin-bottom: 10px;
+}
+.wk_qs_label{
+    display: inline-block;
+    margin-right: 13px;
+    text-align: right;
+    width: 15%;
+}
+.wk_qs_field{
+    display: inline-block;
+}
+.wk_qs_onereply {
+    box-shadow: 2px 2px 5px;
+    margin: 10px;
+}
+.wk_qs_onereply_customer {
+    background: none repeat scroll 0 0 #B9CDF8 !important;
+}
+.wk_qs_onereply_head {
+    background: none repeat scroll 0 0 #96c986;
+    display: block;
+    padding: 10px;
+}
+.wk_qs_onereply_cntnt_container {
+    background: none repeat scroll 0 0 #dfe8e6;
+    padding: 10px;
+}
+.wk_qs_onereply_cntnt {
+    font-family: tahoma;
+    line-height: 25px;
+}
+.wk_qs_onereply_head_left {
+    color: #000000;
+    display: inline-block;
+    font-size: 10pt;
+    font-weight: bold;
+    text-align: left;
+    width: 48%;
+}
+.wk_qs_onereply_head_right {
+    color: #888888;
+    display: inline-block;
+    font-size: 11pt;
+    font-weight: bold;
+    text-align: right;
+    width: 50%;
+}
+.popover_close{
+    color: #d21d1d;
+    cursor: pointer;
+    font-weight: bold;
+    line-height: 11px;
+    position: absolute;
+    right: 12px;
+    top: 15px;
+}
+.wk-mp-list-table th,.wk-mp-list-table tr{
+    border-bottom: 1px solid #CCCCCC;
+}
+.wk-mp-fieldset.fieldset > .legend{
+    float: none;
+}
+.wk_design .item-options{
+    clear: both;
+}
+.wk-mp-list-table .product-cart-sku label{
+    margin: 0px!important;
+    float: none!important;
+}
+#wk_qs_msg_area{
+    resize: none;
+    width: 100%;
+}
+.wk-mp-list-table th,.wk-mp-list-table tr{
+    border-bottom: 1px solid #CCCCCC;
+}
+.wk-mp-fieldset.fieldset > .legend{
+    float: none;
+}
+.wk_design .item-options{
+    clear: both;
+    display: inline-block;
+    width: 100%;
+}
+.wk-list-table td {
+    min-width: 150px;
+}
+/* attachment css */
+.wk_qs_message_container .attachment {
+    display: inline-block;
+    width: 25%;
+}
+.wk-quote-primary-btn {
+    padding: 7px 12px;
+    background-color: #1979c3;
+    border: 1px solid #1979c3;
+    color: #fff;
+    text-transform: capitalize;
+    font-weight: 700;
+    font-size: 1.2rem;
+    display: inline-block;
+    cursor: pointer;
+}
+.wk-quote-primary-btn:hover {
+    background: #006bb4;
+    border: 1px solid #006bb4;
+    color: #fff;
+}
+.wk-file-field-container,
+.wk-rfq-file-field-container {
+    position: relative;
+}
+.wk-file-label {
+    position: relative;
+    padding: 7px 12px 7px 22px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.wk-file-label:before {
+    content: "+";
+    position: absolute;
+    left: 5px;
+    top: 0px;
+    font-size: 2rem;
+}
+.wk-file-field {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0;
+    cursor: pointer;
+}
+.wk-uploaded-file {
+    padding: 5px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    position: relative;
+}
+.wk-uploaded-file-name,
+.wk-uploaded-file-del {
+    padding: 5px;
+}
+.wk-uploaded-file-style {
+    border-radius: 3px;
+    padding: 2px 12px;
+    text-transform: uppercase;
+}
+.wk-uploaded-file-del {
+    color: #757575;
+    position: absolute;
+    right: 5px;
+    top: 2px;
+    cursor: pointer;
+}
+.wk-uploaded-file-del:before {
+    content: '\e62f';
+    font-family: 'Admin Icons';
+}
+.wk-uploaded-file-del:hover,
+.wk-uploaded-file-del:active {
+    color: #333;
+}
+.wk-file-label + .wk-uploaded-file-row {
+    background: rgba(255, 255, 255, .7);
+}
+.wk-uploaded-file-row {
+    width: 100%;
+    padding: 6px 60px;
+    position: absolute;
+    top: 0;
+}
+.wk-uploaded-file-row img {
+    width: 20px;
+    height: 20px;
+}
+.field + .wk-file-field-container {
+    margin: 0;
+    display: grid;
+    padding-top: 0;
+}
+.wk_design.block table.wk-list-table > tbody > tr > td {
+    vertical-align: top;
+}
+.wk_design .item-options > dt + dd.label {
+    text-align: left;
+}
+.item-options dd {
+    padding: 0;
+    margin: 0;
+}
+label.label.wk-file-label.wk-quote-primary-btn {
+    color: white;
+    padding: 5px;
+    width: 14%;
+}
+
+#wk_quotesystem_massquote_popup {
+    display: none;
+}
+
+#wk_quotesystem_products {
+    display: none;
+}
+
+#wk_quotesystem_products_massaction .mass-select-wrap {
+    display: none;
+}
+
+.admin__control-radio + .admin__field-label:before, .admin__control-checkbox + .admin__field-label:before {
+    margin: auto;
+    margin-right: 10px;
+}
+.product-custom-option {
+    width: unset !important;
+    margin-left: -11px !important;
+}
+#wk_open_modal .product-custom-option {
+    margin-left: 29px !important;
+}
+#wk_open_modal .admin__control-radio:checked + label:after {
+    left: 29px !important;
+    background-color: #514943;
+    border-radius: 50%;
+    content: '';
+    height: 10px;
+    /* left: 3px; */
+    position: absolute;
+    top: 4px;
+    width: 10px;
+}
+.admin__scope-old .form-inline .fieldset > .field.required > .quote_qty span:after {
+    position: absolute;
+    top: 5rem;
+}
+.quotesystem-ui-form button.button {
+    background: #eb5202 !important;
+}
+.quotesystem-ui-form button.reset {
+    background: #eb5202 !important;
+}

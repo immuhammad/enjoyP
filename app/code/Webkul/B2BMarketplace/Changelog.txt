@@ -1,0 +1,43 @@
+Legend
+
++ Features
+- Bugs
+-------------------------------- Version 5.0.0 --------------------------------------
+		+ Compatible with Magento 2.4.x.
+    + Updated according to Marketplace 5.0.*
+
+-------------------------------- Version 3.0.2 --------------------------------------
+    + Compatible with magento 2.3.4
+    + Compatible with marketplace 3.0.4
+
+-------------------------------- Version 3.0.1 --------------------------------------
+    + Compatible with magento 2.3.3
+    + Compatible with marketplace 3.0.*
+
+-------------------------------- Version 3.0.0 --------------------------------------
+    + Compatible with magento 2.3.0 - magento 2.3.2
+    + Compatible with marketplace 3.0.*
+
+-------------------------------- Version 2.1.0 --------------------------------------
+    + Compatible with magento 2.3.x
+    + Arabic translation added.
+
+-------------------------------- Version 2.0.2 --------------------------------------
+    + Updated Attachments download functionality.
+    - Fixed bugs.
+
+-------------------------------- Version 2.0.1 --------------------------------------
+    + Updated RFQ functionality.
+    - Fixed bugs.
+
+-------------------------------- Version 2.0.0 --------------------------------------
+    + Allow users to create their supplier accounts.
+    + Separate supplier panel.
+    + Allow suppliers to add/edit/delete their products.
+    + Allow suppliers to manage their orders.
+    + Allow suppliers to view their customer and review list.
+    + Allow suppliers to add their products for request for quote.
+    + Allow customers to request for quote for items to suppliers.
+    + Allow customers to contact to supplier for any communication regarding quote.
+    + Allow customers to create quick order.
+    + Allow suppliers to have their own site url like supplier1.com or supplier1.example.com .

@@ -1,0 +1,73 @@
+<?php
+/**
+ * Webkul Affiliate Banner template.
+ * @category  Webkul
+ * @package   Webkul_Affiliate
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+$isAffiliate = $block->isAffiliate();
+$config = $block->getAffiliateConfig();
+if ($isAffiliate && $config['enable']) {
+    $trafficColl = $block->getAllTraffic();
+    ?>
+    <div class="wk-mp-design ">
+        <fieldset class="fieldset info">
+            <legend class="legend">
+                <span><?= /* @noEscape */ __('Traffic Summary') ?></span>
+            </legend>
+            <div class="grid">
+                <div class="hor-scroll">
+                    <?php if ($trafficColl && $trafficColl->getSize()): ?>
+                        <table cellspacing="0" class="border table wk-affiliate-list-table">
+                            <thead>
+                                <tr class="wk-content">
+                                    <th class="wk-first-td name">
+                                        <span class="label"><?= /* @noEscape */ __('IP Address')?></span>
+                                    </th>
+                                    <th class="wk-first-td">
+                                        <span class="label"><?= /* @noEscape */ __('Referring URL')?></span>
+                                    </th>
+                                    <th class="wk-first-td">
+                                        <span class="label name"><?= /* @noEscape */ __('View Date')?></span>
+                                    </th>            
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $i = 0;
+                                foreach ($trafficColl as $trafficData) {
+                                    $i++; ?>
+                                    <tr class="wk-row-view <?= /* @noEscape */
+                                    $i == $trafficColl->getSize()? 'wk-last_tr':''?>">
+                                        <td class="wk-first_td"><?= /* @noEscape */
+                                        $trafficData->getCustomerIp(); ?></td>
+                                        <td><?= /* @noEscape */ $trafficData->getComeFrom(); ?></td>
+                                        <td><?= /* @noEscape */
+                                        $block->getDateTimeAsLocale($trafficData->getCreatedAt()); ?></td>         
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>    
+                    <?php else: ?>
+                        <div class="wk-emptymsg">
+                            <?= /* @noEscape */  __('No Traffic Summary') ?>
+                        </div>
+                    <?php endif ?>
+                </div>
+            </div>
+            <?php if ($block->getPagerHtml()): ?>
+                <div class="order-products-toolbar toolbar bottom">
+                    <?= /* @noEscape */  $block->getPagerHtml(); ?></div>
+            <?php endif ?>    
+        </fieldset>    
+        <div class="buttons-set">
+            <p class="back-link">
+                <a href="javascript:;" onclick="javascript: window.history.back();" 
+                class="left">&laquo; <?= /* @noEscape */  __('Back') ?></a>
+            </p>
+        </div>
+    </div>
+<?php } ?>

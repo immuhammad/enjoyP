@@ -1,0 +1,49 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpVendorAttributeManager
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+$currentHelper = $block->getHelper();
+if ($currentHelper->getTermConditionConfig('customer_enable_registration') ||
+    ($currentHelper->getTermConditionConfig('enable_registration') &&
+    $currentHelper->isVendorRegistration())) {
+    $condition = $block->getConditionData();
+    ?>
+    <?= /**@noEscape */ $block->getChildHtml('style_template'); ?>
+    <div class="privacy-container">
+        <div class="checkbox-container">
+            <input type="checkbox"
+                    id="<?= /**@noEscape */ $block->getNameInLayout(); ?>"
+                    name="account_create_privacy_condition"
+                    value="0"
+                    onchange="this.value = this.checked ? 1 : 0;"
+                    title="<?= /**@noEscape */
+                        $block->escapeHtml($block->getConfigData('checkbox_text')) ?>"
+                    class="checkbox"
+                    data-validate="{required:true}"/>
+                <label for="<?= /**@noEscape */ $block->getNameInLayout(); ?>">
+                        <span>
+                            <a id="read-term-condition" href="#" 
+                                class="clearer news-term-condition">
+                                <?= /**@noEscape */ __('Terms & Conditions') . (' '); ?></a>
+                            <?= /**@noEscape */ __('and') . (' '); ?>
+                            <a id="read-privacy" href="#" class="clearer read-privacy">
+                                <?= /**@noEscape */ __('Privacy & cookie Policy'); ?></a>
+                        </span>
+                </label>
+        </div>
+    </div>
+    <script type="text/x-magento-init">
+    {
+        "*": {
+            "vendorTermAndCondition": <?= /**@noEscape */ $block->getConditionContent(); ?>
+        }
+    }
+    </script>
+<?php } ?>

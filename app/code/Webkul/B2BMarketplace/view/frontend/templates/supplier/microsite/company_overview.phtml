@@ -1,0 +1,171 @@
+<?php
+$quickOrderBlock =  $block->getLayout()->createBlock(
+    \Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class
+);
+
+$helper = $quickOrderBlock->helper('Webkul\B2BMarketplace\Helper\Data');
+$supplier = $block->getPersistentData();
+if (empty($supplier)) {
+    $supplier = $helper->getCurrentSupplier();
+}
+?>
+<div class="wk-supplier-company-overview-container">
+    <form method="post" action="<?= /* @noEscape */
+    $quickOrderBlock->getUrl('b2bmarketplace/supplier/info_update'); ?>" 
+    id="wk-company-overview-form" enctype="multipart/form-data" 
+    data-mage-init='{"validation":{}}'>
+        <fieldset class="fieldset">
+            <?= /* @noEscape */ $block->getBlockHtml('seller.formkey')?>
+            <?= /* @noEscape */ $block->getBlockHtml('formkey') ?>
+            <div class="field profile">
+                <label class="label" for="company_description">
+                <?= /* @noEscape */ __('Company Overview') ?></label>
+                <div class="control wk-border-box-sizing">
+                    <textarea type="text" id="company_description" 
+                    name="company_description" title="company_description" 
+                    class="input-text validate-no-html-tags compdesi" ><?= /* @noEscape */
+                    $supplier['company_description']; ?></textarea>
+                </div>
+            </div>
+            <script>
+                require([
+                    "jquery",
+                    "mage/translate",
+                    "mage/adminhtml/events",
+                    "mage/adminhtml/wysiwyg/tiny_mce/setup"
+                ], function(jQuery) {
+                    wysiwygCompanyDescription = new wysiwygSetup("company_description", {
+                        "width" : "100%",
+                        "height" : "200px",
+                        "plugins" : [{"name":"image"}],
+                        "tinymce4" : {
+                            "toolbar":"formatselect | bold italic underline | alignleft "+
+                            "aligncenter alignright | bullist numlist | link table charmap",
+                            "plugins":"advlist autolink lists link charmap media noneditable "+
+                            "table contextmenu paste code help table",
+                        },
+                        files_browser_window_url: "<?=  /* @noEscape */$quickOrderBlock->getWysiwygUrl() ?>"
+                    });
+                    wysiwygCompanyDescription.setup("exact");
+                });
+            </script>
+            <div class="field profile">    
+                <label class="label" for="meta_keywords"><?= /* @noEscape */ __('Meta Keywords') ?></label>
+                <span class="control-notification">
+                (<?= /* @noEscape */ __("Enter Meta Keywords Comma(',') Separated.."); ?>)
+                </span>
+                <div class="control">            
+                    <textarea type="text" id="meta_keywords" name="meta_keyword" 
+                    title="Meta Keyword" class="input-text validate-no-html-tags compdesi" ><?= /* @noEscape */
+                    $supplier['meta_keyword']; ?> </textarea>
+                </div>    
+            </div>    
+            <div class="field profile">    
+                <label class="label" for="meta_description"><?= /* @noEscape */ __('Meta Description') ?></label>
+                <div class="control">    
+                    <textarea type="text" id="meta_description" name="meta_description" 
+                    title="Meta Description" class="input-text validate-no-html-tags compdesi" >
+                    <?= /* @noEscape */ $supplier['meta_description']; ?> </textarea>    
+                </div>    
+            </div>
+            <div class="field profile">
+                <label class="label" for="twitterid"><?= /* @noEscape */ __('Twitter') ?> </label>
+                <input type="checkbox" name="tw_active" value="1" 
+                title="<?= /* @noEscape */ __('Allow to Display Twitter Icon in Profile Page') ?>" 
+                <?php if ($supplier['tw_active'] == 1) { echo "checked='checked'";} ?> style="margin: 5px;">
+                <div class="control">
+                    <input type="text" id="twitter_id" name="twitter_id" 
+                    value="<?= /* @noEscape */ $supplier['twitter_id']; ?>" 
+                    title="twitterid" class="input-text validate-no-html-tags" />
+                </div>
+            </div>
+            <div class="field profile">
+                <label class="label" for="facebookid"><?= /* @noEscape */ __('Facebook') ?> </label>
+                <input type="checkbox" name="fb_active" value="1" 
+                title="<?= /* @noEscape */ __('Allow to Display Facebook Icon in Profile Page') ?>" 
+                <?php if ($supplier['fb_active'] == 1) { echo "checked='checked'";} ?> style="margin: 5px;">
+                <div class="control">
+                     <input type="text" id="facebook_id" name="facebook_id" 
+                     value="<?= /* @noEscape */ $supplier['facebook_id']; ?>" 
+                     title="facebookid" class="input-text validate-no-html-tags" />
+                </div>
+            </div>
+            <div class="field profile">
+                <label class="label"><?= /* @noEscape */ __('Instagram') ?> </label>
+                <input type="checkbox" name="instagram_active" value="1" 
+                title="<?= /* @noEscape */ __('Allow to Display Instagram Icon in Profile Page') ?>" 
+                <?php if ($supplier['instagram_active'] == 1) { echo "checked='checked'";} ?> 
+                style="margin: 5px;">
+                <div class="control">
+                     <input type="text" id="instagram_id" 
+                     name="instagram_id" value="<?= /* @noEscape */
+                        $supplier['instagram_id']; ?>" 
+                     class="input-text validate-no-html-tags" />
+                </div>
+            </div>
+            <div class="field profile" style="display: none;">
+                <label class="label"><?= /* @noEscape */ __('Google Plus') ?></label>
+                <input type="checkbox" name="gplus_active" value="1" 
+                title="<?= /* @noEscape */ __('Allow to Display Google Plus Icon in Profile Page') ?>" 
+                <?php if ($supplier['gplus_active'] == 1) { echo "checked='checked'";} ?> 
+                style="margin: 5px;">
+                <div class="control">
+                     <input type="text" id="gplus_id" name="gplus_id" value="<?= /* @noEscape */
+                        $supplier['gplus_id']; ?>" class="input-text validate-no-html-tags" />
+                </div>
+            </div>
+            <div class="field profile">
+                <label class="label"><?= /* @noEscape */ __('Youtube ID') ?> </label>
+                <input type="checkbox" name="youtube_active" value="1" 
+                title="<?= /* @noEscape */ __('Allow to Display Youtube Icon in Profile Page') ?>" 
+                <?php if ($supplier['youtube_active'] == 1) { echo "checked='checked'";} ?> 
+                style="margin: 5px;">
+                <div class="control">
+                     <input type="text" id="youtube_id" name="youtube_id" 
+                     value="<?= /* @noEscape */ $supplier['youtube_id']; ?>" 
+                     class="input-text validate-no-html-tags" />
+                </div>
+            </div>
+            <div class="field profile">
+                <label class="label"><?= /* @noEscape */ __('Vimeo ID') ?> </label>
+                <input type="checkbox" name="vimeo_active" value="1" 
+                title="<?= /* @noEscape */ __('Allow to Display Vimeo Icon in Profile Page') ?>" 
+                <?php if ($supplier['vimeo_active'] == 1) { echo "checked='checked'";} ?> 
+                style="margin: 5px;">
+                <div class="control">
+                     <input type="text" id="vimeo_id" name="vimeo_id" value="<?= /* @noEscape */
+                        $supplier['vimeo_id']; ?>" class="input-text validate-no-html-tags" />
+                </div>
+            </div>
+            <div class="field profile">
+                <label class="label"><?= /* @noEscape */ __('Pinterest ID') ?> </label>
+                <input type="checkbox" name="pinterest_active" value="1" 
+                title="<?= /* @noEscape */ __('Allow to Display Pinterest Icon in Profile Page') ?>" 
+                <?php if ($supplier['pinterest_active'] == 1) { echo "checked='checked'";} ?> 
+                style="margin: 5px;">
+                <div class="control">
+                     <input type="text" id="pinterest_id" name="pinterest_id" value="<?= /* @noEscape */
+                        $supplier['pinterest_id']; ?>" class="input-text validate-no-html-tags" />
+                </div>
+            </div>
+            <div class="field profile">
+                <label class="label"><?= /* @noEscape */ __('Tax/VAT Number') ?> </label>
+                <div class="control">
+                     <input type="text" id="taxvat" name="taxvat" 
+                     value="<?= /* @noEscape */ $supplier['taxvat']; ?>" 
+                     title="<?= /* @noEscape */ __('Enter Tax or VAT number') ?>" 
+                     class="input-text validate-no-html-tags" 
+                     placeholder="<?= /* @noEscape */ __('Enter Tax or VAT number') ?>"/>
+                </div>
+            </div>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button id="company-overview" name="section" 
+                    value="company_overview" class="action primary" type="submit">
+                        <span><?= /* @noEscape */ __("Update Information"); ?></span>
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

@@ -1,0 +1,247 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $b2bQuoteHelper = $block->helper('Webkul\B2BMarketplace\Helper\Quote');
+    $helper = $block->helper('Webkul\B2BMarketplace\Helper\Data');
+    $customerList = $helper->getSupplierList();
+    $customerId = $helper->getCustomerId();
+?>
+<div class="wk-customer-message-container">
+    <div class="wk-customer-supplier-list-container">
+        <div class="wk-customer-supplier-list-search">
+            <input type="text" class="wk-customer-supplier-search-box" placeholder="Search">
+        </div>
+        <div class="wk-customer-supplier-list-suppliers">
+            <?php if ($customerList->getSize()): ?>
+                <?php foreach ($customerList as $customer): ?>
+                    <div class="wk-customer-supplier-list-supplier" 
+                    data-ref="<?= /* @noEscape */ $customer->getSupplierId(); ?>">
+                        <div class="wk-customer-supplier-list-supplier-img">
+                            <div class="wk-customer-supplier-list-supplier-img-logo">
+                                
+                            </div>
+                        </div>
+                        <div class="wk-customer-supplier-list-supplier-info">
+                            <div class="wk-customer-supplier-list-supplier-name">
+                                <?= $block->escapeHtml($customer->getFirstname()); ?>
+                                <?php if ($total = $helper->getCustomerTotalUnseenMsg($customer->getListId())) { ?>
+                                    <span class="wk-msg-unseen-count"><?= $block->escapeHtml($total)?></span>
+                                <?php } ?>
+                            </div>
+                            <div class="wk-customer-supplier-list-supplier-date">
+                                <?= /* @noEscape */
+                                $block->helper('Webkul\B2BMarketplace\Helper\Data')->formatDate(
+                                    $customer->getCreatedAt(),
+                                    \IntlDateFormatter::LONG
+                                );
+                                ?>
+                            </div>
+                            <div class="wk-customer-supplier-list-supplier-msg">
+                                <?php
+                                if ($customerId == $customer->getSenderId()) {
+                                    echo "You: ";
+                                }
+                                ?>
+                                <?= $block->escapeHtml($customer->getMsg()); ?>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div class="wk-customer-supplier-no-result">No Messages</div>
+            <?php endif; ?>
+        </div>
+    </div>
+    <div class="wk-customer-supplier-msg-container wk-display-none">
+        <div class="wk-loading-mask">
+            <div class="wk-loader"></div>
+        </div>
+        <div class="wk-customer-supplier-msg-header">
+            <div class="wk-customer-supplier-msg-header-info">
+                <div class="wk-customer-supplier-img">
+                </div>
+                <div class="wk-customer-supplier-info">
+                    <div class="wk-customer-supplier-name">
+                    </div>
+                    <div class="wk-customer-supplier-type">
+                    </div>
+                </div>
+            </div>
+            <div class="wk-customer-supplier-msg-header-actions wk-display-none">
+                <div class="wk-customer-supplier-info-action">Info</div>
+                <div class="wk-customer-supplier-block-action">Block</div>
+            </div>
+        </div>
+        <div class="wk-customer-supplier-msg-body">
+        </div>
+        <div class="wk-customer-supplier-msg-box">
+            <div class="wk-customer-supplier-msg-box-textarea">
+                <textarea placeholder="Type your reply here."></textarea>
+            </div>
+            <div class="wk-customer-supplier-msg-box-action">
+                <button class="wk-customer-supplier-msg-send-btn"><span>Send</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+<script id="message-template" type="text/x-magento-template">
+    <% if(data.name == "") { %>
+        <div class="wk-customer-supplier-sender-block">
+            <div class="wk-customer-supplier-msg">
+                <div><%- data.msg %></div>
+                <div id="wk-msg-attachments-container<%- data.id %>"></div>
+            </div>
+            <div class="wk-customer-supplier-msg-time"><%- data.time %></div>
+        </div>
+    <% } else { %>
+        <div class="wk-customer-supplier-receiver-block">
+            <div class="wk-customer-supplier-msg-name"><%- data.name %></div>
+            <div class="wk-customer-supplier-msg">
+                <div><%- data.msg %></div>
+                <div id="wk-msg-attachments-container<%- data.id %>"></div>
+            </div>
+            <div class="wk-customer-supplier-msg-time"><%- data.time %></div>
+        </div>
+    <% } %>
+</script>
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/alert',
+        "mage/template",
+        'mage/mage'
+    ], function($, alert, template) {
+        var warningLable = "Warning";
+        var inProcessing = false;
+        $(document).ready(function() {
+            $(".wk-customer-supplier-list-supplier").click(function() {
+                $(".wk-customer-supplier-list-supplier").removeClass("wk-active-list");
+                $(this).addClass("wk-active-list");
+                $(".wk-customer-supplier-msg-container").removeClass("wk-display-none");
+                showLoader();
+                var customerId = $(this).attr("data-ref");
+                $.ajax({
+                    url: "<?= $block->escapeHtml($block->getUrl('b2bmarketplace/customer/fetch')); ?>",
+                    type: 'POST',
+                    data: { ref : customerId, form_key: "<?= /* @noEscape */ $b2bQuoteHelper->getFormKey();?>" },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.error) {
+                        } else {
+                            $(".wk-customer-supplier-msg-body").empty();
+                            $.each(data.chat, function (key, val) {
+                                var msgTemplate = template('#message-template');
+                                var msgHtml = msgTemplate({ data: val });
+                                $(".wk-customer-supplier-msg-body").append(msgHtml);
+
+                                $("#wk-msg-attachments-container"+val.id).html(val.attachments);
+                            });
+
+                            $(".wk-customer-supplier-name").empty();
+                            $(".wk-customer-supplier-name").append(data.name);
+                            $(".wk-customer-supplier-type").empty();
+                            $(".wk-customer-supplier-type").append(data.type);
+                            $(".wk-customer-supplier-msg-body").
+                                animate({ scrollTop: $('.wk-customer-supplier-msg-body').
+                                prop("scrollHeight")}, 1000);
+                        }
+                        if (data.reload) {
+                            location.reload(true);
+                        }
+                        hideLoader();
+                    }
+                });
+            });
+
+            $(".wk-customer-supplier-msg-send-btn").click(function() {
+                inProcessing = true;
+                showLoader();
+                var supplierId = $(".wk-active-list").attr("data-ref");
+                var msg = $(".wk-customer-supplier-msg-box-textarea textarea").val();
+                msg = $.trim(msg);
+                if (msg == "") {
+                    hideLoader();
+                    inProcessing = false;
+                    return false;
+                }
+                $.ajax({
+                    url: "<?= /* @noEscape */ $block->getUrl('b2bmarketplace/message/send'); ?>",
+                    type: 'POST',
+                    data: { ref : supplierId, msg : msg, 
+                        form_key: "<?= /* @noEscape */ $b2bQuoteHelper->getFormKey();?>" },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.error) {
+                            if (data.msg) {
+                                alert({
+                                    content: data.msg
+                                });
+                            }
+                        } else {
+                            data.name = '';
+                            var msgTemplate = template('#message-template');
+                            var msgHtml = msgTemplate({ data: data });
+                            $(".wk-customer-supplier-msg-body").append(msgHtml);
+                            $(".wk-customer-supplier-msg-body").
+                            animate({ scrollTop: $('.wk-customer-supplier-msg-body').
+                                prop("scrollHeight")}, 1000);
+                        }
+                        if (data.reload) {
+                            location.reload(true);
+                        }
+                        $(".wk-customer-supplier-msg-box-textarea textarea").val("");
+                        hideLoader();
+                        inProcessing = false;
+                    }
+                });
+            });
+
+            $(".wk-customer-supplier-list-supplier:first-child").trigger("click");
+
+            $(".wk-customer-supplier-msg-box-textarea").keyup(function(e) {
+                var code = e.which;
+                if (code == 13 && !inProcessing) {
+                    $(".wk-customer-supplier-msg-send-btn").trigger("click");
+                }
+            });
+
+            $(".wk-customer-supplier-search-box").keyup(function() {
+                var val = $(this).val();
+                if (val == "") {
+                    $(".wk-customer-supplier-list-supplier").removeClass("wk-display-none");
+                } else {
+                    val = val.toLowerCase();
+                    setTimeout(function() {
+                        $(".wk-customer-supplier-list-supplier").addClass("wk-display-none");
+                        $(".wk-customer-supplier-list-supplier").each(function () {
+                            var item = $(this);
+                            var txt = $(this).find(".wk-customer-supplier-list-supplier-name").text();
+                            txt = txt.toLowerCase();
+                        
+                            if (txt.indexOf(val) != -1){
+                                item.removeClass("wk-display-none");
+                            }
+                        });
+                    }, 500);
+                }
+            });
+        });
+
+        function showLoader() {
+            $(".wk-loading-mask").removeClass("wk-display-none");
+        }
+
+        function hideLoader() {
+            $(".wk-loading-mask").addClass("wk-display-none");
+        }
+    });
+</script>

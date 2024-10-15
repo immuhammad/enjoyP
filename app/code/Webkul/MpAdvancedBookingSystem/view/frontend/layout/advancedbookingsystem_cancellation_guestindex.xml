@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpAdvancedBookingSystem
+ * @author    Webkul Software Private Limited
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.main.title">
+            <block class="Magento\Sales\Block\Order\Info" name="order.status" template="Magento_Sales::order/order_status.phtml" />
+            <block class="Magento\Sales\Block\Order\Info" name="order.date" template="Magento_Sales::order/order_date.phtml" />
+            <container name="order.actions.container" htmlTag="div" htmlClass="actions-toolbar order-actions-toolbar">
+                <block class="Magento\Sales\Block\Order\Info\Buttons" as="buttons" name="sales.order.info.buttons" cacheable="false">
+                    <block class="Magento\Sales\Block\Order\Info\Buttons\Rss" as="buttons.rss" name="sales.order.info.buttons.rss" cacheable="false"/>
+                </block>
+            </container>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" name="sales.order.booking.info" template="Webkul_MpAdvancedBookingSystem::order/items/cancel/default.phtml" cacheable="false">
+                <block class="Magento\Sales\Block\Order\Item\Renderer\DefaultRenderer" name="item_unit_price" template="Magento_Sales::items/price/unit.phtml"/>
+                <block class="Magento\Sales\Block\Order\Item\Renderer\DefaultRenderer" name="item_row_total" template="Magento_Sales::items/price/row.phtml"/>
+            </block>
+            <referenceBlock name="sales.order.booking.info">
+                <arguments>
+                    <argument name="booking_view_model" xsi:type="object">Webkul\MpAdvancedBookingSystem\ViewModel\BookingView</argument>
+                </arguments>
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</page>

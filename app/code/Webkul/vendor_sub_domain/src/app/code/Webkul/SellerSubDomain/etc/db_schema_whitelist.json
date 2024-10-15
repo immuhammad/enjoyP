@@ -1,0 +1,16 @@
+{
+    "vendor_domain_list": {
+        "column": {
+            "entity_id": true,
+            "seller_id": true,
+            "vendor_store_id": true,
+            "vendor_website_id": true,
+            "vendor_url": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

@@ -1,0 +1,27 @@
+<?php
+    // use to display navigation in marketplace account section left side for seller.
+    $quickOrderBlock =  $block->getLayout()->createBlock(
+        \Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class
+    );
+    $_helper = $quickOrderBlock->helper(\Webkul\Marketplace\Helper\Data::class);
+    $isPartner= $_helper->isSeller();
+    $magentoCurrentUrl = $block->getCurrentUrl();
+    $isSellerGroup = $_helper->isSellerGroupModuleInstalled();
+    ?>
+<?php if ($isPartner): ?>
+    <?php if (($isSellerGroup &&
+    $_helper->isAllowedAction('mpquotesystem/sellerquote/managequote')) ||
+    !$isSellerGroup): ?>
+        <li id="wk-mp-menu-quote" 
+        class="wk-mp-item-quote level-0 <?= /* @noEscape */ strpos($magentoCurrentUrl, 'mpquotesystem') !== false ?
+        "current":"";?>" id="wk-mp-menu-quote">
+            <a href="<?= /* @noEscape */
+            $block->getUrl('mpquotesystem/sellerquote/managequote/', ['_secure' => $block
+            ->getRequest()->isSecure()]); ?>" 
+            class="<?= /* @noEscape */
+            strpos($magentoCurrentUrl, 'mpquotesystem/sellerquote/managequote')? "active":"";?>">
+                <span><?= /* @noEscape */ __('Quotes') ?></span>
+            </a>
+        </li>
+    <?php endif;?>
+<?php endif;?>

@@ -1,0 +1,29 @@
+Legend
+
++ Features
+- Bugs
+
+-------------------------------- Version 4.0.0 --------------------------------------
+	+ Compatible with Magento 2.4
+
+-------------------------------- Version 3.0.1 --------------------------------------
+	+ Compatible with Magento 2.3.*
+
+-------------------------------- Version 3.0.0 --------------------------------------
+	+ Version upgraded.
+
+-------------------------------- Version 2.1.0 --------------------------------------
+	+ Compatible with Magento 2.3.*
+
+-------------------------------- Version 2.0.2 --------------------------------------
+	+ Compatible with Marketplace Shipping Modules
+	+ Compatible with Magento 2.2.*.
+	- Removed unserialize call as per magento version 2.2.*
+
+-------------------------------- Version 2.0.1 --------------------------------------
+	+ Work with magento discount.Split magento discount in each order.
+
+-------------------------------- Version 2.0.0 --------------------------------------
+	+ Can split order according to the seller with single checkout.
+	+ Works with all Multivendor Marketplace shipping Addons.
+	+ Works with Multivendor Marketplace Adaptive Payment Addon.

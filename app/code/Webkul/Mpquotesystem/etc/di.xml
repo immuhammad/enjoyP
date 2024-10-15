@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpquotesystem
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Webkul\Mpquotesystem\Api\QuoteRepositoryInterface" type="Webkul\Mpquotesystem\Model\QuoteRepository" />
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="marketplace_manage_quotes_data_source" xsi:type="string">Webkul\Mpquotesystem\Model\ResourceModel\Quotes\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Webkul\Mpquotesystem\Model\ResourceModel\Quotes\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">marketplace_quotes</argument>
+            <argument name="eventPrefix" xsi:type="string">marketplace_quotes_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">marketplace_quotes_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Mpquotesystem\Model\ResourceModel\Quotes</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Webkul\Marketplace\Observer\CheckoutCartSaveBeforeObserver">
+        <plugin name="Webkul_Mpquotesystem::aroundExecute" type="Webkul\Mpquotesystem\Observer\Plugin\CheckoutCartSaveBeforeObserver" sortOrder="1" />
+    </type>
+    <type name="Webkul\Marketplace\Observer\CheckoutBeforeObserver">
+        <plugin name="Webkul_Mpquotesystem::aroundExecute" type="Webkul\Mpquotesystem\Observer\Plugin\CheckoutBeforeObserver" sortOrder="1" />
+    </type>
+    <type name="Magento\Catalog\Block\Product\Compare\ListCompare">
+        <plugin name="Webkul_Mpquotesystem::listcompare" type="Webkul\Mpquotesystem\Plugin\Catalog\Block\Product\Compare\ListCompare" sortOrder="1" />
+    </type>
+    <!-- Overwrite quote item model to manage quote product -->
+    <preference for="Magento\Quote\Model\Quote\Item" type="Webkul\Mpquotesystem\Model\Quote\Item"/>
+
+    <type name="\Magento\Sales\Block\Adminhtml\Items\Column\Name">
+        <plugin name="Webkul_Mpquotesystem::aroundExecute" type="Webkul\Mpquotesystem\Block\Adminhtml\Sales\Items\Column\Name" sortOrder="1" />
+    </type>
+    <type name="\Magento\Catalog\Block\Product\Compare\ListCompare">
+        <plugin name="Webkul_Mpquotesystem::afterGetAttributes" type="Webkul\Mpquotesystem\Plugin\Block\Product\Compare\ListCompare" sortOrder="1" />
+    </type>
+    <type name="\Magento\Quote\Model\QuoteManagement">
+        <plugin name="Webkul_Mpquotesystem::afterSubmit" type="Webkul\Mpquotesystem\Plugin\AfterSubmitPlugin" sortOrder="1" />
+    </type>
+    <type name="Magento\Checkout\Model\Cart">
+        <plugin name="interceptAddingProductToCart" type="Webkul\Mpquotesystem\Plugin\Checkout\Model\Cart" sortOrder="10"/>
+    </type>
+</config>

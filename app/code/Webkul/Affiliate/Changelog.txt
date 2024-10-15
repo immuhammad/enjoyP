@@ -1,0 +1,56 @@
+Legend
+
++ Features
+- Bugs
+
+-------------------------------- Version 4.0.1 --------------------------------------
+    + Compatible with Magento 2.4.x.
+	- Fixed minor issue
+
+-------------------------------- Version 4.0.0 --------------------------------------
+    + Compatible with Magento 2.4.x.
+
+-------------------------------- Version 3.0.0 --------------------------------------
+	+ Fixed Issues
+	- Remove Refer Url Compare functionality
+
+-------------------------------- Version 2.1.1 --------------------------------------
+	+ Refer Url Compare functionality added
+
+-------------------------------- Version 2.1.0 --------------------------------------
+	+ Compatible with Magento 2.3.x
+
+-------------------------------- Version 2.0.2 --------------------------------------
+	+ Category wise commission functionality added
+
+-------------------------------- Version 2.0.1 --------------------------------------
+	+ Compatible with Magento 2.2.x
+	+ Installable through composer	
+
+-------------------------------- Version 2.0.0 --------------------------------------
+	+ Fixed Issues
+
+	AFFILIATE USER:
+
+	+ Separate user panel for Affiliate User.
+	+ Send blog link approval request to admin.
+	+ After approval from admin all products link will be available for banner.
+	+ Also text banners created by admin will be appear at affiliate panel.
+	+ On clicks or sales of product affiliate will get the commission. 
+	+ Can see the summary of clicks and sales.
+	+ Can see the commission rate of each seller.
+	+ Can see the sold product detail.
+	+ Prefered Payment method filled by affiliate.
+	+ Able to see Paid summary from the admin.
+	+ Affiliate user can send the email to friends with product links to increase sales of products.
+	
+
+	ADMIN:
+	
+	+ Admin can approve/unapprove affiliate.
+	+ Admin can change the blog url for affiliate.
+	+ Admin can set the payment method for affiliate.
+	+ Admin can control the Affiliate registration.
+	+ Manage the affiliate request, admin can approve, unapprove and delete the request.
+	+ Manage the commission rate for Affiliate.
+	+ Admin can Create/Edit/Delete the text banners.

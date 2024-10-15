@@ -1,0 +1,95 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpVendorAttributeManager
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$viewModel = $block->getViewModel();
+if ($viewModel === null) {
+    /**
+     * For backward compatibility with Marketplace old versions
+     */
+    $helperViewModel = $block->getLayout()->createBlock(
+        \Webkul\MpVendorAttributeManager\Block\GetViewModel::class
+    )->getHelperViewModel();
+    $helper = $helperViewModel->getMarketplaceHelper();
+} else {
+    $helper = $viewModel->getHelper();
+}
+
+$registrationBlockStatus = $helper->getConfigValue(
+    'landingpage_settings',
+    'allow_seller_registration_block'
+);
+$pageLayoutValue = $helper->getConfigValue(
+    'landingpage_settings',
+    'pageLayout'
+);
+if ($pageLayoutValue != 1 && $registrationBlockStatus == 0) {
+    $accountCreateUrl = $block->getUrl(
+        'marketplace/index/index',
+        ["_secure" => $block->getRequest()->isSecure()]
+    );
+} else {
+    $accountCreateUrl = $block->getUrl(
+        'customer/account/create',
+        ["_secure" => $block->getRequest()->isSecure(), "v" => 1]
+    );
+}
+?>
+<form class="form form-login"
+    action="<?= $block->escapeUrl($block->getPostActionUrl()) ?>"
+    method="post"
+    id="login-form"
+    data-mage-init='{"validation":{}}'>
+    <?= $block->getBlockHtml('formkey') ?>
+    <fieldset class="fieldset login" data-hasrequired="<?=
+    $escaper->escapeHtml(__('* Required Fields')) ?>">
+        <div class="field note"><?= $escaper
+        ->escapeHtml(__('If you have an account, sign in with your email address.')) ?></div>
+        <div class="field email required">
+            <label class="label" for="email"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
+            <div class="control">
+                <input name="login[username]" 
+                value="<?= $escaper->escapeHtml($block->getUsername()) ?>" 
+                <?php if ($block->isAutocompleteDisabled()): ?> 
+                    autocomplete="off"<?php endif; ?> id="email" type="email" 
+                    class="input-text" title="<?= $escaper->escapeHtml(__('Email')) ?>"
+                     data-validate="{required:true, 'validate-email':true}">
+            </div>
+        </div>
+        <div class="field password required">
+            <label for="pass" class="label"><span><?= $block->escapeHtml(__('Password')) ?></span></label>
+            <div class="control">
+                <input name="login[password]" type="password" 
+                <?php if ($block->isAutocompleteDisabled()): ?> 
+                    autocomplete="off"<?php endif; ?> class="input-text" id="pass" 
+                    title="<?= $escaper->escapeHtml(__('Password')) ?>" data-validate="{required:true}">
+            </div>
+        </div>
+        <?= $block->getChildHtml('form_additional_info') ?>
+        <div class="form-actions">
+            <div class="actions">
+                <button type="submit" class="action-login action-primary">
+                    <span><?= /* @noEscape */$block->escapeHtml(__('Sign in')) ?></span>
+                </button>
+                <?= $block->getChildHtml('form.additional.buttons') ?>
+            </div>
+            <div class="secondary">
+                <a class="action remind" href="<?= $block->escapeUrl($block->getForgotPasswordUrl()) ?>">
+                    <span><?= $block->escapeHtml(__('Forgot Your Password?')) ?></span>
+                </a>
+            </div>
+            <div class="secondary">
+                <a class="action remind" href="<?= $block->escapeUrl($accountCreateUrl) ?>" target="blank">
+                    <span><?= $block->escapeHtml(__("Don't have account? Click here to register")) ?></span>
+                </a>
+            </div>
+        </div>
+    </fieldset>
+    <input type="hidden" name="vendor_login" value="1"/>
+</form>

@@ -1,0 +1,37 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category Webkul
+ * @package Webkul_Mpperproductshipping
+ * @author Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license https://store.webkul.com/license.html
+ */
+    $helper = $block->getHelperClass();
+    $params = $block->getParams();
+    $productId = isset($params['id']) ? $params['id']: '';
+    $productColl = $block->getProduct()->load($productId);
+    $shipcharges = $productColl->getMpShippingCharge();
+    $productTypeArray = ['virtual','downloadable'];
+    $productType = '';
+if ($productColl->getTypeId()) {
+    $productType = $productColl->getTypeId();
+} else {
+    $productType = $params['type'];
+}
+?>
+<?php if ($helper->getIsActive() && !in_array($productType, $productTypeArray)) {
+
+    ?>
+        <div class="field">
+            <label class="label"><?= /* @noEscape */ __('Shipping Cost') ?>
+              <b><?= /* @noEscape */ " (". $helper->getCurrencySymbol() .")"; ?></b>:
+            </label>
+                <div class="input-box">
+                    <input type="text" class="validate-zero-or-greater input-text"
+                    value="<?= /* @noEscape */ $block->escapeHtml($shipcharges);?>"
+                    name="product[mp_shipping_charge]" id="mp_shipping_charge"/>
+                </div>
+        </div>
+    <?php } ?>

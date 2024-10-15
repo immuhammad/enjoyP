@@ -1,0 +1,265 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Marketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="wk_b2b_message_history" resource="default" engine="innodb" comment="B2B Message History">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="list_id" unsigned="true" nullable="false" identity="false" padding="10" default="0" comment="List Id"/>
+        <column xsi:type="int" name="sender_id" unsigned="true" nullable="false" identity="false" padding="10" default="0" comment="Sender Id"/>
+        <column xsi:type="int" name="receiver_id" unsigned="true" nullable="false" identity="false" padding="10" default="0" comment="Receiver Id"/>
+        <column xsi:type="int" name="parent_id" unsigned="true" nullable="false" identity="false" padding="10" default="0" comment="Parent Id"/>
+        <column xsi:type="int" name="seen_status" unsigned="true" nullable="false" identity="false" padding="10" default="0" comment="Seen Status"/>
+        <column xsi:type="text" name="msg" nullable="true" comment="Message"/>
+        <column xsi:type="int" name="type" unsigned="true" nullable="false" identity="false" padding="10" default="0" comment="Type"/>
+        <column xsi:type="int" name="response_rate_cal_flag" unsigned="true" nullable="false" identity="false" padding="10" default="0" comment="Type"/>
+        <constraint xsi:type="foreign" referenceId="WK_B2B_MESSAGE_HISTORY_SELLER_ID_ENTITY_ID" table="wk_b2b_message_history" column="sender_id" referenceTable="customer_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <column xsi:type="timestamp" name="created_at" comment="Import Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <index referenceId="WK_B2B_MESSAGE_HISTORY" indexType="btree">
+            <column name="id"/>
+        </index>
+    </table>
+
+    <table name="wk_b2b_message_list" resource="default" engine="innodb" comment="B2B MESSAGE LIST">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="supplier_id" unsigned="true" nullable="false" default="0" identity="false" padding="10" comment="Supplier Id"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="false" default="0" identity="false" padding="10" comment="Customer Id"/>
+        <column xsi:type="int" name="customer_status" unsigned="true" nullable="false" default="0" identity="false" padding="10" comment="Customer Status"/>
+        <column xsi:type="int" name="supplier_status" unsigned="true" nullable="false" default="0" identity="false" padding="10" comment="supplier_status"/>
+        <column xsi:type="timestamp" name="created_at" comment="Import Time"/>
+        <constraint xsi:type="foreign" referenceId="WK_B2B_MESSAGE_LIST_SELLER_ID_ENTITY_ID" table="wk_b2b_message_list" column="supplier_id" referenceTable="customer_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <index referenceId="WK_B2B_MESSAGE_LIST" indexType="btree">
+            <column name="id"/>
+        </index>
+    </table>
+
+    <table name="wk_message_attachments" resource="default" engine="innodb" comment="Mp Shopify Synchronize Product">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="msg_id" unsigned="true" nullable="false" default="0" identity="false" padding="10" comment="Message Id"/>
+        <column xsi:type="int" name="type" unsigned="true" nullable="false" default="0" identity="false" padding="10" comment="Type"/>
+        <column xsi:type="text" name="value" comment="value"/>
+        <column xsi:type="timestamp" name="created_at" comment="Import Time"/>
+        <column xsi:type="text" name="file_name" comment="file_name"/>
+        <constraint xsi:type="foreign" referenceId="WK_MESSAGE_ATTACHMENT_MSGID_ID" table="wk_message_attachments" column="msg_id" 
+        referenceTable="wk_b2b_message_history" referenceColumn="id" onDelete="CASCADE"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <index referenceId="WK_B2B_MESSAGE_ATTACHMENT" indexType="btree">
+            <column name="id"/>
+        </index>
+    </table>
+
+    <table name="marketplace_userdata" resource="default" engine="innodb" comment="Mp Shopify Synchronize Product">
+        <column xsi:type="int" name="default_address_id" unsigned="true" nullable="false" padding="10" identity="false" comment="Addresss Id"/>
+        <column xsi:type="int" name="operational_address_id" unsigned="true" nullable="false" default="0" identity="false" padding="10" comment="Message Id"/>
+        <column xsi:type="int" name="corporate_address_id" unsigned="true" nullable="false" default="0" identity="false" padding="10" comment="corporate_address_id"/>
+        <column xsi:type="text" name="token" comment="token"/>
+    </table>
+
+    <table name="wk_b2b_requestforquote_buying_leads" resource="default" engine="innodb" comment="Mp Shopify Synchronize Order Table">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="quote_id" unsigned="true" nullable="false" identity="false" padding="10" default="0" comment="quote_id"/>
+        <column xsi:type="int" name="quote_item_id" unsigned="true" nullable="false" identity="false" padding="10" default="0" comment="quote_item_id"/>
+        <column xsi:type="int" name="seller_id" unsigned="true" nullable="false" identity="false" padding="10" default="0" comment="quote_id"/>
+        <column xsi:type="timestamp" name="expiry_date" comment="expiry_date"/>
+        <column xsi:type="timestamp" name="created_at" comment="created_at"/>
+        <constraint xsi:type="foreign" referenceId="WK_B2B_REQUESTFORQUOTE_BUYINGLEADS_SELLERID_ENTITY_ID" table="wk_b2b_requestforquote_buying_leads" column="seller_id" referenceTable="customer_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="WK_B2B_REQUESTFORQUOTE_BUYINGLEADS" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+    </table>
+
+    <table name="wk_b2b_requestforquote_quote" resource="default" engine="innodb" comment="shopify Synchronize Category Specifications Table">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="false" padding="10" comment="customer_id"/>
+        <column xsi:type="int" name="status" default="0" unsigned="true" nullable="false"  comment="status"/>
+        <column xsi:type="text" name="quote_title" comment="quote_title"/>
+        <column xsi:type="text" name="quote_desc" comment="quote_desc"/>
+        <column xsi:type="text" name="customer_name" comment="customer_name"/>
+        <column xsi:type="text" name="customer_company_name" comment="customer_company_name"/>
+        <column xsi:type="text" name="customer_address" comment="customer_address"/>
+        <column xsi:type="text" name="customer_contact_no" comment="customer_contact_no"/>
+        <column xsi:type="text" name="attachments" comment="attachments"/>
+        <column xsi:type="int" name="forward_quote" default="0" unsigned="true" nullable="false"  comment="forward_quote"/>
+        <column xsi:type="int" name="is_buying_lead" default="0" unsigned="true" nullable="false"  comment="is_buying_lead"/>
+        <column xsi:type="timestamp" name="created_at" comment="created_at"/>
+        <column xsi:type="timestamp" name="updated_at" comment="updated_at"/>
+        <constraint xsi:type="foreign" referenceId="WK_B2B_REQUESTFORQUOTE_QUOTE_CUSTID_ENTITY_ID" table="wk_b2b_requestforquote_quote" 
+        column="customer_id" referenceTable="customer_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="WK_B2B_REQUESTFORQUOTE_QUOTE" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+    </table>
+
+    <table name="wk_b2b_requestforquote_quote_conversation" resource="default" engine="innodb" comment="shopify imported products temp table">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="seller_quote_id" comment="seller_quote_id"/>
+        <column xsi:type="text" name="response" comment="response"/>
+        <column xsi:type="text" name="sample_images" comment="sample_images"/>
+        <column xsi:type="int" name="sender_type" unsigned="true" nullable="false" comment="sender_type"/>
+        <column xsi:type="int" name="item_id" unsigned="true" nullable="false" comment="item_id"/>
+        <column xsi:type="int" name="sender_id" unsigned="true" nullable="false" padding="10" comment="sender_id"/>
+        <column xsi:type="int" name="receiver_id" unsigned="true" nullable="false" comment="receiver_id"/>
+        <column xsi:type="int" name="quote_status" unsigned="true" nullable="false" comment="quote_status"/>
+        <column xsi:type="timestamp" name="created_at" comment="created_at"/>
+        <column xsi:type="timestamp" name="updated_at" comment="updated_at"/>
+        <column xsi:type="int" name="rule_id" unsigned="true" nullable="false" comment="customer rule id"/>
+        <constraint xsi:type="foreign" referenceId="WK_B2B_REQUESTFORQUOTE_QUOTE_CONV_CUSTID_ENTITY_ID" 
+        table="wk_b2b_requestforquote_quote_conversation" column="sender_id" referenceTable="customer_entity" 
+        referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="WK_B2B_REQUESTFORQUOTE_QUOTE_CONVERSATION" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+    </table>
+
+    <table name="wk_b2b_requestforquote_quote_item" resource="default" engine="innodb" comment="shopify Sellers Details">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="quote_id" unsigned="true" nullable="false" padding="10" comment="quote_id"/>
+        <column xsi:type="int" name="seller_id" default="0" unsigned="true" nullable="false" comment="seller_id"/>
+        <column xsi:type="int" name="product_id" default="0" unsigned="true" nullable="false" comment="product_id"/>
+        <column xsi:type="text" name="name" comment="name"/>
+        <column xsi:type="text" name="description" comment="description"/>
+        <column xsi:type="int" name="qty" default="0" unsigned="true" nullable="false" comment="qty"/>
+        <column xsi:type="decimal" name="currency_rate" scale="4" precision="12" default="0.0000" unsigned="false" nullable="false" comment="currency_rate"/>
+        <column xsi:type="decimal" name="price" scale="4" precision="12" default="0.0000" unsigned="false" nullable="false" comment="price"/>
+        <column xsi:type="int" name="has_samples" default="0" unsigned="true" nullable="false" comment="has_samples"/>
+        <!-- <column xsi:type="text" name="samples" comment="samples"/> -->
+        <column xsi:type="int" name="status" default="0" unsigned="true" nullable="false" comment="status"/>
+        <column xsi:type="int" name="buying_lead_status" default="0" unsigned="true" nullable="false" comment="buying_lead_status"/>
+        <column xsi:type="int" name="forward_quote" default="0" unsigned="true" nullable="false" comment="forward_quote"/>
+        <column xsi:type="text" name="categories" comment="categories"/>
+        <constraint xsi:type="foreign" referenceId="WK_B2B_REQUESTFORQUOTE_QUOTE_ITEM_SENDID_ENTITY_ID" 
+        table="wk_b2b_requestforquote_quote_item" column="quote_id" referenceTable="wk_b2b_requestforquote_quote" 
+        referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="WK_B2B_REQUESTFORQUOTE_QUOTE_ITEM" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+    </table>
+
+    <table name="wk_b2b_requestforquote_quote_products" resource="default" engine="innodb" comment="Shopify Product Price Rule">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="quote_id" unsigned="true" nullable="false" identity="false" padding="10" default="0" comment="quote_id"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="false" identity="false" padding="10" default="0" comment="product_id"/>
+        <column xsi:type="int" name="approved_quote_id" default="0" comment="approved_quote_id"/>
+        <column xsi:type="int" name="original_product_id" default="0" comment="original_product_id"/>
+        <column xsi:type="int" name="mage_quote_item_id" default="0" comment="mage_quote_item_id"/>
+        <column xsi:type="int" name="mage_order_item_id" default="0" comment="mage_order_item_id"/>
+        <column xsi:type="int" name="status" default="0" comment="status"/>
+        <column xsi:type="timestamp" name="created_at" comment="Import Time"/>
+        <constraint xsi:type="foreign" referenceId="WK_B2B_REQUESTFORQUOTE_QUOTE_PRODUCTS_PRODUCTID_ENTITYID" table="wk_b2b_requestforquote_quote_products" column="product_id" referenceTable="catalog_product_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="WK_B2B_REQUESTFORQUOTE_QUOTE_PRODUCTS" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+    </table>
+
+    <table name="wk_b2b_requestforquote_sent_quotes" resource="default" engine="innodb" comment="wk_b2b_requestforquote_sent_quotes">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="request_id" default="0" comment="request_id"/>
+        <column xsi:type="int" name="quote_id" default="0" comment="quote_id"/>
+        <column xsi:type="int" name="quote_item_id" default="0" comment="quote_item_id"/>
+        <column xsi:type="int" name="seller_id" unsigned="true" nullable="false" identity="false" padding="10" default="0" comment="seller_id"/>
+        <column xsi:type="decimal" name="currency_rate" scale="4" precision="12" default="0.0000" unsigned="false" nullable="false" comment="currency_rate"/>
+        <column xsi:type="decimal" name="price" scale="4" precision="12" default="0.0000" unsigned="false" nullable="false" comment="price"/>
+        <column xsi:type="int" name="qty" default="0" comment="qty"/>
+        <column xsi:type="int" name="status" default="0" comment="status"/>
+        <column xsi:type="int" name="customer_status" default="0" comment="customer_status"/>
+        <column xsi:type="text" name="has_samples" comment="has_samples"/>
+        <column xsi:type="int" name="sample_unit" default="0" comment="sample_unit"/>
+        <column xsi:type="decimal" name="sample_charges" scale="4" precision="12" default="0.0000" unsigned="false" nullable="false" comment="sample_charges"/>
+        <column xsi:type="decimal" name="sample_charge_per_unit" scale="4" precision="12" default="0.0000" unsigned="false" nullable="false" comment="sample_charge_per_unit"/>
+        <column xsi:type="int" name="shipping_days" default="0" comment="shipping_days"/>
+        <column xsi:type="decimal" name="shipping_charges" scale="4" precision="12" default="0.0000" unsigned="false" nullable="false" comment="shipping_charges"/>
+        <column xsi:type="decimal" name="shipping_charge_per_unit" scale="4" precision="12" default="0.0000" unsigned="false" nullable="false" comment="shipping_charge_per_unit"/>
+        <column xsi:type="timestamp" name="created_at" comment="Import Time"/>
+        <constraint xsi:type="foreign" referenceId="WK_B2B_REQUESTFORQUOTE_SENT_QUOTES_SELLERID_ENTITYID" table="wk_b2b_requestforquote_sent_quotes" column="seller_id" referenceTable="customer_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="WK_MP_MULTISHOPIFYSYNC_CATEGORY_SPEC" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+    </table>
+    <table name="wk_b2b_supplier_categories" resource="default" engine="innodb" comment="wk_b2b_supplier_categories">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="supplier_id" unsigned="true" nullable="false" identity="false" padding="10" default="0" comment="supplier_id"/>
+        <column xsi:type="int" name="category_id" unsigned="true" nullable="false" identity="false" padding="10" default="0" comment="category_id"/>
+        <constraint xsi:type="foreign" referenceId="WK_B2B_SUPPLIER_CATEGORIES_SUPID_ENTITYID" table="wk_b2b_supplier_categories" column="supplier_id" referenceTable="customer_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="WK_B2B_SUPPLIER_CATEGORIES_CATID_ENTITYID" table="wk_b2b_supplier_categories" column="category_id" referenceTable="catalog_category_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="WK_MP_MULTISHOPIFYSYNC_CATEGORY_SPEC" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+    </table>
+    <table name="wk_b2b_quote_attachment" resource="default" engine="innodb" comment="wk_b2b_quote_attachment">
+        <column xsi:type="int" name="attachment_id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="quote_id" unsigned="true" nullable="false" identity="false" padding="10" default="0" comment="quote_id"/>
+        <column xsi:type="text" name="file_name" comment="file_name"/>
+        <column xsi:type="text" name="file_path" comment="file_path"/>
+        <column xsi:type="int" name="category_id" default="0" comment="category_id"/>
+        <constraint xsi:type="foreign" referenceId="WK_B2B_QUOTE_ATTCHMNT_ENTID_ENTITYID" table="wk_b2b_quote_attachment" column="quote_id" referenceTable="wk_b2b_requestforquote_quote" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="attachment_id"/>
+        </constraint>
+        <index referenceId="WK_MP_MULTISHOPIFYSYNC_CATEGORY_SPEC" indexType="btree">
+            <column name="attachment_id"/>
+        </index>
+    </table>
+    <table name="wk_b2b_quote_item_attachment" resource="default" engine="innodb" comment="wk_b2b_quote_item_attachment">
+        <column xsi:type="int" name="attachment_id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="quote_item_id" unsigned="true" nullable="false" identity="false" padding="10" default="0" comment="quote_item_id"/>
+        <column xsi:type="text" name="file_name" comment="file_name"/>
+        <column xsi:type="text" name="file_path" comment="file_path"/>
+        <constraint xsi:type="foreign" referenceId="WK_B2B_QUOTE_ITEM_ATTCHMNT_ENTID_ENTITYID" table="wk_b2b_quote_item_attachment" column="quote_item_id" referenceTable="wk_b2b_requestforquote_quote_item" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="attachment_id"/>
+        </constraint>
+        <index referenceId="WK_MP_MULTISHOPIFYSYNC_CATEGORY_SPEC" indexType="btree">
+            <column name="attachment_id"/>
+        </index>
+    </table>
+    <table name="wk_b2b_quote_conversation_attachment" resource="default" engine="innodb" comment="wk_b2b_quote_conversation_attachment">
+        <column xsi:type="int" name="attachment_id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="quote_conversation_id" unsigned="true" nullable="false" identity="false" padding="10" default="0" comment="quote_conversation_id"/>
+        <column xsi:type="text" name="file_name" comment="file_name"/>
+        <column xsi:type="text" name="file_path" comment="file_path"/>
+        <constraint xsi:type="foreign" referenceId="WK_B2B_QUOTE_ITEM_ATTCHMNT_ENTID_ENTITYID" table="wk_b2b_quote_conversation_attachment" column="quote_conversation_id" referenceTable="wk_b2b_requestforquote_quote_conversation" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="attachment_id"/>
+        </constraint>
+        <index referenceId="WK_MP_MULTISHOPIFYSYNC_CATEGORY_SPEC" indexType="btree">
+            <column name="attachment_id"/>
+        </index>
+    </table>
+</schema>

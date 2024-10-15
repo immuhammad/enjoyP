@@ -1,0 +1,96 @@
+<?php
+/**
+ * Webkul Affiliate User Summary template.
+ * @category  Webkul
+ * @package   Webkul_Affiliate
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+$isAffiliate = $block->isAffiliate();
+$summery = $block->getSummeryDetail();
+
+$config = $block->getAffiliateConfig();
+if ($isAffiliate && $config['enable']) { ?>
+    <fieldset class="info wk-affiliate-fieldset fieldset" id="affiliate-user">
+    <div class="table-wrapper summary">
+        <span class="wk-heading"><h2><?= /* @noEscape */ __('Over All Record')?></h2></span>
+        <div>
+            <div class="wk-box">
+                <div class="wk-digit"> 
+                    <a href="<?= /* @noEscape */ $block->getTrafficRecordUrl(0)?>">
+                     <?= /* @noEscape */ $summery['clicks']?>
+                    </a>
+                </div>
+                <div class="wk-text">
+                    <?= /* @noEscape */ __('Clicks')?>
+                </div>
+            </div>
+            <div class="wk-box">
+                <div class="wk-digit"> 
+                    <a href="<?= /* @noEscape */ $block->getTrafficRecordUrl(1)?>">
+                        <?= /* @noEscape */ $summery['unique_clicks']?>
+                    </a>
+                </div>
+                <div class="wk-text">
+                    <?= /* @noEscape */ __('Unique Clicks')?>
+                </div>
+            </div>
+            <div class="wk-box">
+                <div class="wk-digit"> 
+                    <?= /* @noEscape */ $summery['approved_sales']?>
+                </div>
+                <div class="wk-text">
+                    <?= /* @noEscape */ __('Approved Sales')?>
+                </div>
+            </div>
+            <div class="wk-box">
+                <div class="wk-digit"> 
+                    <?= /* @noEscape */ $summery['pending_sales']?>
+                </div>
+                <div class="wk-text">
+                    <?= /* @noEscape */ __('Pending Sales')?>
+                </div>
+            </div>
+            <div class="wk-box">
+                <div class="wk-digit"> 
+                    <?= /* @noEscape */ $summery['balance']?>
+                </div>
+                <div class="wk-text">
+                    <?= /* @noEscape */ __('Balance')?>
+                </div>
+            </div>
+    </div>
+    <?php if ($commissionDetail = $block->getAffCommissionDetail()) { ?>
+        <span ><h2 style="margin-top: 20px;"><?= /* @noEscape */ __('Commission Rates')?></h2></span> 
+        <div>
+            <div class="wk-box">
+                <div class="wk-digit"> 
+                    <?= /* @noEscape */ $commissionDetail['pay_per_click']?>
+                </div>
+                <div class="wk-text">
+                    <?= /* @noEscape */ __('Per Click')?>
+                </div>
+            </div>
+            <div class="wk-box">
+                <div class="wk-digit"> 
+                    <?= /* @noEscape */ $commissionDetail['pay_per_unique_click']?>
+                </div>
+                <div class="wk-text">
+                    <?= /* @noEscape */ __('Per Unique Click')?>
+                </div>
+            </div>
+            <div class="wk-box">
+                <div class="wk-digit"> 
+                    <?= /* @noEscape */ $commissionDetail['per_sale']?>
+                </div>
+                <div class="wk-text">
+                    <?= /* @noEscape */ __('Per Sale')?>
+                </div>
+            </div>
+        </div> 
+    <?php } ?>  
+    </div>
+    </fieldset>
+<?php } ?>

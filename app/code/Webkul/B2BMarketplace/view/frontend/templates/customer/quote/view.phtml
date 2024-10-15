@@ -1,0 +1,186 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $helper = $block->helper('Webkul\B2BMarketplace\Helper\Quote');
+    $id = $block->getRequest()->getParam('id');
+    $rquestedQuoteItems = $block->getAllRequestedQuoteItems();
+    $quote = $block->getQuoteInfo();
+    $quoteId = $quote->getId();
+    $quoteAttachments = $block->getQuoteAttachments($quote->getId());
+    $mediaUrl = $block->helper('Webkul\B2BMarketplace\Helper\Data')->getMediaUrl();
+?>
+<div class="wk-mp-qs-info-container">
+    <div class="wk-mp-qs-data-title">
+        <h2><?= /* @noEscape */ __('Requested Quote for : %1', $quote->getQuoteTitle())?></h2>
+    </div>
+    <div class="wk-mp-qs-data-row">
+        <span><strong><?= /* @noEscape */ __('Created At : ')?></strong></span>
+        <span>
+            <?= /* @noEscape */
+            $block->helper('Webkul\B2BMarketplace\Helper\Data')->formatDate(
+                $quote->getCreatedAt(),
+                \IntlDateFormatter::LONG,
+                true
+            );
+            ?>
+        </span>
+    </div>
+    <div class="wk-mp-qs-data-row">
+        <span><strong><?= /* @noEscape */ __('Description : ')?></strong></span>
+        <span><?= /* @noEscape */ $quote->getQuoteDesc()?></span>
+    </div>
+    <?php if (!empty($quoteAttachments)): ?>
+        <div class="wk-mp-qs-data-row">
+            <span><strong><?= /* @noEscape */ __('Attachments : ')?></strong></span>
+            <span class="wk-mp-qs-summary-quote-attachments">
+                <?php
+                foreach ($quoteAttachments as $file) { ?>
+                    <?php /** @var $file \Webkul\B2BMarketplace\Model\QuoteAttachment */ ?>
+                    <a class="wk-msg-attachment" 
+                    href="<?= /* @noEscape */ $block
+                    ->getAttachmentUrl($file->getAttachmentId()) ?>"
+                        title="<?= /* @noEscape */ $file->getFileName() ?>">
+                        <?= /* @noEscape */ $file->getFileName() ?>
+                    </a>
+                    <?php
+                } ?>
+            </span>
+        </div>
+    <?php endif; ?>
+</div>
+<div class="wk-mp-qs-products-container">
+    <div class="wk-mp-qs-data-header">
+        <?= /* @noEscape */ __("Requested Quote for %1 Product(s)", $rquestedQuoteItems->getSize()); ?>
+    </div>
+
+    <?php foreach ($rquestedQuoteItems as $item): ?>
+        <?php
+            $itemId = $item->getEntityId();
+            $sampleImages = $block->getQuoteItemAttachments($itemId);
+        ?>
+        <div class="wk-mp-qs-item-container wk-closed">
+            <div class="wk-mp-qs-item-row wk-primary-row">
+                <div class="wk-mp-qs-item-name">
+                    <?= /* @noEscape */ $item->getName(); ?>
+                </div>
+                <div class="wk-mp-qs-item-action">
+                    <span class="wk-info-btn">
+                        <span class="wk-show-info-label"><?= /* @noEscape */ __("Show Info"); ?></span>
+                        <span class="wk-hide-info-label"><?= /* @noEscape */ __("Hide Info"); ?></span>
+                    </span>
+                </div>
+            </div>
+            <div class="wk-mp-qs-item-row">
+                <div class="wk-mp-qs-item-desc wk-open-desc">
+                    <span class="wk-mp-qs-item-desc-label wk-show-desc-label">
+                    <?= /* @noEscape */ __("Show Description"); ?></span>
+                    <span class="wk-mp-qs-item-desc-label wk-hide-desc-label">
+                    <?= /* @noEscape */ __("Hide Description"); ?></span>
+                    <span class="wk-mp-qs-item-desc-content">
+                        <?= /* @noEscape */ $item->getDescription(); ?>
+                    </span>
+                </div>
+            </div>
+            <div class="wk-mp-qs-item-row wk-primary-row">
+                <div class="wk-mp-qs-item-col">
+                    <span class="wk-mp-qs-item-label">
+                    <?= /* @noEscape */ __("Quantity"); ?> - </span>
+                    <span class="wk-mp-qs-item-content">
+                    <?= /* @noEscape */ __("%1 Units", $item->getQty()); ?></span>
+                </div>
+                <div class="wk-mp-qs-item-col">
+                    <span class="wk-mp-qs-item-label"><?= /* @noEscape */ __("Expected Price"); ?> - </span>
+                    <span class="wk-mp-qs-item-content">
+                        <?= /* @noEscape */ __("%1 Per Unit", $helper->getFormattedPrice($item->getPrice())); ?>
+                    </span>
+                </div>
+                <div class="wk-mp-qs-item-col">
+                    <span class="wk-mp-qs-item-label"><?= /* @noEscape */ __("Expected Total"); ?> - </span>
+                    <span class="wk-mp-qs-item-content">
+                        <?= /* @noEscape */ $helper->getFormattedPrice(($item->getQty()*$item->getPrice())); ?>
+                    </span>
+                </div>
+            </div>
+            <div class="wk-mp-qs-item-row wk-primary-row">
+                <div class="wk-mp-qs-item-col">
+                    <span class="wk-mp-qs-item-label"><?= /* @noEscape */ __("Requires Samples"); ?> - </span>
+                    <span class="wk-mp-qs-item-content">
+                    <?= /* @noEscape */ $helper->getSampleRequiredLabel($item->getHasSamples()) ?>
+                    </span>
+                </div>
+            </div>
+            <?php if ($item->getHasSamples() && !empty($sampleImages)): ?>
+                <div class="wk-mp-qs-item-row">
+                    <div class="wk-mp-qs-sample-image wk-open-sample">
+                        <span class="wk-mp-qs-sample-image-label wk-show-sample-label">
+                        <?= /* @noEscape */ __("Show Sample Images"); ?></span>
+                        <span class="wk-mp-qs-sample-image-label wk-hide-sample-label">
+                        <?= /* @noEscape */ __("Hide Sample Images"); ?></span>
+                        <div class="wk-mp-qs-sample-image-content">
+                            <?php foreach ($sampleImages as $file): ?>
+                                <div class="wk-mp-qs-sample-image-content-img">
+                                    <?php $sampleUrl = $block
+                                    ->getItemAttachmentUrl($quoteId, $file->getAttachmentId())?>
+                                    <a href="<?= /* @noEscape */ $sampleUrl ?>">
+                                        <img 
+                                            src="<?= /* @noEscape */ $sampleUrl ?>"
+                                            title="<?= /* @noEscape */ $file->getFileName() ?>" />
+                                    </a>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <a href="<?= /* @noEscape */ $block->getUrl('b2bmarketplace/customer/quote', [
+                        'id' => $id,
+                        'item_id' => $item->getEntityId(),
+                        '_secure' => $block->getIsSecure()
+                    ]) ?>">
+                <span><?= /* @noEscape */ __("View Suppliers Reponse"); ?></span>
+            </a>
+        </div>
+    <?php endforeach; ?>
+</div>
+
+<script>
+    require([
+        'jquery'
+    ], function($) {
+
+        $("body").on("click", ".wk-info-btn", function() {
+            if ($(this).hasClass("wk-opened-btn")) {
+                $(this).parent().parent().parent().addClass("wk-closed");
+                $(this).removeClass("wk-opened-btn");
+            } else {
+                $(this).parent().parent().parent().removeClass("wk-closed");
+                $(this).addClass("wk-opened-btn");
+            }
+        });
+
+        $("body").on("click", ".wk-show-desc-label", function() {
+            $(this).parent().addClass("wk-open-desc");
+        });
+
+        $("body").on("click", ".wk-hide-desc-label", function() {
+            $(this).parent().removeClass("wk-open-desc");
+        });
+
+        $("body").on("click", ".wk-show-sample-label", function() {
+            $(this).parent().addClass("wk-open-sample");
+        });
+
+        $("body").on("click", ".wk-hide-sample-label", function() {
+            $(this).parent().removeClass("wk-open-sample");
+        });
+    });
+</script>

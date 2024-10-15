@@ -1,0 +1,240 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+$quickOrderBlock =  $block->getLayout()->createBlock(
+    \Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class
+);
+$partner=$block->getProfileDetail();
+if ($partner['shop_url']) {
+    $helper = $quickOrderBlock->helper(\Webkul\Marketplace\Helper\Data::class);
+    $b2bHelper = $quickOrderBlock->helper('Webkul\B2BMarketplace\Helper\Data');
+    $sellerId = $partner->getSellerId();
+    $supplierInfo = $b2bHelper->getSupplierInfoById($sellerId);
+    $registeredYear = $supplierInfo->getWkSupplierRegisteredIn();
+    $companySize = $supplierInfo->getWkSupplierTeamSize();
+    $certification = $supplierInfo->getWkSupplierCertification();
+    $operationalAddress = $b2bHelper->getRepoAddressById($partner->getOperationalAddressId());
+    $operationalAddr = $b2bHelper->getAddressHtml($operationalAddress);
+    $corporateAddress = $b2bHelper->getRepoAddressById($partner->getCorporateAddressId());
+    $corporateAddr = $b2bHelper->getAddressHtml($corporateAddress);
+    $shopUrl = $block->escapeHtml($partner['shop_url']);
+    $shoptitle = $block->escapeHtml($partner->getShopTitle());
+    if (!$shoptitle) {
+        $shoptitle = $shopUrl;
+    }
+    $requestQuoteUrl = $helper->getRewriteUrl('b2bmarketplace/supplier_profile/requestQuote/shop/'.$shopUrl);
+    $quickOrderUrl = $helper->getRewriteUrl('b2bmarketplace/supplier_profile/quickOrder/shop/'.$shopUrl);
+    if ($helper->getActiveColorPicker()) { ?> 
+        <style>
+            .page-main{
+                background-image:none;
+                background-color:<?= $block->escapeHtml($partner['background_width']);?>;
+            }
+        </style>
+    <?php } ?>
+    <div class="wk-supplier-design">
+        <?= $block->getChildHtml("marketplace_seller_top_block")?>
+        <div class="wk-supplier-collection-container">
+            <div id="products">
+                <?= $block->getChildHtml('marketplace_sellerprofile_featured_products')?>
+                <?= $block->getChildHtml('marketplace_sellerprofile_recently_added_products')?>
+            </div>
+            <?= $block->getChildHtml('marketplace_sellerprofile_rating')?>
+            <div class="wk-supplier-profile-block" id="about-us">
+                <h2 class="wk-supplier-collection-h2"><?= $block->escapeHtml(__("About Company")) ?></h2>
+                <div class="wk-supplier-aboutus-row-container wk-supplier-aboutus-title">
+                    <div>
+                        <a href="<?= $block
+                        ->escapeHtml($helper
+                        ->getRewriteUrl('marketplace/seller/profile/shop/'.
+                        $shopUrl));?>">
+                            <h3><?= $block->escapeHtml($shoptitle)?></h3>
+                        </a>
+                    </div>
+                    <div class="wk-supplier-collection-header-txt">
+                        <?= $block->escapeHtml($supplierInfo
+                        ->getWkSupplierCompanyTagline())?>
+                    </div>
+                </div>
+                <div 
+                class="wk-supplier-aboutus-row-container wk-supplier-collection-header-txt">
+                    <div class="wk-supplier-aboutus-row">
+                        <?= $block->escapeHtml(__('Registered In'))?> - <strong><?= $block
+                        ->escapeHtml($registeredYear)?></strong>
+                    </div>
+                    <div class="wk-supplier-aboutus-row">
+                        <?= $block->escapeHtml(__('Company Team Size'))?> - <strong><?= $block
+                        ->escapeHtml($companySize)?></strong>
+                    </div>
+                    <div class="wk-supplier-aboutus-row">
+                        <?= $block->escapeHtml(__('Certification'))?> - <strong><?= $block
+                        ->escapeHtml($certification)?></strong>
+                    </div>
+                </div>
+                <div class="wk-supplier-aboutus-row-container wk-supplier-collection-header-txt">
+                    <div class="wk-supplier-container-left wk-supplier-collection-location">
+                        <div><?= $block->escapeHtml(__('Operation Address'))?></div>
+                        <div><?= /* @noEscape */ $operationalAddr?></div>
+                    </div>
+                    <div class="wk-supplier-container-left wk-supplier-collection-location">
+                        <div><?= $block->escapeHtml(__('Corporate Address'))?></div>
+                        <div><?= /* @noEscape */ $corporateAddr?></div>
+                    </div>
+                </div>
+                <h3><?= $block->escapeHtml(__('Overview'))?></h3>
+                <div class="wk-supplier-aboutus-data">
+                    <?= /* @noEscape */$partner['company_description'];?>
+                    <?= /* @noEscape */ $block->getChildHtml("marketplace_seller_description")?>
+                </div>
+                <h3><?= $block->escapeHtml(__('Social Channels'))?></h3>
+                <ul class="wk-supplier-social-icons-data">
+                    <?php if ($partner->getFbActive()) { ?>
+                        <li class="wk-supplier-profile-box wk-supplier-icon-wrapper">
+                            <a href="//facebook.com/<?= $block
+                            ->escapeHtml($partner->getFacebookId());?>" target="blank">
+                                <span class="wk-supplier-icon-css wk-supplier-icon-fb" 
+                                title="<?= $block->escapeHtml(__('Check in Facebook'))?>">
+                                    <?= $block->escapeHtml(__('Facebook'))?>
+                                </span>
+                            </a>
+                        </li>
+                        <?php
+                    }
+                    if ($partner->getTwActive()) { ?>
+                        <li class="wk-supplier-profile-box wk-supplier-icon-wrapper">
+                            <a href="//twitter.com/<?= $block
+                            ->escapeHtml($partner->getTwitterId());?>" target="blank">
+                                <span class="wk-supplier-icon-css wk-supplier-icon-tw" 
+                                title="<?= $block->escapeHtml(__('Check in Twitter'))?>">
+                                    <?= $block->escapeHtml(__('Twitter'))?>
+                                </span>
+                            </a>
+                        </li>
+                        <?php
+                    }
+                    if ($partner->getGplusActive()) { ?>
+                        <li class="wk-supplier-profile-box wk-supplier-icon-wrapper">
+                            <a href="//plus.google.com/<?= $block
+                            ->escapeHtml($partner->getGplusId());?>" target="blank">
+                                <span class="wk-supplier-icon-css wk-supplier-icon-gplus" 
+                                title="<?= $block->escapeHtml(__('Check in Google+'))?>">
+                                    <?= $block->escapeHtml(__('Google +'))?>
+                                </span>
+                            </a>
+                        </li>
+                        <?php
+                    }
+                    if ($partner->getVimeoActive()) { ?>
+                        <li class="wk-supplier-profile-box wk-supplier-icon-wrapper">
+                            <a href="//vimeo.com/<?= $block
+                            ->escapeHtml($partner->getVimeoId());?>" target="blank">
+                                <span class="wk-supplier-icon-css wk-supplier-icon-vimeo" 
+                                title="<?= $block->escapeHtml(__('Check in Vimeo'))?>">
+                                    <?= $block->escapeHtml(__('Vimeo'))?>
+                                </span>
+                            </a>
+                        </li>
+                        <?php
+                    }
+                    if ($partner->getYoutubeActive()) { ?>
+                        <li class="wk-supplier-profile-box wk-supplier-icon-wrapper">
+                            <a href="//www.youtube.com/user/<?= $block
+                            ->escapeHtml($partner->getYoutubeId());?>" target="blank">
+                                <span class="wk-supplier-icon-css wk-supplier-icon-youtube" 
+                                title="<?= $block->escapeHtml(__('Check in Youtube'))?>">
+                                    <?= $block->escapeHtml(__('Youtube'))?>
+                                </span>
+                            </a>
+                        </li>
+                        <?php
+                    }
+                    if ($partner->getInstagramActive()) { ?>
+                        <li class="wk-supplier-profile-box wk-supplier-icon-wrapper">
+                            <a href="//www.instagram.com/<?= $block
+                            ->escapeHtml($partner->getInstagramId());?>" target="blank">
+                                <span class="wk-supplier-icon-css wk-supplier-icon-instagram" 
+                                title="<?= $block->escapeHtml(__('Check in Instagram'))?>">
+                                    <?= $block->escapeHtml(__('Instagram'))?>
+                                </span>
+                            </a>
+                        </li>
+                        <?php
+                    }
+                    if ($partner->getPinterestActive()) { ?>
+                        <li class="wk-supplier-profile-box wk-supplier-icon-wrapper">
+                            <a href="//www.pinterest.com/<?= $block
+                            ->escapeHtml($partner->getPinterestId());?>" target="blank">
+                                <span class="wk-supplier-icon-css wk-supplier-icon-pinterest" 
+                                title="<?= $block->escapeHtml(__('Check in Pinterest'))?>">
+                                    <?= $block->escapeHtml(__('Pinterest'))?>
+                                </span>
+                            </a>
+                        </li>
+                        <?php
+                    } ?>
+                </ul>
+            </div>
+            <?php if ($helper->getSellerPolicyApproval()) { ?>    
+                <div class="wk-supplier-profile-block" id="supplier-policies">
+                    <h2 class="wk-supplier-collection-h2"><?= $block->escapeHtml(__("Policies")) ?></h2>
+                    <div class="wk-supplier-policy-block wk-supplier-shipping-policy" id="shipping-policy">
+                        <h3><?= $block->escapeHtml(__("Shipping Policy"))?></h3>
+                        <div class="wk-supplier-policy-block-data">
+                            <?= /* @noEscape */ $partner['shipping_policy'];?>
+                        </div>
+                    </div>
+                    <div class="wk-supplier-policy-block wk-supplier-return-policy" id="return-policy">
+                        <h3><?= $block->escapeHtml(__("Return Policy"))?></h3>
+                        <div class="wk-supplier-policy-block-data">
+                            <?= /* @noEscape */ $partner['return_policy'];?>
+                        </div>
+                    </div>
+                    <?php if (trim((string)$partner['privacy_policy'])) { ?>
+                        <div class="wk-mp-seller-profile-box wk-mp-collection-header-bottom-txt">
+                            <a href="<?= $block->escapeHtml($helper
+                            ->getRewriteUrl('marketplace/seller/policy/shop/'.$shopUrl));?>">
+                                <?= $block->escapeHtml(__('Click Here to View Privacy Policy'))?>
+                            </a>
+                        </div>
+                    <?php } ?>
+                </div>
+            <?php } ?>
+            <?= $block->getChildHtml("supplier_profile_contact_info")?>
+            <div class="wk-supplier-btn-wrapper">
+                <button class="wk-supplier-msg-btn askque">
+                    <span>
+                        <?= $block->escapeHtml(__('Message Supplier'))?>
+                    </span>
+                </button>
+            </div>
+            <div class="wk-supplier-btn-wrapper">
+                <a href="<?= $block->escapeHtml($quickOrderUrl)?>" 
+                title="<?= $block->escapeHtml(__('Quick Order'))?>">
+                    <button class="wk-supplier-quick-order-btn">
+                        <span>
+                            <?= $block->escapeHtml(__('Quick Order'))?>
+                        </span>
+                    </button>
+                </a>
+            </div>
+            <div class="wk-supplier-btn-wrapper">
+                <a href="<?= $block->escapeHtml($requestQuoteUrl)?>" 
+                title="<?= $block->escapeHtml(__('Request a Quote'))?>">
+                    <button class="wk-supplier-request-quote-btn">
+                        <span>
+                            <?= $block->escapeHtml(__('Request a Quote'))?>
+                        </span>
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+<?php }  ?>

@@ -1,0 +1,55 @@
+# Magento 2 generated files
+/generated/
+/var/
+/pub/static/
+/pub/media/
+/app/etc/env.php
+/app/code.zip
+/app/codeb.zip
+
+# Composer dependencies
+/vendor/
+
+# Node.js dependencies
+/node_modules/
+
+# PHPStorm or IDE specific
+.idea/
+
+# Composer lock file (if you want to exclude it from versioning)
+# composer.lock
+
+# Mac OS specific
+.DS_Store
+
+# Windows specific
+Thumbs.db
+
+# PHPUnit result cache
+.phpunit.result.cache
+
+# Varnish configuration
+.varnish/
+
+# Magento 2 caches and logs
+/var/cache/
+/var/log/
+/var/session/
+
+/pub/static/.htaccess
+
+# Exclude local development and personal environment files
+/.env
+/.docker/
+/.local/
+
+# Warden environment files
+.warden/
+
+# Debugging and profiling tools
+.blackfire/
+
+# Magento 2 logs (optional, depending on preference)
+*.log
+
+phpMyAdmin-5.2.0-all-languages.zip

@@ -1,0 +1,24 @@
+<!--@subject {{trans "Welcome to your Store"}} @-->
+<!--@vars {
+"var this.getUrl($store, 'customer/account/')":"Customer Account URL",
+"var customer.email":"Customer Email",
+"var customer.name":"Customer Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting"> {{var name}}{{trans ","}}</p>
+<p>{{trans "Welcome to your store"}}</p>
+<p>
+    {{trans
+        'To sign in to your site, use these credentials to go on <a href="%customer_url">Dashboard</a> page:'
+
+        customer_url=$this.getUrl($store,'marketplace/account/dashboard/',[_nosid:1])
+    |raw}}
+</p>
+<ul>
+    <li><strong>{{trans "Email:"}}</strong> {{var email}}</li>
+    <li><strong>{{trans "Password:"}}</strong> <em>{{trans "Password you set when creating account"}}</em></li>
+</ul>
+
+{{template config_path="design/email/footer_template"}}

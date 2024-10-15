@@ -1,0 +1,71 @@
+Service Fee,Service Fee
+Back,Back
+Reset,Reset
+Save,Save
+Seller's Service Fees List,Seller's Service Fees List
+Create New Service Fees,Create New Service Fees
+Service(s) Deleted Successfully,Service(s) Deleted Successfully
+No record selected,No record selected
+Service(s) Disabled Successfully,Service(s) Disabled Successfully
+Edit Service Fees,Edit Service Fees
+Service(s) Enabled Successfully,Service(s) Enabled Successfully
+Service Created Successfully,Service Created Successfully
+Service Updated Successfully,Service Updated Successfully
+Service code already exists,Service code already exists
+Service Fees,Service Fees
+Service(s) Enable Successfully,Service(s) Enable Successfully
+We can't save the invoice right now.,We can't save the invoice right now.
+You can't create an invoice without products.,You can't create an invoice without products.
+Invoice has been created for this order.,Invoice has been created for this order.
+Can not create invoice as order is in HOLD state,Can not create invoice as order is in HOLD state
+Admin,Admin
+"The ""%1"" ID doesn't exist.","The ""%1"" ID doesn't exist."
+Enable,Enable
+Disable,Disable
+Fixed,Fixed
+Percentage,Percentage
+Invoice issue in Mp ServiceFee,Invoice issue in Mp ServiceFee
+Fees cannot be added in the order,Fees cannot be added in the order
+Edit,Edit
+Service Fee Information,Service Fee Information
+Save Service Fee,Save Service Fee
+Status,Status
+Service Code,Service Code
+Enter service_code,Enter service_code
+Enter service code,Enter service code
+Service Title,Service Title
+Enter service title,Enter service title
+Service Type,Service Type
+Amount,Amount
+Enter service Value,Enter service Value
+Webkul Service Fees,Webkul Service Fees
+Create New Service fees,Create New Service fees
+List Seller Service Fees,List Seller Service Fees
+WEBKUL,WEBKUL
+Service Fees settings,Service Fees settings
+Enable Webkul Service Fees,Enable Webkul Service Fees
+Seller Name,Seller Name
+Delete,Delete
+Are you sure you want to delete selected service fees?,Are you sure you want to delete selected service fees?
+Are you sure you want to enable selected service fees?,Are you sure you want to enable selected service fees?
+Are you sure you want to disable selected service fees?,Are you sure you want to disable selected service fees?
+Service Fees Name,Service Fees Name
+Service Value,Service Value
+Dynamic Rows,Dynamic Rows
+Service Fee Rows,Service Fee Rows
+Magento_Ui/js/dynamic-rows/record,Magento_Ui/js/dynamic-rows/record
+Position,Position
+Are you sure you want to delete selected Services?,Are you sure you want to delete selected Services?
+Mass Enable,Mass Enable
+Are you sure you want to enable selected Services?,Are you sure you want to enable selected Services?
+Mass Disable,Mass Disable
+Are you sure you want to disable selected Services?,Are you sure you want to disable selected Services?
+View,View
+Action,Action
+List Service Fees,List Service Fees
+Service Fees List,Service Fees List
+Service fee created successfully,Service fee created successfully
+Service fees updated successfully,Service fees updated successfully
+Service_XYZ,Service_XYZ
+Test Service Fee,Test Service Fee
+Service fee,Service fee

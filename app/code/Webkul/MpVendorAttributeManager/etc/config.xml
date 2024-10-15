@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpVendorAttributeManager
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <marketplace>
+            <vendor_attribute>
+                <visible_registration>1</visible_registration>
+                <visible_profile>1</visible_profile>
+                <file_display>0</file_display>
+                <group_display>0</group_display>
+                <image_display>0</image_display>
+                <allowede_image_extension>jpg,png,gif</allowede_image_extension>
+                <allowede_file_extension>pdf,zip,doc</allowede_file_extension>
+                <profile_label>Vendor Attributes</profile_label>
+            </vendor_attribute>
+            <termcondition>
+                <enable_registration>0</enable_registration>
+                <customer_enable_registration>0</customer_enable_registration>
+                <privacy_heading>Privacy and Cookie Policy</privacy_heading>
+                <term_heading>Term and Conditions</term_heading>
+                <button_text>Close</button_text>
+                <button_text_color>#ffffff</button_text_color>
+                <button_color>#1979c3</button_color>
+                <model_background>#ffffff</model_background>
+                <animate>popup</animate>
+                <is_html>0</is_html>
+                <termcondition>Minors or people below 18 years old are not allowed to use this Website.</termcondition>
+                <privacy>Like any other website, we also use cookies.</privacy>
+            </termcondition>
+        </marketplace>
+    </default>
+</config>

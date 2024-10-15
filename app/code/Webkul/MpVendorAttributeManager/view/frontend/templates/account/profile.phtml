@@ -1,0 +1,136 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpVendorAttributeManager
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+?>
+<?php $partner = $block->getProfileDetail(); ?>
+<?php if ($block->getConfigData('visible_profile') && $partner['shop_url']):
+    $helper = $block->getMpHelper();
+    $sellerId = $partner->getSellerId();
+    $_customerData = $block->loadCustomer($sellerId)->toArray();
+    $vendorHelper = $block->getHelper();
+    $vendorAttributes = $vendorHelper->getAttributeCollection(true, true);
+
+    $isGroupEnabled = $vendorHelper->getConfigData("group_display");
+    if ($isGroupEnabled) {
+        if (!empty($_customerData['is_vendor_group'])) {
+            $vendorAttributes = $vendorHelper->getAttributesByGroupId($_customerData['is_vendor_group']);
+        }
+    }
+
+    if ($vendorAttributes && $vendorAttributes->getSize()):
+        $mediaUrl = $helper->getMediaUrl();
+        ?>
+<div class="wk-mp-design">
+    <div class="wk-mp-design-inner-last">
+        <div class="wk-mp-profile-container storename">
+            <div class="vendor-attr-profile-label">
+                <?= /**@noEscape */ $block->getConfigData('profile_label') ?>
+            </div>
+        </div>
+        <div class="fieldset wk_mp_fieldset">
+            <table class="admin__table-secondary order-information-table">
+                <tbody>
+            <?php
+                $storeId = $block->getStore()->getId();
+
+            foreach ($vendorAttributes as $attributeData):
+                if ($attributeData->getAttributeUsedFor() == 1 || $attributeData->getShowInFront() == 0) {
+                    continue;
+                }
+                $attrAsArray = $attributeData->toArray();
+                $storeLabels = $attributeData->getStoreLabels();
+                $label = isset($storeLabels[$storeId]) ? $storeLabels[$storeId] : $attrAsArray['frontend_label'];
+                $_fieldValue = '';
+                $_imageValue = '';
+                $multiSelectData = [];
+
+                if (($attributeData->getFrontendInput() == 'image' &&
+                    !$block->getConfigData('image_display')) ||
+                    ($attributeData->getFrontendInput() == 'file' &&
+                    !$block->getConfigData('file_display'))
+                    ) {
+                    continue;
+                }
+
+                foreach ($_customerData as $key => $value) {
+                    if ($attrAsArray['attribute_code'] == $key) {
+                        if ($attrAsArray['frontend_input'] == 'date') {
+                            $_fieldValue = $value ? $block->convertDateFormat($value) : '';
+                            continue;
+                        } elseif ($attrAsArray['frontend_input'] == 'boolean') {
+                            $_fieldValue = $value ? __('Yes') : __('No');
+                            continue;
+                        } elseif ($attrAsArray['frontend_input'] == 'select') {
+                            $optiondata = $attributeData->getSource()->getAllOptions();
+                            foreach ($optiondata as $instance) {
+                                if ($instance['value'] == $value) {
+                                    $_fieldValue =  $instance['label'];
+                                }
+                            }
+                             continue;
+                        } elseif ($attrAsArray['frontend_input'] == 'multiselect') {
+                            $_fieldValue = $value;
+                            $optiondata = $attributeData->getSource()->getAllOptions();
+                            $_fieldValueArray = $_fieldValue;
+                            foreach ($optiondata as $instance) {
+                                if (in_array($instance['value'], $_fieldValueArray)) {
+                                    array_push($multiSelectData, $instance['label']);
+                                }
+                            }
+                             $_fieldValue = implode(',', $multiSelectData);
+                             continue;
+                        } elseif ($attrAsArray['frontend_input'] == 'image') {
+                            if (isset($value) && $value != 1) {
+                                $imageUrl = $mediaUrl."vendorfiles/image/".$value;
+                                $fieldId = "customfields_image_".$key;
+                                $_fieldValue =
+                                    '<a href="'.$imageUrl.
+                                    '" onclick="imagePreview(\'customfields_your_image_image\'); return false;">
+                                            <img src="'.$imageUrl.'" id="customfields_your_image_image" title="'
+                                            .__('Preview Image').
+                                            '" height="22" width="22" class="small-image-preview v-middle">
+										</a>';
+                                $_imageValue = $value;
+                                continue;
+                            }
+                        } elseif ($attrAsArray['frontend_input'] == 'file') {
+                            if (isset($value) && $value != 1) {
+                                $fileUrl = $mediaUrl."vendorfiles/file/".$value;
+                                $_fieldValue = '<a href="'.$fileUrl.'"><img alt="Download" title="Download" src="'.
+                                $block->getViewFileUrl('Webkul_MpVendorAttributeManager::images/download.gif').
+                                '" class="v-middle wk_download_link" style="float:right;width: 22px;"></a>'.
+                                '<a href="'.$fileUrl.'">'.__('Download').'</a>';
+                                $_imageValue = $value;
+                                continue;
+                            }
+                        } elseif ($attrAsArray['frontend_input'] == 'textarea') {
+                            $_fieldValue = $block->getFilterData($value);
+                        } else {
+                            $_fieldValue = $value;
+                        }
+                    }
+                }
+                ?>
+                    <?php if ($_fieldValue != ''): ?>
+                        <tr>
+                            <th><?= /**@noEscape */ $label; ?></th>
+                            <td><?= /**@noEscape */ ($_fieldValue); ?></td>
+                        </tr>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+    <?php endif; ?>
+<?php endif; ?>

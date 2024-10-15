@@ -1,0 +1,78 @@
+<?php
+/**
+ * Webkul Affiliate User Clicks Graph.
+ *
+ * @category  Webkul
+ * @package   Webkul_Affiliate
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+?>
+<?php
+$config = $block->getAffiliateConfig();
+$daily=$block->getRequest()->getParam('view');
+if ($block->checkAffUser() && $config['enable']) { ?>
+<div class="actions-toolbar showData" >
+    <div class="primary <?php if ($daily!='monthly') {  /* @noEscape */ echo 'affiliate-active';} ?>">
+        <a href="<?= /* @noEscape */ $block->getUrl('affiliate/user/statistics', ['view'=>'daily']); ?>">
+            <button  id="daily" type="button" class="action primary" title="Daily">
+                <span><?= /* @noEscape */ __('Daily')?></span>
+            </button>
+        </a>
+    </div>
+    <div class="primary <?php if ($daily=='monthly') {  /* @noEscape */ echo 'affiliate-active';} ?>">
+        <a href="<?= /* @noEscape */ $block->getUrl('affiliate/user/statistics', ['view'=>'monthly']); ?>">        
+            <button  id="monthly" type="button" class="action primary" title="Monthly">
+                <span><?= /* @noEscape */ __('Monthly')?></span>
+            </button>
+        </a>
+    </div>
+</div>
+<fieldset class="info wk-affiliate-traffic-graph-fieldset fieldset" id="affiliate-user-traffic-graph">
+    <legend class="legend"><span><?= /* @noEscape */ __('Traffic Graph') ?></span></legend>
+    <div id="line_top_x"></div>  
+</fieldset>
+<?php }
+$data = [];
+foreach ($block->getAffilaiteUserStatisticsGraph() as $key => $value) {
+    $val = [];
+    $val[0] = $key;
+    $val[1] = $value;
+    $data[] =$val;
+}
+?>
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['line']});
+      google.charts.setOnLoadCallback(drawChart);
+     
+    function drawChart() {
+      var data = new google.visualization.DataTable();
+      // $daily=window.location;
+      // console.log($daily);
+      if (window.location.href.indexOf('monthly') > -1) {
+        data.addColumn('number', 'Month');
+      } else {
+        data.addColumn('number', 'Day');
+      }
+      data.addColumn('number', 'Traffic Graph');
+      data.addRows(<?= /* @noEscape */ json_encode($data); ?>);
+      var options = {
+        chart: {
+          title: '',
+          subtitle: ''
+        },
+        width: 900,
+        height: 500,
+        axes: {
+          x: {
+            0: {side: 'top'}
+          }
+        }
+      };
+
+      var chart = new google.charts.Line(document.getElementById('line_top_x'));
+      chart.draw(data, google.charts.Line.convertOptions(options));
+    }
+  </script>

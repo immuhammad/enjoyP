@@ -1,0 +1,231 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpAdvancedBookingSystem
+ * @author    Webkul Software Private Limited
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+$viewModel = $block->getBookingViewModel();
+if ($viewModel === null) {
+    $viewModel = $block->getLayout()->createBlock(
+        \Webkul\MpAdvancedBookingSystem\Block\GetViewModel::class
+    )->getBookingViewModel();
+}
+$helper = $viewModel->getHelper();
+$itemId = $block->getRequest()->getParam('id');
+$_item = $helper->getOrderItem($itemId);
+$_invoiceItem = $helper->getInvoiceItemByOrderItemId($itemId);
+$block = $block->getLayout()->createBlock(\Magento\Sales\Block\Order\Item\Renderer\DefaultRenderer::class);
+$invoiceBlock = clone $block;
+$orderBlock = $block->getLayout()->createBlock(\Magento\Sales\Block\Adminhtml\Order\AbstractOrder::class);
+$order = $orderBlock->getOrder();
+$block->setItem($_item);
+$invoiceBlock->setItem($_invoiceItem);
+$cancelCharge = $helper->getConfigData('mpadvancedbookingsystem/cancellation/cancellation_charge');
+$cancellationInfo = $helper->getCancellationInfo($order->getId(), $_item->getId());
+$cancelAmount = 0;
+?>
+<div class="order-details-items">
+    <div class="table-wrapper order-items">
+        <table class="data table table-order-items">
+            <thead>
+                <tr>
+                    <th class="col name"><?= $block->escapeHtml(__('Product Name')) ?></th>
+                    <th class="col sku"><?= $block->escapeHtml(__('SKU')) ?></th>
+                    <th class="col price"><?= $block->escapeHtml(__('Price')) ?></th>
+                    <th class="col qty"><?= $block->escapeHtml(__('Qty')) ?></th>
+                    <th class="col subtotal"><?= $block->escapeHtml(__('Subtotal')) ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="order-item-row-<?= /** @escapeNotVerified */ $_item->getId() ?>">
+                    <td class="col name" data-th="<?= $block->escapeHtml(__('Product Name')) ?>">
+                        <strong class="product name product-item-name">
+                            <?= $block->escapeHtml($_item->getName()) ?>
+                        </strong>
+                        <?php if ($_options = $block->getItemOptions()): ?>
+                        <dl class="item-options">
+                            <?php foreach ($_options as $_option): ?>
+                                <dt><?= $block->escapeHtml($_option['label']) ?></dt>
+                                <?php if (!$block->getPrintStatus()): ?>
+                                    <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+                                    <dd>
+                                        <?php if (isset($_formatedOptionValue['full_view'])): ?>
+                                            <?= $block->escapeHtml($_formatedOptionValue['full_view'], ['a']) ?>
+                                        <?php else: ?>
+                                            <?= $block->escapeHtml($_formatedOptionValue['value'], ['a']) ?>
+                                        <?php endif; ?>
+                                    </dd>
+                                <?php else: ?>
+                                    <dd>
+                                        <?php if (!empty($_option['print_value'])) { ?>
+                                            <?= /** @escapeNotVerified */ nl2br($_option['print_value']); ?>
+                                        <?php } else { ?>
+                                            <?= /** @escapeNotVerified */ nl2br($_option['value']); ?>
+                                        <?php } ?>
+                                    </dd>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </dl>
+                        <?php endif; ?>
+                    
+                        <?php $addtInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+                        <?php if ($addtInfoBlock):?>
+                            <?= $addtInfoBlock->setItem($_item)->toHtml() ?>
+                        <?php endif; ?>
+                        <?= $block->escapeHtml($_item->getDescription()) ?>
+                    </td>
+                    <td class="col sku" data-th="<?= $block->escapeHtml(__('SKU')) ?>">
+                        <?= /** @escapeNotVerified */ $block->prepareSku($block->getSku()) ?>
+                    </td>
+                    <td class="col price" data-th="<?= $block->escapeHtml(__('Price')) ?>">
+                        <?= $block->getItemPriceHtml($_item) ?>
+                    </td>
+                    <td class="col qty" data-th="<?= $block->escapeHtml(__('Qty')) ?>">
+                        <ul class="items-qty">
+                        <?php if ($block->getItem()->getQtyOrdered() > 0): ?>
+                            <li class="item">
+                                <span class="title"><?= /** @escapeNotVerified */ __('Ordered') ?></span>
+                                <span class="content">
+                                    <?= /** @escapeNotVerified */ $block->getItem()->getQtyOrdered()*1 ?>
+                                </span>
+                            </li>
+                        <?php endif; ?>
+                        <?php if ($block->getItem()->getQtyInvoiced() > 0): ?>
+                            <li class="item">
+                                <span class="title"><?= /** @escapeNotVerified */ __('Invoiced') ?></span>
+                                <span class="content">
+                                    <?= /** @escapeNotVerified */ $block->getItem()->getQtyInvoiced()*1 ?>
+                                </span>
+                            </li>
+                        <?php endif; ?>
+                        <?php if ($block->getItem()->getQtyShipped() > 0): ?>
+                            <li class="item">
+                                <span class="title"><?= /** @escapeNotVerified */ __('Shipped') ?></span>
+                                <span class="content">
+                                    <?= /** @escapeNotVerified */ $block->getItem()->getQtyShipped()*1 ?>
+                                </span>
+                            </li>
+                        <?php endif; ?>
+                        <?php if ($block->getItem()->getQtyCanceled() > 0): ?>
+                            <li class="item">
+                                <span class="title"><?= /** @escapeNotVerified */ __('Canceled') ?></span>
+                                <span class="content">
+                                    <?= /** @escapeNotVerified */ $block->getItem()->getQtyCanceled()*1 ?>
+                                </span>
+                            </li>
+                        <?php endif; ?>
+                        <?php if ($block->getItem()->getQtyRefunded() > 0): ?>
+                            <li class="item">
+                                <span class="title"><?= /** @escapeNotVerified */ __('Refunded') ?></span>
+                                <span class="content">
+                                    <?= /** @escapeNotVerified */ $block->getItem()->getQtyRefunded()*1 ?>
+                                </span>
+                            </li>
+                        <?php endif; ?>
+                        </ul>
+                    </td>
+                    <td class="col subtotal" data-th="<?= $block->escapeHtml(__('Subtotal')) ?>">
+                        <?= /** @escapeNotVerified */ $invoiceBlock->getItemRowTotalHtml() ?>
+                    </td>
+                </tr>
+            </tbody>
+            <?php $invoiceItem = $invoiceBlock->getItem(); ?>
+            <tfoot>
+                <tr class="subtotal">
+                    <th colspan="4" class="mark" scope="row">
+                        <?= $block->escapeHtml(__('Subtotal')) ?>
+                    </th>
+                    <td class="amount" data-th="<?= $block->escapeHtml(__('Subtotal')) ?>">
+                        <span class="price">
+                            <?= /** @escapeNotVerified */ $order->formatPrice($invoiceItem->getRowTotal()) ?>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="tax">
+                    <th colspan="4" class="mark" scope="row">
+                        <?= $block->escapeHtml(__('Tax Amount')) ?>
+                    </th>
+                    <td class="amount" data-th="<?= $block->escapeHtml(__('Tax Amount')) ?>">
+                        <span class="price">
+                            <?= /** @escapeNotVerified */ $order->formatPrice($invoiceItem->getTaxAmount()) ?>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="discount">
+                    <th colspan="4" class="mark" scope="row">
+                        <?= $block->escapeHtml(__('Discount Amount')) ?>
+                    </th>
+                    <td class="amount" data-th="<?= $block->escapeHtml(__('Discount Amount')) ?>">
+                        <span class="price">
+                            -<?= /** @escapeNotVerified */ $order->formatPrice($invoiceItem->getDiscountAmount()) ?>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="grand_total">
+                    <th colspan="4" class="mark" scope="row">
+                        <strong><?= $block->escapeHtml(__('Grand Total')) ?></strong>
+                    </th>
+                    <td class="amount" data-th="<?= $block->escapeHtml(__('Grand Total')) ?>">
+                        <strong>
+                            <span class="price">
+                                <?= /** @escapeNotVerified */ $order->formatPrice(
+                                    $invoiceBlock->getTotalAmount($_invoiceItem)
+                                ) ?>
+                            </span>
+                        </strong>
+                    </td>
+                </tr>
+                <?php if ($cancelCharge) { ?>
+                    <?php $cancelAmount = ($invoiceBlock->getTotalAmount($_invoiceItem) * $cancelCharge)/100; ?>
+                    <tr class="charge">
+                        <th colspan="4" class="mark" scope="row">
+                            <?= $block->escapeHtml(__('Cancellation Charge (%1%)', $cancelCharge)) ?>
+                        </th>
+                        <td class="amount" data-th="<?= $block->escapeHtml(__('Cancellation Charge')) ?>">
+                            <span class="price">
+                                -<?= /** @escapeNotVerified */ $order->formatPrice($cancelAmount) ?>
+                            </span>
+                        </td>
+                    </tr>
+                <?php } ?>
+                <tr class="grand_total">
+                <?php $refundAmount = $invoiceBlock->getTotalAmount($_invoiceItem)-$cancelAmount; ?>
+                    <th colspan="4" class="mark" scope="row">
+                        <strong><?= $block->escapeHtml(__('Total Refund Amount')) ?></strong>
+                    </th>
+                    <td class="amount" data-th="<?= $block->escapeHtml(__('Total Refund Amount')) ?>">
+                        <strong>
+                            <span class="price">
+                                <?= /** @escapeNotVerified */ $order->formatPrice($refundAmount) ?>
+                            </span>
+                        </strong>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <p>
+            <strong><?= $block->escapeHtml(__('Note:-')) ?></strong>
+            <?= $block->escapeHtml(__('Complete transaction will be cancelled. Refunds will be done according to')) ?>
+            <strong><?= $block->escapeHtml(__('Cancellation Policy')) ?>.</strong>
+        </p>
+        <form method="post"
+            action="<?= /** @escapeNotVerified */ $block->getUrl('mpadvancebooking/cancellation/cancel') ?>">
+            <?= /** @escapeNotVerified */ $block->getBlockHtml('formkey') ?>
+            <input type="hidden" name="order_id" value="<?= /** @escapeNotVerified */ $order->getId() ?>">
+            <input type="hidden" name="item_id" value="<?= /** @escapeNotVerified */ $_item->getId() ?>">
+            <button class="action primary" type="submit"><?= $block->escapeHtml(__('Cancel Booking')) ?></button>
+        </form>
+    </div>
+</div>
+<div class="buttons-set">
+    <p class="back-link">
+        <a href="javascript:;" onclick="javascript: window.history.back();" class="left">
+            &laquo; <?= /* @noEscape */ __('Back') ?>
+        </a>
+    </p>
+</div>

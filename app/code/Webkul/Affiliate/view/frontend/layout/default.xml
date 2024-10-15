@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul_Affiliate default layout.
+ * @category  Webkul
+ * @package   Webkul_Affiliate
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="footer_links">
+            <block class="Webkul\Affiliate\Block\User\RegisterLink" name="affiliate-link">
+                <arguments>
+                    <argument name="label" xsi:type="string">Affiliate Registration</argument>
+                    <argument name="path" xsi:type="string">customer/account/create/aff/1</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

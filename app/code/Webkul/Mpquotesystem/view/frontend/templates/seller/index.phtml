@@ -1,0 +1,69 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpquotesystem
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+$values = $block->getConfigData();
+?>
+<form action="
+<?=$block->escapeUrl($block->getUrl(
+    'mpquotesystem/sellerquote/save',
+    ['_secure' => 1]
+))?>" enctype="multipart/form-data" method="post" id="edit-product" data-form="edit-product" 
+data-mage-init='{"validation":{}}'>
+    <div class="wk-mp-design" id="wk-bodymain">
+        <fieldset class="fieldset info">
+            <div data-mage-init='{"formButtonAction": {}}' class="wk-mp-page-title legend">
+                <span><?= $block->escapeHtml(__('Quote Settings'))?></span>
+                <button class="button wk-mp-btn" title="<?=$block->escapeHtmlAttr(__('Save'))?>"
+                type="submit" id="save-btn">
+                    <span><span><?= $block->escapeHtml(__('Save'))?></span></span>
+                </button>
+            </div>
+            <?=$block->getBlockHtml('formkey')?>
+            <?php $cates = $values->getCategories() ?
+            explode(',', $values->getCategories()) : $block->getCategories(); ?>
+            <div class="field">
+                <label class="label"><?= $block->escapeHtml(__('Quote Category'))?>:</label>
+                <div data-bind="scope: 'sellerCategory'">
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                </div>
+                <script type="text/x-magento-init">
+                    {
+                        "*": {
+                            "Magento_Ui/js/core/app": {
+                                "components": {
+                                    "sellerCategory": {
+                                        "component": "Webkul_Marketplace/js/product/seller-category-tree",
+                                        "template" : "Webkul_Marketplace/seller-category-tree",
+                                        "filterOptions": true,
+                                        "levelsVisibility": "1",
+                                        "options": <?= /* @noEscape */ $block->getCategoriesTree()?>,
+                                        "value": <?= /* @noEscape */ $block->getHelperObject()->getJsonObject()
+                                        ->jsonEncode($cates)?>
+                                    }
+                                }
+                            }
+                        }
+                    }
+                </script>
+            </div>
+            <div class="field required">
+                <label class="label"><?= $block->escapeHtml(__('Minimum Quote Quantity'))?>:</label>
+                <div class="control">
+                    <input type="text" data-validate="{'pattern':/^(0|[1-9]\d*)$/, 'validate-number':true,
+                        'validate-greater-than-zero':true}" 
+                    name="product[min_quote_qty]" id="name" 
+                    value="<?=$block->escapeHtmlAttr($values->getMinQty())?>"/>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>

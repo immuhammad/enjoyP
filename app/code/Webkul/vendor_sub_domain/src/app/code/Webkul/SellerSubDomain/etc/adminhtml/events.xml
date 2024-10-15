@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_SellerSubDomain
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="admin_system_config_changed_section_sellersubdomain">
+        <observer name="marketplace_sellersubdomain_config_save_after" instance="Webkul\SellerSubDomain\Observer\ConfigSaveAfter" />
+    </event>
+    <event name="admin_system_config_changed_section_marketplace">
+        <observer name="marketplace_sellersubdomain_config_save_after" instance="Webkul\SellerSubDomain\Observer\ConfigSaveAfter" />
+    </event>
+    <event name="adminhtml_customer_save_after">
+        <observer name="webkul_vendor_subdomain_adminhtml_customer_save_after_observer" instance="Webkul\SellerSubDomain\Observer\AdminhtmlCustomerSaveAfterObserver" />
+    </event>
+</config>

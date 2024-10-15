@@ -1,0 +1,6 @@
+.data-grid .data-grid-th._draggable {
+    cursor: grab !important;
+}
+.data-grid .data-grid-th._sortable {
+    cursor: pointer !important;
+}

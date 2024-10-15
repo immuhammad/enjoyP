@@ -1,0 +1,187 @@
+Save Reason,Save Reason
+Edit Reason '%',Edit Reason '%'
+New Reason,New Reason
+Reason,Reason
+About Reason,About Reason
+Status,Status
+Enabled,Enabled
+Disabled,Disabled
+Sender Type,Sender Type
+Message,Message
+Date,Date
+Information,Information
+RMA Information,RMA Information
+Product Id,Product Id
+SKU,SKU
+Product Name,Product Name
+Qty,Qty
+RMA Details,RMA Details
+Conversation,Conversation
+Product Details,Product Details
+RMA Panel,RMA Panel
+Marketplace RMA,Marketplace RMA
+Reasons,Reasons
+Manage Reasons,Manage Reasons
+Selected Reason(s) deleted successfully,Selected Reason(s) deleted successfully
+Reason edited successfully.,Reason edited successfully.
+Reason saved successfully.,Reason saved successfully.
+Details,Details
+All RMA,All RMA
+Customer not exists,Customer not exists
+Message sent,Message sent
+You have enter wrong amount format,You have enter wrong amount format
+RMA,RMA
+Invalid Request,Invalid Request
+RMA request canceled.,RMA request canceled.
+Something went wrong.,Something went wrong.
+There is some problem in generating RMA.,There is some problem in generating RMA.
+Quantity not allowed for RMA.,Quantity not allowed for RMA.
+Error in image uploading.,Error in image uploading.
+New RMA request generated.,New RMA request generated.
+New RMA,New RMA
+View RMA,View RMA
+Guest All RMA,Guest All RMA
+Guest Login,Guest Login
+Invalid details for guest.,Invalid details for guest.
+Refund,Refund
+Replace,Replace
+Cancel Items,Cancel Items
+Total must be positive.,Total must be positive.
+Cannot create online refund.,Cannot create online refund.
+Credit memo generated successfully.,Credit memo generated successfully.
+Unable to save credit memo right now.,Unable to save credit memo right now.
+RMA is canceled by Customer.,RMA is canceled by Customer.
+RMA is declined by Admin.,RMA is declined by Admin.
+RMA is declined by Seller.,RMA is declined by Seller.
+RMA is Solved.,RMA is Solved.
+New RMA is requested by customer.,New RMA is requested by customer.
+New RMA is requested by guest.,New RMA is requested by guest.
+You requested new RMA.,You requested new RMA.
+RMA status is updated.,RMA status is updated.
+Seller sent message on RMA #%1,Seller sent message on RMA #%1
+Customer sent message on RMA #%1,Customer sent message on RMA #%1
+Guest sent message on RMA #%1,Guest sent message on RMA #%1
+Admin sent message on RMA #%1,Admin sent message on RMA #%1
+Guest,Guest
+You have no requested RMA.,You have no requested RMA.
+You didn't request any RMA.,You didn't request any RMA.
+No RMA found.,No RMA found.
+Not Delivered,Not Delivered
+Delivered,Delivered
+Not Applicable,Not Applicable
+Pending,Pending
+Processing,Processing
+Solved,Solved
+Declined,Declined
+Canceled,Canceled
+Item Canceled,Item Canceled
+Admin,Admin
+Seller,Seller
+Customer,Customer
+View Customer,View Customer
+View,View
+Edit,Edit
+Order Id,Order Id
+RMA Status,RMA Status
+Seller Status,Seller Status
+Order Status,Order Status
+Consignment Number,Consignment Number
+Resolution Type,Resolution Type
+Additional Information,Additional Information
+Refund Details,Refund Details
+Refundable Amount,Refundable Amount
+Refunded Amount,Refunded Amount
+Images,Images
+Change RMA Status,Change RMA Status
+Save,Save
+Refund Amount,Refund Amount
+Payment Type,Payment Type
+Full Amount,Full Amount
+Partial Amount,Partial Amount
+Total Refundable Amount,Total Refundable Amount
+Refund Offline,Refund Offline
+Send Message,Send Message
+Enter Message,Enter Message
+Partial amount can not be more then %1,Partial amount can not be more then %1
+Warning,Warning
+Confirmation,Confirmation
+Do you want to cancel RMA ?,Do you want to cancel RMA ?
+Request New RMA,Request New RMA
+RMA History,RMA History
+RMA Id,RMA Id
+Order #,Order #
+From,From
+To,To
+Apply Filter,Apply Filter
+Cancel,Cancel
+Select Reason,Select Reason
+"Invalid Image Format. jpeg, jpg, gif, png are accepted","Invalid Image Format. jpeg, jpg, gif, png are accepted"
+Enter Consignment Number,Enter Consignment Number
+Please select item,Please select item
+Image(s) are not selected,Image(s) are not selected
+No Order Selected,No Order Selected
+No Seller Selected,No Seller Selected
+No Resolution Selected,No Resolution Selected
+Items not available for RMA,Items not available for RMA
+Select Quantity,Select Quantity
+Select Seller,Select Seller
+Quantity not available,Quantity not available
+Orders,Orders
+Select Order,Select Order
+Items Ordered,Items Ordered
+Product,Product
+Sku,Sku
+Price,Price
+Quantity,Quantity
+Add Images,Add Images
+Submit Request,Submit Request
+Close RMA,Close RMA
+Please Agree To Mark it as solved.,Please Agree To Mark it as solved.
+Item(s) Requested for RMA,Item(s) Requested for RMA
+Conversations,Conversations
+Administrator,Administrator
+Return Qty,Return Qty
+Email,Email
+Login,Login
+Requested RMA,Requested RMA
+Hello,Hello
+RMA Id :,RMA Id :
+Order Id :,Order Id :
+Order Status :,Order Status :
+Resolution Type :,Resolution Type :
+Additional Information :,Additional Information :
+Thank you,Thank you
+Message :,Message :
+Seller Status :,Seller Status :
+RMA Status :,RMA Status :
+Select Resolution,Select Resolution
+Webkul,Webkul
+Marketplace RMA System,Marketplace RMA System
+General Settings,General Settings
+Enable Notification to Admin,Enable Notification to Admin
+Default Allowed Days,Default Allowed Days
+Admin Email Id,Admin Email Id
+Order Ref,Order Ref
+Customer Name,Customer Name
+Status (Seller),Status (Seller)
+Action,Action
+Add New Reason,Add New Reason
+Delete,Delete
+Do you want to delete selected entries?,Do you want to delete selected entries?
+ID,ID
+Id,Id
+Sender,Sender
+Time,Time
+RMA Returns,RMA Returns
+Customer RMA Panel,Customer RMA Panel
+New RMA Request,New RMA Request
+Guest RMA Panel,Guest RMA Panel
+Guest Login Panel,Guest Login Panel
+RMA System,RMA System
+Manage RMA,Manage RMA
+Manage RMA Reasons,Manage RMA Reasons
+Order's Status,Order's Status
+Return to Stock,Return to Stock
+Received Package,Received Package
+Not Receive Package yet,Not Receive Package yet
+Are you sure you want to cancel RMA,Are you sure you want to cancel RMA

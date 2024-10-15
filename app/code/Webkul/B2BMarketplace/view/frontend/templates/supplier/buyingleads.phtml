@@ -1,0 +1,270 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $helper = $block->helper('Webkul\B2BMarketplace\Helper\Quote');
+    $leadsCollection = $block->getBuyingLeadsCollection();
+?>
+<div class="wk-b2b-buying-leads-container">
+    <div id="wk-send-message" class="wk-b2b-modal-content" style="display:none;">
+        <div class="wk-loading-mask wk-display-none">
+            <div class="wk-loader"></div>
+        </div>
+        <div class="wk-b2b-modal-content-row">
+            <div class="wk-b2b-modal-content-row-label">
+                <?= /* @noEscape */ __("Message"); ?>
+            </div>
+            <div class="wk-b2b-modal-content-row-content">
+                <textarea></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="wk-b2b-buying-leads-list">
+        <?php foreach ($leadsCollection as $item): ?>
+            <div class="wk-b2b-buying-leads-list-item">
+                <div class="wk-b2b-buying-leads-list-item-row">
+                    <span class="wk-b2b-buying-lead-id">#<?= /* @noEscape */ $item->getId(); ?></span>
+                    <span class="wk-b2b-buying-lead-date">
+                        <span class="wk-b2b-buying-lead-label"><?= /* @noEscape */ __("Posted on"); ?></span> -
+                        <span class="wk-b2b-buying-lead-content">
+                            <?= /* @noEscape */
+                            $block->helper('Webkul\B2BMarketplace\Helper\Data')->formatDate(
+                                $item->getDate(),
+                                \IntlDateFormatter::LONG
+                            );
+                            ?>
+                        </span>
+                    </span>
+                </div>
+                <div class="wk-b2b-buying-leads-list-item-row">
+                    <span class="wk-b2b-buying-lead-product-name"><?= /* @noEscape */ $item->getName(); ?></span>
+                </div>
+                <div class="wk-b2b-buying-leads-list-item-row">
+                    <span class="wk-b2b-buying-lead-product-description">
+                        <?= /* @noEscape */ $item->getDescription(); ?>
+                    </span>
+                </div>
+                <div class="wk-b2b-buying-leads-list-item-row">
+                    <div class="wk-b2b-buying-leads-list-item-col">
+                        <span class="wk-b2b-buying-leads-list-item-col-label">
+                        <?= /* @noEscape */ __("Quantity - "); ?></span>
+                        <span class="wk-b2b-buying-leads-list-item-col-content">
+                        <?= /* @noEscape */ $item->getQty(); ?> Unit(s)</span>
+                    </div>
+                    <div class="wk-b2b-buying-leads-list-item-col">
+                        <span class="wk-b2b-buying-leads-list-item-col-label">
+                        <?= /* @noEscape */ __("Price - "); ?></span>
+                        <span class="wk-b2b-buying-leads-list-item-col-content">
+                        <?= /* @noEscape */ $item->getPrice(); ?></span>
+                    </div>
+                </div>
+                <?php $categories = $helper->getCategoriesFromItem($item); ?>
+                <?php if (count($categories) > 0): ?>
+                    <div class="wk-b2b-buying-leads-list-item-row">
+                        <div class="wk-b2b-buying-lead-item-categories">
+                            <?php foreach ($categories as $category): ?>
+                                <div class="wk-b2b-buying-lead-item-category">
+                                <?= /* @noEscape */ $category; ?></div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+                <div class="wk-b2b-buying-leads-list-item-actions">
+                    <div class="wk-b2b-buying-lead-item-customer-info">
+                        <div class="wk-b2b-buying-lead-item-customer-name-section">
+                            <span class="wk-b2b-buying-lead-item-customer-info-label">
+                                <?= /* @noEscape */ __("Posted By - "); ?>
+                            </span>
+                            <span class="wk-b2b-buying-lead-item-customer-info-content">
+                                <?= /* @noEscape */ $item->getFirstname()." ".$item->getLastname(); ?>
+                            </span>
+                        </div>
+                        <div class="wk-b2b-buying-lead-item-customer-location-section">
+                            <span class="wk-b2b-buying-lead-item-customer-info-label">
+                                <?= /* @noEscape */ __("Location - "); ?>
+                            </span>
+                            <span class="wk-b2b-buying-lead-item-customer-info-content">
+                                <?= /* @noEscape */ $item->getCustomerAddress(); ?>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="wk-b2b-buying-lead-item-button-set">
+                        <a href="#" class="wk-b2b-buying-lead-item-message-btn" 
+                        data-id="<?= /* @noEscape */ $item->getCustomerId(); ?>">
+                        <?= /* @noEscape */ __("Message"); ?></a>
+                        <a target="_blank" href="<?= /* @noEscape */ $block
+                        ->getUrl("b2bmarketplace/supplier/quote_request/", [
+                            "id" => $item->getQuoteId(), "item_id" => $item
+                            ->getQuoteItemId()]); ?>" class="wk-b2b-buying-lead-item-quote-btn">
+                            <?= /* @noEscape */ __("Send Quote"); ?></a>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="toolbar bottom"><?= $block->getPagerHtml(); ?></div>
+    <?php endif ; ?>
+</div>
+
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/alert',
+        "mage/template"
+    ], function($, alert, template) {
+        $("body").on("click", ".wk-b2b-buying-lead-item-message-btn", function() {
+            var ref = $(this).attr("data-id");
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: 'Send Message',
+                buttons: [{
+                    text: $.mage.__('Send Message'),
+                    class: '',
+                    click: function () {
+                        var currentItem = this;
+                        var msg = $("#wk-send-message textarea").val();
+                        msg = $.trim(msg);
+                        if (msg == "") {
+                            alert({
+                                content: '<?= /* @noEscape */ __("please enter a message.")?>'
+                            });
+                            return false;
+                        }
+                        showLoader();
+                        $.ajax({
+                            url: "<?= /* @noEscape */ $block->getUrl('b2bmarketplace/supplier/messagePost'); ?>",
+                            type: 'POST',
+                            data: { ref : ref, msg : msg, 
+                                type:1, form_key: "<?= /* @noEscape */$helper->getFormKey();?>" },
+                            dataType: 'json',
+                            success: function (data) {
+                                hideLoader();
+                                currentItem.closeModal();
+                                if (data.error) {
+                                    if (data.msg) {
+                                        alert({
+                                            content: data.msg
+                                        });
+                                    }
+                                } else {
+                                    alert({
+                                        content: '<?= /* @noEscape */ __("Message is sent successfully.")?>'
+                                    });
+
+                                    $('#wk-send-message').find('textarea').val('');
+                                }
+                            }
+                        });
+                    }
+                }]
+            };
+
+            $("#wk-send-message").modal(options).modal('openModal');
+        });
+
+        function showLoader() {
+            $(".wk-loading-mask").removeClass("wk-display-none");
+        }
+
+        function hideLoader() {
+            $(".wk-loading-mask").addClass("wk-display-none");
+        }
+    });
+</script>
+
+<style>
+.wk-b2b-buying-leads-container {
+    display: inline-block;
+    width: 100%;
+    box-sizing:border-box;
+}
+
+.wk-b2b-buying-leads-container * {
+    box-sizing:border-box !important;
+}
+.wk-b2b-buying-leads-list-item {
+    display: inline-block;
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    border-radius: 3px;
+}
+.wk-b2b-buying-leads-list-item-row {
+    display: inline-block;
+    width: 100%;
+    padding: 5px 0;
+    text-align:justify;
+}
+.wk-b2b-buying-lead-id {
+    color: #888;
+}
+.wk-b2b-buying-lead-product-name {
+    color: #FA4A2E;
+    font-size: 18px;
+    font-weight: 600;
+}
+.wk-b2b-buying-leads-list-item-col {
+    display: inline-block;
+    margin-right: 15px;
+}
+.wk-b2b-buying-leads-list-item-col-content {
+    font-weight: 600;
+    color: #333;
+}
+.wk-b2b-buying-lead-item-category {
+    display: inline-block;
+    border: 1px solid #ccc;
+    background: #eee;
+    padding: 2px 15px;
+    color: #222;
+    margin-right: 5px;
+    border-radius: 3px;
+}
+.wk-b2b-buying-lead-date {
+    font-size: 12px;
+    display: inline-block;
+    float: right;
+}
+.wk-b2b-buying-lead-item-customer-info {
+    font-size: 12px;
+    display:inline-block;
+}
+.wk-b2b-buying-leads-list-item-actions {
+    display: inline-block;
+    width: 100%;
+    margin-top: 15px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+.wk-b2b-buying-lead-item-button-set {
+    display: inline-block;
+    float: right;
+}
+.wk-b2b-buying-lead-item-button-set a {
+    display: inline-block;
+    color: #fff;
+    padding: 5px 15px;
+    margin-left: 10px;
+    border-radius: 2px;
+    text-decoration: none;
+    font-weight: 600;
+}
+.wk-b2b-buying-lead-item-message-btn {
+    background: #007BBB;
+}
+.wk-b2b-buying-lead-item-quote-btn {
+    background: #00BF44;
+}
+</style>

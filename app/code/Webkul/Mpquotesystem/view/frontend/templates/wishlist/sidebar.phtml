@@ -1,0 +1,41 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpquotesystem
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+$viewModel =  $block->getViewModel();
+$helper = $viewModel->getHelper();
+$wishlistHelper = $viewModel->getWishlistHelper();
+$wishlist = $wishlistHelper->getWishlist();
+$proCollection = [];
+foreach ($wishlist->getItemCollection() as $item) {
+    $product = $item->getProduct();
+    $proCollection[] = $product;
+}
+$quotedProductsData = $helper->getQuotedProductInfo($proCollection);
+$formData = [
+    'quoteProductData'    =>    $quotedProductsData,
+    'productitems'        => '#wishlist-sidebar li',
+    'loginurl'          => $block->getUrl('customer/account/login'),
+    'popoverbackgroundhtml' =>  '#wk-mp-qs-ask-data',
+    'popoverClass'          =>  '.popover',
+    'popOverclose'          =>  '.popover_close',
+    'showCart'              => (int)$helper->getConfigAddToCart()
+];
+
+$serializedFormData = \Magento\Framework\Serialize\JsonConverter::convert($formData);
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "WkMpQuotesystem": <?= /* @noEscape */ $serializedFormData; ?>
+        }
+    }
+</script>

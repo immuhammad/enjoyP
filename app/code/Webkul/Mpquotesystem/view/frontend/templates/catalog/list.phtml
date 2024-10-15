@@ -1,0 +1,102 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpquotesystem
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $viewModel =  $block->getViewModel();
+    $helper = $viewModel->getHelper();
+if ($helper->getQuoteEnabled()) {
+    $currencySymbol = $helper->getCurrentCurrencyCodesymbol();
+    $_productCollection = $block->getLoadedProductCollection();
+    $quotedProductsData = $helper->getQuotedProductInfo($_productCollection);
+    if (isset($quotedProductsData[1])) {
+        $isConf = $quotedProductsData['1']['is_configureable'];
+    } else {
+        $isConf = 0;
+    } ?>
+    <div class="mpquotesystem-child-menu" id="wk-mp-qs-ask-data">
+            <form id="mpquotesystem_quote_add_cat" name="mpquotesystem_quote_add_cat" 
+            method="get" enctype="multipart/form-data" action="
+            <?=$block->escapeUrl($block->getUrl(
+                'mpquotesystem/buyerquote/savequote',
+                ['_secure' => $block->getIsSecure()]
+            ))?>" >
+                <input type="hidden" name="product_name" value="" />
+                <input type="hidden" name="product" value=""/>
+                <input type="hidden" name="current_url" value="" />
+                <input type="hidden" name="isConfigureable" value="<?=$block->escapeHtmlAttr($isConf)?>" />
+                <input type="hidden"
+                    name="quote_currency_symbol"
+                    value="<?=$block->escapeHtmlAttr($currencySymbol)?>"
+                />
+                <div class="fieldset" >
+                    <div class="field required">
+                        <label class="label" for="quote_qty"><?= $block->escapeHtml(__("Quantity"))?> :</label>
+                        <input type="text" id="quote_qty" name="quote_qty" 
+                        class="quote_submit_fields quote_qty required-entry" 
+                        data-validate="{required:true,'validate-greater-than-zero':true, 'validate-number':true}"/>
+                        <span class="wk-qs-min-qty"></span>
+                    </div>
+                    <div class="field required">
+                        <label class="label" for="quote_price">
+                        <?=$block->escapeHtml(__("Price per Item")."(".$currencySymbol.")")?> :</label>
+                        <input type="text" id="quote_price" name="quote_price" class="quote_price quote_submit_fields" 
+                        data-validate="{required:true,'validate-greater-than-zero':true, 'validate-number':true}"/>
+                    </div>
+                    <div class="field required">
+                        <label class="label" for="quote_description">
+                            <?= $block->escapeHtml(__("Description"))?> :
+                        </label>
+                        <textarea id="quote_description" name="quote_description" 
+                        class="quote_description quote_submit_fields"
+                        data-validate="{'validate-no-html-tags':true, required:true}"></textarea>
+                    </div>
+                    <div class="field">
+                        <label class="label"><?= $block->escapeHtml(__("Attachment"))?> :</label>
+                        <input  type="file"
+                            class="attachment wk-contact_input_fields quote_attachment"
+                            name="quote_attachment"
+                            data-allowed-types="<?=$block->escapeHtmlAttr($helper->getAllowedTypes())?>"
+                        />
+                        <small class="wk-block">
+                            <?=$block->escapeHtml(__('Allowed Types :'))?>
+                            <span>
+                            <?=$block->escapeHtml($helper->getAllowedTypes())?>
+                            </span>
+                        </small>
+                        <p class="wk_option_select_message _attachment-hide">
+                        <?=$block->escapeHtml(__('Please select options'))?></p>
+                    </div>
+                </div>
+            </form>
+    </div>
+    <?php
+    $formData = [
+        'quoteProductData'    =>    $quotedProductsData,
+        'productitems'        => '.product-items li',
+        'compareproductitems' => '.table-comparison tbody .product.info',
+        'loginurl'          => $block->getUrl('customer/account/login'),
+        'popoverbackgroundhtml' =>  '#wk-mp-qs-ask-data',
+        'popoverClass'          =>  '.popover',
+        'popOverclose'          =>  '.popover_close',
+        'categorySubmitButton'          =>  '.submit_button',
+        'showCart'              => (int)$helper->getConfigAddToCart()
+    ];
+    $serializedFormData = \Magento\Framework\Serialize\JsonConverter::convert($formData);
+    ?>
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "WkMpQuotesystem": <?= /* @noEscape */ $serializedFormData; ?>
+            }
+        }
+    </script>
+
+<?php } ?>

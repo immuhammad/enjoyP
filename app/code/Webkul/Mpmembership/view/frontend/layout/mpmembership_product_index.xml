@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpmembership
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Webkul_Marketplace::css/wk_block.css"/>
+        <css src="Webkul_Marketplace::css/style.css"/>
+        <css src="Webkul_Mpmembership::css/mpmembership.css"/>
+    </head>
+    <update handle="customer_account"/>
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Seller Fee Payment Panel</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Webkul\Mpmembership\Block\Product\Fee" name="mpmembership_productfee" template="Webkul_Mpmembership::Product/feepay.phtml" ifconfig="marketplace/mpmembership_settings/enabled" cacheable="false">
+              <arguments>
+                  <argument name="membership_helper" xsi:type="object">Webkul\Mpmembership\Helper\Data</argument>
+              </arguments>
+            </block>
+            <block class="Webkul\Mpmembership\Block\Product\Transactionlist" name="mpmembership_txnlist" template="Webkul_Mpmembership::Product/transactionlist.phtml" ifconfig="marketplace/mpmembership_settings/enabled" cacheable="false">
+              <arguments>
+                  <argument name="membership_helper" xsi:type="object">Webkul\Mpmembership\Helper\Data</argument>
+              </arguments>
+            </block>
+            <block class="Webkul\Mpmembership\Block\Seller\Transactionlist" name="mpmembership_sellertxnlist" template="Webkul_Mpmembership::Seller/transactionlist.phtml" ifconfig="marketplace/mpmembership_settings/enabled" cacheable="false">
+              <arguments>
+                  <argument name="membership_helper" xsi:type="object">Webkul\Mpmembership\Helper\Data</argument>
+              </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

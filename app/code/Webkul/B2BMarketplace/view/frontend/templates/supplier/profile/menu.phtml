@@ -1,0 +1,107 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$quickOrderBlock =  $block->getLayout()->createBlock(
+    \Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class
+);
+
+$helper = $quickOrderBlock->helper(\Webkul\B2BMarketplace\Helper\MpHelper::class);
+$partner=$block->getProfileDetail();
+if (!empty($partner['shop_url'])) { ?>
+    <?php
+    $shopUrl = $block->escapeHtml($partner['shop_url']);
+    $profileUrl = $helper->getRewriteUrl('marketplace/seller/profile/shop/'.$shopUrl);
+    $requestQuoteUrl = $helper->getRewriteUrl('b2bmarketplace/supplier_profile/requestQuote/shop/'.$shopUrl);
+    $quickOrderUrl = $helper->getRewriteUrl('b2bmarketplace/supplier_profile/quickOrder/shop/'.$shopUrl);
+    $collectionUrl = $helper->getRewriteUrl('marketplace/seller/collection/shop/'.$shopUrl);
+    $reviewUrl = $helper->getRewriteUrl('marketplace/seller/feedback/shop/'.$shopUrl);
+    $currentUrl = $helper->getCurrentUrl();
+    $reviewMenuUrl = $profileUrl."#rating";
+    if ($reviewUrl == $currentUrl || strpos($currentUrl, 'marketplace/seller/feedback') !== false) {
+        $reviewMenuUrl = $currentUrl;
+    }
+    //$productMenuUrl = $profileUrl."#products";
+    $productMenuUrl = $collectionUrl;
+    if ($collectionUrl == $currentUrl || strpos($currentUrl, 'marketplace/seller/collection') !== false) {
+        $productMenuUrl = $currentUrl;
+    }
+    ?>
+    <div class="wk-supplier-menu-box wk-supplier-margin-bottom">
+        <div class="wk-supplier-menu-container">
+            <ul class="wk-supplier-menu-ul">
+                <li class="wk-supplier-menu-li">
+                    <a href="<?= /* @noEscape */ $productMenuUrl?>" class="wk-supplier-menu-title">
+                        <?= /* @noEscape */ __('Product(s)')?>
+                    </a>
+                </li>
+                <li class="wk-supplier-menu-li">
+                    <a href="<?= /* @noEscape */ $reviewMenuUrl?>" class="wk-supplier-menu-title">
+                        <?= /* @noEscape */ __('Review(s)')?>
+                    </a>
+                </li>
+                <li class="wk-supplier-menu-li">
+                    <a href="<?= /* @noEscape */ $profileUrl?>#about-us" class="wk-supplier-menu-title">
+                        <?= /* @noEscape */ __('About Company')?>
+                    </a>
+                </li>
+                <li class="wk-supplier-menu-li">
+                    <a href="<?= /* @noEscape */ $quickOrderUrl?>" class="wk-supplier-menu-title">
+                        <?= /* @noEscape */ __('Quick Order')?>
+                    </a>
+                </li>
+                <li class="wk-supplier-menu-li">
+                    <a href="<?= /* @noEscape */ $requestQuoteUrl?>" class="wk-supplier-menu-title">
+                        <?= /* @noEscape */ __('Request a Quote')?>
+                    </a>
+                </li>
+                <li class="wk-supplier-menu-li">
+                    <a href="<?= /* @noEscape */ $profileUrl?>#supplier-policies" class="wk-supplier-menu-title">
+                        <?= /* @noEscape */ __('Policies')?>
+                    </a>
+                </li>
+                <li class="wk-supplier-menu-li">
+                    <a href="<?= /* @noEscape */ $profileUrl?>#contact-us" class="wk-supplier-menu-title">
+                        <?= /* @noEscape */ __('Contact')?>
+                    </a>
+                </li>
+                <?= /* @noEscape */ $block->getChildHtml();?>
+            </ul>
+        </div>
+    </div>
+    <script>
+        require([
+            "jquery"
+        ], function($){
+            $('.wk-supplier-menu-li a').click(function () {
+                var thisthis = $(this);
+                $('.wk-supplier-menu-li').each(function () {
+                    $(this).removeClass('active');
+                });
+                thisthis.parent('.wk-supplier-menu-li').addClass('active');
+            });
+            var activeClassObj = '';
+            var flag = 0;
+            $('.wk-supplier-menu-li a').each(function () {
+                if ($(this).parent('.wk-supplier-menu-li').hasClass('active')) {
+                    activeClassObj = $(this);
+                } else {
+                    if ($(this).attr('href') == window.location.href) {
+                        $(this).parent('.wk-supplier-menu-li').addClass('active');
+                        flag = 1;
+                    }
+                }
+            });
+            if (flag && activeClassObj) {
+                activeClassObj.parent('.wk-supplier-menu-li').removeClass('active');
+            }
+        });
+    </script>
+    <?php
+} ?>

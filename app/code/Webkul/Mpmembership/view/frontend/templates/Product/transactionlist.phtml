@@ -1,0 +1,282 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpmembership
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+// @block Webkul/Mpmembership/Block/Product/Transactionlist
+
+$data = $block->getAllTransactions();
+$helper = $block->getMembershipHelper();
+$mpHelper = $block->getMpHelper(); ?>
+<div class="transaction page-title">
+    <h1><?= /* @noEscape */ __('Product Fee Transaction List') ?></h1>
+</div>
+<?php if (!$mpHelper->getIsSeparatePanel()): ?>
+    <?php if ($block->getAllTransactions()
+            && $block->getAllTransactions()->getSize() <= 0
+        ) { ?>
+        <div class="fieldset">
+            <h2 class="legend">
+                <?= /* @noEscape */ __('Transaction List') ?>
+            </h2>
+            <div class="wk_emptymsg">
+                <?= /* @noEscape */ __('No Transaction Available') ?>
+            </div>
+        </div>
+    <?php } else {
+        $params = $block->getParameters();
+
+        $filterTrId = '';
+        $filterTrEmail = '';
+        $filterTrDateFrom = '';
+        $filterTrDateTo = '';
+        $filterTrStatus = '';
+
+        if (isset($params['tr_id'])) {
+            $filterTrId = $params['tr_id'] != '' ? $params['tr_id'] : '';
+        }
+        if (isset($params['tr_email'])) {
+            $filterTrEmail = $params['tr_email'] != '' ? $params['tr_email'] : '';
+        }
+        if (isset($params['tr_status'])) {
+            $filterTrStatus = $params['tr_status'] != '' ? $params['tr_status'] : '';
+        }
+        if (isset($params['from_date'])) {
+            $filterTrDateFrom = $params['from_date'] != '' ? $params['from_date'] : '';
+        }
+        if (isset($params['to_date'])) {
+            $filterTrDateTo = $params['to_date'] != '' ? $params['to_date'] : '';
+        }
+        ?>
+    <fieldset class="fieldset info wk-mp-fieldset">
+        <legend class="legend">
+            <span><?= /* @noEscape */ __('Transaction List') ?></span>
+        </legend>
+        <div class="grid">
+            <div class="hor-scroll">
+                <form action="<?= $escaper->escapeUrl($block->getUrl(
+                    'mpmembership/index/index',
+                    ['_secure' => $block->getIsSecure()]
+                ))?>"
+                    id="paypal_standard_checkout_filter"
+                    name="paypal_standard_checkout_filter"
+                    method="GET"
+                    data-mage-init='{"validation":{}}'>
+                    <table cellspacing="0" class="border wk-mp-list-table">
+                        <thead>
+                            <tr id="wk-mp-tr-heading">
+                                <th>
+                                    <span>
+                                        <?= /* @noEscape */ __('Transaction Id') ?>
+                                    </span>
+                                </th>
+                                <th>
+                                    <span>
+                                        <?= /* @noEscape */ __('Transaction Email') ?>
+                                    </span>
+                                </th>
+                                <th>
+                                    <span>
+                                        <?= /* @noEscape */ __('Transaction Date') ?>
+                                    </span>
+                                </th>
+                                <th>
+                                    <span>
+                                        <?= /* @noEscape */ __('Transaction Status') ?>
+                                    </span>
+                                </th>
+                                <th><span>&nbsp;</span></th>
+                            </tr>
+                        </thead>
+                        <tbody class="wk-mp-body">
+                            <tr>
+                                <td>
+                                    <input type="text"
+                                            class="input-text"
+                                            name="tr_id"
+                                            placeholder='<?= /* @noEscape */ __('Search by transaction Id') ?>'
+                                            value="<?= /* @noEscape */ $filterTrId ?>"/>
+                                </td>
+                                <td>
+                                    <input type="text"
+                                            class="input-text"
+                                            name="tr_email"
+                                            placeholder='<?= /* @noEscape */ __('Search by transaction email') ?>'
+                                            value="<?= /* @noEscape */ $filterTrEmail ?>"/>
+                                </td>
+                                <td>
+                                    <span class="wk-mp-td-span">
+                                        <?= /* @noEscape */ __('From: ') ?>
+                                        <input type="text"
+                                                name="from_date"
+                                                placeholder='<?= /* @noEscape */ __('Search by date') ?>'
+                                                id="from_date"
+                                                class="input-text"
+                                                value="<?= /* @noEscape */ $filterTrDateFrom ?>" />
+                                    </span>
+                                    <span class="wk-mp-td-span">
+                                        <?= /* @noEscape */ __('To: ') ?>
+                                        <input type="text"
+                                                name="to_date"
+                                                placeholder='<?= /* @noEscape */ __('Search by date') ?>'
+                                                id="to_date"
+                                                class="input-text"
+                                                value="<?= /* @noEscape */ $filterTrDateTo ?>" />
+                                    </span>
+                                </td>
+                                <td>
+                                    <input type="text"
+                                            class="input-text"
+                                            name="tr_status"
+                                            placeholder='<?= /* @noEscape */ __('Search by transaction status') ?>'
+                                            value="<?= /* @noEscape */ $filterTrStatus ?>"/>
+                                </td>
+                                <td>
+                                    <button class="button" title="Save" type="submit">
+                                        <span>
+                                            <span>
+                                                <?= /* @noEscape */ __('Submit') ?>
+                                            </span>
+                                        </span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <?php if ($block->getAllTransactions()
+                        && count($block->getAllTransactions()) > 0
+                        && $block->getAllTransactions()->getSize()
+                    ): ?>
+                    <table cellspacing="0"
+                            class="border wk-mp-list-table wk-mp-list-container-table">
+                        <thead>
+                            <tr class="wk-content">
+                                <th class="wk-first-td">
+                                    <span class="label name">
+                                        <?= /* @noEscape */ __('Reference Number') ?>
+                                    </span>
+                                </th>
+                                <th>
+                                    <span class="label pro-status">
+                                        <?= /* @noEscape */ __('Transaction Id')?>
+                                    </span>
+                                </th>
+                                <th>
+                                    <span class="label pro-status">
+                                        <?= /* @noEscape */ __('Transaction Email')?>
+                                    </span>
+                                </th>
+                                <th>
+                                    <span class="label pro-status">
+                                        <?= /* @noEscape */ __('Transaction Date')?>
+                                    </span>
+                                </th>
+                                <th>
+                                    <span class="label">
+                                        <?= /* @noEscape */ __('Transaction Status')?>
+                                    </span>
+                                </th>
+                                <th>
+                                    <span class="label">
+                                        <?= /* @noEscape */ __('Products')?>
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $i = 0;
+                            $transactions = $block->getAllTransactions();
+                            $count = count($block->getAllTransactions());
+                            foreach ($transactions as $product) {
+                                $productSkus = $block->getProductData($product->getProductIds());
+                                $i++;
+                                $transactionEmail = __("Pending");
+                                $transactionId = __("Pending");
+                                if ($product->getTransactionId()!=="") {
+                                    $transactionId = $product->getTransactionId();
+                                }
+                                if ($product->getTransactionEmail()!=="") {
+                                    $transactionEmail = $product->getTransactionEmail();
+                                }
+                                ?>
+                                <tr class="wk-row-view
+                                <?= /* @noEscape */ $class = ($i == $count)? 'wk-last_tr':''?>"
+                                >
+                                    <td class="wk-first_td">
+                                        <span class="label pro-status">
+                                            <?= /* @noEscape */ $product->getReferenceNumber() ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="label pro-status">
+                                            <?= /* @noEscape */ $transactionId;  ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="label pro-status">
+                                            <?= /* @noEscape */ $transactionEmail; ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="label pro-status">
+                                            <?= /* @noEscape */ $helper->formatDateByDateTime(
+                                                $product->getTransactionDate()
+                                            ) ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="label pro-status">
+                                            <?= /* @noEscape */ $product->getTransactionStatus() ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="label pro-status">
+                                            <?= /* @noEscape */ $productSkus ?>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <?php
+                            }?>
+                        </tbody>
+                    </table>
+                <?php else: ?>
+                    <div class="wk-emptymsg">
+                        <?= /* @noEscape */ __('No Transaction Available') ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+        <?php if ($block->getPagerHtml()
+                && count($block->getAllTransactions()) > 0
+            ): ?>
+            <div class="order-products-toolbar toolbar bottom">
+            <?= /* @noEscape */ $block->getPagerHtml(); ?>
+            </div>
+        <?php endif; ?>
+    </fieldset>
+    <div class="buttons-set">
+        <p class="back-link">
+            <a href="javascript:;"
+                onclick="javascript: window.history.back();"
+                class="left">
+                &laquo; <?= /* @noEscape */ __('Back') ?>
+            </a>
+        </p>
+    </div>
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "membershipTransactionList": {}
+            }
+        }
+    </script>
+    <?php } ?>
+<?php endif; ?>

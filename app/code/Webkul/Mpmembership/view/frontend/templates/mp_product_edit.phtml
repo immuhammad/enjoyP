@@ -1,0 +1,36 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpmembership
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+// @block Magento\Framework\View\Element\Template
+use Magento\Catalog\Model\Product\Visibility;
+use Webkul\Mpmembership\Model\Config\Source\Feeapplied;
+
+$helper = $block->getMembershipHelper();
+$feeAppliedFor = $helper->getConfigFeeAppliedFor();
+$params = $block->getParams();
+$flag = false;
+if (!empty($params['id']) && $feeAppliedFor == Feeapplied::PER_PRODUCT) {
+    $parentIds = $helper->getParentIdsByChildId($params['id']);
+    if (!empty($parentIds)) {
+        $flag = true;
+    }
+}
+if ($flag): ?>
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "mpProductEdit": {
+                    "visibility": <?= /* @noEscape */ Visibility::VISIBILITY_NOT_VISIBLE ?>
+                }
+            }
+        }
+    </script>
+<?php endif; ?>

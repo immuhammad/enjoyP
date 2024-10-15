@@ -1,0 +1,43 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$quickOrderBlock =  $block->getLayout()->createBlock(
+    \Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class
+);
+$partner = $block->getProfileDetail();
+$b2bHelper = $b2bHelper = $quickOrderBlock->helper(\Webkul\B2BMarketplace\Helper\Data::class);
+$paramData = $quickOrderBlock->getRequest()->getParams();
+$defaultAddress = $b2bHelper->getAddressById($partner->getDefaultAddressId());
+if ($defaultAddress) {
+    $locsearch =
+    $defaultAddress->getCity()."+".$defaultAddress->getRegion()."+".
+    $b2bHelper->getCountryName($defaultAddress->getCountryId())."+".
+    $defaultAddress->getPostcode();
+    $paramData['loc'] = $locsearch;
+} else {
+    $locsearch = $block->escapeHtml($partner['company_locality']);
+    $paramData['loc'] = $locsearch;
+}
+?>
+<div class="wk_mp_design">
+    <?= /* @noEscape */ $block->getChildHtml("marketplace_seller_top_block")?>
+    <div class="wk-mp-collection-container">
+        <iframe width="100%" height="550" frameborder="0" scrolling="no" 
+        marginheight="0" marginwidth="0" 
+        src="//maps.google.com/maps?q=<?= /* @noEscape */
+        $paramData['loc'];?>&amp;output=embed"></iframe>
+        <br />
+        <small>
+            <a href="//maps.google.com/maps?q=<?= /* @noEscape */
+            $paramData['loc'];?>" class="wk_loc_inf">
+            <?= /* @noEscape */ __('View Larger Map') ?></a>
+        </small>
+    </div>
+</div>

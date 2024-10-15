@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpServiceFee
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_place_after">
+        <observer name="Webkul_MpServiceFees_sales_order_place_after_observer" instance="Webkul\MpServiceFee\Observer\SalesOrderPlaceAfterObserver" />
+    </event>
+    <event name="mp_order_save_after">
+        <observer name="webkul_marketplace_order_place_after_observer" instance="Webkul\MpServiceFee\Observer\MarketplaceSalesOrderPlaceAfterObserver" />
+    </event>
+    <event name="mp_order_shipping_invoice_save_after">
+        <observer name="webkul_marketplace_mp_order_shipping_invoice_save_after" instance="Webkul\MpServiceFee\Observer\MarketplaceInvoiceSaveAfter" />
+    </event>
+    <event name="sales_order_creditmemo_save_after">
+        <observer name="Webkul_MpServiceFees_create_online_refund" instance="Webkul\MpServiceFee\Observer\SalesOrderCreditmemoSaveAfter"/>
+    </event>
+</config>

@@ -1,0 +1,83 @@
+Legend
+
++ Features
+- Bugs
+
+-------------------------------- Version 5.0.1 --------------------------------------
+
+		+ Compatible with magento 2.4.x
+		+ Added Show Add to Cart
+		+ Show Product Price 
+		+ Add to quote feature at admin end
+
+-------------------------------- Version 5.0.0 --------------------------------------
+
+		+ Compatible with magento 2.4.x and Marketplace 5.0.x
+
+-------------------------------- Version 4.0.0 --------------------------------------
+
+		+ Compatible with magento 2.4.x and Marketplace 5.0.x
+
+-------------------------------- Version 3.0.1 --------------------------------------
+
+		+ Compatible with magento 2.3.x and Marketplace 3.0.x
+		+ Added notification icon at both Seller and Admin end
+		+ For sold quote, in buyer My Quotes grid, there will be only an option to view
+		  quote
+		- issues fixed
+
+-------------------------------- Version 3.0.0 --------------------------------------
+
+		+ Compatible with magento 2.3.x and Marketplace 3.0.x
+
+-------------------------------- Version 2.1.0 --------------------------------------
+
+		+ Compatible with magento 2.3.x and Marketplace 2.2.x
+
+-------------------------------- Version 2.0.6 --------------------------------------
+		
+		+ Added notification icon at both Seller and Admin end
+		+ For sold quote, in buyer My Quotes grid, there will be only an option to view
+		  quote
+		- issues fixed
+
+-------------------------------- Version 2.0.5 --------------------------------------
+		
+		+ Customer can quote according to store currency
+		- issues fixed
+
+-------------------------------- Version 2.0.4 --------------------------------------
+		
+		+ Buyer/seller can upload the attachment
+		+ buyer , seller and admin can download the quote attachment from order
+		+ Admin and seller can set quote according global configuration
+
+-------------------------------- Version 2.0.3 --------------------------------------
+		
+		+ Updated for Magento 2.2.x and MP 2.1.x Version
+		+ Add a product to Quote from Category page which not have options to select.
+		+ Admin can set whether to allow customer to add discount on quote product cart or not.
+		- Issues solved.
+		
+-------------------------------- Version 2.0.2 --------------------------------------
+
+        + Updated for Marketplace seller group module.
+		+ Allow admin to create custom email templates for quote system email templates.
+		+ Now a product which is a quoted product can added with normal product in cart.
+
+-------------------------------- Version 2.0.1 --------------------------------------
+
+		+ Composer.json updated.
+
+-------------------------------- Version 2.0.0 --------------------------------------
+
+		+ Seller can enable the quote system for their products.
+		+ The customer can enter custom prices for products.
+		+ Customer can order the seller’s products in bulk.
+		+ Buyer can view the bulk orders, price and status of particular product.
+		+ Buyer can communicate with seller about their queries.
+		+ Admin can also involve between the buyer and seller conversation.
+		+ Admin can also change the status of customer quote.
+		+ Admin can also allow to add the quote on their products.
+		+ Works with multi-store and multi-website of Magento.
+		+ Multi Lingual Support.

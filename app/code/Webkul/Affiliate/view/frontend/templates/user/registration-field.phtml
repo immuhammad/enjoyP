@@ -1,0 +1,54 @@
+<?php
+/**
+ * Webkul Affiliate User Create.
+ *
+ * @category  Webkul
+ * @package   Webkul_Affiliate
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+if ($block->isAffilateRegistration() && $block->isAffilateEnable()) {?>
+    <?php
+    if ($block->getConfigBlogLinkValue()) {
+        ?>
+                <div class="field field-name-firstname required">
+            <label class="label" for="bloglink">
+                <span><?=  /* @noEscape */ __('Blog')?></span>
+            </label>
+
+            <div class="control">
+                <input type="text" id="bloglink" name="bloglink" 
+                value="" title="blog link" class="input-text required-entry validate-url" 
+                data-validate="{required:true}" autocomplete="off" aria-required="true">
+                                <p><?= /* @noEscape */ $block->getBlogUrlHintonregistration(); ?></p>
+            </div>
+        </div>
+                <?php
+    }
+    ?>
+    <div class="field confirmation required">
+        <div class="control">
+            <input type="hidden" name="error_url" value="<?= /* @noEscape */  $block->getErrorUrl() ?>">
+            <input type="hidden" value="1" name="aff" />
+            <input type="checkbox" value="1" name="aff_conf"
+            class="input-text required-entry" id="affiliate-confirmation" 
+            title="<?= /* @noEscape */ __("Affilate Terms Accept")?>" />
+            <span>
+                <div id="affiliate-term" style="display:none;">
+                    <?= /* @noEscape */ $block->isAffilateRegistrationTerms(); ?> 
+                </div>
+                <?= /* @noEscape */ __('I agree to the')?>
+                <a id="aff_term_light" data-terms="" href="#" style="font-weight:bold;">
+                <?= /* @noEscape */ __("Affiliate Terms")?> </a>
+            </span>
+        </div>
+    </div>
+    <script type="text/x-magento-init">
+    {
+        "*": {
+            "Webkul_Affiliate/js/requestforaffilateuser": {}
+        }
+    }
+    </script>
+<?php } ?>

@@ -1,0 +1,83 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpquotesystem
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+// use to display quote options on creating a new or editing a new product in marketplace
+$errorMessage = __('Enter a valid minimum quantity');
+$params = $block->getParameters();
+if ((array_key_exists('type', $params) && $params['type']!='grouped') || array_key_exists('id', $params)) {
+    $productId = 0;
+    $productType = '';
+    if (array_key_exists('id', $params)) {
+        $productId = $params['id'];
+    }
+    $quoteStatus = 2;
+    $quoteQuantity = '';
+    if ($productId) {
+        $product = $block->getProduct()->load($productId);
+        $quoteStatus= $product->getQuoteStatus();
+        $quoteQuantity = $product->getMinQuoteQty();
+        if (!$quoteQuantity) {
+            $quoteQuantity = $block->getMinQuoteQty();
+        }
+        $productType = $product->getTypeId();
+    } ?>
+    <?php if ($productType!='grouped'): ?>
+        <div class="field">
+            <label class="label"><?=$block->escapeHtml(__('Quote Status'))?>:</label>
+                <div class="input-box">
+                    <select name="product[quote_status]" id='quotestatus' class="required-entry">
+                        <option value="2" <?php if ($quoteStatus == 2) { ?>
+                            <?= $block->escapeHtmlAttr("selected='selected'");}?>>
+                        <?=$block->escapeHtml(__('Default'))?>
+                        </option>
+                        <option value="0" <?php if ($quoteStatus == 0) { ?>
+                            <?= $block->escapeHtmlAttr("selected='selected'"); }?>>
+                        <?=$block->escapeHtml(__('Disabled'))?>
+                        </option>
+                        <option value="1" <?php if ($quoteStatus == 1) { ?>
+                            <?= $block->escapeHtmlAttr("selected='selected'");}?>>
+                        <?=$block->escapeHtml(__('Enabled'))?>
+                        </option>
+                    </select>
+                </div>
+        </div>
+        <div class="field quote-min-qty-field<?= ($quoteStatus==1)?'':' _attachment-hide'?>">
+            <label class="label"><?=$block->escapeHtml(__('Minimum Quote Quantity'))?>:</label>
+            <div class="input-box">
+                <input type="text"
+                    name='product[min_quote_qty]'
+                    value='<?=$block->escapeHtmlAttr($quoteQuantity)?>'
+                    id='quoteminqty'
+                    class="<?=$block->escapeHtmlAttr(($quoteStatus==1)?'required-entry validate-number
+                    validate-greater-than-zero':'')?>"
+                    data-validate="{'validate-greater-than-zero':true}"
+                    >
+            </div>
+        </div>
+        <?php
+        $formData = [
+            'quoteStatus'   =>  '#quotestatus',
+            'quoteMinQuantity'  =>  '#quoteminqty',
+            'quotestatus' => $quoteStatus,
+            'errorMessage' => $errorMessage
+        ];
+        $serializedFormData = \Magento\Framework\Serialize\JsonConverter::convert($formData);
+        ?>
+        <script type="text/x-magento-init">
+            {
+                "*": {
+                    "WkMpQuotesystem": <?= /* @noEscape */ $serializedFormData; ?>
+                }
+            }
+        </script>
+    <?php endif; ?>
+<?php }?>

@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpVendorAttributeManager
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="marketplace">
+        	<group id="vendor_attribute" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Vendor Attributes Settings</label>
+                <field id="visible_registration" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Visible on Registration</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="visible_profile" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Visible on Profile</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="file_display" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>File Display on Vendor Profile</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="group_display" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Display Registration Fields Group Wise</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If this field set to 'Yes' make sure atleast one vendor group created.</comment>
+                </field>
+                 <field id="image_display" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Image Display on Vendor Profile</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="allowede_image_extension" translate="label comment" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Allowed Image Extension</label>
+                    <comment>Enter File type seperated by comma(,) like jpg,png,gif</comment>
+                </field>
+                <field id="allowede_file_extension" translate="label comment" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Allowed File Extension</label>
+                    <comment>Enter File type seperated by comma(,) like pdf,zip,doc</comment>
+                </field>
+                <field id="profile_label" translate="label" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Seller Profile Label</label>
+                </field>
+            </group>
+            <group id="termcondition" translate="label" type="text" sortOrder="61" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Terms &amp; Conditions and  Privacy Setting</label>
+                <field id="enable_registration" translate="label comment" sortOrder="1" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Terms and Conditions on Vendor Registration Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="customer_enable_registration" translate="label comment" sortOrder="2" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Terms and Conditions on Customer Registration Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="privacy_heading" translate="label comment" sortOrder="3" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Privacy Popup Model Heading</label>
+                </field>
+                <field id="term_heading" translate="label comment" sortOrder="3" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Term and Condition Popup Model Heading</label>
+                </field>
+                <field id="button_text" translate="label comment" sortOrder="4" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Model Button Text</label>
+                </field>
+                <field id="button_text_color" translate="label comment" sortOrder="4" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Button Text Color</label>
+                    <comment><![CDATA[Save hexa code e.g: #FFFFFF, leave blank for default]]></comment>
+                    <frontend_model>Webkul\MpVendorAttributeManager\Block\Adminhtml\ColorPicker\Color</frontend_model>
+                </field>
+                <field id="button_color" translate="label comment" sortOrder="4" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Model Button Color</label>
+                    <comment><![CDATA[Save hexa code e.g: #FFFFFF, leave blank for default]]></comment>
+                    <frontend_model>Webkul\MpVendorAttributeManager\Block\Adminhtml\ColorPicker\Color</frontend_model>
+                </field>
+                <field id="model_background" translate="label comment" sortOrder="4" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Model Background Color</label>
+                    <comment><![CDATA[Save hexa code e.g: #FFFFFF, leave blank for default]]></comment>
+                    <frontend_model>Webkul\MpVendorAttributeManager\Block\Adminhtml\ColorPicker\Color</frontend_model>
+                </field>
+                <field id="animate" translate="label comment" sortOrder="4" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Model Animation Type</label>
+                    <source_model>Webkul\MpVendorAttributeManager\Model\Config\Source\Animation</source_model>
+                </field>
+                <field id="is_html" translate="label comment" sortOrder="5" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Content as</label>
+                    <source_model>Webkul\MpVendorAttributeManager\Model\Config\Source\Content</source_model>
+                </field>
+                <field id="termcondition" translate="label comment" sortOrder="7" type="editor" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Terms &amp; Conditions</label>
+                    <frontend_model>Webkul\MpVendorAttributeManager\Block\Adminhtml\System\Config\Editor</frontend_model>
+                </field>
+                <field id="privacy" translate="label comment" sortOrder="8" type="editor" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Privacy &amp; Cookie Policy </label>
+                    <frontend_model>Webkul\MpVendorAttributeManager\Block\Adminhtml\System\Config\Editor</frontend_model>
+                </field>
+            </group>
+            <group id="vendorattribute_product_information" translate="label" type="text" sortOrder="700" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Vendor Attribute Manager Product Information</label>
+                <field id="author" translate="label" type="note" sortOrder="1" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label><![CDATA[<p>Author: <a target="_blank" title="Webkul Software Private Limited" href="https://webkul.com/">Webkul</a></p>
+                        <p>User Guide: <a target="_blank" href="https://webkul.com/blog/magento2-marketplace-vendor-attribute-manager/">Click here</a></p>
+                        <p>Store Extension: <a target="_blank" href="https://store.webkul.com/magento2-marketplace-vendor-attribute.html">Click here</a></p>
+                        <p>Ticket/Customisations: <a target="_blank" href="https://webkul.uvdesk.com/en/customer/create-ticket/">Click here</a></p>
+                        <p>Services: <a target="_blank" href="https://webkul.com/magento-development/">Click here</a></p>
+					]]></label>
+                    <frontend_model>Webkul\MpVendorAttributeManager\Block\Adminhtml\System\Config\ModuleInfo</frontend_model>
+                </field>
+            </group>
+    	</section>
+	</system>
+</config>

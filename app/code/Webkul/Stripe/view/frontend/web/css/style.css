@@ -1,0 +1,91 @@
+/**
+* Webkul Software
+*
+* @category Webkul
+* @package Webkul_Stripe
+* @author Webkul
+* @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+* @license https://store.webkul.com/license.html
+*/
+.stripe-card-options {
+    padding: 10px;
+}
+.stripe-control .control {
+    margin: 10px 0;
+}
+.stripe-control {
+    margin: 10px;
+}
+/* #payment_form_stripe.fieldset {
+    background: aliceblue none repeat scroll 0 0;
+    padding: 10px;
+    border: 1px solid #e2e2e2;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px #e2e2e2;
+} */
+.stripe_logo_label > img {
+    vertical-align: top;
+}
+.stripe_logo_label {
+    display: -webkit-inline-box;
+    line-height: 40px;
+    text-align: left;
+    font-family: cursive;
+}
+#wk_stripe_savedcard_year {
+    width: 13%;
+}
+#wk_stripe_savedcard_month {
+    width: 9%;
+}
+@media only screen and (max-width: 1003px) {
+    #wk_stripe_savedcard_year {
+        width: 25%;
+    }
+    #wk_stripe_savedcard_month {
+        width: 25%;
+    }
+}
+@media only screen and (max-width: 369px) {
+    #wk_stripe_savedcard_year {
+        width: 100%;
+    }
+    #wk_stripe_savedcard_month {
+        width: 100%;
+    }
+}
+.emptymsg {
+    color:red;
+}
+img.payment-icon {
+    width: 100px;
+}
+label.label.stripe-label span:hover {
+    content: attr(data-text);
+    overflow: visible;
+    text-overflow: inherit;
+    background: #fff;
+    position: absolute;
+    left: auto;
+    top: auto;
+    width: auto;
+    max-width: 79rem;
+    border: 1px solid #eaebec;
+    padding: 0 .5rem;
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 28%);
+    white-space: normal;
+    word-wrap: break-word;
+    display: block;
+    color: black;
+    margin-top: -1.25rem;
+}
+label.label.stripe-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 21.5%;
+    display: inline-block;
+}
+fieldset.fieldset {
+    display: contents;
+}

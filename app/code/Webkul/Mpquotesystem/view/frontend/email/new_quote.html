@@ -1,0 +1,75 @@
+<!--@subject New Quote @-->
+<!--@vars {
+"var receiver_name":"Receiver Name",
+"var title":"Title",
+"var quote_id|raw":"Quote Id",
+"var quote_qty|raw":"Quote Qty",
+"var quote_price|raw":"Quote Price",
+"var product_name|raw":"Product Name",
+"var quote_description |raw":"Quote Description"
+} @-->
+{{template config_path="design/email/header_template"}}
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">Hello, {{trans "%customer_name" customer_name=$receiver_name}}</p>
+        </td>
+    </tr>
+    <tr class="email-summary">
+        <td>
+            <p>{{trans "%quoteTitle" quoteTitle=$title}}</p>
+        </td>
+    </tr>
+    <tr class="email-information">
+        <td>
+            <table class="email-items">
+                <thead>
+                    <tr>
+                        <th class="item-info">{{trans "Quote Id"}}</th>
+                        <th class="item-info">{{trans "Quote Qty"}}</th>
+                        <th class="item-options">{{trans "Quote Price"}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{var quote_id|raw}}</td>
+                        <td>{{var quote_qty|raw}}</td>
+                        <td>{{var quote_price|raw}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="email-items">
+                <thead>
+                    <tr>
+                        <th class="item-info">{{trans "Name"}}</th>
+                        <th class="item-info">{{trans "Sku"}}</th>
+                        <th class="item-info">{{trans "Product Price"}}</th>                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    {{var product_name|raw}}
+                    </tr>
+                </tbody>
+            </table>
+            <table class="email-items">
+                <tr>
+                    <th class="item-info">{{trans "Description:"}}</th>
+                </tr>
+                <tr>
+                    <td class="item-info">{{var quote_description |raw}}</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <center>
+                <p>
+                    <strong>Thank you</strong>
+                </p>
+            </center>
+        </td>
+    </tr>
+</table>
+{{template config_path="design/email/footer_template"}}

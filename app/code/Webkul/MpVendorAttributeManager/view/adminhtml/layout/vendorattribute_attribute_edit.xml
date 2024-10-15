@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpVendorAttributeManager
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="left">
+            <block class="Webkul\MpVendorAttributeManager\Block\Adminhtml\Attribute\Edit\Tabs" name="vendor_attribute_edit_tabs">
+                <container label="Main" name="main">
+                    <block class="Webkul\MpVendorAttributeManager\Block\Adminhtml\Attribute\Edit\Tab\Main" as="base"/>
+                    <block class="Webkul\MpVendorAttributeManager\Block\Adminhtml\Attribute\Edit\Tab\Options" as="advanced"/>
+                </container>
+                <block class="Webkul\MpVendorAttributeManager\Block\Adminhtml\Attribute\Edit\Tab\Labels" as="labels"/>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Webkul\MpVendorAttributeManager\Block\Adminhtml\Attribute\Edit" name="vendor_attribute_edit_content"/>
+        </referenceContainer>
+    </body>
+</page>

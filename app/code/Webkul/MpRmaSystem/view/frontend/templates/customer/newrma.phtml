@@ -1,0 +1,171 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpRmaSystem
+ * @author    Webkul Software Private Limited
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<div class="wk-loading-mask wk-display-none">
+    <div class="wk-loader"></div>
+</div>
+<?php
+    $helper = $block->helper();
+    $orders = $helper->getOrdersOfCustomer();
+    $reasons = $helper->getAllReasons();
+    $orderUrl = $block->getUrl('mprmasystem/order/items');
+    $checkUrl = $block->getUrl('mprmasystem/order/check');
+    $totalOrderQtyUrl = $block->getUrl('mprmasystem/order/totalorderquantity');
+    $symbol = $helper->getCurrencySymbol();
+    $allReasons = [__("Select Reason")];
+foreach ($reasons as $reasonId => $reason) {
+    $allReasons[$reasonId] = $reason;
+}
+    $blockHtml = '<div class="wk-showcase-block">';
+    $blockHtml .= '<div title= "Delete Showcase" class="wk-delete-item">x</div>';
+    $blockHtml .= '<div class="wk-default-block">Add Image</div>';
+    $blockHtml .= '<input type="file" name="showcase[]" accept="image/*" class="wk-showcase-img wk-no-display">';
+    $blockHtml .= '</div>';
+    $imgErrorMsg = __("Invalid Image Format. jpeg, jpg, gif, png are accepted");
+    $sellerLabel = __("Seller");
+    $consignmentLabel = __("Enter Consignment Number");
+    $selectItemLabel = __("Please select item");
+    $imgSelectLabel = __("Image(s) are not selected");
+    $orderSelectLabel = __("No Order Selected");
+    $sellerSelectLabel = __("No Seller Selected");
+    $resolutionSelectLabel = __("No Resolution Selected");
+    $itemsErrorLabel = __("Items not available for RMA");
+    $refundLabel = __("Refund");
+    $replaceLabel = __("Replace");
+    $cancelLabel = __("Cancel Items");
+    $notDeliveredLabel = __("Not Delivered");
+    $deliveredLabel = __("Delivered");
+    $selectQtyLabel = __("Select Quantity");
+    $selectSellerLabel = __("Select Seller");
+    $warningLabel = __("Warning");
+    $qtyMsg = __("Quantity not available");
+    $orderStatusLabel = __("Order's Status");
+    $data = $helper->jsonEncodeData([
+                "orderUrl" => $orderUrl,
+                "checkUrl" => $checkUrl,
+                "reasons" => $allReasons,
+                "isGuest" => 0,
+                "blockHtml" => $blockHtml,
+                "imgErrorMsg" => $imgErrorMsg,
+                "consignmentLabel" => $consignmentLabel,
+                "sellerLabel" => $sellerLabel,
+                "selectItemLabel" => $selectItemLabel,
+                "imgSelectLabel" => $imgSelectLabel,
+                "orderSelectLabel" => $orderSelectLabel,
+                "sellerSelectLabel" => $sellerSelectLabel,
+                "resolutionSelectLabel" => $resolutionSelectLabel,
+                "itemsErrorLabel" => $itemsErrorLabel,
+                "refundLabel" => $refundLabel,
+                "replaceLabel" => $replaceLabel,
+                "cancelLabel" => $cancelLabel,
+                "deliveredLabel" => $deliveredLabel,
+                "notDeliveredLabel" => $notDeliveredLabel,
+                "selectQtyLabel" => $selectQtyLabel,
+                "selectSellerLabel" => $selectSellerLabel,
+                "warningLabel" => $warningLabel,
+                "qtyMsg" => $qtyMsg,
+                "orderStatusLabel" => $orderStatusLabel,
+                "totalOrderQtyUrl" => $totalOrderQtyUrl
+            ]);
+    ?>
+
+<div class="wk-mprma-container">
+    <form method="post" 
+        action="<?= $escaper->escapeUrl($block->getUrl('mprmasystem/customer/create')); ?>" 
+        id="wk_new_rma_form" enctype="multipart/form-data" data-mage-init='{"validation":{}}'>
+        <fieldset class="fieldset wk-mprma-fieldset">
+            <div class="field required wk-orders">
+                <label for="orders" class="label">
+                    <span><?= $escaper->escapeHtml(__("Orders")); ?></span>
+                </label>
+                <div class="control">
+                    <input type="hidden" name="is_partial_cancel" id="isPartialCancel" value="0"/>
+                    <select id="orders" name="order_id" data-validate="{required:true}" 
+                        class="input-text required-entry">
+                        <option value=""><?= $escaper->escapeHtml(__("Select Order")); ?></option>
+                        <?php foreach ($orders as $order): ?>
+                            <option value="<?= $escaper->escapeHtml($order->getId());?>">#
+                                <?= $escaper->escapeHtml(
+                                    $order->getIncrementId()
+                                ).", ".
+                                            /* @noEscape */ $order->formatPrice($order->getGrandTotal()); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="required table-wrapper field">
+                <label class="label">
+                    <span><?= $escaper->escapeHtml(__("Items Ordered")); ?></span>
+                </label>
+                <table id="orders-item-table" class="data table table-order-items">
+                    <thead>
+                        <tr>
+                            <th class="col" scope="col"><input type="checkbox" class="wk-mass-select"></th>
+                            <th class="col" scope="col"><?= $escaper->escapeHtml(__("Product")); ?></th>
+                            <th class="col" scope="col"><?= $escaper->escapeHtml(__("Sku")); ?></th>
+                            <th class="col" scope="col"><?= $escaper->escapeHtml(__("Price")); ?></th>
+                            <th class="col" scope="col"><?= $escaper->escapeHtml(__("Quantity")); ?></th>
+                            <th class="col" scope="col"><?= $escaper->escapeHtml(__("Reason")); ?></th>
+                        </tr>
+                    </thead>
+                    <tbody id= "order_items">
+                        <td colspan="7">
+                            <div class="message info">
+                                <span><?= $escaper->escapeHtml($orderSelectLabel); ?></span>
+                            </div>
+                        </td>
+                    </tbody>
+                </table>
+            </div>
+            <div class="field">
+                <label for="image" class="label">
+                    <span><?= $escaper->escapeHtml(__("Images")); ?></span>
+                </label>
+                <div class="control">
+                    <div class="wk-showcase-container">
+                        <input type="hidden" name="delete_ids" value="" id="delete_ids">
+                        <div class="wk-button-set">
+                            <button type="button" class="wk-add-showcase-btn">
+                                <?= $escaper->escapeHtml(__("Add Images")); ?>
+                            </button>
+                        </div>
+                    </div>
+                    <input type="hidden" id="isChecked" name="is_checked" value="0">
+                </div>
+            </div>
+            <div class="field">
+                <label for="additional_info" class="label">
+                    <span><?= $escaper->escapeHtml(__("Additional Information")); ?></span>
+                </label>
+                <div class="control">
+                    <textarea name="additional_info"></textarea>
+                </div>
+            </div>
+            <div class="wk-actions-toolbar actions-toolbar">
+                <div class="primary">
+                    <button title="Save" class="action save primary wk-save" type="submit">
+                        <span>
+                            <?= $escaper->escapeHtml(__("Submit Request")); ?>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<script type="text/x-magento-init">
+    {
+        "body": {
+             "Webkul_MpRmaSystem/js/newRma": <?= /* @noEscape */ $data ?>
+        }
+    }
+</script>

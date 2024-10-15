@@ -1,0 +1,57 @@
+{
+    "marketplace_quotes": {
+        "column": {
+            "entity_id": true,
+            "customer_id": true,
+            "product_id": true,
+            "product_name": true,
+            "product_price": true,
+            "product_option": true,
+            "item_id": true,
+            "quote_qty": true,
+            "quote_price": true,
+            "quote_desc": true,
+            "links": true,
+            "bundle_option": true,
+            "super_attribute": true,
+            "status": true,
+            "created_at": true,
+            "quote_currency_symbol": true,
+            "quote_currency_code": true,
+            "attachment": true,
+            "order_id": true,
+            "seller_pending_notification": true,
+            "admin_pending_notification": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "marketplace_quote_conversation": {
+        "column": {
+            "entity_id": true,
+            "sender": true,
+            "receiver": true,
+            "conversation": true,
+            "quote_id": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "marketplace_quote_config": {
+        "column": {
+            "entity_id": true,
+            "categories": true,
+            "min_qty": true,
+            "seller_id": true
+        },
+        "index": {
+            "MARKETPLACE_QUOTE_CONFIG_ENTITY_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

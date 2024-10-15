@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="seller-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Webkul_Marketplace::css/wk_block.css"/>
+        <css src="Webkul_Marketplace::css/style.css"/>
+        <css src="Webkul_Marketplace::css/product.css"/>
+        <css src="Webkul_Marketplace::css/layout.css"/>
+        <css src="Webkul_Marketplace::colorpicker/css/colorpicker.css"/>
+        <css src="Webkul_B2BMarketplace::css/quote.css"/>
+    </head>
+    <body>
+        <referenceContainer name="seller.content">
+            <block class="Webkul\Marketplace\Block\Account\Editprofile" name="microsite.details" template="Webkul_B2BMarketplace::supplier/microsite.phtml" cacheable="false">
+                <block class="Webkul\Marketplace\Block\Account\Editprofile" name="supplier.company.info" template="Webkul_B2BMarketplace::supplier/microsite/company_info.phtml" group="microsite_details" >
+                    <arguments>
+                        <argument translate="true" name="title" xsi:type="string">Company Info</argument>
+                    </arguments>
+                </block>
+                <block class="Webkul\Marketplace\Block\Account\Editprofile" name="supplier.company.overview" template="Webkul_B2BMarketplace::supplier/microsite/company_overview.phtml" group="microsite_details" cacheable="false">
+                    <arguments>
+                        <argument translate="true" name="title" xsi:type="string">Company Overview</argument>
+                    </arguments>
+                </block>
+                <block class="Webkul\Marketplace\Block\Account\Editprofile" name="supplier.info" template="Webkul_B2BMarketplace::supplier/microsite/supplier_info.phtml" group="microsite_details" cacheable="false">
+                    <arguments>
+                        <argument translate="true" name="title" xsi:type="string">Supplier Info</argument>
+                    </arguments>
+                </block>
+
+                <block class="Webkul\Marketplace\Block\Account\Editprofile" name="supplier.policies" template="Webkul_B2BMarketplace::supplier/microsite/supplier_policies.phtml" group="microsite_details" cacheable="false" ifconfig="marketplace/profile_settings/seller_policy_approval">
+                    <arguments>
+                        <argument translate="true" name="title" xsi:type="string">Policies</argument>
+                    </arguments>
+                </block>
+                <block class="Webkul\Marketplace\Block\Account\Editprofile" name="supplier.url.settings" template="Webkul_B2BMarketplace::supplier/microsite/url_settings.phtml" group="microsite_details" cacheable="false" ifconfig="marketplace/profile_settings/url_rewrite">
+                    <arguments>
+                        <argument translate="true" name="title" xsi:type="string">Url Settings</argument>
+                    </arguments>
+                </block>
+                <block class="Webkul\Marketplace\Block\Account\Editprofile" name="supplier.categories" template="Webkul_B2BMarketplace::supplier/microsite/categories.phtml" group="microsite_details" cacheable="false">
+                    <arguments>
+                        <argument translate="true" name="title" xsi:type="string">Categories</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

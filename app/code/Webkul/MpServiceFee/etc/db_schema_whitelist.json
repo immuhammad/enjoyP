@@ -1,0 +1,60 @@
+{
+    "service_fees": {
+        "column": {
+            "entity_id": true,
+            "service_status": true,
+            "service_code": true,
+            "service_title": true,
+            "service_value": true,
+            "service_type": true,
+            "seller_id": true,
+            "store_id": true,
+            "position": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "sales_order": {
+        "column": {
+            "service_fees": true,
+            "current_currency_service_fees": true,
+            "service_code": true,
+            "service_title": true
+        }
+    },
+    "quote": {
+        "column": {
+            "service_fees": true,
+            "current_currency_service_fees": true
+        }
+    },
+    "quote_item": {
+        "column": {
+            "service_fees": true,
+            "current_currency_service_fees": true,
+            "service_title": true,
+            "service_title_list": true
+        }
+    },
+    "sales_order_item": {
+        "column": {
+            "service_fees": true,
+            "current_currency_service_fees": true,
+            "service_title": true,
+            "service_title_list": true
+        }
+    },
+    "marketplace_saleslist": {
+        "column": {
+            "service_fees": true,
+            "current_currency_service_fees": true
+        }
+    },
+    "marketplace_orders": {
+        "column": {
+            "service_fees": true,
+            "current_currency_service_fees": true
+        }
+    }
+}

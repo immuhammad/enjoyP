@@ -1,0 +1,85 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$quickOrderBlock =  $block->getLayout()->createBlock(
+    \Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class
+);
+
+$helper = $quickOrderBlock->helper(\Webkul\Marketplace\Helper\Data::class);
+$b2bHelper = $quickOrderBlock->helper('Webkul\B2BMarketplace\Helper\Data');
+$partner = $block->getProfileDetail();
+$shopUrl = $block->escapeHtml($partner['shop_url']);
+$sellerId = $partner->getSellerId();
+$supplierInfo = $quickOrderBlock->helper('Webkul\B2BMarketplace\Helper\Data')->getSupplierInfoById($sellerId);
+$defaultAddress = $b2bHelper->getAddressById($partner->getDefaultAddressId());
+$logo = $partner->getLogoPic()!=''?$partner->getLogoPic():"noimage.png";
+$logo = $helper->getMediaUrl().'avatar/'.$logo;
+?>
+<div class="wk-supplier-contact-block" id="contact-us">
+    <h2 class="wk-supplier-collection-h2"><?= $block->escapeHtml(__("Contact")) ?></h2>
+    <div class="wk-supplier-info-wrapper">
+        <h4 class="wk-supplier-collection-header-txt"><?= $block->escapeHtml(__('Supplier Info'))?></h4>
+        <div>
+            <div class="wk-supplier-info-container">
+                <a class="wk-supplier-minilogo-container" 
+                href="<?= $block->escapeHtml($helper
+                ->getRewriteUrl('marketplace/seller/profile/shop/'.$shopUrl));?>" >
+                    <img class="wk-supplier-collection-minilogo" src="<?= /* @noEscape */ $logo; ?>" />
+                </a>
+                <div class="wk-supplier-info-title-container">
+                    <div class="wk-supplier-info-row">
+                        <?= $block->escapeHtml($supplierInfo->getName());?>
+                    </div>
+                    <div class="wk-supplier-collection-header-txt">
+                        <?= $block->escapeHtml($supplierInfo->getWkSupplierRole())?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php if ($defaultAddress) { ?>
+        <div class="wk-supplier-info-wrapper">
+            <h4 class="wk-supplier-collection-header-txt">
+            <?= $block->escapeHtml(__('Supplier Address'))?></h4>
+            <div class="wk-supplier-addr-row">
+                <?= $block->escapeHtml(__("Address"))?> - <strong>
+                <?= $block->escapeHtml(implode(', ', $defaultAddress->getStreet()))?></strong>
+            </div>
+            <div class="wk-supplier-addr-row">
+                <?= $block->escapeHtml(__("City"))?> - <strong>
+                <?= $block->escapeHtml($defaultAddress->getCity())?></strong>
+            </div>
+            <div class="wk-supplier-addr-row">
+                <?= $block->escapeHtml(__("State"))?> - <strong>
+                <?= $block->escapeHtml($defaultAddress->getRegion())?></strong>
+            </div>
+            <div class="wk-supplier-addr-row">
+                <?= $block->escapeHtml(__("Postal Code"))?> - <strong>
+                <?= $block->escapeHtml($defaultAddress->getPostcode())?></strong>
+            </div>
+            <div class="wk-supplier-addr-row">
+                <?= $block->escapeHtml(__("Country"))?> - <strong>
+                <?= $block->escapeHtml($b2bHelper
+                ->getCountryName($defaultAddress->getCountryId()))?></strong>
+            </div>
+        </div>
+    <?php } ?>
+    <div class="wk-supplier-info-wrapper">
+        <h4 class="wk-supplier-collection-header-txt"><?= $block->escapeHtml(__('Supplier Contact Card'))?></h4>
+        <div class="wk-supplier-addr-row">
+            <?= $block->escapeHtml(__("Email Address"))?> - <strong>
+            <?= $block->escapeHtml($supplierInfo->getEmail());?></strong>
+        </div>
+        <div class="wk-supplier-addr-row">
+            <?= $block->escapeHtml(__("Phone"))?> - <strong>
+            <?= $block->escapeHtml($defaultAddress->getTelephone());?></strong>
+        </div>
+    </div>
+</div>

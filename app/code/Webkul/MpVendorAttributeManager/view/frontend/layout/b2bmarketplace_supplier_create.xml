@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpVendorAttributeManager
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="seller-login" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Webkul_MpVendorAttributeManager::css/style.css"/>
+    </head>
+    <body>
+        <referenceBlock name="supplier.create">
+            <action method="setTemplate">
+        		<argument name="template" xsi:type="string">Webkul_MpVendorAttributeManager::marketplace/create.phtml</argument>
+        	</action>
+            <block class="Webkul\MpVendorAttributeManager\Block\Form\Register" name="custom_vendor_attributes" template="Webkul_MpVendorAttributeManager::customer/form/customerattributes.phtml" ifconfig="marketplace/vendor_attribute/visible_registration" />
+            <referenceBlock name="custom_vendor_attributes">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="vendor-form-field" xsi:type="array">
+                                <item name="component" xsi:type="string">uiComponent</item>
+                                <item name="config" xsi:type="array">
+                                    <item name="template" xsi:type="string">Webkul_MpVendorAttributeManager/vendor-group</item>
+                                </item>
+                                <item name="children" xsi:type="array">
+                                    <item name="attribute-group" xsi:type="array">
+                                        <item name="sortOrder" xsi:type="string">1</item>
+                                        <item name="component" xsi:type="string">Webkul_MpVendorAttributeManager/js/view/attribute-group</item>
+                                        <item name="displayArea" xsi:type="string">attribute-group</item>
+                                        <item name="children" xsi:type="array">
+                                            <item name="attribute-fields" xsi:type="array">
+                                                <item name="sortOrder" xsi:type="string">1</item>
+                                                <item name="component" xsi:type="string">Webkul_MpVendorAttributeManager/js/view/attribute-group/attribute-fields</item>
+                                                <item name="displayArea" xsi:type="string">attribute-fields</item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </referenceBlock>
+            <block class="Webkul\MpVendorAttributeManager\Block\Condition" name="account_create_privacy_condition" template="Webkul_MpVendorAttributeManager::condition.phtml"/>
+            <block class="Webkul\MpVendorAttributeManager\Block\Condition" name="style_template" template="Webkul_MpVendorAttributeManager::style.phtml" />
+        </referenceBlock>
+    </body>
+</page>

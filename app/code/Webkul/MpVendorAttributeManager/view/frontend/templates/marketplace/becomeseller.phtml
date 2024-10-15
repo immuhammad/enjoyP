@@ -1,0 +1,314 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpVendorAttributeManager
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+$helper = $block->getMpHelper();
+$currentHelper = $block->getHelper();
+$jsonHelper = $block->getJsonHelper();
+$sellerExists= $helper->isSellerExist();
+$wysiwygUrl = $block->getLayout()
+    ->createBlock(\Webkul\MpVendorAttributeManager\Block\Account\Editprofile::class)
+    ->getWysiwygUrl();
+?>
+<?php if ($sellerExists) { ?>
+    <div class="fieldset">
+        <h4 class="legend"><?= /**@noEscape */  __('Seller Request Panel') ?></h4>
+        <div class="wk_emptymsg"><?= /**@noEscape */  __('Waiting for approval from admin') ?></div>
+    </div>
+<?php } else { ?>
+    <?php
+        $count = 0;
+        $fieldset = 0;
+        $fieldsetTotal = 0;
+    ?>
+    <form action="<?= /**@noEscape */
+        $block->getUrl('vendorattribute/account/becomesellerPost', ["_secure" => $block->getRequest()->isSecure()])?>"
+        enctype="multipart/form-data" method="post"
+        id="form-become-seller" data-role="form-become-seller" data-mage-init='{"validation":{}}'>
+        <?= /**@noEscape */ $block->getBlockHtml('seller.formkey')?>
+        <?= /**@noEscape */ $block->getBlockHtml('formkey')?>
+        <div class="wk-mp-design">
+            <fieldset class="fieldset info wk-mp-fieldset">
+                <legend class="legend">
+                    <span><?= /**@noEscape */ __('Seller Request Panel') ?></span>
+                    <button type="reset" class="button wk-mp-btn">
+                        <span><span><?= /**@noEscape */ __('Cancel') ?></span></span>
+                    </button>
+                    <button type="submit" title="Save" class="button pay wk-mp-btn">
+                        <span><span><?= /**@noEscape */  __('Save') ?></span></span>
+                    </button>
+                </legend>
+                <div class="field required">
+                    <label class="label"><?= /**@noEscape */  __('Shop URL') ?></label>
+                    <?php if ($helper->getProfileHintStatus() && $helper->getProfileHintShopurl()) {?>
+                        <img src="<?= /**@noEscape */
+                            $block->getViewFileUrl('Webkul_Marketplace::images/quest.png'); ?>"
+                        class='questimg'
+                        title="<?= /**@noEscape */ $helper->getProfileHintShopurl()?>"/>
+                    <?php } ?>
+                    <div class="control shop" id="wk-mp-become-seller-box-wrapper"
+                        data-role="wk-mp-become-seller-box-wrapper">
+                        <input type="text" class="required-entry wk_input_width" name="profileurl"
+                            id="profileurl" data-role="shop-url"
+                            placeholder="<?= /**@noEscape */ __("Please enter shop URL")?>"/>
+                        <div id="wk-load" class="no-display">
+                            <img src="<?= /**@noEscape */
+                                $block->getViewFileUrl('Webkul_Marketplace::images/ajax-loader-tr.gif'); ?>"
+                                height="16px" width="16px"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="field required">
+                    <input type="checkbox" class="required-entry" name="is_seller" id="is_seller"/>
+                    <label class="label">
+                        <?= /**@noEscape */  __('Do you want to become a seller / vendor ?') ?></label>
+                </div>
+            </fieldset>
+        </div>
+        <?php if (!$currentHelper->getConfigData('group_display')) { ?>
+            <?php
+            $collection = $currentHelper->getAttributeCollection(true);
+            if ($collection && $collection->getSize()) {
+                $totalAttr = $collection->getSize();
+                $storeId = $currentHelper->getStore()->getId();
+                foreach ($collection as $attribute):
+                    if ($attribute->getAttributeUsedFor() == 1) {
+                        continue;
+                    }
+                    $totalAttr--;
+                    $fieldset++;
+                    if ($count == 0) { ?>
+                    <fieldset class="fieldset vendorfields form_fields_
+                        <?= /**@noEscape */ $fieldsetTotal; ?> profileurl">
+                        <?php
+                        $fieldsetTotal++;
+                    }
+                    $allowedeImageExtension = $currentHelper->getConfigData('allowede_image_extension');
+                    $allowedFileExtension = $currentHelper->getConfigData('allowede_file_extension');
+                    $attibuteArray = $attribute->toArray();
+                    $isRequiredArray = explode(' ', $attribute->getFrontendClass() ?? '');
+                    $storeLabels = $attribute->getStoreLabels();
+                    $label = isset($storeLabels[$storeId]) ? $storeLabels[$storeId] : $attibuteArray['frontend_label'];
+                    ?>
+                <div class="field <?= /**@noEscape */ $attribute->getAttributeCode() ?>
+                    <?= /**@noEscape */ in_array('required', $isRequiredArray)?'required':'' ?>">
+                    <?php if ($attribute->getFrontendInput() != 'boolean'): ?>
+                    <label for="<?= /**@noEscape */ $attribute->getAttributeCode() ?>" class="label">
+                        <span><?= /**@noEscape */ $attribute->getStoreLabel(); ?></span></label>
+                <?php endif ?>
+                    <div class="control">
+                        <?php if ($attribute->getFrontendInput() == 'text'): ?>
+                            <input type="text" name="<?= /**@noEscape */ $attribute->getAttributeCode() ?>"
+                                id="<?= /**@noEscape */ $attribute->getAttributeCode() ?>" value=""
+                                class="input-text <?= /**@noEscape */ $attribute->getFrontendClass() ?>"
+                                <?= /**@noEscape */ in_array('required', $isRequiredArray)?
+                                    'data-validate="{required:true,'."'validate-no-html-tags':true".'}"' :
+                                        'data-validate="{'."'validate-no-html-tags':true".'}"' ?>
+                                autocomplete="off">
+
+                        <?php elseif ($attribute->getFrontendInput() == 'textarea'):?>
+                            <textarea name="<?= /**@noEscape */ $attibuteArray['attribute_code'] ?>"
+                                id="<?= /**@noEscape */ $attibuteArray['attribute_code'] ?>"
+                                class="input-text <?= /**@noEscape */ $attribute->getFrontendClass() ?>"
+                                    <?= /**@noEscape */ in_array('required', $isRequiredArray)?
+                                        'data-validate="{required:true,'."'validate-no-html-tags':true".'}"' :
+                                        'data-validate="{'."'validate-no-html-tags':true".'}"' ?> ></textarea>
+                            <?php $frontClass = explode(' ', $attribute->getFrontendClass() ?? '');
+                            if (in_array('wysiwyg_enabled', $frontClass)): ?>
+                                <script>
+                                    require([
+                                        "jquery",
+                                        "mage/translate",
+                                        "mage/adminhtml/events",
+                                        "mage/adminhtml/wysiwyg/tiny_mce/setup"
+                                    ], function(jQuery) {
+                                        wysiwygDescription = new wysiwygSetup('<?= /**@noEscape */
+                                            $attibuteArray["attribute_code"] ?>', {
+                                            "width" : "100%",
+                                            "height" : "200px",
+                                            "plugins" : [{"name":"image"}],
+                                            "tinymce4" : {
+"toolbar":"formatselect| bold italic underline| alignleft aligncenter alignright| bullist numlist | link table charmap",
+"plugins":"advlist autolink lists link charmap media noneditable table contextmenu paste code help table",
+                                            },
+                                            files_browser_window_url: "<?= /** @NoEscape */ $wysiwygUrl ?>"
+                                        });
+                                        wysiwygDescription.setup("exact");
+                                    });
+                                </script>
+                            <?php endif; ?>
+                        <?php elseif ($attribute->getFrontendInput() == 'date'):?>
+                            <input type="text" name="<?= /**@noEscape */ $attibuteArray['attribute_code']; ?>"
+                                    id="<?= /**@noEscape */ $attibuteArray['attribute_code']; ?>"
+                                    class="dob_type <?= /**@noEscape */ $attribute->getFrontendClass(); ?>"
+                                    <?= /**@noEscape */ in_array('required', $isRequiredArray)?
+                                        'data-validate="{required:true,'."'validate-no-html-tags':true".'}"' :
+                                        'data-validate="{'."'validate-no-html-tags':true".'}"' ?>
+                                    autocomplete="off" />
+                        <?php elseif ($attribute->getFrontendInput() == 'select' &&
+                            !in_array('dependable_field_'.$attibuteArray['attribute_code'], $isRequiredArray)):
+                            $value = '';
+                            $optiondata = $attribute->getSource()->getAllOptions();
+    ?>
+                            <select name="<?= /**@noEscape */ $attibuteArray['attribute_code'] ?>"
+                                id="<?= /**@noEscape */ $attibuteArray['attribute_code'] ?>"
+                                class="input-select <?= /**@noEscape */ $attribute->getFrontendClass() ?>"
+                                <?= /**@noEscape */ in_array('required', $isRequiredArray)?
+                                    'data-validate="{required:true}"':'' ?>>
+                            <?php foreach ($optiondata as $instance) { ?>
+                                      <option value="<?= /**@noEscape */ $instance['value'] ?>"
+                                        <?= /**@noEscape */ $instance['value'] == $value ? 'selected' : ''; ?>>
+                                         <?= /**@noEscape */ $instance['label'] ?></option>
+                                <?php } ?>
+                            </select>
+                        <?php elseif ($attribute->getFrontendInput() == 'multiselect'):
+                            $values = [];
+                            $optiondata = $attribute->getSource()->getAllOptions();
+                            ?>
+                            <select name="<?= /**@noEscape */ $attibuteArray['attribute_code'] ?>[]"
+                                id="<?= /**@noEscape */ $attibuteArray['attribute_code'] ?>"
+                                class="input-select <?= /**@noEscape */ $attribute->getFrontendClass() ?>"
+                                    <?= /**@noEscape */ in_array('required', $isRequiredArray)?
+                                        'data-validate="{required:true}"':'' ?> multiple="multiple">
+                            <?php foreach ($optiondata as $instance) { ?>
+                                <?php if ($instance['value'] != ''):?>
+                                      <option value="<?= /**@noEscape */ $instance['value'] ?>"
+                                      <?= /**@noEscape */ in_array($instance['value'], $values) ?
+                                        'selected' : ''; ?>> <?= /**@noEscape */ $instance['label'] ?>
+                                    </option>
+                                <?php endif ?>
+                                <?php } ?>
+                            </select>
+                        <?php elseif ($attribute->getFrontendInput() == 'boolean'):?>
+                            <input type="checkbox" name="<?= /**@noEscape */
+                                $attibuteArray['attribute_code'] ?>"
+                                id="<?= /**@noEscape */ $attibuteArray['attribute_code'] ?>"
+                                class="input-text <?= /**@noEscape */ $attribute->getFrontendClass() ?>"
+                                <?= /**@noEscape */ in_array('required', $isRequiredArray)?
+                                    'data-validate="{required:true}"':'' ?> value="1">
+                            <label for="<?= /**@noEscape */ $attribute->getAttributeCode() ?>"
+                                class="label <?= /**@noEscape */
+                                    in_array('required', $isRequiredArray)?'wkboolreq':'' ?> "><span>
+                                    <?= /**@noEscape */ $attribute->getStoreLabel(); ?>
+                                    </span></label>
+                        <?php elseif ($attribute->getFrontendInput() == 'image'):?>
+                            <input type="file" name="<?= /**@noEscape */ $attibuteArray['attribute_code'] ?>"
+                                id="<?= /**@noEscape */ $attibuteArray['attribute_code'] ?>"
+                                class="input-text custom_file
+                                    <?= /**@noEscape */ $attribute->getFrontendClass() ?>"
+                                    data-allowed = "<?= /**@noEscape */ $allowedeImageExtension; ?>"
+                                    <?= /**@noEscape */ in_array('required', $isRequiredArray)?
+                                        'data-validate="{required:true}"':'' ?>><br>
+                            <span class="note"><span><?= /**@noEscape */
+                                $currentHelper->getConfigData('allowede_image_extension') ?></span></span>
+                        <?php elseif ($attribute->getFrontendInput() == 'file'):?>
+                            <input type="file" name="<?= /**@noEscape */ $attibuteArray['attribute_code'] ?>"
+                                id="<?= /**@noEscape */ $attibuteArray['attribute_code'] ?>"
+                                class="input-text custom_file
+                                    <?= /**@noEscape */ $attribute->getFrontendClass() ?>"
+                                data-allowed = "<?= /**@noEscape */ $allowedFileExtension; ?>"
+                                <?= /**@noEscape */ in_array('required', $isRequiredArray)?
+                                'data-validate="{required:true}"':'' ?>><br>
+                            <span class="note"><span><?= /**@noEscape */
+                                $currentHelper->getConfigData('allowede_file_extension') ?></span></span>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                    <?php
+                    if ($count == 4 || $totalAttr == 0) {
+                        $count = 0
+                        ?>
+                      </fieldset>
+                    <?php } else {
+                        $count++;
+                    } ?>
+            <?php endforeach;
+            } ?>
+        <?php  } else { ?>
+            <input type="hidden" name="is_vendor_group" value="1"/>
+            <script>
+                window.vendorConfig =
+                    <?= /**@noEscape */ $currentHelper->getEncodedVendorConfig(); ?>;
+                window.isVendorForm = '1';
+                window.wysiwygUrl = '<?= /** @NoEscape */ $wysiwygUrl?>';
+            </script>
+            <div id="vendor-component" data-bind="scope:'vendor-form-field'" class="field required">
+                <!-- <button id="main" class="button back action primary">
+                    <?= /**@noEscape */ __('Back') ?></button> -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+                <script type="text/x-magento-init">
+                {
+                    "#vendor-component": {
+                        "Magento_Ui/js/core/app":  <?= /**@noEscape */ $block->getJsLayout();?>
+                    }
+                }
+                </script>
+            </div>
+          </form>
+            <?php
+        }
+        $data = [
+            'dateField'     => '.dob_type',
+            'dateFormat'     => 'yyyy-MM-dd',
+            'fieldsetCount' => $fieldsetTotal,
+            'wysiwygUrl'    => $wysiwygUrl
+        ];
+        $serializedData = $jsonHelper->jsonEncode($data);
+        ?>
+    <script type="text/x-magento-init">
+      {
+          "*": {
+              "displayVendorFields":<?= /**@noEscape */ $serializedData; ?>
+          }
+      }
+      </script>
+    <script>
+        require([
+            'jquery',
+            'mage/mage',
+            'mage/translate'
+        ], function($){
+            $('fieldset.form_fields_'+(<?= /**@noEscape */ $fieldsetTotal;?>-1)).
+                append($('div.privacy-container'));
+
+            if($('#wk-termsconditions-box').length) {
+                $('#wk-termsconditions-box').remove();
+            }
+            if($('#vendor-component').length) {
+                $('.wk-list-container-registration .form-create-account').prepend($("#vendor-component"));
+                $("#vendor-component").append($('div.privacy-container'));
+            }
+            $('.form-create-account .actions-toolbar .submit.primary').text($.mage.__('Next'));
+        }
+    );
+    </script>
+
+<?php } ?>
+<?php
+$formData = [
+    'ajaxSaveUrl' => $block->getUrl(
+        "marketplace/seller/usernameverify",
+        ["_secure" => $block->getRequest()->isSecure()]
+    ),
+    'successMessage' => __("Congratulations! Shop name is available."),
+    'errorMessage' => __("Sorry! But this shop name is not available, please set another shop name."),
+    'button' => '.button'
+];
+$serializedFormData = $jsonHelper->jsonEncode($formData);
+?>
+
+<script type="text/x-magento-init">
+    {
+        "[data-role=form-become-seller]": {
+            "validation": {},
+            "verifySellerShop": <?= /**@noEscape */ $serializedFormData; ?>
+        }
+    }
+</script>

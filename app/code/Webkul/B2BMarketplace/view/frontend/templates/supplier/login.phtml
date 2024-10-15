@@ -1,0 +1,79 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $quickOrderBlock =  $block->getLayout()->createBlock(
+        \Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class
+    );
+    ?>
+<div class="wk-supplier-account-container">
+    <div class="wk-page-title-wrapper page-title-wrapper">
+        <div class="page-title">
+            <span class="base" data-ui-id="page-title-wrapper">
+            <?= /* @noEscape */ __('Supplier Sign In')?></span>
+        </div>
+    </div>
+    <form method="post" action="<?= /* @noEscape */
+    $quickOrderBlock->getUrl('customer/account/loginPost'); ?>" 
+    id="wk-supplier-login-form" enctype="multipart/form-data" 
+    data-mage-init='{"validation":{}}'>
+        <fieldset class="fieldset wk-supplier-login">
+            <input type="hidden" name="supplier_login" value="1">
+            <?= /* @noEscape */ $block->getBlockHtml('formkey') ?>
+            <div class="field required">
+                <label class="label" for="supplier-email">
+                <span><?= /* @noEscape */ __("Email Address"); ?></span>
+                </label>
+                <div class="control">
+                    <input type="email" data-validate="{required:true, 'validate-email':true}" 
+                    class="input-text required-entry" title="<?= /* @noEscape */ __("Email Address"); ?>" 
+                    id="supplier-email" name="login[username]">
+                </div>
+            </div>
+            <div class="field email required">
+                <label for="supplier-password" class="label">
+                <span><?= /* @noEscape */ __("Password"); ?></span></label>
+                <div class="control">
+                    <input type="password" data-validate="{required:true}" 
+                    title="<?= /* @noEscape */ __("Password"); ?>" 
+                    class="input-text required-entry" id="supplier-password"
+                     name="login[password]">
+                </div>
+            </div>
+            <?= $block->getChildHtml('form_additional_info') ?>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button id="login" class="action login primary" type="submit">
+                        <span><?= /* @noEscape */ __("Sign In"); ?></span>
+                    </button>
+                </div>
+                <div class="secondary wk-secondary">
+                    <a class="action remind" href="<?= /* @noEscape */
+                    $block->getUrl('b2bmarketplace/supplier/create', [
+                        "_secure" => $quickOrderBlock->getRequest()->isSecure()]) ?>" 
+                        target="blank">
+                        <span><?= /* @noEscape */
+                        $block->escapeHtml(__(
+                            "Don't have account? Click here to register as Supplier"
+                        )) ?></span>
+                    </a>
+                </div>
+                <div class="secondary">
+                    <a class="action remind" 
+                    href="<?= $block->escapeUrl($block->getForgotPasswordUrl()).
+                    "module/webkul_b2bmarketplace" ?>">
+                        <span><?= $block->escapeHtml(__('Forgot Your Password?')) ?></span>
+                    </a>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

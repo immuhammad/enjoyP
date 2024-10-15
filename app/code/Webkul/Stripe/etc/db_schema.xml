@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Stripe
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    
+    <table name="sales_order" resource="sales" comment="Sales Flat Order">
+        <column xsi:type="text" name="stripe_payment_intent" comment="stripe payment intent id"/>
+    </table>
+
+    <table name="wk_stripe_order" resource="default" engine="innodb" comment="Stripe order">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="quote_id" comment="Quote Id"/>
+        <column xsi:type="text" name="payment_intent" nullable="false" comment="Stripe Payment Intent"/>
+        <column xsi:type="text" name="status" nullable="false" comment="Stripe order status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+</schema>

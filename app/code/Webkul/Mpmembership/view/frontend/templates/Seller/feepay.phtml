@@ -1,0 +1,213 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpmembership
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+// @block Webkul/Mpmembership/Block/Seller/Fee
+use Webkul\Mpmembership\Model\Config\Source\Feeapplied;
+
+$data = $block->getFeeData();
+$helper = $block->getMembershipHelper();
+$checktype = $helper->getConfigCheckType();
+$feeApplied = $helper->getConfigFeeAppliedFor();
+$transactionData = $helper->getPermission();
+
+$timeAndProducts = \Webkul\Mpmembership\Model\Transaction::TIME_AND_PRODUCTS;
+$time = \Webkul\Mpmembership\Model\Transaction::TIME;
+$noOfProducts = \Webkul\Mpmembership\Model\Transaction::PRODUCTS;
+$disabled = false;
+$urlfix = "";
+if ($feeApplied == Feeapplied::PER_VENDOR) {
+    $validTrdata = $helper->getValidTransaction($transactionData);
+    $disabled = !$validTrdata['status'];
+}
+
+if (!isset($data['merchant'])
+    || $data['merchant']==null
+    || $data['merchant']==""
+) { ?>
+    <div class="wk_adminmsg">
+        <?= /* @noEscape */ __('Payment is not allowed due to some technical issues...')?>
+    </div>
+    <?php
+} else {
+    if ($data['sandbox']==1) {
+        $urlfix = "sandbox.";
+    }
+    $refNo = rand(000, 99999).time().'-'.$data['customer_id'];
+    $returnData = [
+        '_secure' => $block->getIsSecure(),
+        'ref_no' => $refNo,
+        'check_type' => $checktype,
+    ]; ?>
+    <div class="wk-mp-design">
+        <form action="https://www.<?= /* @noEscape */ $urlfix ?>paypal.com/webscr"
+                id="paypal_standard_checkout"
+                name="paypal_standard_checkout"
+                method="POST">
+            <fieldset class="fieldset info wk-mp-fieldset">
+                <legend class="legend">
+                    <span><?= /* @noEscape */ __('Pay Fee') ?></span>
+                </legend>
+                <div class="product-list">
+                    <ul class="form-list detail">
+                        <?php
+                        if (($checktype==$timeAndProducts
+                                || $checktype==$noOfProducts)
+                            && $feeApplied == Feeapplied::PER_VENDOR
+                        ) { $returnData['no_of_products'] = $data['products']; ?>
+                            <li>
+                                <div class="input-box allowed_product">
+                                    <label>
+                                        <?= /* @noEscape */ __('Number of allowed product(s) : ')?>
+                                    </label>
+                                    <span class="value">
+                                        <?= /* @noEscape */ " ".$data['products']?>
+                                    </span>
+                                </div>
+                            </li>
+                            <?php
+                        }
+                        if (($checktype==$timeAndProducts ||
+                         $checktype==$time ) &&
+                         $feeApplied == Feeapplied::PER_VENDOR
+                        ) { ?>
+                            <li>
+                                <div class="input-box allowed_product">
+                                    <label>
+                                        <?= /* @noEscape */ __('Number of Months allowed : ')?>
+                                    </label>
+                                    <span class="value">
+                                        <?= /* @noEscape */ " ".$data['time']?>
+                                    </span>
+                                </div>
+                            </li>
+                            <?php
+                        } ?>
+                        <li>
+                            <div class="input-box wk_amountdata">
+                                <span class="amount">
+                                    <label>
+                                        <?= /* @noEscape */ __('Amount : ')?>
+                                    </label>
+                                    <span class="value">
+                                        <?= /* @noEscape */ $helper->getFormattedPrice($data['seller_fee']); ?>
+                                    </span>
+                                </span>
+                            </div>
+                        </li>
+                        <input id="business"
+                                name="business"
+                                value="<?= /* @noEscape */ $data['merchant'];?>"
+                                type="hidden"/>
+                        <input id="invoice"
+                                name="invoice"
+                                value="<?= /* @noEscape */ $refNo;?>"
+                                type="hidden"/>
+                        <input id="currency_code"
+                                name="currency_code"
+                                value="<?= /* @noEscape */ $data['currency_code'];?>"
+                                type="hidden"/>
+                        <input id="paymentaction"
+                                name="paymentaction"
+                                value="sale"
+                                type="hidden"/>
+                        <input id="return"
+                                name="return"
+                                value="<?= $escaper->escapeUrl($block->getUrl(
+                                    'mpmembership/index/paypalsellerreturn',
+                                    $returnData
+                                )) ?>"
+                                type="hidden"/>
+                        <input id="rm" name="rm" value="2" type="hidden"/>
+                        <input id="cancel_return"
+                                name="cancel_return"
+                                value="<?= $escaper->escapeUrl($block->getUrl(
+                                    'mpmembership/index/index',
+                                    ['_secure' => $block->getIsSecure()]
+                                )) ?>"
+                                type="hidden"/>
+                        <input id="notify_url"
+                                name="notify_url"
+                                value="<?= $escaper->escapeUrl($block->getUrl(
+                                    'mpmembership/index/ipnnotifyseller',
+                                    ['_secure' => $block->getIsSecure()]
+                                )) ?>"
+                                type="hidden"/>
+                        <input id="bn"
+                                name="bn"
+                                value="Varien_Cart_WPS_US"
+                                type="hidden"/>
+                        <input id="charset"
+                                name="charset"
+                                value="utf-8"
+                                type="hidden"/>
+                        <input id="item_name_1"
+                                name="item_name_1"
+                                value="Seller Fee"
+                                type="hidden"/>
+                        <input id="amount_1"
+                                name="amount_1"
+                                value="<?= /* @noEscape */ $data['seller_fee']?>"
+                                type="hidden"/>
+                        <input id="quantity_1"
+                                name="quantity_1"
+                                value="1"
+                                type="hidden"/>
+                        <input id="cmd" name="cmd" value="_cart" type="hidden"/>
+                        <input id="upload"
+                                name="upload"
+                                value="1"
+                                type="hidden"/>
+                        <input id="tax_cart"
+                                name="tax_cart"
+                                value="0.00"
+                                type="hidden"/>
+                        <input id="discount_amount_cart"
+                                name="discount_amount_cart"
+                                value="0.00"
+                                type="hidden"/>
+                        <input id="email"
+                                name="email"
+                                value="<?= /* @noEscape */ $data['email'];?>"
+                                type="hidden"/>
+                        <input id="first_name"
+                                name="first_name"
+                                value="<?= /* @noEscape */ $data['firstname'];?>"
+                                type="hidden"/>
+                        <input id="last_name"
+                                name="last_name"
+                                value="<?= /* @noEscape */ $data['lastname'];?>"
+                                type="hidden"/>
+                        <input id="transaction_subject"
+                                name="custom"
+                                value="<?= /* @noEscape */ $data['products']."-".$checktype; ?>"
+                                type="hidden"/>
+                    </ul>
+                </div>
+                <div class="buttons-set">
+                    <button class="button"
+                    title="Pay" type="submit"
+                    <?php if ($disabled) { ?>disabled="true"<?php } ?>
+              >
+                        <span>
+                            <span>
+                                <?= /* @noEscape */ __('Pay') ?>
+                            </span>
+                        </span>
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+<?php } ?>

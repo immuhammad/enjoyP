@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/** Affiliate menu xml
+ * @category  Webkul
+ * @package   Webkul_Affiliate
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Webkul_Affiliate::manager" title="Affiliate" module="Webkul_Affiliate" sortOrder="10" resource="Webkul_Affiliate::manager" />
+        <add id="Webkul_Affiliate::affiliate" title="Affiliate Manage" module="Webkul_Affiliate" sortOrder="10" resource="Webkul_Affiliate::manager" parent="Webkul_Affiliate::manager" />
+        <add id="Webkul_Affiliate::affiliate_user" title="Manage Affiliate" module="Webkul_Affiliate" sortOrder="20" parent="Webkul_Affiliate::affiliate" action="affiliate/user/index" resource="Webkul_Affiliate::affiliate_user"/>
+        <add id="Webkul_Affiliate::affiliate_email" title="Email Affiliate" module="Webkul_Affiliate" sortOrder="30" parent="Webkul_Affiliate::affiliate" action="affiliate/user/emailnotify" resource="Webkul_Affiliate::affiliate_email"/>
+
+        <add id="Webkul_Affiliate::banner" title="Affiliate Banner" module="Webkul_Affiliate" sortOrder="40" resource="Webkul_Affiliate::manager" parent="Webkul_Affiliate::manager" />
+        <add id="Webkul_Affiliate::banner_manage_text_ads" title="Banner/Text Ad" module="Webkul_Affiliate" sortOrder="20" parent="Webkul_Affiliate::banner" action="affiliate/banner/index" resource="Webkul_Affiliate::banner_manage_text_ads"/>
+
+        <add id="Webkul_Affiliate::statistics" title="Statistics" module="Webkul_Affiliate" sortOrder="50" resource="Webkul_Affiliate::manager" parent="Webkul_Affiliate::manager" />
+        <add id="Webkul_Affiliate::statistics_traffic" title="Traffic" module="Webkul_Affiliate" sortOrder="20" parent="Webkul_Affiliate::statistics" action="affiliate/statistics/traffic" resource="Webkul_Affiliate::statistics_traffic"/>
+        <add id="Webkul_Affiliate::statistics_sales" title="Sales" module="Webkul_Affiliate" sortOrder="30" parent="Webkul_Affiliate::statistics" action="affiliate/statistics/sales" resource="Webkul_Affiliate::statistics_sales"/>
+        <add id="Webkul_Affiliate::statistics_payment" title="Payment Records" module="Webkul_Affiliate" sortOrder="40" parent="Webkul_Affiliate::statistics" action="affiliate/statistics/payment" resource="Webkul_Affiliate::statistics_payment"/>
+        <add id="Webkul_Affiliate::statistics_graph" title="Statistics Graph" module="Webkul_Affiliate" sortOrder="40" parent="Webkul_Affiliate::statistics" action="affiliate/statistics/graph" resource="Webkul_Affiliate::statistics_graph"/>
+        <add id="Webkul_Affiliate::marketplace_support" title="Support" module="Webkul_Affiliate" sortOrder="200" parent="Webkul_Affiliate::manager" resource="Webkul_Affiliate::marketplace_support"/>
+
+        <add id="Webkul_Affiliate::marketplace_userguide" title="User Guide" module="Webkul_Affiliate" sortOrder="100" parent="Webkul_Affiliate::marketplace_support" action="affiliate/support/blog" resource="Webkul_Affiliate::marketplace_userguide"/>
+
+        <add id="Webkul_Affiliate::marketplace_extension" title="Store Extension" module="Webkul_Affiliate" sortOrder="200" parent="Webkul_Affiliate::marketplace_support" action="affiliate/support/store" resource="Webkul_Affiliate::marketplace_extension"/>
+
+        <add id="Webkul_Affiliate::marketplace_uvdesk" title="Ticket/Customisations" module="Webkul_Affiliate" sortOrder="300" parent="Webkul_Affiliate::marketplace_support" action="affiliate/support/uvdesk" resource="Webkul_Affiliate::marketplace_uvdesk"/>
+
+        <add id="Webkul_Affiliate::marketplace_services" title="Services" module="Webkul_Affiliate" sortOrder="300" parent="Webkul_Affiliate::marketplace_support" action="affiliate/support/services" resource="Webkul_Affiliate::marketplace_services"/>
+
+        <add id="Webkul_Affiliate::marketplace_reviews" title="Reviews" module="Webkul_Affiliate" sortOrder="300" parent="Webkul_Affiliate::marketplace_support" action="affiliate/support/storereview" resource="Webkul_Affiliate::marketplace_reviews"/>
+
+    </menu>
+</config>

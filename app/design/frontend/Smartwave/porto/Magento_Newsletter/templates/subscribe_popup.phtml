@@ -1,0 +1,385 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+    $_helper = $this->helper('Smartwave\Porto\Helper\Data');
+
+    $popup = $_helper->getConfig('porto_settings/newsletter');
+    if($popup['enable']) {
+        $delay = $popup["delay"];
+?>
+<!-- <script type="text/javascript">
+require([
+        'jquery',
+        'mage/cookies',
+		'fancybox/js/jquery.fancybox'
+    ], function ($) {
+        $(document).ready(function(){
+        <?php if($popup['enable'] == 1): ?>
+            if($("body").hasClass("cms-index-index")) {
+        <?php endif; ?>
+                var check_cookie = $.cookie('newsletter_popup');
+                if(window.location!=window.parent.location){
+                    $('#newsletter_popup').remove();
+                } else {
+                    if(check_cookie == null || check_cookie == 'shown') {
+                        setTimeout(function(){
+                            beginNewsletterForm();
+                        }, 2000<?php //echo $delay; ?>);
+                    }
+                    $('#newsletter_popup_dont_show_again').on('change', function(){
+                        if($(this).length){
+                            var check_cookie = $.cookie('newsletter_popup');
+                            if(check_cookie == null || check_cookie == 'shown') {
+                                $.cookie('newsletter_popup','dontshowitagain');
+                            }
+                            else
+                            {
+                                $.cookie('newsletter_popup','shown');
+                                beginNewsletterForm();
+                            }
+                        } else {
+                            $.cookie('newsletter_popup','shown');
+                        }
+                    });
+                }
+        <?php if($popup['enable'] == 1): ?>
+            }
+        <?php endif; ?>
+        });
+
+        function beginNewsletterForm() {
+            $.fancybox({
+                'padding': '0px',
+                'autoScale': true,
+                'transitionIn': 'fade',
+                'transitionOut': 'fade',
+                'type': 'inline',
+                'href': '#newsletter_popup',
+                'onComplete': function() {
+                    $.cookie('newsletter_popup', 'shown');
+                },
+                'tpl': {
+                    closeBtn: '<a title="Close" class="fancybox-item fancybox-close fancybox-newsletter-close" href="javascript:;"></a>'
+                },
+                'helpers': {
+                    overlay: {
+                        locked: false
+                    }
+                }
+            });
+            $('#newsletter_popup').trigger('click');
+        }
+});
+
+</script> -->
+<!-- <style type="text/css">
+<?php
+    if($popup["custom_style"]){
+        echo $popup["custom_style"];
+    }
+?>
+#newsletter_popup{
+<?php
+    if($popup["width"]){
+        echo "width:".$popup["width"].";";
+    }
+    if($popup["height"]){
+        echo "min-height:".$popup["height"].";";
+    }
+    // if($popup["bg_color"]){
+    //     echo "background-color:".$popup["bg_color"].";";
+    // }
+    // if(isset($popup["bg_image"]) && $popup["bg_image"]){
+    //     $folderName = \Smartwave\Porto\Model\Config\Backend\Image\Newsletterbg::UPLOAD_DIR;
+    //     $path = $folderName . '/' . $popup["bg_image"];
+    //     $imageUrl = $_helper->getBaseUrl() . $path;
+?>
+    /* background-image:url(<?php// echo $imageUrl;?>); */
+<?php
+   // }
+?>
+}
+span.popup-center-btn button.button.wk-mp-btn {
+    background: #046F4F;
+    color:white;
+}
+@media only screen and (min-width: 992px) {
+h1.text-center.welcomepopup {
+    margin-left: 65px;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 40px;
+    font-family: 'Poppins';
+    font-style: normal;
+    color: #222529;
+}
+h3.text-center.choose-product-type {
+    margin-left: 98px;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    font-family: 'Poppins';
+    font-style: normal;
+    color: #222529;
+}
+.fancybox-inner div#newsletter_popup {
+    padding: 59px;
+}
+span.popup-center-btn {
+   
+    margin-left: 251px;
+    margin-top: 20px;
+   
+    
+}
+
+.big {
+    display:block;
+    cursor:pointer;
+}
+
+/* .hli {
+    border:2px solid #046F4F;   
+} */
+input[type='radio'] {
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        outline: none;
+        border: 3px solid gray;
+    }
+
+    input[type='radio']:before {
+        content: '';
+        display: block;
+        width: 60%;
+        height: 60%;
+        margin: 20% auto;
+        border-radius: 50%;
+    }
+
+ input[type="radio"]:checked:before {
+        background:  #046F4F;
+        
+    }
+    
+    input[type="radio"]:checked {
+      border-color: #046F4F;
+    }
+
+    .role {
+        margin-right: 80px;
+        margin-left: 20px;
+        font-weight: normal;
+    }
+
+    .checkbox label {
+        margin-bottom: 20px !important;
+    }
+
+    div#newsletter_popup label.big .roles {
+    margin-bottom: 15px;
+    margin-left: 48px;
+    margin-top: 20px;
+   }
+}
+@media only screen and (max-width: 600px) {
+    
+    h1.text-center.welcomepopup {
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: 600;
+    font-family: 'Poppins';
+    font-style: normal;
+}
+h3.text-center.choose-product-type {
+    font-size: 13px;
+    display: flex;
+    align-items: flex-end;
+    text-align: center;
+    font-weight: 400;
+    line-height: 21px;
+	 font-family: 'Poppins';
+    font-style: normal;
+    margin-top: -23px;
+}
+.fancybox-wrap.fancybox-desktop.fancybox-type-inline.fancybox-opened {
+    top: 73px!important;
+}
+div#newsletter_popup img.d-block.d-lg-none {
+    margin-left: 80px;
+    margin-top: -35px;
+}
+    
+
+
+.big {
+    display:block;
+    cursor:pointer;
+}
+
+/* .hli {
+    border:2px solid #046F4F;   
+} */
+input[type='radio'] {
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        outline: none;
+        border: 3px solid gray;
+    }
+
+    input[type='radio']:before {
+        content: '';
+        display: block;
+        width: 60%;
+        height: 60%;
+        margin: 20% auto;
+        border-radius: 50%;
+    }
+
+ input[type="radio"]:checked:before {
+        background:  #046F4F;
+        
+    }
+    
+    input[type="radio"]:checked {
+      border-color: #046F4F;
+    }
+
+    .role {
+        font-weight: normal;
+    }
+
+    .checkbox label {
+        margin-bottom: 20px !important;
+    }
+
+    div#newsletter_popup label.big .roles {
+    margin-bottom: 15px;
+    margin-left: 48px;
+    margin-top: 20px;
+   }
+   span.popup-center-btn button.button.wk-mp-btn {
+    margin-left: 79px;
+    margin-top: 16px;
+}
+
+}
+</style> -->
+<!-- <div class="container-fluid">
+    <div class="newsletter row" id="newsletter_popup" style="display: none;"> -->
+
+
+    <!-- <div class="col-sm-12 pr-lg-4 vc_column_container col-md-7 col-10"> -->
+        <?php
+            // if(isset($popup["logo_src"]) && $popup["logo_src"]){
+            //     $folderName = \Smartwave\Porto\Model\Config\Backend\Image\Newsletterlogo::UPLOAD_DIR;
+            //     $path = $folderName . '/' . $popup["logo_src"];
+            //     $logoUrl = $_helper->getBaseUrl() . $path;
+        ?>
+        <div class="text_left mb-4 pb-1">
+          <img src="<?php //echo $logoUrl; ?>" alt="" />
+        </div>
+        <?php
+            }
+        ?>
+        <?php echo $popup["content"]; ?>
+        <!-- <form class="form subscribe mb-1"
+            novalidate
+            action="<?php echo $block->getFormActionUrl() ?>"
+            method="post"
+            data-mage-init='{"validation": {"errorClass": "mage-error"}}'
+            id="newsletter-validate-detail">
+            <div class="field newsletter">
+                <div class="control">
+                    <input name="email" type="email" id="footer_newsletter" placeholder="<?php echo __("Your email address");?>"
+                                data-validate="{required:true, 'validate-email':true}"/>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="action subscribe primary" title="<?php echo __('Submit') ?>" type="submit">
+                    <span><?php echo __('Submit') ?></span>
+                </button>
+            </div>
+        </form> -->
+        <!-- <div class="container-fluid"> -->
+            <!-- <div class="row"> -->
+
+            <!-- <img src="<?php echo $this->getViewFileUrl('Magento_Newsletter::images/Logo-green.png'); ?>"  width="80px" height="80px" class="d-block d-lg-none"  />
+            <h1 class="text-center welcomepopup"> Hi,Welcome to Enjoy Palestine</h1>
+                <h3 class="text-center choose-product-type">choose which type of products you want to browse? </h3>
+            <div class="col-md-6 d-none d-lg-block">
+                  <label class="big">
+                   <img src="<?php echo $this->getViewFileUrl('Magento_Newsletter::images/Popup-2.png'); ?>" class="ml-2" />
+                    <div class="roles">
+                            <input type="radio" name="role" value="ONE" id="one"  onClick="window.parent.jQuery.fancybox.close();">
+                            <label class="role" for="one"> Buy Products</label>
+                         </div>
+                    </label>
+                    
+
+             </div>
+             <div class="col-sm-12 d-block d-lg-none" >
+                  <label class="big">
+                  <input type="radio" name="role" value="ONE" id="one" onClick="window.parent.jQuery.fancybox.close();">
+                            <label class="role" for="one"> Buy Products</label>
+                   <img src="<?php echo $this->getViewFileUrl('Magento_Newsletter::images/Popup-2.png'); ?>"   width="98px" height="100px"  />
+                    <div class="roles">
+                          
+                         </div>
+                    </label>
+                    
+
+             </div>
+             <div class="col-md-6 d-none d-lg-block" >
+                    <label class="big">
+                       <img src="<?php echo $this->getViewFileUrl('Magento_Newsletter::images/Popup-1.png'); ?>"  class="ml-2" />
+                        <div class="roles">
+                                    <input type="radio" name="role" value="TWO" id="two"  onclick="window.location.href = 'https://enjoyp.com/travel.html';">
+                                    <label class="role" for="two">Visit Palestine</label>
+                        </div>
+                    </label>  
+            </div>
+            <div class="col-sm-12 d-block d-lg-none" >
+                    <label class="big">
+                    <input type="radio" name="role" value="TWO" id="two"  onclick="window.location.href = 'https://enjoyp.com/travel.html';">
+                                    <label class="role" for="two">Visit Palestine</label>
+                                    <img src="<?php echo $this->getViewFileUrl('Magento_Newsletter::images/Popup-1.png'); ?>"   width="98px" height="100px"/>
+                       <div class="roles">
+                                   
+                        </div>
+                        
+                    </label>  
+            </div>
+               
+             
+    </div> -->
+    <!-- </div> -->
+</div>
+<?php
+    //}
+?>
+
+<!-- <script>
+    const inputs= document.body.querySelectorAll("input")
+    document.addEventListener("change", (e)=>{
+        inputs.forEach(input=>{
+            if(input.checked){
+                input.labels[0].style="border:1px solid #046F4F; padding: 0px;"
+            }
+            if(!input.checked){
+                input.labels[0].style="";
+            }
+        })
+    })
+    </script> -->

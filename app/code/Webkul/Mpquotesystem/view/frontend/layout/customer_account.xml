@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpquotesystem
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<!-- Use to add links in marketplace and customer account navigation -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" design_abstraction="custom">
+    <head>
+        <css src="Webkul_Mpquotesystem::css/mpquotesystem.css"/>
+    </head>
+    <body>
+        <referenceContainer name="seller_account_navigation">
+            <block class="Webkul\Marketplace\Block\Account\Navigation" name="seller_mpquotesystem" template="Webkul_Mpquotesystem::account/navigation.phtml" cacheable="false" ifconfig="mpquotesystem/quotesystem_settings/enable_quote">
+            </block>
+        </referenceContainer>
+        <referenceBlock name="customer_account_navigation">
+            <block class="Magento\Framework\View\Element\Html\Link\Current" name="customer-account-mpquotesystem-index-link" ifconfig="mpquotesystem/quotesystem_settings/enable_quote">
+                <arguments>
+                    <argument name="path" xsi:type="string">mpquotesystem/buyerquote</argument>
+                    <argument name="label" xsi:type="string" translate="true">My Quotes</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

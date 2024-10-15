@@ -1,0 +1,21 @@
+Legend
+
++ Features
+- Bugs
+
+-------------------------------- Version 5.0.0 --------------------------------------
+    +   Version updated for Magento 2.4.x
+    +   Compatible with Marketplace 5.0.x
+
+-------------------------------- Version 4.0.0 --------------------------------------
+    +   Version updated for Magento EE 2.4.x
+    +   Compatible with Marketplace 4.0.x
+
+--------------------------------- Version 3.0.0 --------------------------------------
+    +   Version updated for Magento 2.3.x
+    +   Compatible with Marketplace 3.0.x
+    +   Once the module is installed, the admin and seller can add different types of service fees.
+    +   Service fees will apply order wise.
+    +   Admin can Enable/Disable different fees accordingly.
+    +   Made it compatible for seller.
+    +   Seller can create their service fees.

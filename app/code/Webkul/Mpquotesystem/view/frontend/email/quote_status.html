@@ -1,0 +1,53 @@
+<!--@subject New Quote Status @-->
+<!--@vars {
+"var receiver_name":"Receiver Name",
+"var title":"Title",
+"var new_status |raw":"New Status",
+"var new_message |raw":"New Message"
+} @-->
+{{template config_path="design/email/header_template"}}
+
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">Hello, {{trans "%customer_name" customer_name=$receiver_name}}</p>
+        </td>
+    </tr>
+    <tr class="email-summary">
+        <td>
+            <p>{{trans "%quoteTitle" quoteTitle=$title}}</p>
+        </td>
+    </tr>
+    <tr class="email-information">
+        <td>
+            <table class="email-items">
+                <tbody>
+                    <tr>
+                        <th class="item-info">{{trans "New Status :"}}</th>
+                    </tr>
+                    <tr>
+                        <td class="item-info">{{var new_status |raw}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="email-items">
+                <tbody>
+                    <tr>
+                        <th class="item-info">{{trans "New Message :"}}</th>
+                    </tr>
+                    <tr>
+                        <td class="item-info">{{var new_message |raw}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <center>
+                <p><strong>Thank you</strong></p>
+            </center>
+        </td>
+    </tr>
+</table>
+{{template config_path="design/email/footer_template"}}

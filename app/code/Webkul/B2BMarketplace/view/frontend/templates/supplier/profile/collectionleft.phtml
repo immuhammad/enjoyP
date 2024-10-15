@@ -1,0 +1,22 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$quickOrderBlock =  $block->getLayout()->createBlock(
+    \Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class
+);
+
+$helper = $quickOrderBlock->helper(\Webkul\Marketplace\Helper\Data::class);
+$partner=$block->getProfileDetail();
+if (!empty($partner['shop_url'])) { ?>
+    <div class="wk-mp-design">
+        <?= /* @noEscape */ $block->getChildHtml();?>
+    </div>
+    <?php
+} ?>

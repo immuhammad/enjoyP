@@ -1,0 +1,46 @@
+Legend
+
++ Features
+- Bugs
+-------------------------------- Version 5.0.0 --------------------------------------
+
+    + Compatible with Marketplace version 5.0.x.
+
+-------------------------------- Version 3.0.0 --------------------------------------
+
+    + Compatible with Marketplace version 3.0.x.
+	
+-------------------------------- Version 2.2.0 --------------------------------------
+
+    + Compatible with Marketplace version 2.3.x.
+
+-------------------------------- Version 2.1.0 --------------------------------------
+	+ Compatible With Magento 2.3.X.
+
+-------------------------------- Version 2.0.4 --------------------------------------
+	+ Shipping Price updated global.
+	- Fixed some issues.
+
+-------------------------------- Version 2.0.3 --------------------------------------
+
+	+ Compatible with MP Base Shipping.
+
+-------------------------------- Version 2.0.2 --------------------------------------
+
+	+ Compatible with magento version 2.2.X and MP 2.1.X
+
+-------------------------------- Version 2.0.1 --------------------------------------
+
+	+ Compatible with Magento 2.1.* version.
+
+-------------------------------- Version 2.0.0 --------------------------------------
+
+	+ Vendor can add different shipping price of each product.
+	+ Admin can also update shipping prices of products.
+	+ On checkout page shipping price display total shipping charges of each product.
+	+ Seller can add Invoice & Packing slip address, VAT, TAX information.
+	+ Seller can enter tracking no. and save it.
+	+ Ability to download Invoice and Shipping Slip easily.
+	+ Print PDF for Invoice.
+	+ Properly work with any type of products.
+	+ Allow admin to set per product shipping charges based on main product or it's associated products using config settings.

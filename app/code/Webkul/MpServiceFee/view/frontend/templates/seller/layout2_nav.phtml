@@ -1,0 +1,35 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category   Webkul
+ * @package    Webkul_MpServiceFee
+ * @author     Webkul Software Private Limited
+ * @copyright  Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license    https://store.webkul.com/license.html
+ */
+// @var block  Webkul\Marketplace\Block\Account\Navigation
+$currentHelper = $block->getDataByKey("curHelper");
+$helper =  $currentHelper->getMarketplaceHelper();
+$isPartner = $helper->isSeller();
+$isSellerGroup = $helper->isSellerGroupModuleInstalled();
+$magentoCurrentUrl = $block->getCurrentUrl();
+?>
+<nav class="wk-mp-menu wk-mp-main">
+    <ul id="wk-mp-nav">
+        <?php
+        if ($isPartner && $currentHelper->isModuleEnable()) {
+            if (($isSellerGroup && $helper->isAllowedAction('servicefee/fees/index')) || !$isSellerGroup) {
+                ?>
+            <li class="nav item level-0 <?= /* @noEscape */
+            strpos($magentoCurrentUrl, 'servicefee/fees/index')? "current active":"";?>">
+                <a href="<?=$escaper->escapeUrl($block
+                ->getUrl('servicefee/fees/index', ['_secure' => $block->getRequest()->isSecure()]));?>"
+                 class="">
+                    <span><?=/* @noEscape */ __('Service Fees')?></span>
+                </a>
+            </li>
+            <?php }
+        } ?>
+    </ul>
+</nav>

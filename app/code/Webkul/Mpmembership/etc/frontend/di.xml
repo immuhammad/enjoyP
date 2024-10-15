@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpmembership
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="mpmembership_seller_transactionlist_data_source" xsi:type="string">Webkul\Mpmembership\Model\ResourceModel\Transaction\FrontGrid\Collection</item>
+                <item name="mpmembership_product_transactionlist_data_source" xsi:type="string">Webkul\Mpmembership\Model\ResourceModel\Product\FrontGrid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Webkul\Mpmembership\Model\ResourceModel\Transaction\FrontGrid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">marketplace_membership_transaction</argument>
+            <argument name="eventPrefix" xsi:type="string">mpmembership_transactionlist_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">mpmembership_transactionlist_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Mpmembership\Model\ResourceModel\Transaction</argument>
+        </arguments>
+    </type>
+    <type name="Webkul\Mpmembership\Model\ResourceModel\Product\FrontGrid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">marketplace_membership_product</argument>
+            <argument name="eventPrefix" xsi:type="string">mpmembership_producttransactionlist_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">mpmembership_producttransactionlist_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\Mpmembership\Model\ResourceModel\Product</argument>
+        </arguments>
+    </type>
+</config>

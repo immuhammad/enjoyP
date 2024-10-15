@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpAdvancedBookingSystem
+ * @author    Webkul Software Private Limited
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="sales.order.items.renderers">
+            <block class="Magento\Sales\Block\Order\Item\Renderer\DefaultRenderer" name="sales.order.items.renderers.default" as="default" template="Webkul_MpAdvancedBookingSystem::order/items/renderer/default.phtml"/>
+        </referenceBlock>
+        <referenceBlock name="sales.order.items.renderers.default">
+            <arguments>
+                <argument name="booking_view_model" xsi:type="object">Webkul\MpAdvancedBookingSystem\ViewModel\BookingView</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

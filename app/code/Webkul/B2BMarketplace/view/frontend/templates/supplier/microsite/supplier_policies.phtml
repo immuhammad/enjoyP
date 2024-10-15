@@ -1,0 +1,120 @@
+<?php
+$quickOrderBlock =  $block->getLayout()->createBlock(
+    \Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class
+);
+$b2bHelper = $quickOrderBlock->helper(\Webkul\B2BMarketplace\Helper\Data::class);
+$helper = $quickOrderBlock->helper(\Webkul\Marketplace\Helper\Data::class);
+$supplier = $block->getPersistentData();
+if (empty($supplier)) {
+    $supplier = $b2bHelper->getCurrentSupplier();
+}
+?>
+<div class="wk-supplier-company-overview-container">
+    <form method="post" action="<?= /* @noEscape */
+    $quickOrderBlock->getUrl('b2bmarketplace/supplier/info_update'); ?>" 
+    id="wk-supplier-supplier-info-form" enctype="multipart/form-data" 
+    data-mage-init='{"validation":{}}'>
+        <fieldset class="fieldset">
+            <?= /* @noEscape */ $block->getBlockHtml('seller.formkey')?>
+            <?= /* @noEscape */ $block->getBlockHtml('formkey') ?>
+            <div class="field">
+            <label for="company_description"><?= /* @noEscape */ __('Company Description') ?></label>
+                <div class="control wk-border-box-sizing">
+                     <textarea type="text" id="return_policy" name="return_policy" 
+                     title="return_policy" 
+                     class="input-text compdesi" ><?= /* @noEscape */ $supplier['return_policy']; ?> </textarea>
+            <script>
+                require([
+                    "jquery",
+                    "mage/translate",
+                    "mage/adminhtml/events",
+                    "mage/adminhtml/wysiwyg/tiny_mce/setup"
+                ], function(jQuery) {
+                    wysiwygCompanyDescription = new wysiwygSetup("return_policy", {
+                        "width" : "100%",
+                        "height" : "200px",
+                        "plugins" : [{"name":"image"}],
+                        "tinymce4" : {
+                            "toolbar":"formatselect | bold italic underline | "+
+                            "alignleft aligncenter alignright | bullist numlist | "+
+                            "link table charmap","plugins":"advlist autolink lists "+
+                            "link charmap media noneditable table contextmenu paste code help table",
+                        },
+                        files_browser_window_url: "<?=  /* @noEscape */$quickOrderBlock->getWysiwygUrl() ?>"
+                    });
+                    wysiwygCompanyDescription.setup("exact");
+                });
+            </script>
+                </div>
+
+            </div>
+            <div class="field">
+                <label class="label" for="shipping_policy"><?= /* @noEscape */ __('Shipping Policy') ?></label>
+                <div class="control wk-border-box-sizing">
+                     <textarea type="text" id="shipping_policy" name="shipping_policy" 
+                     title="shipping_policy" 
+                     class="input-text compdesi" ><?= /* @noEscape */ $supplier['shipping_policy']; ?> </textarea>
+            <script>
+                require([
+                    "jquery",
+                    "mage/translate",
+                    "mage/adminhtml/events",
+                    "mage/adminhtml/wysiwyg/tiny_mce/setup"
+                ], function(jQuery) {
+                    wysiwygCompanyDescription = new wysiwygSetup("shipping_policy", {
+                        "width" : "100%",
+                        "height" : "200px",
+                        "plugins" : [{"name":"image"}],
+                        "tinymce4" : {
+                            "toolbar":"formatselect | bold italic underline | alignleft "+
+                            "aligncenter alignright | bullist numlist | link table charmap",
+                            "plugins":"advlist autolink lists link charmap media noneditable "+
+                            "table contextmenu paste code help table",
+                        },
+                        files_browser_window_url: "<?=  /* @noEscape */$quickOrderBlock->getWysiwygUrl() ?>"
+                    });
+                    wysiwygCompanyDescription.setup("exact");
+                });
+            </script>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label"><?= /* @noEscape */ __('Privacy Policy') ?></label>
+                <div class="control wk-border-box-sizing">
+                     <textarea type="text" id="privacy_policy" name="privacy_policy" title="privacy_policy" 
+                     class="input-text compdesi" ><?= /* @noEscape */ $supplier['privacy_policy']; ?> </textarea>
+            <script>
+                require([
+                    "jquery",
+                    "mage/translate",
+                    "mage/adminhtml/events",
+                    "mage/adminhtml/wysiwyg/tiny_mce/setup"
+                ], function(jQuery) {
+                    wysiwygCompanyDescription = new wysiwygSetup("privacy_policy", {
+                        "width" : "100%",
+                        "height" : "200px",
+                        "plugins" : [{"name":"image"}],
+                        "tinymce4" : {
+                            "toolbar":"formatselect | bold italic underline | "+
+                            "alignleft aligncenter alignright | bullist numlist | "+
+                            "link table charmap","plugins":"advlist autolink lists "+
+                            "link charmap media noneditable table "+
+                            "contextmenu paste code help table",
+                        },
+                        files_browser_window_url: "<?=  /* @noEscape */$quickOrderBlock->getWysiwygUrl() ?>"
+                    });
+                    wysiwygCompanyDescription.setup("exact");
+                });
+            </script>
+                </div>
+            </div>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button id="policies" name="section" value="policies" class="action primary" type="submit">
+                        <span><?= /* @noEscape */ __("Update Information"); ?></span>
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

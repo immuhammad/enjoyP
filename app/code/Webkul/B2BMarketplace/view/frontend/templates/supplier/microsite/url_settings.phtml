@@ -1,0 +1,122 @@
+<?php
+    $quickOrderBlock =  $block->getLayout()->createBlock(
+        \Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class
+    );
+    $b2bHelper = $quickOrderBlock->helper(\Webkul\B2BMarketplace\Helper\Data::class);
+    $helper = $quickOrderBlock->helper(\Webkul\Marketplace\Helper\Data::class);
+    $partner = $b2bHelper->getCurrentSupplier();
+    ?>
+<?php if ($helper->getUrlRewrite()): ?>
+    <div class="wk-supplier-company-overview-container">
+        <form action="<?= /* @noEscape */
+        $block->getUrl('marketplace/account/rewriteUrlPost', [
+            "_secure" => $quickOrderBlock->getRequest()->isSecure()]) ?>" 
+            enctype="multipart/form-data" method="post" 
+            data-role="form-urlrewrite-validate" 
+            data-mage-init='{"validation":{}}'>
+            <?= /* @noEscape */ $block->getBlockHtml('seller.formkey')?>
+                <?= /* @noEscape */ $block->getBlockHtml('formkey')?>
+                <fieldset class="fieldset">
+                    <div class="field">
+                        <label><?= /* @noEscape */ __('Profile Page Target Url Path') ?></label>
+                        <div class="control">
+                            <input type="text" class="input-text" value="<?=
+                            $block->escapeHtml('marketplace/seller/profile/shop/'.
+                            $partner['shop_url']) ?>" readonly/>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label><?= $block->escapeHtml(__('Profile Page Request Url Path')) ?></label>
+                        <div class="control">
+                            <input type="text" class="input-text" name="profile_request_url" 
+                            id="profile_request_url" 
+                            value="<?= $block->escapeHtml($helper->getRewriteUrlPath('marketplace/seller/profile/shop/'.
+                            $partner['shop_url'])) ?>"/>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label><?= $block->escapeHtml(__('Collection Page Target Url Path')) ?></label>
+                        <div class="control">
+                            <input type="text" class="input-text" 
+                            value="<?= $block->escapeHtml('marketplace/seller/collection/shop/'.
+                            $partner['shop_url']) ?>" readonly/>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label><?= $block->escapeHtml(__('Collection Page Request Url Path')) ?></label>
+                        <div class="control">
+                            <input type="text" class="input-text" 
+                            name="collection_request_url" id="collection_request_url" 
+                            value="<?= $block->escapeHtml($helper->getRewriteUrlPath(
+                                'marketplace/seller/collection/shop/'.
+                                $partner['shop_url']
+                            )) ?>"/>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label><?= $block->escapeHtml(__('Review Page Target Url Path')) ?></label>
+                        <div class="control">
+                            <input type="text" class="input-text" 
+                            value="<?= $block
+                            ->escapeHtml('marketplace/seller/feedback/shop/'.$partner['shop_url']); ?>" 
+                            readonly/>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label><?= $block->escapeHtml(__('Review Page Request Url Path')) ?></label>
+                        <div class="control">
+                            <input type="text" class="input-text" name="review_request_url" 
+                            id="review_request_url" 
+                            value="<?= $block->escapeHtml($helper
+                            ->getRewriteUrlPath('marketplace/seller/feedback/shop/'.$partner['shop_url'])) ?>"/>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label><?= $block->escapeHtml(__('Location Page Target Url Path')) ?></label>
+                        <div class="control">
+                            <input type="text" class="input-text" 
+                            value="<?= $block->escapeHtml('marketplace/seller/location/shop/'.
+                            $partner['shop_url']); ?>" readonly/>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label><?= $block->escapeHtml(__('Location Page Request Url Path')) ?></label>
+                        <div class="control">
+                            <input type="text" class="input-text" name="location_request_url" 
+                            id="location_request_url" value="<?= $block
+                            ->escapeHtml($helper
+                            ->getRewriteUrlPath('marketplace/seller/location/shop/'.
+                            $partner['shop_url'])) ?>"/>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label><?= $block->escapeHtml(__('Privacy Policy Page Target Url Path')) ?></label>
+                        <div class="control">
+                            <input type="text" class="input-text" 
+                            value="<?= $block
+                            ->escapeHtml('marketplace/seller/policy/shop/'.
+                            $partner['shop_url']); ?>" readonly/>
+                        </div>
+                    </div>    
+                    <div class="field">
+                        <label><?= $block->escapeHtml(__('Privacy Policy Page Request Url Path')) ?></label>
+                        <div class="control">
+                            <input type="text" class="input-text" name="policy_request_url" 
+                            id="policy_request_url" 
+                            value="<?= $block->escapeHtml($helper
+                            ->getRewriteUrlPath('marketplace/seller/policy/shop/'.
+                            $partner['shop_url'])) ?>"/>
+                        </div>
+                    </div>    
+                    <div class="actions-toolbar">
+                        <div class="primary">
+                            <button id="supplier-info" name="section" 
+                            value="supplier_info" class="action primary" type="submit">
+                                <span><?= $block->escapeHtml(__("Update Information")); ?></span>
+                            </button>
+                        </div>
+                    </div>
+                </fieldset>
+        </form>
+    </div>
+<?php endif; ?>

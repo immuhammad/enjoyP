@@ -1,0 +1,635 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+$helper = $block->helper(\Webkul\Marketplace\Helper\Data::class);
+$b2bQuoteHelper = $block->helper('Webkul\B2BMarketplace\Helper\Quote');
+
+$categories = $b2bQuoteHelper->getQuoteCategories();
+
+$submitUrl = $block->getUrl(
+    'b2bmarketplace/customer/requestQuotePost',
+    ['_secure' => $block->getRequest()->isSecure()]
+);
+$productBundDownGroupProductOptionsUrl = $block->getUrl(
+    'b2bmarketplace/product/options',
+    ['_secure' => $block->getRequest()->isSecure()]
+);
+$productOptionsUrl = $block->getUrl(
+    'b2bmarketplace/product/configurableproductoptions',
+    ['_secure' => $block->getRequest()->isSecure()]
+);
+?>
+<div class="wk-supplier-design">
+    <div class="wk-supplier-collection-container">
+        <div id="wk-supplier-request-quote">
+            <h2 class="wk-supplier-collection-h2"><?= $block->escapeHtml(__("Request a Quote")) ?></h2>
+            <form id="wk-add-rfq-product-form" name="wk-add-rfq-product-form" method="post" action="#">
+                <h3><?= $block->escapeHtml(__("Product(s) Information")) ?></h3>
+                <table class="wk-rfq-product-table">
+                    <thead>
+                        <tr>
+                            <th><?= $block->escapeHtml(__('Product Name'))?></th>
+                            <th><?= $block->escapeHtml(__('Quanity'))?></th>
+                            <th><?= $block->escapeHtml(__('Price'))?></th>
+                            <th><?= $block->escapeHtml(__('Samples'))?></th>
+                            <th><?= $block->escapeHtml(__('Action'))?></th>
+                        </tr>
+                    </thead>
+                    <tbody class="wk-rfq-product-table-tbody">
+                        <script id="wk-rfq-product-row-template" type="text/x-magento-template">
+                            <tr id="<%- data.field_id %>">
+                                <td><%- data.name %></td>
+                                <td><%- data.qty %></td>
+                                <td><%- data.formated_price %><?= $block->escapeHtml(__(' per qty'))?></td>
+                                <td><%- data.is_sample %></td>
+                                <td>
+                                    <span title="<?= $block->escapeHtml(__('Remove'))?>" 
+                                    class="wk-rfq-product-delete wk-row-product-delete"></span>
+                                </td>
+                            </tr>
+                        </script>
+                        <script id="wk-rfq-pro-add-to-form-template" type="text/x-magento-template">
+                            <div id="wk-rfq-pro<%- data.field_id %>">
+                                <input type="hidden" 
+                                name="rfq_product[<%- data.index %>][product_id]" 
+                                value="<%- data.product_id %>"/>
+                                <input type="hidden" 
+                                name="rfq_product[<%- data.index %>][name]" 
+                                value="<%- data.name %>"/>
+                                <input type="hidden" 
+                                name="rfq_product[<%- data.index %>][description]" 
+                                value="<%- data.description %>"/>
+                                <input type="hidden" 
+                                name="rfq_product[<%- data.index %>][qty]" 
+                                value="<%- data.qty %>"/>
+                                <input type="hidden" 
+                                name="rfq_product[<%- data.index %>][price]" 
+                                value="<%- data.price %>"/>
+                                <input type="hidden" 
+                                name="rfq_product[<%- data.index %>][is_sample]" 
+                                value="<%- data.is_sample %>"/>
+                                <input type="hidden" 
+                                name="rfq_product[<%- data.index %>][category]" 
+                                value="<%- data.category %>"/>
+                            </div>
+                        </script>
+                    </tbody>
+                </table>
+                <div class="wk-supplier-products-row-container">
+                    <div class="wk-supplier-collection-header-txt fieldset">
+
+                        <?php if (count($categories) > 0): ?>
+                            <div class="field required">
+                                <label class="label"><?= $block->escapeHtml(__('Category'))?></label>
+
+                                <span id="validate_category" class="display_none_category_validate">
+                                Please select atleast one category</span>
+
+                                <div class="wk-b2b-rfq-item-category-panel">
+                                    <?php foreach ($categories as $id => $category): ?>
+                                        <div class="wk-b2b-rfq-item-category">
+                                            <div class="wk-b2b-rfq-item-category-checkbox">
+                                            <input data-id="<?= /* @noEscape */ $id; ?>" 
+                                            name="category[]" type="checkbox">
+                                            </div>
+                                            <div class="wk-b2b-rfq-item-category-label">
+                                            <?= /* @noEscape */ $category; ?></div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+
+                        <div class="field required" data-bind="scope: 'wk-request-quote-product-wizard'">
+                            <label class="label"><?= $block->escapeHtml(__('Product Name'))?></label>
+                            <input type="text" 
+                                data-bind="event: { 
+                                    blur: onBlur, 
+                                    focus: onFocus, 
+                                    keydown: onKeyDown, 
+                                    'input propertychange': onPropertyChange 
+                                    }"
+                                name="name"
+                                id="wk_search_box"
+                                value=""
+                                class="wk-product-search-box input-text required-entry"
+                                placeholder="<?= $block->escapeHtml(__('Enter Product Name or SKU Number'))?>"
+                                role="combobox"
+                                aria-haspopup="false"
+                                aria-autocomplete="both"
+                                autocomplete="off"/>
+
+                            <input type="hidden" name="product_id" value="" id="wk_product_id"/>
+                            <div id="wk_search_autocomplete" class="search-autocomplete"></div>
+                        </div>
+                        <div class="field required">
+                            <label class="label"><?= $block->escapeHtml(__('Product Description'))?></label>
+                            <textarea  name="description" 
+                            class="input-tex required-entry" 
+                            style="width:100%;" rows="6"></textarea>
+                        </div>
+                        <div class="field required">
+                            <label class="label"><?= $block->escapeHtml(__('Product Quantity'))?></label>
+                            <input type="text" name="qty" 
+                            class="required-entry validate-number input-text"/>
+                        </div>
+                        <div class="field required">
+                            <label class="label"><?= $block->escapeHtml(__('Expected Price per Quantity'))?></label>
+                            <input type="text" name="price" 
+                            class="required-entry validate-zero-or-greater input-text"/>
+                        </div>
+                    </div>
+                    <div class="wk-supplier-collection-header-txt fieldset">
+                        <div class="field required">
+                            <label class="label"><?= $block->escapeHtml(__('Samples'))?></label>
+                            <select name="is_sample">
+                                <option value="required">
+                                <?= $block->escapeHtml(__('Yes, Sample are required'))?></option>
+                                <option value="not required">
+                                <?= $block->escapeHtml(__('No, Sample are not required'))?></option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label class="label"><?= $block->escapeHtml(__('Sample Product Images'))?></label>
+                            <div class="wk-supplier-product-images-container">
+                                <div class="wk-supplier-image wk-supplier-image-placeholder">
+                                    <div id="wk-supplier-image-uploader" class="uploader">
+                                        <div class="wk-supplier-fileinput-button form-buttons">
+                                            <span><?= $block->escapeHtml(__('Add Image')) ?></span>
+                                            <input type="file" name="image" 
+                                            class="wk-supplier-product-image-field" 
+                                            id="wk-supplier-product-image-field" 
+                                            data-url="<?= $block->escapeHtml($block
+                                            ->getUrl('b2bmarketplace/supplier_profile/productImageUpload', [
+                                                '_secure' => $block->getRequest()->isSecure()])) ?>"
+                                            multiple="multiple"/>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <script id="wk-supplier-image-uploader-template" type="text/x-magento-template">
+                                            <div id="<%- data.id %>" class="file-row">
+                                                <span class="file-info"><%- data.name %> (<%- data.size %>)</span>
+                                                <div class="progressbar-container">
+                                                    <div class="progressbar upload-progress" style="width: 0%;"></div>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
+                                        </script>
+                                        <img class="spacer" 
+                                        src="<?= $block
+                                        ->escapeHtml($block->getViewFileUrl('images/spacer.gif'))?>">
+                                        <p class="wk-supplier-image-placeholder-text">
+                                            <?= $block->escapeHtml(__('Add Sample Images.'))?>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <span class="wk-supplier-separate-line"></span>
+                <div>
+                    <label class="wk-rfq-add-btn-label wk-supplier-primary-btn">
+                        <?= $block->escapeHtml(__('Add Product')) ?>
+                        <button type="submit" id="wk-rfq-add-product" class="wk-file-field">
+                            <span><?= $block->escapeHtml(__('Add Product')) ?></span>
+                        </button>
+                    </label>
+                </div>
+            </form>
+            <form id="wk-supplier-rfq-form" name="wk-supplier-rfq-form" 
+            method="post" action="<?= $block->escapeHtml($submitUrl)?>">
+                <?= $block->getBlockHtml('formkey')?>
+                <div id="wk-rfq-quote-container">
+                    <h3><?= $block->escapeHtml(__("Quote Information")) ?></h3>
+                    <div class="wk-supplier-collection-header-txt fieldset">
+                        <div class="field required">
+                            <label class="label"><?= $block->escapeHtml(__('Quote Title'))?></label>
+                            <input type="text" name="quote_title" class="input-text required-entry"/>
+                        </div>
+                        <div class="field required">
+                            <label class="label"><?= $block->escapeHtml(__('Quote Brief'))?></label>
+                            <textarea  name="quote_description" 
+                            class="input-tex required-entry" 
+                            style="width:100%;" rows="6"></textarea>
+                        </div>
+                        <div class="wk-rfq-file-field-container">
+                            <label class="label wk-file-label wk-supplier-primary-btn">
+                                <?= $block->escapeHtml(__('Add Attachment')) ?>
+                                <input type="file" name="files" class="wk-file-field" 
+                                id="wk-rfq-file-field" 
+                                data-url="<?= $block
+                                ->escapeHtml($block->getUrl('b2bmarketplace/supplier_profile/fileUpload', [
+                                    '_secure' => $block->getRequest()->isSecure()])) ?>" 
+                                multiple="multiple"/>
+                            </label>
+                        </div>
+                        <script id="wk-rfq-file-field-template" type="text/x-magento-template">
+                            <div class="wk-uploaded-file">
+                                <span class="wk-uploaded-file-style wk-supplier-primary-btn">
+                                <%- data.extension %></span>
+                                <span class="wk-uploaded-file-name">
+                                <%- data.name %></span>
+                                <input type="hidden" 
+                                name="quote_attachments[<%- data.index %>][name]"
+                                value="<%- data.name %>"/>
+                                <input type="hidden" 
+                                name="quote_attachments[<%- data.index %>][file]" 
+                                value="<%- data.file %>"/>
+                                <span class="wk-uploaded-file-del"></span>
+                            </div>
+                        </script>
+                        <script id="wk-rfq-file-field-uploader-template" type="text/x-magento-template">
+                            <div id="<%- data.id %>" class="wk-uploaded-file-row">
+                                <img src="<?= $block->escapeHtml($block
+                                ->getViewFileUrl('Webkul_Marketplace/images/ajax-loader-big.gif'))?>"/>
+                            </div>
+                        </script>
+                    </div>
+                </div>
+                <div id="wk-rfq-contact-container">
+                    <h3><?= $block->escapeHtml(__("Contact Information")) ?></h3>
+                    <div class="wk-supplier-collection-header-txt fieldset">
+                        <div class="field required">
+                            <label class="label"><?= $block->escapeHtml(__('Name'))?></label>
+                            <input type="text" name="customer_name" class="input-text required-entry"/>
+                        </div>
+                        <div class="field required">
+                            <label class="label"><?= $block->escapeHtml(__('Company Name'))?></label>
+                            <input type="text" name="customer_company_name" class="input-text required-entry"/>
+                        </div>
+                        <div class="field required">
+                            <label class="label"><?= $block->escapeHtml(__('Address'))?></label>
+                            <textarea  name="customer_address" 
+                            class="input-tex required-entry" 
+                            style="width:100%;" rows="6"></textarea>
+                        </div>
+                        <div class="field required">
+                            <label class="label">
+                            <?= $block->escapeHtml(__('Contact Number'))?></label>
+                            <input type="text" name="customer_contact_no" 
+                            class="input-text required-entry"/>
+                        </div>
+                    </div>
+                </div>
+                <span class="wk-supplier-separate-line"></span>
+                <div class="wk-supplier-btn-wrapper">
+                    <button type="reset" class="wk-btn wk-btn_default">
+                        <span><?= $block->escapeHtml(__('Reset')) ?></span>
+                    </button>
+                    <button type="submit" class="wk-btn wk-btn-primary" id="wk-rfq-submit-btn">
+                        <span><?= $block->escapeHtml(__('Request for Quote')) ?></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script id="wk-supplier-images-field-template" type="text/x-magento-template">
+    <div class="wk-supplier-image item <% if (data.disabled == 1) { %>hidden-for-front<% } %>"
+        data-role="image">
+        <input type="hidden" 
+                name="sample_image[<%- data.index %>][name]" 
+                value="<%- data.name %>"
+                data-path="<%- data.file %>"
+                class="wk-rfq-sample-image"/>
+        <input type="hidden" 
+                name="sample_image[<%- data.index %>][file]" 
+                value="<%- data.file %>"/>
+        <img class="spacer" src="<?= $block->escapeHtml($block->getViewFileUrl('images/spacer.gif'))?>">
+        <img class="product-image" src="<%- data.url %>" alt="<%- data.label %>"/>
+        <div class="actions" >
+            <button type="button"
+                    class="action-delete wk-supplier-image-delete"
+                    data-role="delete-button"
+                    title="<?= $block->escapeHtml(__('Delete image'))?>">
+                <span>
+                    <?= $block->escapeHtml(__('Delete image'))?>
+                </span >
+            </button>
+        </div >
+    </div>
+</script>
+<?php
+$shopUrl = '';
+$priceFormat = $block->helper(\Magento\Framework\Json\Helper\Data::class)->jsonEncode($block->getPriceFormat());
+$searchUrl = $block->getUrl(
+    'b2bmarketplace/product/search',
+    ['_secure' => $block->getRequest()->isSecure()]
+);
+?>
+<script>
+    require([
+        "jquery",
+        'mage/template',
+        'Magento_Ui/js/modal/alert',
+        'priceUtils',
+        "mage/translate",
+        "jquery/file-uploader"
+    ], function ($, mageTemplate, alert, utils) {
+        var addProductForm = $('#wk-add-rfq-product-form');
+        addProductForm.mage('validation', {});
+        var submitRfqForm = $('#wk-supplier-rfq-form');
+        submitRfqForm.mage('validation', {});
+
+        $('#wk-rfq-submit-btn').click(function (e) {
+            if ($("#wk-supplier-rfq-form").valid()!==false) {
+                $('body').trigger('processStart');
+            }
+        });
+
+        var index = 0;
+        var catIds = [];
+        $('#wk-rfq-add-product').click(function (e) {
+            if ($("#wk-add-rfq-product-form").valid()!==false) {
+                var categorySelected = 0;
+                $(".wk-b2b-rfq-item-category").each(function() {
+                    if ($(this).hasClass("wk-selected-category")) {
+                        categorySelected = 1;
+                    }
+                });
+                if (categorySelected == 0){
+                    $('html, body').animate({
+                        scrollTop: $("#validate_category").offset().top
+                    }, 20);
+                    $("#validate_category").removeClass("display_none_category_validate");
+                    $("#validate_category").addClass("display_block_category_validate");
+                    return false;
+                }
+                else {
+                    $("#validate_category").removeClass("display_block_category_validate");
+                    $("#validate_category").addClass("display_none_category_validate");
+                }
+                if ($('select[name=is_sample]').val() == 'required') {
+                    
+                }
+                var obj = '';
+                index = index+1;
+                var proIndex = 0;
+                $('.wk-rfq-sample-image').each(function () {
+                    var imageName = $(this).val();
+                    var imagePath = $(this).attr('data-path');
+                    proIndex++;
+                        obj = obj+'<input type="hidden" name="rfq_product['+
+                        index+'][product_sample_images]['+proIndex+'][name]" value="'+
+                        imageName+'"/><input type="hidden" name="rfq_product['+index+'][product_sample_images]['+
+                        proIndex+'][file]" value="'+imagePath+'"/>';
+                });
+                var fieldId = Math.random().toString(33).substr(2, 18);
+                var dataTemp = {
+                    field_id: fieldId,
+                    index: index,
+                    product_id: $('#wk_product_id').val(),
+                    name: $('input[name=name]').val(),
+                    description: $('textarea[name=description]').val(),
+                    qty: $('input[name=qty]').val(),
+                    price: $('input[name=price]').val(),
+                    formated_price: utils.formatPrice(
+                        $('input[name=price]').val(),
+                        <?= /* @noEscape */ $priceFormat?>
+                    ),
+                    is_sample: $('select[name=is_sample]').val(),
+                    category: catIds.join(","),
+                };
+                var progressTmpl = mageTemplate('#wk-rfq-product-row-template'),
+                    tmpl;
+                tmpl = progressTmpl({
+                    data: dataTemp
+                });
+                $(tmpl).appendTo('.wk-rfq-product-table-tbody');
+
+                $('#'+fieldId).append(obj);
+                $('#wk-add-rfq-product-form')[0].reset();
+                $('.wk-supplier-image-delete').trigger('click');
+
+                // append request for quote prodct data rfq form
+
+                var progressTmpl = mageTemplate('#wk-rfq-pro-add-to-form-template'),
+                    tmpl;
+                tmpl = progressTmpl({
+                    data: dataTemp
+                });
+                $(tmpl).appendTo('#wk-supplier-rfq-form');
+                $('#wk-rfq-pro'+fieldId).append(obj);
+                return false;
+            }
+        });
+        $('.wk-supplier-product-images-container').on("click", ".wk-supplier-image-delete", function() {
+            $(this).parents('.wk-supplier-image').remove();
+        });
+        $('#wk-add-rfq-product-form').on("click", ".wk-rfq-product-delete", function() {
+            var fieldId = $(this).parents('tr').attr('id');
+            $(this).parents('tr').remove();
+            $('#wk-rfq-pro'+fieldId).remove();
+        });
+        var productSampleIndex = 0;
+        $('#wk-supplier-product-image-field').fileupload({
+            dataType: 'json',
+            sequentialUploads: true,
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png|pdf|doc|zip)$/i,
+            add: function (e, data) {
+                var progressTmpl = mageTemplate('#wk-supplier-image-uploader-template'),
+                    tmpl;
+
+                $.each(data.files, function (index, file) {
+                    data.fileId = Math.random().toString(33).substr(2, 18);
+
+                    tmpl = progressTmpl({
+                        data: {
+                            id: data.fileId
+                        }
+                    });
+
+                    $(tmpl).appendTo('#wk-supplier-image-uploader');
+                });
+
+                $(this).fileupload('process', data).done(function () {
+                    data.submit();
+                });
+            },
+            done: function (e, data) {
+                if (data.result && !data.result.error) {
+                    productSampleIndex++;
+                    var progressTmpl = mageTemplate('#wk-supplier-images-field-template'),
+                    tmpl;
+                    tmpl = progressTmpl({
+                        data: {
+                            disabled: data.result.disabled ? data.result.disabled : 0,
+                            index: productSampleIndex,
+                            name: data.result.name,
+                            file: data.result.file,
+                            url: data.result.url,
+                            extension: data.result.type
+                        }
+                    });
+
+                    $(tmpl).prependTo('.wk-supplier-product-images-container');
+                } else {
+                    $('#' + data.fileId)
+                        .delay(2000)
+                        .hide('highlight');
+                    alert({
+                        content: $.mage.__('We don\'t recognize or support this file extension type.')
+                    });
+                }
+                $('#' + data.fileId).remove();
+            },
+            progress: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                var progressSelector = '#' + data.fileId + ' .progressbar-container .progressbar';
+                $(progressSelector).css('width', progress + '%');
+            },
+            fail: function (e, data) {
+                var progressSelector = '#' + data.fileId;
+                $(progressSelector).removeClass('upload-progress').addClass('upload-failure')
+                    .delay(2000)
+                    .hide('highlight')
+                    .remove();
+            }
+        });
+        $('#wk-supplier-product-image-field').fileupload('option', {
+            process: [{
+                action: 'load',
+                fileTypes: /^image\/(gif|jpeg|png)$/
+            }, {
+                action: 'resize',
+                maxWidth: <?= /* @noEscape */ \Magento\Framework\File\Uploader::MAX_IMAGE_WIDTH ?> ,
+                maxHeight: <?= /* @noEscape */ \Magento\Framework\File\Uploader::MAX_IMAGE_HEIGHT ?>
+            }, {
+                action: 'save'
+            }]
+        });
+        $('.wk-rfq-file-field-container').on("click", ".wk-uploaded-file-del", function() {
+            $(this).parent('.wk-uploaded-file').remove();
+        });
+        var attachmentIndex = 0;
+        $('#wk-rfq-file-field').fileupload({
+            dataType: 'json',
+            sequentialUploads: true,
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png|pdf|doc|zip)$/i,
+            add: function (e, data) {
+                var progressTmpl = mageTemplate('#wk-rfq-file-field-uploader-template'),
+                    tmpl;
+
+                $.each(data.files, function (index, file) {
+                    data.fileId = Math.random().toString(33).substr(2, 18);
+
+                    tmpl = progressTmpl({
+                        data: {
+                            id: data.fileId
+                        }
+                    });
+
+                    $(tmpl).appendTo('.wk-rfq-file-field-container');
+                });
+
+                $(this).fileupload('process', data).done(function () {
+                    data.submit();
+                });
+            },
+            done: function (e, data) {
+                if (data.result && !data.result.error) {
+                    attachmentIndex++;
+                    var progressTmpl = mageTemplate('#wk-rfq-file-field-template'),
+                    tmpl;
+                    tmpl = progressTmpl({
+                        data: {
+                            index: attachmentIndex,
+                            name: data.result.name,
+                            file: data.result.file,
+                            extension: data.result.type
+                        }
+                    });
+
+                    $(tmpl).appendTo('.wk-rfq-file-field-container');
+                } else {
+                    $('#' + data.fileId)
+                        .delay(2000)
+                        .hide('highlight');
+                    alert({
+                        content: $.mage.__('We don\'t recognize or support this file extension type.')
+                    });
+                }
+                $('#' + data.fileId).remove();
+            },
+            progress: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                var progressSelector = '#' + data.fileId + ' .progressbar-container .progressbar';
+                $(progressSelector).css('width', progress + '%');
+            },
+            fail: function (e, data) {
+                var progressSelector = '#' + data.fileId;
+                $(progressSelector).removeClass('upload-progress').addClass('upload-failure')
+                    .delay(2000)
+                    .hide('highlight')
+                    .remove();
+            }
+        });
+        $('#wk-rfq-file-field').fileupload('option', {
+            process: [{
+                action: 'load',
+                fileTypes: /^image\/(gif|jpeg|png)$/
+            }, {
+                action: 'resize',
+                maxWidth: <?= /* @noEscape */ \Magento\Framework\File\Uploader::MAX_IMAGE_WIDTH ?> ,
+                maxHeight: <?= /* @noEscape */ \Magento\Framework\File\Uploader::MAX_IMAGE_HEIGHT ?>
+            }, {
+                action: 'save'
+            }]
+        });
+
+        function getSelectedCategoryIds()
+        {
+            var ids = [];
+            $(".wk-b2b-rfq-item-category-checkbox input").each(function () {
+                if ($(this).prop("checked")) {
+                    ids.push($(this).attr("data-id"));
+                }
+            });
+            return ids;
+        }
+
+        $(".wk-b2b-rfq-item-category-checkbox input").click(function () {
+            if ($(this).prop("checked")) {
+                $(this).parent().parent().addClass("wk-selected-category");
+            } else {
+                $(this).parent().parent().removeClass("wk-selected-category");
+            }
+            catIds = getSelectedCategoryIds();
+        });
+
+        $(".wk-b2b-rfq-item-category-label").click(function () {
+            $(this).parent().find("input").trigger("click");
+        });
+    });
+</script>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "wk-request-quote-product-wizard": {
+                        "component": "requestQuoteProduct",
+                        "emptyProductReturnLabel": 
+                        "<?= /* @noEscape */ __('No record found! Please search for another keyword.')?>",
+                        "productBundDownGroupProductOptionsUrl": "<?=
+                            /* @noEscape */ $productBundDownGroupProductOptionsUrl?>",
+                        "configurableProductOptionsUrl": "<?= /* @noEscape */ $productOptionsUrl?>",
+                        "fieldSelector": ".wk-product-search-box",
+                        "destinationSelector": "#wk_search_autocomplete",
+                        "priceFormat": <?= /* @noEscape */ $priceFormat?>,
+                        "shop_url": "<?= /* @noEscape */ $shopUrl?>",
+                        "url": "<?= /* @noEscape */ $searchUrl?>"
+                    }
+                }
+            }
+        }
+    }
+</script>

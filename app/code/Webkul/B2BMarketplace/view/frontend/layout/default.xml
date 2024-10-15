@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Webkul_B2BMarketplace::css/styles.css"/>
+        <!-- <css src="Webkul_B2BMarketplace::css/quote.css"/> -->
+        <css src="Webkul_B2BMarketplace::css/supplier/collection.css"/>
+        <css src="Webkul_B2BMarketplace::css/supplier/data.css"/>
+    </head>
+    <body>
+         <referenceBlock name="marketplace-account-switch-link" remove="true"/>
+        <referenceBlock name="marketplace-vendor-login-link" remove="true"/>
+        <referenceBlock name="header.links">
+            <block class="Webkul\B2BMarketplace\Block\Supplier\LoginLink" name="supplier-login-link">
+             <!-- <block class="Consultera\Ambasdor\Block\Index" name="helloworld_index_index"> -->
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Become Ambassador</argument>
+                    <argument name="path" xsi:type="string">ambasdor</argument>
+                </arguments>
+            </block>
+             <!-- <block class="Magento\Framework\View\Element\Html\Link" name="marketplace-top-link">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Become Merchant</argument>
+                    <argument name="path" xsi:type="string">marketplace</argument>
+                </arguments>
+            </block> -->
+            <!-- <block class="Webkul\B2BMarketplace\Block\Customer\QuoteLink" name="b2b-request-quote-link">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Request For Quote</argument>
+                    <argument name="path" xsi:type="string">b2bmarketplace/customer/requestquote/</argument>
+                </arguments>
+            </block>
+        </referenceBlock> 
+        <referenceBlock name="footer_links">
+            <block class="Webkul\B2BMarketplace\Block\Customer\QuoteLink" name="b2b-request-quote-link-footer">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Request For Quote</argument>
+                    <argument name="path" xsi:type="string">b2bmarketplace/customer/requestquote/</argument>
+                </arguments>
+            </block>
+            <block class="Webkul\B2BMarketplace\Block\Supplier\LoginLink" name="supplier-login-link-footer">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Supplier Login</argument>
+                    <argument name="path" xsi:type="string">b2bmarketplace/supplier/login/</argument>
+                </arguments>
+            </block>
+            <block class="Webkul\B2BMarketplace\Block\Supplier\RegisterLink" name="supplier-register-link-footer">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Supplier Registration</argument>
+                    <argument name="path" xsi:type="string">b2bmarketplace/supplier/create/</argument>
+                </arguments>
+            </block> -->
+        </referenceBlock>
+        <referenceContainer name="seller.page.menu">
+            <referenceBlock name="layout2_seller_account_navigation_main">
+                <action method="setTemplate">
+                    <argument name="template" xsi:type="string">Webkul_B2BMarketplace::layout2/account/navigation.phtml</argument>
+                </action>
+                <referenceBlock name="layout2_seller_account_navigation_settings_menu">
+                    <action method="setTemplate">
+                        <argument name="template" xsi:type="string">Webkul_B2BMarketplace::layout2/account/navigation/settings_menu.phtml</argument>
+                    </action>
+                </referenceBlock>
+            </referenceBlock>
+            <referenceContainer name="layout2_seller_account_navigation">
+                <block class="Webkul\Marketplace\Block\Account\Navigation" name="mprfq_navigation" before="-" template="Webkul_B2BMarketplace::layout2/account/requestforquote/navigation.phtml" />
+            </referenceContainer>
+        </referenceContainer>
+        <!-- Rewrite supplier panel header section to add responsive navigation menu -->
+        <referenceContainer name="seller.header">
+            <referenceBlock name="seller.logo">
+                <action method="setTemplate">
+                    <argument name="template" xsi:type="string">Webkul_B2BMarketplace::layout2/page/header.phtml</argument>
+                </action>
+            </referenceBlock>
+            <referenceBlock name="seller.user">
+                <action method="setTemplate">
+                    <argument name="template" xsi:type="string">Webkul_B2BMarketplace::layout2/page/header.phtml</argument>
+                </action>
+            </referenceBlock>
+        </referenceContainer>
+        <referenceBlock name="seller.top.header.block">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Webkul_B2BMarketplace::layout2/page/switcher.phtml</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

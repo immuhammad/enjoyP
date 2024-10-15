@@ -1,0 +1,181 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpquotesystem
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+// use to allow customer to quote on a product
+$product = $block->getProduct();
+$productHasQuote = $block->checkQuoteStatus($product);
+$quoteHelper = $block->getHelper();
+$currencySymbol = $quoteHelper->getCurrentCurrencyCodesymbol();
+$minqty = 0;
+if ($productHasQuote):
+    ?>
+        <button
+            type="button"
+            title="<?=$block->escapeHtmlAttr(__("Quote This Product"))?>"
+            class="wk_qs_quote_button button btn-cart action primary">
+        <span><span><?=$block->escapeHtml(__("Quote This Product"))?></span></span>
+        </button>
+    <?php
+    $finalPrice = 0;
+    $minqty = $productHasQuote['min_qty'];
+    if ($minqty=='' || $minqty==null):
+        $minqty = 0;
+endif;
+    if ($product->getSpecialPrice() != ""):
+        $finalPrice = $product->getSpecialPrice();
+else:
+    $finalPrice = $product->getPrice();
+endif; ?>
+<style>
+@media screen and (max-width:800px) {
+    .wk_qs_quote_button.button.btn-cart.action.primary {
+        width : 100%!important;
+    }
+}
+</style>
+    <div class="ask-que popover_background">
+        <div id="wk-mp-qs-ask-data">
+            <div tabindex="0"
+                data-type="popup"
+                data-role="modal"
+                class="modal-popup modal-slide _inner-scroll wk-mp-model-popup"
+            >
+                <div tabindex="0" data-role="focusable-start"></div>
+                <div data-role="focusable-scope" class="modal-inner-wrap">
+                    <header class="modal-header">
+                        <h4 class="modal-title"><?=$block->escapeHtml(__('Enter Quote Details'))?></h4>
+                        <!-- <span  class="wk-close" >x</span> -->
+                        <button type="button"
+                            data-role="closeBtn"
+                            class="popover_close action-close wk-close"
+                        >
+                            <span>Close</span>
+                        </button>
+                        <span  class="wk-clear" ></span>
+                    </header>
+                    <div class="modal-body form-list field required wk-modal-body">
+                        <fieldset class="fieldset info">
+                            <input type="hidden"
+                                name="original_price"
+                                value="<?=$block->escapeHtmlAttr($finalPrice)?>"
+                            />
+                            <input type="hidden"
+                                name="quote_currency_symbol"
+                                value="<?=$block->escapeHtmlAttr($currencySymbol)?>"
+                            />
+                            <input type="hidden"
+                                name="product_name"
+                                value="<?=$block->escapeHtmlAttr($product->getName())?>"
+                            />
+                            <input type="hidden"
+                                name="current_url"
+                                value="<?=$block->escapeHtmlAttr($block->getCurrentUrl())?>"
+                            />
+                            <div class="field required">
+                                <label class="label"><?=$block->escapeHtml(__("Quantity"))?> :</label>
+                                <input type="text"
+                                    class="queryquestion wk-contact_input_fields required-entry
+                                    validate-digits-range digits-range-"<?=$block->escapeHtmlAttr($minqty)?>- quote_qty"
+                                    name="quote_qty"
+                                    data-validate="{required:true,'validate-greater-than-zero':true, 
+                                    'validate-number':true}"
+                                />
+                                <span class="wk-qs-min-qty">
+                                <?=$block->escapeHtml(__('Minimum quote quantity limit is %1', $minqty))?></span>
+                            </div>
+                            <div class="field required">
+                                <label class="label">
+                                    <?=$block->escapeHtml(__("Price per Item")."(".$currencySymbol.")")?> :
+                                </label>
+                                <input type="text"
+                                    class="queryquestion wk-contact_input_fields 
+                                    validate-number required-entry validate-greater-than-zero quote_price"
+                                    name="quote_price"
+                                />
+                            </div>
+                            <div class="field required">
+                                <label class="label"><?=$block->escapeHtml(__("Description"))?> :</label>
+                                <textarea
+                                    class="queryquestion wk-contact_input_fields required-entry quote_description"
+                                    name="quote_description"
+                                    data-validate="{'validate-no-html-tags':true}"
+                                ></textarea>
+                            </div>
+                            <div class="field">
+                                <label class="label"><?=$block->escapeHtml(__("Attachment"))?> :</label>
+                                <input  type="file"
+                                    class="attachment wk-contact_input_fields quote_attachment"
+                                    name="quote_attachment"
+                                    data-allowed-types="<?=$block->escapeHtmlAttr($quoteHelper->getAllowedTypes())?>"
+                                />
+                                <small class="wk-block">
+                                    <?=$block->escapeHtml(__('Allowed Types :'))?>
+                                    <span>
+                                    <?=$block->escapeHtml($quoteHelper->getAllowedTypes())?>
+                                    </span>
+                                </small>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <span class="error"></span>
+                            <span class="errormail"></span>
+                            <input type="button"
+                                value="<?=$block->escapeHtmlAttr(__('Submit'))?>"
+                                id="mpqsaskbtn"
+                                class="submit_button wk-btn wk-btn-primary clickask"
+                            />
+                            <input type="reset"
+                                value="<?=$block->escapeHtmlAttr(__('Reset'))?>"
+                                id="mpqsresetbtn"
+                                class="wk-btn wk-btn_default"
+                            />
+                            <span class="wk-clear"></span>
+                        </div>
+                    </fieldset>
+                </div>
+                <div tabindex="0" data-role="focusable-end"></div>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+<a class="proceed-to-checkout button primary _attachment-hide">
+    <?=$block->escapeHtml(__('Login'))?>
+</a>
+<?php
+$formData = [
+    'quoteButtonHtml'       =>  '.wk_qs_quote_button',
+    'popoverbackgroundhtml' =>  '.popover_background',
+    'productAddToCartForm'  =>  '#product_addtocart_form',
+    'saveQuoteUrl'          =>  $block->getUrl(
+        'mpquotesystem/buyerquote/savequote',
+        ['_secure' => $block->getIsSecure()]
+    ),
+    'addToCartAction'       =>  '.box-tocart .actions',
+    'popoverClass'          =>  '.popover',
+    'popOverclose'          =>  '.popover_close',
+    'submitButton'          =>  '.submit_button',
+    'loginurl'              =>  $block->getUrl(
+        'customer/account/login',
+        ['_secure' => $block->getIsSecure()]
+    ),
+    'minqty'                =>  $minqty,
+    'showCart'              =>   (int)$quoteHelper->getConfigAddToCart()
+];
+$serializedFormData = \Magento\Framework\Serialize\JsonConverter::convert($formData);
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "WkMpQuotesystem": <?= /* @noEscape */ $serializedFormData; ?>
+        }
+    }
+</script>

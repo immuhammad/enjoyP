@@ -1,0 +1,49 @@
+{
+    "marketplace_membership_transaction": {
+        "column": {
+            "entity_id": true,
+            "no_of_products": true,
+            "remaining_products": true,
+            "check_type": true,
+            "seller_id": true,
+            "transaction_id": true,
+            "transaction_email": true,
+            "ipn_transaction_id": true,
+            "transaction_date": true,
+            "expiry_date": true,
+            "transaction_status": true,
+            "reference_number": true,
+            "created_at": true,
+            "updated_at": true,
+            "transaction_type": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "marketplace_membership_product": {
+        "column": {
+            "entity_id": true,
+            "no_of_products": true,
+            "seller_id": true,
+            "product_ids": true,
+            "transaction_id": true,
+            "transaction_email": true,
+            "ipn_transaction_id": true,
+            "transaction_date": true,
+            "expiry_date": true,
+            "transaction_status": true,
+            "reference_number": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "marketplace_product": {
+        "column": {
+            "payment_status": true
+        }
+    }
+}

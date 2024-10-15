@@ -1,0 +1,313 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpmembership
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+// @block Webkul/Mpmembership/Block/Seller/Transactionlist
+
+$data = $block->getAllTransactions();
+$timeAndProducts = \Webkul\Mpmembership\Model\Transaction::TIME_AND_PRODUCTS;
+$products = \Webkul\Mpmembership\Model\Transaction::PRODUCTS;
+$time = \Webkul\Mpmembership\Model\Transaction::TIME;
+$membershipUrl = $block->getUrl('mpmembership/index/index', ['_secure' => $block->getIsSecure()]);
+$helper = $block->getMembershipHelper();
+$mpHelper = $block->getMpHelper();
+?>
+<div class="transaction page-title">
+    <h1><?=/* @noEscape */ __('Seller Fee Transaction List') ?></h1>
+</div>
+<?php if (!$mpHelper->getIsSeparatePanel()): ?>
+    <?php if ($block->getAllTransactions() && $block->getAllTransactions()->getSize() <= 0) { ?>
+        <div class="fieldset">
+            <h2 class="legend"><?= /* @noEscape */ __('Transaction List') ?></h2>
+            <div class="wk_emptymsg">
+                <?= /* @noEscape */ __('No Transaction Available') ?>
+            </div>
+        </div>
+    <?php } else {
+        $params = $block->getParameters();
+
+        $filterTrId = '';
+        $filterTrEmail = '';
+        $filterTrDateFrom = '';
+        $filterTrDateTo = '';
+        $filterTrStatus = '';
+
+        if (isset($params['seller_tr_id'])) {
+            $filterTrId = $params['seller_tr_id'] != '' ? $params['seller_tr_id'] : '';
+        }
+        if (isset($params['seller_tr_email'])) {
+            $filterTrEmail = $params['seller_tr_email'] != '' ? $params['seller_tr_email'] : '';
+        }
+        if (isset($params['seller_tr_status'])) {
+            $filterTrStatus = $params['seller_tr_status'] != '' ? $params['seller_tr_status'] : '';
+        }
+        if (isset($params['seller_from_date'])) {
+            $filterTrDateFrom = $params['seller_from_date'] != '' ? $params['seller_from_date'] : '';
+        }
+        if (isset($params['seller_to_date'])) {
+            $filterTrDateTo = $params['seller_to_date'] != '' ? $params['seller_to_date'] : '';
+        }
+        ?>
+    <fieldset class="fieldset info wk-mp-fieldset">
+        <legend class="legend">
+            <span><?= /* @noEscape */ __('Transaction List') ?></span>
+        </legend>
+        <div class="grid">
+            <div class="hor-scroll">
+                <form action="<?= $escaper->escapeUrl($membershipUrl)?>"
+                    id="paypal_standard_checkout_filter"
+                    name="paypal_standard_checkout_filter"
+                    method="GET"
+                    data-mage-init='{"validation":{}}'>
+                    <table cellspacing="0" class="border wk-mp-list-table">
+                        <thead>
+                            <tr id="wk-mp-tr-heading">
+                                <th><span><?= /* @noEscape */  __('Transaction Id') ?></span></th>
+                                <th><span><?= /* @noEscape */  __('Transaction Email') ?></span></th>
+                                <th><span><?= /* @noEscape */  __('Transaction Date') ?></span></th>
+                                <th><span><?= /* @noEscape */  __('Transaction Status') ?></span></th>
+                                <th><span>&nbsp;</span></th>
+                            </tr>
+                        </thead>
+                        <tbody class="wk-mp-body">
+                            <tr>
+                                <td>
+                                    <input type="text"
+                                            class="input-text"
+                                            name="seller_tr_id"
+                                            placeholder='<?= /* @noEscape */  __('Search by transaction Id') ?>'
+                                            value="<?= /* @noEscape */  $filterTrId ?>"/>
+                                </td>
+                                <td>
+                                    <input type="text"
+                                            class="input-text"
+                                            name="seller_tr_email"
+                                            placeholder='<?= /* @noEscape */  __('Search by transaction email') ?>'
+                                            value="<?= /* @noEscape */  $filterTrEmail ?>"/>
+                                </td>
+                                <td>
+                                    <span class="wk-mp-td-span">
+                                        <?= /* @noEscape */  __('From: ') ?>
+                                        <input type="text"
+                                                name="seller_from_date"
+                                                placeholder='<?= /* @noEscape */  __('Search by date') ?>'
+                                                id="seller_from_date"
+                                                class="input-text"
+                                                value="<?= /* @noEscape */  $filterTrDateFrom ?>" />
+                                    </span>
+                                    <span class="wk-mp-td-span">
+                                        <?= /* @noEscape */  __('To: ') ?>
+                                        <input type="text"
+                                                name="seller_to_date"
+                                                placeholder='<?= /* @noEscape */  __('Search by date') ?>'
+                                                id="seller_to_date"
+                                                class="input-text"
+                                                value="<?= /* @noEscape */  $filterTrDateTo ?>" />
+                                    </span>
+                                </td>
+                                <td>
+                                    <input type="text"
+                                            class="input-text"
+                                            name="seller_tr_status"
+                                            placeholder='<?= /* @noEscape */  __('Search by transaction status') ?>'
+                                            value="<?= /* @noEscape */  $filterTrStatus ?>"/>
+                                </td>
+                                <td>
+                                    <button class="button" title="Save" type="submit">
+                                        <span><span><span><?= /* @noEscape */  __('Submit') ?></span></span></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <?php if ($block->getAllTransactions()
+                        && count($block->getAllTransactions()) > 0
+                        && $block->getAllTransactions()->getSize()
+                    ): ?>
+                    <table cellspacing="0" class="border wk-mp-list-table wk-mp-list-container-table">
+                        <thead>
+                            <tr class="wk-content">
+                                <th class="wk-first-td">
+                                    <span class="label name">
+                                                                <?= /* @noEscape */  __('Reference Number') ?>
+                                    </span>
+                                </th>
+                                <th>
+                                    <span class="label pro-status">
+                                                                <?= /* @noEscape */  __('Transaction Id')?>
+                                    </span>
+                                </th>
+                                <th>
+                                    <span class="label pro-status">
+                                                        <?= /* @noEscape */  __('No. of Products allowed to add') ?>
+                                    </span>
+                                </th>
+                                <th>
+                                    <span class="label pro-status">
+                                                        <?= /* @noEscape */  __('Added No. Of Products') ?>
+                                    </span>
+                                </th>
+                                <th>
+                                    <span class="label pro-status">
+                                                        <?= /* @noEscape */  __('Expiration Date') ?>
+                                    </span>
+                                </th>
+                                <th>
+                                    <span class="label pro-status">
+                                                        <?= /* @noEscape */  __('Transaction Email')?>
+                                    </span>
+                                </th>
+                                <th>
+                                    <span class="label pro-status">
+                                                        <?= /* @noEscape */  __('Transaction Date')?>
+                                    </span>
+                                </th>
+                                <th>
+                                    <span class="label">
+                                                        <?= /* @noEscape */  __('Transaction Status')?>
+                                    </span>
+                                </th>
+                                <th>
+                                    <span class="label">
+                                                                <?= /* @noEscape */  __('Transaction Type')?>
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                                        <?php
+                                                        $i = 0;
+                                                        $transactions = $block->getAllTransactions();
+                                                        $count = count($transactions);
+                                                        foreach ($transactions as $product) {
+                                                            $validation = $block->getExpiryDetail($product->getId());
+                                                            $i++;
+                                                            $transactionId = __("Pending");
+                                                            if ($product->getTransactionId()!=="") {
+                                                                $transactionId = $product->getTransactionId();
+                                                            }
+                                                            $transactionEmail = __("Pending");
+                                                            if ($product->getTransactionEmail()!=="") {
+                                                                $transactionEmail = $product->getTransactionEmail();
+                                                            }
+                                                            ?>
+                                <tr class="wk-row-view
+                                                            <?= $class = ($i == $count)? 'wk-last_tr':''?>"
+                                >
+                                    <td class="wk-first_td">
+                                        <span class="label pro-status">
+                                                            <?= /* @noEscape */  $product->getReferenceNumber() ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="label pro-status">
+                                                            <?= /* @noEscape */  $transactionId; ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="label pro-status">
+                                                            <?php if ($product->getCheckType()==$timeAndProducts ||
+                                                            $product->getCheckType()==$products
+                                             ): ?>
+                                              <?php if ($product->getTransactionStatus()!=="pending" ||
+                                                $product->getNoOfProducts()>0
+                                               ): ?>
+                                                  <?= /* @noEscape */  $product->getNoOfProducts() ?>
+                                                <?php else: ?>
+                                                    <?= /* @noEscape */  __("pending") ?>
+                                                <?php endif; ?>
+                                            <?php else: ?>
+                                                <?= /* @noEscape */  __("unlimited") ?>
+                                            <?php endif; ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="label pro-status">
+                                                            <?= /* @noEscape */  $product->getRemainingProducts() ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="label pro-status">
+                                                            <?php if ($product->getCheckType()==$timeAndProducts ||
+                                                            $product->getCheckType()==$time
+                                             ): ?>
+                                              <?php if ($product->getTransactionStatus()!=="pending"): ?>
+                                                    <?= /* @noEscape */  $helper->formatDateByDateTime(
+                                                        $product->getExpiryDate()
+                                                    ) ?>
+                                                <?php else: ?>
+                                                    <?= /* @noEscape */  __("pending") ?>
+                                                <?php endif; ?>
+                                            <?php else: ?>
+                                                <?= /* @noEscape */  __("no expiration time") ?>
+                                            <?php endif; ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="label pro-status">
+                                                            <?= /* @noEscape */  $transactionEmail; ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="label pro-status">
+                                                            <?= /* @noEscape */  $helper->formatDateByDateTime(
+                                                                $product->getTransactionDate()
+                                                            ) ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="label pro-status">
+                                                            <?= /* @noEscape */  $product->getTransactionStatus() ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="label pro-status">
+                                                            <?php if ($product->getTransactionStatus()=="pending"): ?>
+                                                                <?= /* @noEscape */  __("pending") ?>
+                                            <?php else: ?>
+                                                <?= /* @noEscape */  $validation ?>
+                                            <?php endif; ?>
+                                        </span>
+                                    </td>
+                                </tr>
+                                                                    <?php
+                                                        }?>
+                        </tbody>
+                    </table>
+                <?php else: ?>
+                    <div class="wk-emptymsg">
+                        <?= /* @noEscape */  __('No Transaction Available') ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+        <?php if ($block->getPagerHtml() && count($block->getAllTransactions()) > 0): ?>
+            <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml(); ?></div>
+        <?php endif; ?>
+    </fieldset>
+    <div class="buttons-set">
+        <p class="back-link">
+            <a href="javascript:;"
+                onclick="javascript: window.history.back();"
+                class="left">
+                &laquo; <?= /* @noEscape */  __('Back') ?>
+            </a>
+        </p>
+    </div>
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "membershipTransactionList": {}
+            }
+        }
+    </script>
+    <?php } ?>
+<?php endif; ?>

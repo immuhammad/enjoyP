@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpVendorAttributeManager
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\StoreGraphQl\Model\Resolver\Store\StoreConfigDataProvider">
+        <arguments>
+            <argument name="extendedConfigData" xsi:type="array">
+                <item name="vendorattribute_visible_registration" xsi:type="string">marketplace/vendor_attribute/visible_registration</item>
+                <item name="vendorattribute_visible_profile" xsi:type="string">marketplace/vendor_attribute/visible_profile</item>
+                <item name="vendorattribute_file_display" xsi:type="string">marketplace/vendor_attribute/file_display</item>
+                <item name="vendorattribute_group_display" xsi:type="string">marketplace/vendor_attribute/group_display</item>
+                <item name="vendorattribute_image_display" xsi:type="string">marketplace/vendor_attribute/image_display</item>
+                <item name="vendorattribute_allowede_image_extension" xsi:type="string">marketplace/vendor_attribute/allowede_image_extension</item>
+                <item name="vendorattribute_allowede_file_extension" xsi:type="string">marketplace/vendor_attribute/allowede_file_extension</item>
+                <item name="vendorattribute_profile_label" xsi:type="string">marketplace/vendor_attribute/profile_label</item>
+                <item name="termcondition_enable_registration" xsi:type="string">marketplace/termcondition/enable_registration</item>
+                <item name="termcondition_customer_enable_registration" xsi:type="string">marketplace/termcondition/customer_enable_registration</item>
+                <item name="termcondition_privacy_heading" xsi:type="string">marketplace/termcondition/privacy_heading</item>
+                <item name="termcondition_term_heading" xsi:type="string">marketplace/termcondition/term_heading</item>
+                <item name="termcondition_button_text" xsi:type="string">marketplace/termcondition/button_text</item>
+                <item name="termcondition_button_text_color" xsi:type="string">marketplace/termcondition/button_text_color</item>
+                <item name="termcondition_button_color" xsi:type="string">marketplace/termcondition/button_color</item>
+                <item name="termcondition_model_background" xsi:type="string">marketplace/termcondition/model_background</item>
+                <item name="termcondition_animate" xsi:type="string">marketplace/termcondition/animate</item>
+                <item name="termcondition_is_html" xsi:type="string">marketplace/termcondition/is_html</item>
+                <item name="termcondition_termcondition" xsi:type="string">marketplace/termcondition/termcondition</item>
+                <item name="termcondition_privacy" xsi:type="string">marketplace/termcondition/privacy</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

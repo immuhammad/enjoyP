@@ -1,0 +1,415 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpRmaSystem
+ * @author    Webkul Software Private Limited
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $helper = $block->helper();
+    $rmaDetails = $helper->getRmaDetails();
+    $orderRef = $rmaDetails->getOrderRef();
+    $orderId = $rmaDetails->getOrderId();
+    $order = $helper->getOrder($orderId);
+    $rmaId = $rmaDetails->getId();
+    $images = $helper->getImages($rmaId);
+    $sellerId = $rmaDetails->getSellerId();
+    $date = $rmaDetails->getCreatedDate();
+    $conversations = $block->getAllConversations();
+    $date = $block->formatDate($date, \IntlDateFormatter::MEDIUM, true);
+    $sellerName = $helper->getCustomerName($rmaId, true);
+    $customerName = $helper->getCustomerName($rmaId, false);
+    $status = $rmaDetails->getStatus();
+    $finalStatus = $rmaDetails->getFinalStatus();
+    $resolutionType = $rmaDetails->getResolutionType();
+    $rmaStatus = $helper->getRmaStatusTitle($status, $finalStatus);
+    $sellerStatus = $helper->getSellerStatusTitle($rmaDetails->getSellerStatus());
+    $orderStatus = $helper->getOrderStatusTitle($rmaDetails->getOrderStatus());
+    $resolution = $helper->getResolutionTypeTitle($resolutionType);
+    $productDetails = $helper->getRmaProductDetails($rmaId);
+    $totalPrice = 0;
+    $totalPric = 0;
+    $orderUrl = $block->getUrl("marketplace/order/view/")."id/".$orderId;
+    $invoiceId = $helper->getMpOrder($orderId, $sellerId)->getInvoiceId();
+    $invoice = $helper->getInvoiceData($invoiceId);
+    $rmaItemId = $helper->getRmaItems($rmaId)->getItemId();
+    $rmaRefundQty = $helper->getRmaItems($rmaId)->getQty();
+    $count = 0;
+    $productType = "";
+foreach ($productDetails as $product) {
+    $isQtyReturned = $product->getIsQtyReturned();
+    $totalPric += $helper->getItemFinalPrice($product);
+    $productTyp = $product->getProductType();
+    if ($productTyp == "simple" || $productTyp == "configurable" || $productTyp == "bundle") {
+        $count++;
+    }
+}
+
+if ($count == 0) {
+    $productType = "intangible";
+} else {
+    $productType = "tangible";
+}
+$allStatus = $helper->getAllStatus($resolutionType, $productType);
+
+?>
+<div class="wk-mprma-container wk-mprma-view">
+<a href="<?= $escaper->escapeUrl($block->getUrl('mprmasystem/seller/allrma')); ?>" 
+    class="wk-date-info" ><?= $escaper->escapeHtml(__("Back")); ?></a>
+<a class="wk-date-info" aria-hidden="true"
+                    title="<?= $escaper->escapeHtml(__('Print Rma'))?>"
+                    href = "<?= $escaper->escapeUrl($block->getUrl(
+                        'mprmasystem/customer/printpdf/',
+                        [
+                            'rma_id'=>$rmaId,
+                            '_secure' => $block->getIsSecure()
+                        ]
+                    )) ?>"
+                    login-url = "<?= $escaper->escapeUrl($block->getUrl('customer/account/login')); ?>">
+<?= $escaper->escapeHtml(__('Print Rma')) ?>
+</a>
+    <div class="wk-title">
+        <?= $escaper->escapeHtml(__("RMA Details")); ?>
+        <span class="wk-date-info"><?= $escaper->escapeHtml($date);?></span>
+    </div>
+    <form method="post" 
+        action="<?= $escaper->escapeUrl($block->getUrl('mprmasystem/customer/create')); ?>" 
+        id="wk_new_rma_form" enctype="multipart/form-data" data-mage-init='{"validation":{}}'>
+        <fieldset class="fieldset wk-mprma-fieldset">
+            <div class="field">
+                <label for="Ordrer Id" class="label">
+                    <span><?= $escaper->escapeHtml(__("Order Id")); ?></span>
+                </label>
+                <div class="control">
+                    <a target="_blank" 
+                        href="<?= $escaper->escapeUrl($orderUrl);?>">
+                        <?= $escaper->escapeHtml($orderRef);?>
+                    </a>
+                </div>
+            </div>
+            <div class="field">
+                <label for="Status" class="label">
+                    <span><?= $escaper->escapeHtml(__("Status")); ?></span>
+                </label>
+                <div class="control">
+                    <div class="wk-row">
+                        <span><?= $escaper->escapeHtml(__("RMA Status")); ?> :</span> 
+                        <?= $escaper->escapeHtml($rmaStatus); ?>
+                    </div>
+                    <?php if ($rmaDetails->getOrderStatus() != Webkul\MpRmaSystem\Helper\Data::ORDER_NOT_APPLICABLE):?>
+                        <div class="wk-row">
+                            <span><?= $escaper->escapeHtml(__("Order Status")); ?> :</span> 
+                            <?= $escaper->escapeHtml($orderStatus);?>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($rmaDetails->getOrderStatus() == Webkul\MpRmaSystem\Helper\Data::ORDER_DELIVERED):?>
+                        <div class="wk-row">
+                            <span><?= $escaper->escapeHtml(__("Consignment Number")); ?> :</span> 
+                            <?= $escaper->escapeHtml($rmaDetails->getNumber());?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <div class="field">
+                <label for="Resolution Type" class="label">
+                    <span><?= $escaper->escapeHtml(__("Resolution Type")); ?></span>
+                </label>
+                <div class="control">
+                    <?= $escaper->escapeHtml($resolution);?>
+                </div>
+            </div>
+            <div class="field">
+                <label for="Additional Information" class="label">
+                    <span><?= $escaper->escapeHtml(__("Additional Information")); ?></span>
+                </label>
+                <div class="control">
+                    <?= $escaper->escapeHtml($rmaDetails->getAdditionalInfo());?>
+                </div>
+            </div>
+            <?php if ($resolutionType == \Webkul\MpRmaSystem\Helper\Data::RESOLUTION_REFUND): ?>
+                <div class="field wk-refund-block wk-display-none">
+                    <label for="Refund Details" class="label">
+                        <span><?= $escaper->escapeHtml(__("Refund Details")); ?></span>
+                    </label>
+                    <div class="control">
+                        <div class="wk-row">
+                            <span><?= $escaper->escapeHtml(__("Refundable Amount")); ?> :</span>
+                            <span class="wk-refundable-amount"></span>
+                        </div>
+                        <?php if ($rmaDetails->getRefundedAmount() > 0): ?>
+                            <div class="wk-row">
+                                <span><?= $escaper->escapeHtml(__("Refunded Amount")); ?> :</span>
+                                <span class="wk-refunded-amount">
+                                    <?= /* @noEscape */ $order->formatPrice($rmaDetails->getRefundedAmount()); ?>
+                                </span>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <?php if (count($images) > 0): ?>
+                <div class="field wk-lg">
+                    <label for="Images" class="label">
+                        <span><?= $escaper->escapeHtml(__("Images")); ?></span>
+                    </label>
+                    <div class="control">
+                        <div id="preview">
+                            <?php foreach ($images as $image): ?>
+                                <div class="wk-showcase-block">
+                                    <img src="<?= $escaper->escapeUrl($image);?>">
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </fieldset>
+    </form>
+</div>
+<div class="wk-mprma-container wk-mprma-view">
+    <div class="wk-title wk-close-title">
+        <?= $escaper->escapeHtml(__("Change RMA Status")); ?>
+    </div>
+    <fieldset class="fieldset wk-mprma-fieldset wk-close-filedset">
+        <div class="field">
+            <?php if ($finalStatus == 0): ?>
+                <form method="post" 
+                    action="<?= $escaper->escapeUrl($block->getUrl('mprmasystem/rma/change')); ?>" 
+                        id="wk_rma_close_form" enctype="multipart/form-data" 
+                        data-mage-init='{"validation":{}}'>
+                    <input type="hidden" value="<?= $escaper->escapeHtml($rmaId); ?>" name="rma_id">
+                    <div class="control">
+                        <div class="wk-action-content">
+                            <select id="seller_status" name="seller_status" 
+                                data-validate="{required:true}" class="input-text required-entry">
+                                <?php foreach ($allStatus as $key => $status): ?>
+                                    <?php if ($rmaDetails->getSellerStatus() == $key): ?>
+                                        <option value="<?= $escaper->escapeHtml($key);?>" selected>
+                                            <?= $escaper->escapeHtml(__($status)); ?>
+                                        </option>
+                                    <?php else: ?>
+                                        <option value="<?= $escaper->escapeHtml($key);?>">
+                                            <?= $escaper->escapeHtml(__($status)); ?>
+                                        </option>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <?php if ($resolutionType == 2 && !$isQtyReturned) { ?>
+                            <div class="wk-refund-note">
+                                <span class="wk-refund-label">
+                                    <?= $escaper->escapeHtml(__("Return to Stock")); ?> : 
+                                </span>
+                                <span class=""><input type="checkbox" name="return_to_stock" value="1"></span>
+                            </div>
+                        <?php } ?>
+                        <div class="wk-action-btn">
+                            <button title="Save" class="action save primary wk-save" type="submit">
+                                <span><?= $escaper->escapeHtml(__("Save")); ?></span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            <?php else: ?>
+                <?= $escaper->escapeHtml($helper->getCloseRmaLabel($finalStatus, $sellerName)); ?>
+            <?php endif; ?>
+        </div>
+    </fieldset>
+</div>
+<?php if ($finalStatus == 0): ?>
+    <?php if ($resolutionType == 1): ?>
+        <div class="wk-mprma-container wk-mprma-view">
+            <div class="wk-title wk-close-title">
+                <?= $escaper->escapeHtml(__("Refund Amount")); ?>
+            </div>
+            <form method="post" 
+                action="<?= $escaper->escapeUrl($block->getUrl('mprmasystem/rma/refund')); ?>" 
+                id="wk_rma_refund_form" enctype="multipart/form-data" 
+                data-mage-init='{"validation":{}}'>
+                <input type="hidden" value="<?= $escaper->escapeHtml($rmaId); ?>" name="rma_id">
+                <input type="hidden" value="1" class="payment_status" name="do_offline">
+                <input type="hidden" name="invoice_id" value="<?= $escaper->escapeHtml($invoiceId); ?>">
+                <input type="hidden" name="id" value="<?= /* @noEscape */ $orderId ?>">
+                <input type="hidden" name="creditmemo[adjustment_positive]" value="0">
+                <input type="hidden" name="creditmemo[adjustment_negative]" value="0">
+                <input type="hidden" 
+                    name="creditmemo[items][<?= /* @noEscape */ $escaper->escapeHtml($rmaItemId); ?>][qty]" 
+                    value="<?= /* @noEscape */ $escaper->escapeHtml($rmaRefundQty); ?>">
+                <fieldset class="fieldset wk-mprma-fieldset wk-close-filedset">
+                    <div class="field">
+                        <label for="Payment Type" class="label">
+                            <span><?= $escaper->escapeHtml(__("Payment Type")); ?></span>
+                        </label>
+                        <div class="control">
+                            <select id="payment_type" name="payment_type" 
+                                data-validate="{required:true}" class="input-text required-entry">
+                                <option value="1" ><?= $escaper->escapeHtml(__("Full Amount")); ?></option>
+                                <option value="2" ><?= $escaper->escapeHtml(__("Partial Amount")); ?></option>
+                            </select>
+                            <div class="wk-partial-amount">
+                                <input type="text" value="0" id="partial_amount" 
+                                    name="partial_amount" data-validate="{required:true}" 
+                                    class="validate-greater-than-zero input-text required-entry">
+                            </div>
+                        </div>
+                        <div class="wk-refund-note">
+                            <span class="wk-refund-label">
+                                <?= $escaper->escapeHtml(__("Total Refundable Amount")); ?> : 
+                            </span>
+                            <span class="wk-refund-amount"></span>
+                        </div>
+                        <div class="wk-refund-note">
+                            <span class="wk-refund-label">
+                                <?= $escaper->escapeHtml(__("Return to Stock")); ?> : 
+                            </span>
+                            <span class=""><input type="checkbox" name="back_to_stock" value="1"></span>
+                        </div>
+                        <div class="wk-action-btn wk-refund-button">
+                            <button title="Refund Offline" 
+                                class="action save primary wk-refund" 
+                                id="wk-refund-offline" type="submit">
+                                <span><?= $escaper->escapeHtml(__("Refund Offline")); ?></span>
+                            </button>
+                        </div>
+                        <?php if ($invoice && $invoice->getTransactionId()) { ?>
+                        <div class="wk-action-btn">
+                            <button title="Refund Online"  
+                                class="action save primary wk-refund" 
+                                id="wk-refund-online" type="submit">
+                                <span><?=  $escaper->escapeHtml(__("Refund")); ?></span>
+                            </button>
+                        </div>
+                            <?php
+                        } ?>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
+<div class="wk-mprma-container wk-mprma-view">
+    <div class="wk-title">
+        <?= $escaper->escapeHtml(__("Item(s) Requested for RMA")); ?>
+    </div>
+    <div class="wk-table-wrapper">
+        <table id="mprma-items-table" class="data table">
+            <thead>
+                <tr>
+                    <th class="col" scope="col"><?= $escaper->escapeHtml(__("Product Name")); ?></th>
+                    <th class="col" scope="col"><?= $escaper->escapeHtml(__("Sku")); ?></th>
+                    <th class="col" scope="col"><?= $escaper->escapeHtml(__("Price")); ?></th>
+                    <th class="col" scope="col"><?= $escaper->escapeHtml(__("Qty")); ?></th>
+                    <th class="col" scope="col"><?= $escaper->escapeHtml(__("Reason")); ?></th>
+                </tr>
+            </thead>
+            <?php foreach ($productDetails as $product): ?>
+                <?php
+                    $totalPrice += $helper->getItemFinalPrice($product);
+                ?>
+                <tbody>
+                    <tr>
+                        <td class="col">
+                            <?= $escaper->escapeHtml($product->getName()); ?>
+                            <?= /* @noEscape */ $helper->getOptionsHtml($product); ?>
+                        </td>
+                        <td class="col"><?= $escaper->escapeHtml($product->getSku()); ?></td>
+                        <td class="col"><?= /* @noEscape */ $order->formatPrice($product->getData("price")); ?></td>
+                        <td class="col"><?= $escaper->escapeHtml($product->getQty()); ?></td>
+                        <td class="col"><?= $escaper->escapeHtml($helper->getReasonById($product->getReasonId()));?>
+                        </td>
+                    </tr>
+                </tbody>
+            <?php endforeach; ?>
+        </table>
+    </div>
+</div>
+<?php if ($conversations->getSize()):?>
+    <div class="wk-mprma-container wk-mprma-view">
+        <div class="wk-title">
+            <?= $escaper->escapeHtml(__("Conversations")); ?>
+        </div>
+        <?php foreach ($conversations as $conversation): ?>
+            <?php
+                $date = $conversation->getCreatedTime();
+                $date = $block->formatDate($date, \IntlDateFormatter::MEDIUM, true);
+                $type = $conversation->getSenderType();
+            if ($type == 1) {
+                $text = __("Seller")." : ".$sellerName;
+                $class = "wk-mprma-seller-section";
+            } elseif ($type == 2) {
+                $text = __("Customer")." : ".$customerName;
+                $class = "wk-mprma-customer-section";
+            } elseif ($type == 3) {
+                $text = __("Guest");
+                $class = "wk-mprma-customer-section";
+            } else {
+                $text = __("Administrator");
+                $class = "wk-mprma-admin-section";
+            }
+            ?>
+            <div class="wk-mprma-conversation">
+                <div class="wk-mprma-conversation-head <?= $escaper->escapeHtml($class); ?>">
+                    <div class="wk-mprma-conversation-head-left">
+                        <?= $escaper->escapeHtml($date); ?>
+                    </div>
+                    <div class="wk-mprma-conversation-head-right">
+                        <?= $escaper->escapeHtml($text); ?>
+                    </div>
+                </div>
+                <div class="wk-mprma-conversation-body">
+                    <?= $escaper->escapeHtml($conversation->getMessage()); ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
+        <?php if ($block->getPagerHtml()): ?>
+            <div class="order-products-toolbar toolbar bottom"><?= /* @noEscape */ $block->getPagerHtml(); ?></div>
+        <?php endif ?>
+    </div>
+<?php endif ?>
+<div class="wk-mprma-container wk-mprma-view">
+    <div class="wk-title">
+        <?= $escaper->escapeHtml(__("Send Message")); ?>
+    </div>
+    <form method="post" 
+        action="<?= $escaper->escapeUrl($block->getUrl('mprmasystem/rma/conversation')); ?>" 
+        id="wk_rma_conversation_form" data-mage-init='{"validation":{}}'>
+        <input type="hidden" value="1" name="sender_type">
+        <input type="hidden" value="<?= $escaper->escapeHtml($rmaId); ?>" name="rma_id">
+        <fieldset class="fieldset wk-mprma-fieldset wk-close-filedset">
+            <div class="field required">
+                <label for="Enter Message" class="label">
+                    <span><?= $escaper->escapeHtml(__("Enter Message")); ?></span>
+                </label>
+                <div class="control">
+                    <textarea name="message" data-validate="{required:true}" 
+                        class="wk-rma-msg input-text required-entry 
+                        validate-no-html-tags"></textarea>
+                </div>
+                <div class="wk-action-btn">
+                    <button title="Save" class="action save primary wk-send" type="submit">
+                        <span><?= $escaper->escapeHtml(__("Send Message")); ?></span>
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<?php
+    $data = $helper->jsonEncodeData([
+                "totalPrice" => $totalPrice,
+                "totalPriceWithCurrency" => $order->formatPrice($totalPrice),
+                "errorMsg" => __("Partial amount can not be more then %1", $order->formatPrice($totalPrice)),
+                "warningLable" => __("Warning")
+            ]);
+    ?>
+<script type="text/x-magento-init">
+    {
+        "body": {
+            "Webkul_MpRmaSystem/js/rma": <?= /* @noEscape */ $data ?>
+        }
+    }
+</script>

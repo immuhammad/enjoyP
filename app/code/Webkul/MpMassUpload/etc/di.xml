@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpMassUpload
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Webkul\MpMassUpload\Api\Data\ProfileInterface" type="Webkul\MpMassUpload\Model\Profile"/>
+    <preference for="Webkul\MpMassUpload\Api\Data\AttributeProfileInterface" type="Webkul\MpMassUpload\Model\AttributeProfile"/>
+
+    <preference for="Webkul\MpMassUpload\Api\Data\AttributeMappingInterface" type="Webkul\MpMassUpload\Model\AttributeMapping"/>
+
+    <preference for="Webkul\MpMassUpload\Api\ProfileRepositoryInterface" type="Webkul\MpMassUpload\Model\ProfileRepository"/>
+
+    <preference for="Webkul\MpMassUpload\Api\AttributeProfileRepositoryInterface" type="Webkul\MpMassUpload\Model\AttributeProfileRepository"/>
+
+    <preference for="Webkul\MpMassUpload\Api\AttributeMappingRepositoryInterface" type="Webkul\MpMassUpload\Model\AttributeMappingRepository"/>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="mpmassupload_dataflow_profile_list_data_source" xsi:type="string">Webkul\MpMassUpload\Model\ResourceModel\AttributeProfile\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\MpMassUpload\Model\ResourceModel\AttributeProfile\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">marketplace_massupload_attribute_profile</argument>
+            <argument name="eventPrefix" xsi:type="string">mpmassUpload_attribute_profile_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">mpmassUpload_attribute_profile_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\MpMassUpload\Model\ResourceModel\AttributeProfile</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="mpmassupload_uploaded_profile_list_data_source" xsi:type="string">Webkul\MpMassUpload\Model\ResourceModel\Profile\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Webkul\MpMassUpload\Model\ResourceModel\Profile\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">marketplace_massupload_profile</argument>
+            <argument name="eventPrefix" xsi:type="string">mpmassUpload_profile_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">mpmassUpload_profile_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Webkul\MpMassUpload\Model\ResourceModel\Profile</argument>
+        </arguments>
+    </type>
+
+    <type name="\Webkul\Marketplace\Helper\Data">
+        <plugin name="Webkul_MpMassUpload::updatedHelperDataFile"
+                type="Webkul\MpMassUpload\Plugin\Helper\Data"
+                sortOrder="100" />
+    </type>
+     <type name="Magento\MediaStorage\Model\File\Validator\NotProtectedExtension">
+        <plugin name="Webkul_MpMassUpload::nonprotectedextension"
+                type="Webkul\MpMassUpload\Plugin\NotProtectedExtension"
+                sortOrder="100" />
+    </type>
+</config>

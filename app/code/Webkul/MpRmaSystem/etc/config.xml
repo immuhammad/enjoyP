@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpRmaSystem
+ * @author    Webkul Software Private Limited
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mprmasystem>
+            <settings>
+                <admin_notification>1</admin_notification>
+                <default_days>20</default_days>
+                <admin_email>owner@example.com</admin_email>
+            </settings>
+            <email>
+                <new_rma>mprmasystem_email_new_rma</new_rma>
+                <update_rma>mprmasystem_email_update_rma</update_rma>
+                <rma_message>mprmasystem_email_rma_message</rma_message>
+            </email>
+        </mprmasystem>
+    </default>
+</config>

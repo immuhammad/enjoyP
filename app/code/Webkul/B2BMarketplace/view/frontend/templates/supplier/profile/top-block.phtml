@@ -1,0 +1,188 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$quickOrderBlock =  $block->getLayout()->createBlock(
+    \Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class
+);
+ 
+$partner = $block->getProfileDetail();
+if ($partner['shop_url']) {
+    $helper = $quickOrderBlock->helper(\Webkul\Marketplace\Helper\Data::class);
+    $b2bHelper = $quickOrderBlock->helper(\Webkul\B2BMarketplace\Helper\Data::class);
+    $sellerId = $partner->getSellerId();
+    $supplierInfo = $b2bHelper->getSupplierInfoById($sellerId);
+    $bannerpic = $partner->getBannerPic()!=''?$partner->getBannerPic():"banner-image.png";
+    $bannerpic = $helper->getMediaUrl().'avatar/'.$bannerpic;
+    
+    $logo = $partner->getLogoPic()!=''?$partner->getLogoPic():"noimage.png";
+    $logo = $helper->getMediaUrl().'avatar/'.$logo;
+
+    $shopUrl = $block->escapeHtml($partner['shop_url']);
+    $shoptitle = $block->escapeHtml($partner->getShopTitle());
+    if (!$shoptitle) {
+        $shoptitle = $shopUrl;
+    }
+    $defaultAddress = $b2bHelper->getAddressById($partner->getDefaultAddressId());
+    if ($defaultAddress) {
+        $locsearch = implode(', ', $defaultAddress->getStreet()).", ".
+        $defaultAddress->getCity().", ".$defaultAddress->getRegion().", ".
+        $b2bHelper->getCountryName($defaultAddress->getCountryId()).", ".
+        $defaultAddress->getPostcode();
+    } else {
+        $locsearch = $block->escapeHtml($partner['company_locality']);
+    }?>
+    <div class="wk-supplier-banner wk-supplier-margin-bottom">
+        <?php if ($helper->isSellerSliderModuleInstalled()) {
+            echo $block->getChildHtml("marketplace_seller_slider_block");
+        } ?>
+        <img class="wk-supplier-banner-image" src="<?= $block->escapeHtml($bannerpic);?>">
+        <?php if ($bannerContent = $supplierInfo->getWkSupplierBannerContent()) { ?>
+            <div class="wk-list-container wk-supplier-header">
+                <div class="wk-supplier-header-container">
+                    <?= $block->escapeHtml($bannerContent)?>
+                </div>
+            </div>
+            <?php
+        } ?>
+    </div>
+    <div class="wk-supplier-collection-header-box wk-supplier-margin-bottom">
+        <div class="wk-supplier-collection-title-container">
+            <a class="wk-supplier-logo-container" href="<?= $block
+            ->escapeHtml($helper->getRewriteUrl('marketplace/seller/profile/shop/'.
+            $shopUrl));?>" >
+                <img class="wk-supplier-collection-logo" src="<?= $block->escapeHtml($logo);?>" />
+            </a>
+            <div style="display:inline-block;">
+                <a class="wk-supplier-collection-title" href="<?= $block
+                ->escapeHtml($helper->getRewriteUrl('marketplace/seller/profile/shop/'.
+                $shopUrl));?>">
+                    <?= $block->escapeHtml($shoptitle)?>
+                </a>
+            </div>
+            <?= $block->getChildHtml('seller_badges_top') ?>
+            <div class="wk-supplier-collection-header-txt">
+                <a class="wk-supplier-collection-title-desc" href="<?= $block
+                ->escapeHtml($helper->getRewriteUrl('marketplace/seller/profile/shop/'.
+                $shopUrl));?>">
+                    <?= $block->escapeHtml($supplierInfo->getWkSupplierCompanyTagline())?>
+                </a>
+            </div>
+            <div class="wk-supplier-rating-summary">
+                <?php
+                $feedData = $helper->getFeedTotal($sellerId);
+                $totalRating = (
+                    $feedData['price'] + $feedData['value'] + $feedData['quality']
+                ) / 60;
+                $rating = round($totalRating, 1, PHP_ROUND_HALF_UP);
+                $ratingPercent = $rating*20;
+                ?>
+                <span class="product-reviews-summary short">
+                    <div class="rating-summary">
+                        <div class="rating-result" title="<?= $block->escapeHtml($ratingPercent)?>%">
+                            <span style="width:<?= $block->escapeHtml($ratingPercent)?>%">
+                                <span><?= $block->escapeHtml($ratingPercent)?>%</span>
+                            </span>
+                        </div>
+                    </div>
+                </span>
+                <a class="wk-supplier-rating-container" 
+                href="<?= $block->escapeHtml($helper->getRewriteUrl('marketplace/seller/feedback/shop/'.
+                $shopUrl))?>" title="<?= $block->escapeHtml(__('Make a Review'))?>">
+                    <span class="wk-supplier-rating-avg"><?= $block->escapeHtml($rating); ?> - </span>
+                </a>
+                <span class="wk-supplier-rating-total wk-supplier-collection-header-txt">
+                    <?= $block->escapeHtml(__('%1 Ratings', $feedData['feedcount']))?>
+                </span>
+            </div>
+            <div>
+                <?php if ($locsearch) { ?>
+                    <a title="<?= $block->escapeHtml(__('Search')) ?>" href="<?= /* @noEscape */
+                    $block->escapeHtml($helper->getRewriteUrl('marketplace/seller/location/shop/'.
+                    $shopUrl))?>" target="_blank">
+                        <span class="wk-supplier-collection-location wk-supplier-collection-header-txt">
+                            <?= $block->escapeHtml(__($locsearch)); ?>
+                        </span>
+                    </a>
+                <?php } ?>
+                <?php if ($supplierInfo->getWkIsVerifiedSupplier()) { ?>
+                    <span class="wk-supplier-verified"><?= $block->escapeHtml(__('Verified'))?></span>
+                    <?php
+                } ?>
+                <?php if ($supplierInfo->getWkIsPremiumSupplier()) { ?>
+                    <span class="wk-supplier-premium"><?= $block->escapeHtml(__('Premium Supplier'))?></span>
+                    <?php
+                } ?>
+            </div>
+        </div>
+        <div class="wk-supplier-container-right">
+            <div class="wk-supplier-msg-container">
+                <button class="askque"><span><?= $block->escapeHtml(__('Message Supplier'))?></span></button>
+            </div>
+            <div class="wk-supplier-info-wrapper">
+                <div class="wk-supplier-collection-header-txt"><?= $block->escapeHtml(__('Supplier Info'))?></div>
+                <div>
+                    <div class="wk-supplier-info-container">
+                        <a class="wk-supplier-minilogo-container" href="<?= $block
+                        ->escapeHtml($helper->getRewriteUrl('marketplace/seller/profile/shop/'.
+                        $shopUrl));?>" >
+                            <img class="wk-supplier-collection-minilogo" src="<?= $block->escapeHtml($logo); ?>" />
+                        </a>
+                        <div class="wk-supplier-info-title-container">
+                            <div class="wk-supplier-info-row">
+                                <?= $block->escapeHtml($supplierInfo->getName());?>
+                            </div>
+                            <div class="wk-supplier-collection-header-txt">
+                                <?= $block->escapeHtml($supplierInfo->getWkSupplierRole())?>
+                            </div>
+                        </div>
+                        <?php
+                        $responseTime = $supplierInfo->getWkSupplierResponseTime();
+                        $responseTimeUnit = $supplierInfo->getWkSupplierResponseTimeUnit();
+                        $responseRate = $b2bHelper->getResponseRate(
+                            $sellerId,
+                            $responseTime,
+                            $responseTimeUnit
+                        );
+                        if ($responseRate) { ?>
+                            <div class="wk-supplier-response-rate-container">
+                                <div class="wk-supplier-info-row wk-supplier-collection-header-txt">
+                                    <?= $block->escapeHtml(__('Response Rate'))?>
+                                </div>
+                                <div><?= $block->escapeHtml($responseRate)?>%</div>
+                            </div>
+                            <?php
+                        } ?>
+                        <?php if ($responseTime = $supplierInfo->getWkSupplierResponseTime()) {
+                            if (!$supplierInfo->getWkSupplierResponseTimeUnit()) {
+                                $timeUnit = __('Hour(s)');
+                            } else {
+                                if ($supplierInfo->getWkSupplierResponseTimeUnit() == 'day') {
+                                    $timeUnit = __('Day(s)');
+                                } else {
+                                    $timeUnit = __('Hour(s)');
+                                }
+                            }
+                            ?>
+                            <div class="wk-supplier-response-time-container">
+                                <div class="wk-supplier-info-row wk-supplier-collection-header-txt">
+                                    <?= $block->escapeHtml(__('Response Time'))?>
+                                </div>
+                                <div><?= $block->escapeHtml($responseTime." ".$timeUnit)?></div>
+                            </div>
+                            <?php
+                        } ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?= /* @escapeNotVerified */ $block->getChildHtml("marketplace_seller_profile_contact");?>
+    <?= /* @escapeNotVerified */ $block->getChildHtml("marketplace_seller_profile_menu")?>
+<?php }  ?>

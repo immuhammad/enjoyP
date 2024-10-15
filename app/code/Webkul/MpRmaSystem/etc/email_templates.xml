@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpRmaSystem
+ * @author    Webkul Software Private Limited
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="mprmasystem_email_new_rma" label="RMA Create" file="new_rma.html" type="html" module="Webkul_MpRmaSystem" area="frontend"/>
+    <template id="mprmasystem_email_update_rma" label="RMA Status Update" file="update_rma.html" type="html" module="Webkul_MpRmaSystem" area="frontend"/>
+    <template id="mprmasystem_email_rma_message" label="RMA Conversation" file="rma_message.html" type="html" module="Webkul_MpRmaSystem" area="frontend"/>
+</config>

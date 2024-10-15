@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpquotesystem
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="webkul" translate="label" sortOrder="10">
+            <label>Webkul</label>
+        </tab>
+        <section id="mpquotesystem" translate="label" type="text" sortOrder="510" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Marketplace QuoteSystem</label>
+            <!-- Assign section to tab -->
+            <tab>webkul</tab>
+            <resource>Webkul_Mpquotesystem::config_mpquotesystem</resource>
+            <!-- create group for fields in section -->
+            <group id="quotesystem_settings" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Marketplace QuoteSystem Settings</label>
+                <field id="enable_quote" translate="label comment" sortOrder="1" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Quote System for products</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="discount_enable" translate="label comment" sortOrder="2" type="select" showInDefault="1">
+                    <label>Allow To use Discount while quote product is in cart</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Allow customer to apply discount when customer added quote product in cart</comment>
+                </field>
+                <field id="allowed_showprice" translate="label comment" sortOrder="5" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Product Price</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="allowed_add_to_cart" translate="label comment" sortOrder="4" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Add to Cart</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="default_config" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Marketplace Quote Configuration</label>
+                <field id="quote_cates" translate="label comment" sortOrder="1" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Quote Category</label>
+                    <source_model>Webkul\Mpquotesystem\Model\Config\Source\Categorylist</source_model>
+                </field>
+                <field id="min_qty" translate="label comment" sortOrder="2" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Minimum Quote Quantity</label>
+                    <validate>validate-digits validate-not-negative-number validate-digits-range digits-range-1-100</validate>
+                </field>
+                <field id="allowed_type" translate="label comment" sortOrder="2" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allowed Type For Attachment</label>
+                    <source_model>Webkul\Mpquotesystem\Model\Config\Source\TypeList</source_model>
+                </field>
+            </group>
+            <group id="email" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Transactional Emails Setting</label>
+                <field id="new_quote" translate="label comment" sortOrder="1" type="select" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>New Quote Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="quote_edit" translate="label" sortOrder="2" showInDefault="1" showInStore="1" showInWebsite="1" type="select">
+                    <label>Quote Edit Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="quote_message" translate="label" sortOrder="3" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Quote Message Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="quote_status" translate="label" sortOrder="4" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Quote Status Update Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+            <group id="product_information" translate="label" type="text" sortOrder="700" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Marketplace QuoteSystem Product Information</label>
+                <field id="author" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <frontend_model>Webkul\Mpquotesystem\Block\Config\Source\Version</frontend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

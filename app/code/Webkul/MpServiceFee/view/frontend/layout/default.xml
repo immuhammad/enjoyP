@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * Webkul Software.
+ *
+ * @category   Webkul
+ * @package    Webkul_MpServiceFee
+ * @author     Webkul Software Private Limited
+ * @copyright  Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license    https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Webkul_MpServiceFee::css/styles.css" />
+        <css src="Webkul_Marketplace::css/product.css"/>
+    </head>
+    <body>
+        <referenceContainer name="layout2_seller_account_navigation">
+            <block class="Webkul\Marketplace\Block\Account\Navigation" name="layout2_mpservicefee.seller.nav" template="Webkul_MpServiceFee::seller/layout2_nav.phtml" ifconfig="webkul_service_fee/service_fee_settings/enable_disable_service_fee">
+                <arguments>
+                    <argument name="curHelper" xsi:type="object">Webkul\MpServiceFee\Helper\Servicehelper</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

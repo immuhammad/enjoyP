@@ -1,0 +1,500 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$quickOrderBlock =  $block->getLayout()->createBlock(
+    \Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class
+);
+
+$helper = $quickOrderBlock->helper(\Webkul\Marketplace\Helper\Data::class);
+$b2bHelper = $quickOrderBlock->helper('Webkul\B2BMarketplace\Helper\Data');
+$captchenable = $helper->getCaptchaEnable();
+if (!$partner = $block->getProfileDetail()) {
+    $product = $block->getProduct();
+    $sellerId = '';
+    $marketplaceProduct = $helper->getSellerProductDataByProductId($product['entity_id']);
+    foreach ($marketplaceProduct as $value) {
+        $sellerId = $value['seller_id'];
+    }
+    $rowsocial = $helper->getSellerDataBySellerId($sellerId);
+    foreach ($rowsocial as $value) {
+        $partner = $value;
+    }
+}
+if ($sellerId = $partner->getSellerId()) {
+    $supplierInfo = $b2bHelper->getSupplierInfoById($sellerId);
+    $shopUrl = $block->escapeHtml($partner['shop_url']);
+    $shoptitle = $block->escapeHtml($partner->getShopTitle());
+    if (!$shoptitle) {
+        $shoptitle = $shopUrl;
+    }
+    ?>
+    <div class="ask-que">
+        <div id="wk-supplier-ask-data">
+            <div class="modals-wrapper">
+                <aside tabindex="0" data-type="popup" data-role="modal"
+                class="modal-popup modal-slide _inner-scroll wk-supplier-model-popup">
+                    <div tabindex="0" data-role="focusable-start"></div>
+                    <div data-role="focusable-scope" class="modal-inner-wrap">
+                        <header class="modal-header">
+                            <div class="wk-supplier-container-left">
+                                <div>
+                                    <a class="wk-supplier-collection-title"
+                                    href="<?= $block->escapeHtml($helper
+                                    ->getRewriteUrl('marketplace/seller/profile/shop/'.$shopUrl));?>">
+                                        <?= $block->escapeHtml($shoptitle)?>
+                                    </a>
+                                    <?php if ($supplierInfo->getWkIsVerifiedSupplier()) { ?>
+                                        <span class="wk-supplier-verified"><?= $block
+                                        ->escapeHtml(__('Verified'))?></span>
+                                        <?php
+                                    } ?>
+                                    <?php if ($supplierInfo->getWkIsPremiumSupplier()) { ?>
+                                        <span class="wk-supplier-premium"><?= $block
+                                        ->escapeHtml(__('Premium Supplier'))?></span>
+                                        <?php
+                                    } ?>
+                                </div>
+                                <div class="wk-supplier-rating-summary">
+                                    <?php
+                                    $feedData = $helper->getFeedTotal($sellerId);
+                                    $totalRating = (
+                                        $feedData['price'] + $feedData['value'] + $feedData['quality']
+                                    ) / 60;
+                                    $rating = round($totalRating, 1, PHP_ROUND_HALF_UP);
+                                    $ratingPercent = $rating*20;
+                                    ?>
+                                    <span class="product-reviews-summary short">
+                                        <div class="rating-summary">
+                                            <div class="rating-result" title="<?= $block
+                                            ->escapeHtml($ratingPercent)?>%">
+                                                <span style="width:<?= $block
+                                                ->escapeHtml($ratingPercent)?>%">
+                                                    <span><?= $block
+                                                    ->escapeHtml($ratingPercent)?>%</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </span>
+                                    <a class="wk-supplier-rating-container" href="<?= $block
+                                    ->escapeHtml($helper->getRewriteUrl('marketplace/seller/feedback/shop/'.
+                                    $shopUrl))?>"
+                                    title="<?= $block->escapeHtml(__('Make a Review'))?>">
+                                        <span class="wk-supplier-rating-avg"><?= $block
+                                        ->escapeHtml($rating); ?> - </span>
+                                    </a>
+                                    <span class="wk-supplier-rating-total wk-supplier-collection-header-txt">
+                                        <?= $block->escapeHtml(__(
+                                            '%1 Ratings',
+                                            $feedData['feedcount']
+                                        ))?>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="wk-supplier-container-right">
+                                <div class="wk-supplier-info-wrapper">
+                                    <div class="wk-supplier-info-container">
+                                        <?php
+                                        $responseTime = $supplierInfo
+                                        ->getWkSupplierResponseTime();
+                                        $responseTimeUnit = $supplierInfo
+                                        ->getWkSupplierResponseTimeUnit();
+                                        $responseRate = $b2bHelper->getResponseRate(
+                                            $sellerId,
+                                            $responseTime,
+                                            $responseTimeUnit
+                                        );
+                                        ?>
+                                        <?php if ($responseRate) { ?>
+                                            <div class="wk-supplier-response-rate-container">
+                                                <div class="wk-supplier-info-row wk-supplier-collection-header-txt">
+                                                    <?= $block->escapeHtml(__('Response Rate'))?>
+                                                </div>
+                                                <div><?= $block->escapeHtml($responseRate)?>%</div>
+                                            </div>
+                                            <?php
+                                        } ?>
+                                        <?php if ($responseTime) {
+                                            if (!$supplierInfo->getWkSupplierResponseTimeUnit()) {
+                                                $timeUnit = __('Hours');
+                                            } else {
+                                                if ($supplierInfo->getWkSupplierResponseTimeUnit() == 'day') {
+                                                    $timeUnit = __('Days');
+                                                } else {
+                                                    $timeUnit = __('Hours');
+                                                }
+                                            }
+                                            ?>
+                                            <div class="wk-supplier-response-time-container">
+                                                <div class="wk-supplier-info-row wk-supplier-collection-header-txt">
+                                                    <?= $block->escapeHtml(__('Response Time'))?>
+                                                </div>
+                                                <div><?= $block->escapeHtml($responseTime." ".$timeUnit)?></div>
+                                            </div>
+                                            <?php
+                                        } ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" data-role="closeBtn" class="action-close wk-close">
+                                <span><?= $block->escapeHtml(__('Close')) ?></span>
+                            </button>
+                            <span  class="wk-clear" ></span>
+                        </header>
+                        <form id="ask-form" method="post" action="#" class="fieldset">
+                            <div class="modal-body form-list field required">
+                                <label class="label"><?= $block->escapeHtml(__('Write a Message')) ?> :</label>
+                                <textarea  name="msg" class="queryquestion wk-contact_input_fields required-entry"
+                                style="width:100%;" rows="6"></textarea>
+                                <input type="hidden" name="seller_id" value="<?= $block
+                                ->escapeHtml($sellerId);?>"/>
+                                <div class="wk-file-field-container">
+                                    <span class="wk-file-label wk-supplier-primary-btn">
+                                        <?= $block->escapeHtml(__('Add Attachment')) ?>
+                                        <input type="file" name="files" class="wk-file-field" id="wk-file-field"
+                                        data-url="<?= $block
+                                        ->escapeHtml($block->getUrl('b2bmarketplace/supplier_profile/fileUpload', [
+                                            '_secure' => $block->getRequest()->isSecure()])) ?>"
+                                            multiple="multiple"/>
+                                    </span>
+                                </div>
+                                <?php if ($captchenable) { ?>
+                                    <label class="label"><?= $block
+                                    ->escapeHtml(__('Please enter desired result')) ?></label>
+                                    <div>
+                                        <span>
+                                            <label for="wk-supplier-captcha">
+                                            <span id="wk-supplier-captchalable1"><?= $block
+                                            ->escapeHtml(rand(1, 20))?></span> +
+                                             <span id="wk-supplier-captchalable2">
+                                             <?= $block->escapeHtml(rand(1, 20))?></span> =</label>
+                                        </span>
+                                        <input type="text" class="required-entry wk-contact_input_fields"
+                                        name="wk-supplier-captcha" id="wk-supplier-captcha" />
+                                    </div>
+                                    <?php
+                                }?>
+                            </div>
+                            <div class="modal-footer wk-supplier-btn-wrapper">
+                                <span class="error"></span>
+                                <span class="errormail"></span>
+                                <button type="reset" id="resetbtn" class="wk-btn wk-btn_default">
+                                    <span><?= $block->escapeHtml(__('Reset')) ?></span>
+                                </button>
+                                <button type="submit" id="askbtn" class="wk-btn wk-btn-primary clickask">
+                                    <span><?= $block->escapeHtml(__('Send Message')) ?></span>
+                                </button>
+                                <span class="wk-clear"></span>
+                            </div>
+                        </form>
+                    </div>
+                    <div tabindex="0" data-role="focusable-end"></div>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <script id="wk-file-field-template" type="text/x-magento-template">
+        <div class="wk-uploaded-file">
+            <span class="wk-uploaded-file-style wk-supplier-primary-btn">
+            <%- data.extension %></span>
+            <span class="wk-uploaded-file-name"><%- data.name %></span>
+            <input type="hidden" name="attachments[<%- data.index %>][name]"
+            value="<%- data.name %>"/>
+            <input type="hidden" name="attachments[<%- data.index %>][file]"
+            value="<%- data.file %>"/>
+            <span class="wk-uploaded-file-del"></span>
+        </div>
+    </script>
+    <script id="wk-file-field-uploader-template" type="text/x-magento-template">
+        <div id="<%- data.id %>" class="wk-uploaded-file-row">
+            <img src="<?= $block->escapeHtml($block
+            ->getViewFileUrl('Webkul_Marketplace/images/ajax-loader-big.gif'))?>"/>
+        </div>
+    </script>
+
+    <script>
+        require([
+            "jquery",
+            'Magento_Ui/js/modal/alert',
+        ], function($, alert) {
+            var askDataForm = $('#ask-form');
+            askDataForm.mage('validation', {});
+
+            $('body').append($('#wk-supplier-ask-data'));
+            $('.askque').click(function() {
+                $('#ask-form input,#ask-form textarea').removeClass('mage-error');
+                $('.wk-supplier-model-popup').addClass('_show');
+                $('#wk-supplier-ask-data').show();
+            });
+            $('.wk-close').click(function() {
+                $('.wk-uploaded-file-del').trigger('click');
+                $('#resetbtn').trigger('click');
+                $('#wk-supplier-ask-data').hide();
+                $('#ask-form .validation-failed').each(function() {
+                    $(this).removeClass('validation-failed');
+                });
+                $('#ask-form .validation-advice').each(function() {
+                    $(this).remove();
+                });
+            });
+            $('.wk-file-field-container').on("click", ".wk-uploaded-file-del", function() {
+                $(this).parent('.wk-uploaded-file').remove();
+            });
+
+            $('#askbtn').click(function() {
+                if (askDataForm.valid()!=false) {
+                    var thisthis = $(this);
+                    if (thisthis.hasClass("clickask")) {
+                        <?php if ($captchenable) { ?>
+                            var total = parseInt($('#wk-supplier-captchalable1').text()) +
+                            parseInt($('#wk-supplier-captchalable2').text());
+                            var wk_mp_captcha = $('#wk-supplier-captcha').val();
+                            if (total != wk_mp_captcha) {
+                                $('#wk-supplier-captchalable1').text(Math.floor((Math.random()*10)+1));
+                                $('#wk-supplier-captchalable2').text(Math.floor((Math.random()*100)+1));
+                                $('#wk-supplier-captcha').val('');
+                                $('#wk-supplier-captcha').addClass('mage-error');
+                                $(this).addClass('mage-error');
+                                $('#ask_form .errormail').
+                                text("<?= /* @noEscape */ __(' Wrong verification number. ') ?>").
+                                slideDown('slow').delay(2000).slideUp('slow');
+                            } else {
+                                thisthis.removeClass('clickask');
+                                $('#wk-supplier-ask-data').find('.modal-inner-wrap').addClass('mail-procss');
+                                $.ajax({
+                                    url:'<?= /* @noEscape */ $block->getUrl("b2bmarketplace/message/post", [
+                                        "_secure" => $block->getRequest()->isSecure()]) ?>',
+                                    data:$('#ask-form').serialize(),
+                                    type:'post',
+                                    dataType:'json',
+                                    showLoader: true,
+                                    success:function(data) {
+                                        $(".modals-overlay").removeClass("wk-modals-overlay");
+                                        if (data.error) {
+                                            alert({
+                                            content: '<?= /* @noEscape */ __("Message is sent successfully.")?>',
+                                            actions: {
+                                                always: function() {
+                                                        location.reload(true);
+                                                }
+                                            },
+                                            // buttons: []
+                                            buttons: [{
+                                                text: $.mage.__('OK'),
+                                                class: 'action-primary action-accept',
+                                                click: function () {
+                                                    location.reload(true);
+                                                }
+                                            }]
+                                        });
+                                            thisthis.addClass('clickask');
+                                            $('#wk-supplier-ask-data').find('.modal-inner-wrap').
+                                            removeClass('mail-procss');
+                                            $('.wk-uploaded-file-del').trigger('click');
+                                            $('#resetbtn').trigger('click');
+                                            $('body').removeClass('_has-modal');
+                                        } else {
+                                            alert({
+                                            content: '<?= /* @noEscape */ __("Message is sent successfully.")?>',
+                                            actions: {
+                                                always: function() {
+                                                        location.reload(true);
+                                                }
+                                            },
+                                            // buttons: []
+                                            buttons: [{
+                                                text: $.mage.__('OK'),
+                                                class: 'action-primary action-accept',
+                                                click: function () {
+                                                    location.reload(true);
+                                                }
+                                            }]
+                                        });
+                                            thisthis.addClass('clickask');
+                                            $('#wk-supplier-ask-data').find('.modal-inner-wrap').
+                                            removeClass('mail-procss');
+                                            $('.wk-uploaded-file-del').trigger('click');
+                                            $('#resetbtn').trigger('click');
+                                            $('body').removeClass('_has-modal');
+                                        }
+                                    }
+                                });
+                            }
+                        <?php } else { ?>
+                            thisthis.removeClass('clickask');
+                            $('#wk-supplier-ask-data').find('.modal-inner-wrap').addClass('mail-procss');
+                                $.ajax({
+                                    url:'<?= /* @noEscape */ $block->getUrl("b2bmarketplace/message/post", [
+                                        "_secure" => $block->getRequest()->isSecure()]) ?>',
+                                    data:$('#ask-form').serialize(),
+                                    type:'post',
+                                    dataType:'json',
+                                    showLoader: true,
+                                    success:function(data) {
+                                        $('.wk-supplier-model-popup').removeClass('_show');
+                                        // closeModal();
+                                        $(".modals-overlay").removeClass("wk-modals-overlay");
+                                        if (data.error) {
+                                            alert({
+                                                content: data.msg,
+                                                clickableOverlay: false
+                                            });
+                                            thisthis.addClass('clickask');
+                                            $('#wk-supplier-ask-data').find('.modal-inner-wrap').
+                                            removeClass('mail-procss');
+                                            $('.wk-uploaded-file-del').trigger('click');
+                                            $('#resetbtn').trigger('click');
+                                            $('body').removeClass('_has-modal');
+                                        } else {
+
+                                            alert({
+                                            content: '<?= /* @noEscape */ __("Message is sent successfully.")?>',
+                                            actions: {
+                                                always: function() {
+                                                    console.log("testtt");
+                                                    // if (data.reload) {
+                                                        location.reload(true);
+                                                    // }
+                                                    // hideLoader();
+                                                    // currentItem.closeModal();
+                                                }
+                                            },
+                                            // buttons: []
+                                            buttons: [{
+                                                text: $.mage.__('OK'),
+                                                class: 'action-primary action-accept',
+                                                click: function () {
+                                                    location.reload(true);
+                                                }
+                                            }]
+                                        });
+                                            thisthis.addClass('clickask');
+                                            $('#wk-supplier-ask-data').find('.modal-inner-wrap').
+                                            removeClass('mail-procss');
+                                            $('.wk-uploaded-file-del').trigger('click');
+                                            $('#resetbtn').trigger('click');
+                                            $('body').removeClass('_has-modal');
+                                        }
+                                    }
+                                });
+                        <?php } ?>
+                    }
+                    return false;
+                }
+            });
+
+            function closeModal()
+            {
+                $(".modal-inner-wrap").hide();
+            }
+
+            function closePopUp()
+            {
+                $("#ask-form textarea").val("");
+                $('.wk-supplier-model-popup').removeClass('_show');
+                $('#wk-supplier-ask-data').hide();
+                $(".modals-overlay").addClass("wk-modals-overlay");
+            }
+        });
+    </script>
+    <script>
+        require([
+            "jquery",
+            'mage/template',
+            'Magento_Ui/js/modal/alert',
+            "mage/translate",
+            "jquery/file-uploader"
+        ], function ($, mageTemplate, alert) {
+            var attachmentIndex = 0;
+            $('#wk-file-field').fileupload({
+                dataType: 'json',
+                sequentialUploads: true,
+                acceptFileTypes: /(\.|\/)(gif|jpe?g|png|pdf|doc|zip)$/i,
+                add: function (e, data) {
+                    var progressTmpl = mageTemplate('#wk-file-field-uploader-template'),
+                        tmpl;
+
+                    $.each(data.files, function (index, file) {
+                        data.fileId = Math.random().toString(33).substr(2, 18);
+
+                        tmpl = progressTmpl({
+                            data: {
+                                id: data.fileId
+                            }
+                        });
+
+                        $(tmpl).appendTo('.wk-file-field-container');
+                    });
+
+                    $(this).fileupload('process', data).done(function () {
+                        data.submit();
+                    });
+                },
+                done: function (e, data) {
+                    if (data.result && !data.result.error) {
+                        attachmentIndex++;
+                        var progressTmpl = mageTemplate('#wk-file-field-template'),
+                        tmpl;
+                        tmpl = progressTmpl({
+                            data: {
+                                index: attachmentIndex,
+                                name: data.result.name,
+                                file: data.result.file,
+                                extension: data.result.type
+                            }
+                        });
+
+                        $(tmpl).appendTo('.wk-file-field-container');
+                    } else {
+                        $('#' + data.fileId)
+                            .delay(2000)
+                            .hide('highlight');
+                        alert({
+                            content: $.mage.__('We don\'t recognize or support this file extension type.'),
+                            buttons: [{
+                                text: $.mage.__('Accept'),
+                                class: 'action primary accept',
+                                click: function () {
+                                    this.closeModal(true);
+                                    $(".modals-overlay").addClass("wk-modals-overlay");
+                                }
+                            }]
+                        });
+                    }
+                    $('#' + data.fileId).remove();
+                },
+                progress: function (e, data) {
+                    var progress = parseInt(data.loaded / data.total * 100, 10);
+                    var progressSelector = '#' + data.fileId + ' .progressbar-container .progressbar';
+                    $(progressSelector).css('width', progress + '%');
+                },
+                fail: function (e, data) {
+                    var progressSelector = '#' + data.fileId;
+                    $(progressSelector).removeClass('upload-progress').addClass('upload-failure')
+                        .delay(2000)
+                        .hide('highlight')
+                        .remove();
+                }
+            });
+            $('#wk-file-field').fileupload('option', {
+                process: [{
+                    action: 'load',
+                    fileTypes: /^image\/(gif|jpeg|png)$/
+                }, {
+                    action: 'resize',
+                    maxWidth: <?= /* @noEscape */ \Magento\Framework\File\Uploader::MAX_IMAGE_WIDTH ?> ,
+                    maxHeight: <?= /* @noEscape */ \Magento\Framework\File\Uploader::MAX_IMAGE_HEIGHT ?>
+                }, {
+                    action: 'save'
+                }]
+            });
+        });
+    </script>
+    <?php
+} ?>

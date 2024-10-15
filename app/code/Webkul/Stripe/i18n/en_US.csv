@@ -1,0 +1,28 @@
+"Generate Webhooks","Generate Webhooks"
+"WebHooks Generated Successfully","WebHooks Generated Successfully"
+"Invalid Request Check Credentials","Invalid Request Check Credentials"
+"WebHooks Already Generated","WebHooks Already Generated"
+Alipay,Alipay
+"Notified customer about invoice #%1.","Notified customer about invoice #%1."
+"The authorized amount is %1.","The authorized amount is %1."
+"There was an error refunding the transaction , please contact admin","There was an error refunding the transaction , please contact admin"
+"There was an error capturing the transaction: %1","There was an error capturing the transaction: %1"
+Sandbox,Sandbox
+Production,Production
+"Place Order","Place Order"
+"something went wrong","something went wrong"
+"Stripe Payment","Stripe Payment"
+Enabled,Enabled
+Title,Title
+Debug,Debug
+"API Publishable Key","API Publishable Key"
+"API Secret Key","API Secret Key"
+"Set Name Display on Form","Set Name Display on Form"
+"Set Image","Set Image"
+"Upload any Image that you want to show on stripe payment method at checkout page","Upload any Image that you want to show on stripe payment method at checkout page"
+"Payment from Applicable Countries","Payment from Applicable Countries"
+"Minimum Order Total","Minimum Order Total"
+"Maximum Order Total","Maximum Order Total"
+"Sort Order","Sort Order"
+"Allowed Payment Methods Types","Allowed Payment Methods Types"
+"Payment from Specific Countries","Payment from Specific Countries"

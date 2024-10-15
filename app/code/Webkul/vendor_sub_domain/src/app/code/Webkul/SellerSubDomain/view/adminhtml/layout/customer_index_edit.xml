@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_SellerSubDomain
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.main.actions">
+            <block class="Magento\Backend\Block\Store\Switcher" name="store_switcher" as="store_switcher" template="Webkul_SellerSubDomain::store/switcher.phtml">
+                    <action method="setUseConfirm">
+                        <argument name="params" xsi:type="string">0</argument>
+                    </action>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="customer_form">
+        	<block class="Webkul\SellerSubDomain\Block\Adminhtml\Customer\Edit\Tabs" name="vendor_sub_domain">
+        	</block>
+        </referenceBlock>
+        <move element="store_switcher" destination="vendor_sub_domain" before="-" />
+    </body>
+</page>

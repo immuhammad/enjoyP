@@ -1,0 +1,84 @@
+<?php
+/**
+ * Webkul Affiliate User Status.
+ *
+ * @category  Webkul
+ * @package   Webkul_Affiliate
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$isAffiliate = $block->isAffiliate();
+$config = $block->getAffiliateConfig();
+if (($isAffiliate || $config['registration']) && $config['enable']) { ?>
+<fieldset class="info wk-affiliate-fieldset fieldset" id="affiliate-user">
+    <legend class="legend">
+        <span><?= /* @noEscape */  __('Affiliate User') ?></span>
+    </legend>
+    <br />
+    <form action="<?= /* @noEscape */  $block->getBlogSaveAction() ?>" method="POST"  
+    id="form-affilait-status" data-mage-init='{"validation":{}}'>
+        <?= /* @noEscape */  $block->getBlockHtml('formkey'); ?>
+        <div class="fieldset form-list" id="cust">
+            <div class="field required">
+                <label class="label"><?= /* @noEscape */  __('Blog Url') ?> : </label>
+                <div class="control wk-width">
+                    <input type="text" 
+                    value="<?= /* @noEscape */  $isAffiliate ? $isAffiliate['data']->getBlogUrl():''; ?>" 
+                    class="required-entry validate-url input-text" name="blog_url" id="blog_url" />
+                    <p><?= /* @noEscape */ $block->getBlogUrlHint(); ?></p>
+                    <?php if ($isAffiliate && $isAffiliate['data']->getBlogUrl() != '' &&
+                        $isAffiliate['status'] == 0) { ?>
+                        <div class="field">
+                            <p><?= /* @noEscape */ __('Waiting for approval..'); ?></p>
+                        </div>
+                    <?php } elseif ($isAffiliate && $isAffiliate['data']->getBlogUrl() != ''
+                        && $isAffiliate['status'] == 2) { ?>
+                        <div class="field">
+                            <p><?= /* @noEscape */ __('Unapproved by admin..'); ?></p>
+                        </div>
+                    <?php } elseif ($isAffiliate && $isAffiliate['data']->getBlogUrl() != ''
+                        && $isAffiliate['status'] == 1) { ?>
+                        <div class="field">
+                          <p><?= /* @noEscape */ __('Approved by admin..'); ?></p>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
+            <div class="field choice required">
+                <?php if ($isAffiliate === false) { ?>
+                    <input type="checkbox" value="1" class="checkbox required-entry" 
+                    id="affiliate-confirmation" title="<?= /* @noEscape */ __('Affilate Terms Accept')?>" 
+                    name="aff_conf" aria-required="true" />
+                    <label class="label">
+                        <span>
+                            <?= /* @noEscape */ __('I agree to the')?>
+                            <div id="affiliate-term" style="display:none;">
+                                <?= /* @noEscape */ $block->getAffilateRegistrationTerms(); ?> 
+                            </div>
+                            <a id="aff_term_light" href="#" data-terms="" class="font-bold">
+                                <?= /* @noEscape */ __('Affiliate Terms')?> </a>
+                        </span>
+                    </label>
+                    <script type="text/x-magento-init">
+                            {
+                                "*": {
+                                    "Webkul_Affiliate/js/requestforaffilateuser": {}
+                                }
+                            }
+                    </script>
+                <?php } ?>
+            </div>
+        </div>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button title="Save" class="action save primary" type="submit">
+                    <span><?= /* @noEscape */ __('Save')?></span>
+                </button>
+            </div>
+        </div>
+    </form>
+</fieldset>
+<?php }
+
+?>

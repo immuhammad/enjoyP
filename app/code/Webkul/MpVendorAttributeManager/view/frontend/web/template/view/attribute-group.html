@@ -1,0 +1,31 @@
+<!--
+	/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpVendorAttributeManager
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ -->
+ <!-- ko if: hasGroups()>0 -->
+<div class="fieldset">
+		<div class="field required">
+				<label class="label">
+						<span data-bind="i18n: getLabel()"></span>
+				</label>
+				<div class="control">
+						<select class="required-entry" id="attribute-group" name="is_vendor_group" data-bind="options: getGroups(),
+					   optionsText: 'group_name',
+                       optionsValue: 'group_id',
+                       optionsCaption: getCaption(),
+                       value: selectedChoice
+                       event: {change: selectGroup}"></select>
+			 </div>
+		</div>
+</div>
+<!-- /ko -->
+<!-- ko foreach: getRegion('attribute-fields') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->

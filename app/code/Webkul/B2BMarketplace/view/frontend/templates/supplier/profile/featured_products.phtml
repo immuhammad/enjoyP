@@ -1,0 +1,93 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+$helper = $block->helper(\Webkul\Marketplace\Helper\Data::class);
+$partner = $block->getProfileDetail();
+$shopUrl = $block->escapeHtml($partner['shop_url']);
+$sellerId = $partner->getSellerId();
+$sellerProductCount = $helper->getSellerProCount($sellerId);
+?>
+<?php $products = $block->getFeaturedProducts(); ?>
+<?php if (count($products)) { ?>
+    <h2 class="wk-supplier-collection-h2"><?= $block->escapeHtml(__("Product(s)")) ?></h2>
+    <div class="wk-supplier-profile-block wk-supplier-products-featured">
+        <h3><?= $block->escapeHtml(__("Featured Products")) ?></h3>
+        <?php
+        $_helper = $block->helper(\Magento\Catalog\Helper\Output::class);
+        $viewMode = 'grid';
+        $image = 'category_page_grid';
+        $showDescription = false;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+        ?>
+        <div class="page-products page-with-filter fieldset wk-supplier-fieldset" 
+        <?php if ($products->count()) { echo 'style="padding: 0;"';}?>>
+            <?php
+            $_helper = $block->helper(\Magento\Catalog\Helper\Output::class);
+            ?>
+            <div class="products wrapper grid products-grid">
+                <?php $iterator = 1; ?>
+                <ol class="products list items product-items">
+                    <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+                    <?php foreach ($products as $_product): ?>
+                        <?= /* @noEscape */ ($iterator++ == 1) ? '<li class="item product product-item">' :
+                        '</li><li class="item product product-item">' ?>
+                        <div class="product-item-info" data-container="product-grid">
+                            <?php
+                            $productImage = $block->getImage($_product, $image);
+                            ?>
+                            <?php // Product Image ?>
+                            <a href="<?= /* @noEscape */ $_product->getProductUrl() ?>" 
+                            class="product photo product-item-photo" tabindex="-1">
+                                <?= $productImage->toHtml(); ?>
+                            </a>
+                            <div class="product details product-item-details">
+                                <?php
+                                    $_productNameStripped = $block->stripTags($_product->getName(), null, true);
+                                ?>
+                                <strong class="product name product-item-name">
+                                    <a class="product-item-link"
+                                    href="<?= /* @noEscape */ $_product->getProductUrl() ?>">
+                                        <?= /* @noEscape */ $_helper
+                                        ->productAttribute($_product, $_product->getName(), 'name'); ?>
+                                    </a>
+                                </strong>
+                                <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
+                                <?php if ($productCartMinLimit = $_product->getAllowedMinQtyToOrder()) { ?>
+                                    <div>
+                                        <span>
+                                            <?= $block->escapeHtml(__('Min. Order')); ?>
+                                            <strong> - <?= $block->escapeHtml($productCartMinLimit)?></strong>
+                                        </span>
+                                    </div>
+                                <?php } ?>
+                                <?= /* @noEscape */ $block->getProductPrice($_product) ?>
+                                <a class="product-item-inner"
+                                    href="<?= /* @noEscape */ $_product->getProductUrl() ?>">
+                                    <div class="product actions product-item-actions">
+                                        <button class="action tocart primary">
+                                            <span>
+                                                <span>
+                                                    <?= $block->escapeHtml(__('View Detail'))?>
+                                                </span>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <?= /* @noEscape */ ($iterator == count($products)+1) ? '</li>' : '' ?>
+                    <?php endforeach; ?>
+                </ol>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+<?= $block->getChildHtml()?>

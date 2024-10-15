@@ -1,0 +1,53 @@
+<!--
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpmembership
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<!--@subject Membership Transaction Email @-->
+<!--@vars {
+"var this.getUrl($store, 'customer/account/')":"Customer Account URL",
+"var customer.email":"Customer Email",
+"var customer.name":"Customer Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">{{trans "%customer_name," customer_name=$seller_name}}</p>
+        </td>
+    </tr>
+    <tr class="email-summary">
+        <td>
+            {{trans "Congratulations! payment has been successfully done for your membership plan. Please check your transaction details given below."}}
+        </td>
+    </tr>
+    <tr class="email-information">
+        <td>
+            <table class="query-details">
+                <tr>
+                    <td class="product-details">
+                        <h3><b>{{trans "Transaction Id"}}</b></h3>
+                        <p>{{var transaction_id|raw}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="query-details">
+                        <h3><b>{{trans "Membership Fee"}}</b></h3>
+                        <p>{{var fee_amount|raw}}</p>
+                    </td>
+                </tr>
+                {{var myvarcustom|raw}}
+            </table>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

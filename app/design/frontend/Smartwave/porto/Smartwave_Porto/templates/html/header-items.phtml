@@ -1,0 +1,108 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+$objectManager =  \Magento\Framework\App\ObjectManager::getInstance();
+$context = $objectManager->get('Magento\Framework\App\Http\Context');
+$isLoggedIn = $context->getValue(\Magento\Customer\Model\Context::CONTEXT_AUTH);
+$customerSession = $objectManager->create('Magento\Customer\Model\Session');
+
+$full_name = $customerSession->getCustomer()->getName();
+$first_full_name = $customerSession->getCustomer()->getFirstname();
+$last_full_name = $customerSession->getCustomer()->getLastname();
+
+if(trim($first_full_name) != '' && trim($last_full_name) != ''){
+    $prenume_final = trim(strtoupper($first_full_name))[0];
+    $nume_final = trim(strtoupper($last_full_name))[0];
+}
+?>
+
+<div class="account-items">
+    <?php if($isLoggedIn) : ?>
+    <div class="isLogged">
+        <a id="contul-meu" class="isLogged">
+            <span class="text-header" id="name-account">
+                <?php if (isset($prenume_final) && isset($nume_final)){ ?><?php
+                echo $prenume_final.''.$nume_final; }?></span><span class="text-header"> Contul meu</span>
+            <button class="account btn" id="contul-meu"></button>
+        </a>
+
+        <div class="meniuCont">
+            <div id="funcCont" class="func-content">
+                <span class="welcome-menu">Bun venit, <?php
+                    echo $full_name ?>!</span>
+                <hr class="hr-menu">
+                <a href="/customer/account/">Sumar cont</a>
+                <a href="/sales/order/history/">Comenzile mele</a>
+                <a href="/wishlist/">Produse favorite</a>
+                <a href="/customer/address/">Adresa</a>
+                <a href="/customer/account/edit/">Informatii cont</a>
+                <a href="/vault/cards/listaction/">Metode de plata salvate</a>
+                <a href="/review/customer/">Recenzii produse</a>
+                <a href="/newsletter/manage/">Abonare la Newsletter</a>
+                <a href="/customer/account/logout/">Deconectare</a>
+            </div>
+        </div>
+
+    <a class="wishlist-block" href="/wishlist"
+       data-bind="scope: 'wishlist'">
+        <i class="far fa-heart"></i>
+        <span class="counter qty empty"
+              data-bind="css: { empty: !!wishlist().counter == false }">
+
+            <span class="counter-number">
+                <!-- ko if: wishlist().counter -->
+                    <!-- ko text: wishlist().counter.replace(/[^0-9]+/g, '') --><!-- /ko -->
+                <!-- /ko -->
+                <!-- ko ifnot: wishlist().counter -->0<!-- /ko -->
+            </span>
+        </span>
+        <span class="text-header">Favorite</span>
+    </a>
+    </div>
+    <?php else : ?>
+    <div class="notLogged">
+            <a id="contul-meu"><i class="far fa-user"></i> <span class="text-header">Contul meu</span>
+                <button class="account btn" id="contul-meu-guest"></button></a>
+            <div class="meniuCont">
+                <div id="funcCont" class="func-content">
+                    <a href="/customer/account/login">Autentificare</a>
+                    <a href="/customer/account/create">Creare cont</a>
+                </div>
+            </div>
+
+        <a class="wishlist-block" href="/wishlist"
+           data-bind="scope: 'wishlist'">
+            <i class="far fa-heart"></i>
+            <span class="counter qty empty"
+                  data-bind="css: { empty: !!wishlist().counter == false }">
+
+            <span class="counter-number">
+                <!-- ko if: wishlist().counter -->
+                <!-- ko text: wishlist().counter.replace(/[^0-9]+/g, '') --><!-- /ko -->
+                <!-- /ko -->
+                <!-- ko ifnot: wishlist().counter -->0<!-- /ko -->
+            </span>
+        </span>
+            <span class="text-header">Favorite</span>
+        </a>
+    </div>
+    <?php endif; ?>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "wishlist": {
+                        "component": "Magento_Wishlist/js/view/wishlist"
+                    }
+                }
+            }
+        }
+    }
+
+</script>

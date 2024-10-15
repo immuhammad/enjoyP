@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_MpAdvancedBookingSystem
+ * @author    Webkul Software Private Limited
+ * @copyright Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" name="sales.order.booking.info" template="Webkul_MpAdvancedBookingSystem::order/items/cancel/default.phtml" cacheable="false">
+                <block class="Magento\Sales\Block\Order\Item\Renderer\DefaultRenderer" name="item_unit_price" template="Magento_Sales::items/price/unit.phtml"/>
+                <block class="Magento\Sales\Block\Order\Item\Renderer\DefaultRenderer" name="item_row_total" template="Magento_Sales::items/price/row.phtml"/>
+            </block>
+            <referenceBlock name="sales.order.booking.info">
+                <arguments>
+                    <argument name="booking_view_model" xsi:type="object">Webkul\MpAdvancedBookingSystem\ViewModel\BookingView</argument>
+                </arguments>
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,27 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<div class="panel wrapper">
+    <div class="panel header">
+        <span data-mage-init='{"menu":{}}' 
+        data-action="toggle-nav" class="action nav-toggle">
+        <span><?= /* @noEscape */ __('Toggle Nav')?></span></span>
+        <?php if (count($block->getStores())>1): ?>
+            <?= /* @noEscape */ $block->getChildHtml('seller_store_language'); ?>
+        <?php endif; ?>
+        <?php if (count($block->getGroups())>1): ?>
+            <?= /* @noEscape */ $block->getChildHtml('seller_store_switcher'); ?>
+        <?php endif; ?>
+        <?php if ($block->getCurrencyCount()>1): ?>
+            <?= /* @noEscape */ $block->getChildHtml('seller_store_settings_currency'); ?>
+        <?php endif; ?>
+    </div>
+</div>

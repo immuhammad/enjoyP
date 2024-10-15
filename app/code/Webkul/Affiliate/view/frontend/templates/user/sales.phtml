@@ -1,0 +1,80 @@
+<?php
+/**
+ * Webkul Affiliate Banner template.
+ * @category  Webkul
+ * @package   Webkul_Affiliate
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+$isAffiliate = $block->isAffiliate();
+$config = $block->getAffiliateConfig();
+if ($isAffiliate && $config['enable']) {
+    $salesOrderColl = $block->getAllSalesOrder();
+    ?>
+    <div class="wk-mp-design ">
+        <fieldset class="fieldset info">
+            <legend class="legend">
+                <span><?= /* @noEscape */ __('Sales Summary') ?></span>
+            </legend>
+            <div class="grid">
+                <div class="hor-scroll">
+                    <?php if ($salesOrderColl && $salesOrderColl->getSize()): ?>
+                        <table cellspacing="0" class="border table wk-affiliate-list-table">
+                            <thead>
+                                <tr class="wk-content">
+                                    <th class="wk-first-td name">
+                                        <span class="label"><?= /* @noEscape */ __('Order Id')?></span>
+                                    </th>
+                                    <th class="wk-first-td">
+                                        <span class="label"><?= /* @noEscape */ __('Commission')?></span>
+                                    </th>
+                                    <th class="wk-first-td">
+                                        <span class="label"><?= /* @noEscape */ __('Status')?></span>
+                                    </th>
+                                    <th class="wk-first-td">
+                                        <span class="label name"><?= /* @noEscape */ __('View Date')?></span>
+                                    </th>            
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $i = 0;
+                                foreach ($salesOrderColl as $salesOrder) {
+                                    $i++; ?>
+                                    <tr class="wk-row-view 
+                                    <?= /* @noEscape */ $i == $salesOrderColl->getSize()? 'wk-last_tr':''?>">
+                                        <td class="wk-first_td">
+                                            <?= /* @noEscape */ $salesOrder->getOrderIncrementId(); ?>
+                                        </td>
+                                        <td><?= /* @noEscape */
+                                        $block->getFormatedPrice($salesOrder->getCommission()); ?></td>
+                                        <td><?= /* @noEscape */
+                                        $block->getAffStatusLabel($salesOrder->getAffiliateStatus()); ?></td>
+                                        <td><?= /* @noEscape */
+                                        $block->getDateTimeAsLocale($salesOrder->getCreatedAt()); ?></td>         
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>    
+                    <?php else: ?>
+                        <div class="wk-emptymsg">
+                            <?=  /* @noEscape */  __('No Sales Order Record') ?>
+                        </div>
+                    <?php endif ?>
+                </div>
+            </div>
+            <?php if ($block->getPagerHtml()): ?>
+                <div class="order-products-toolbar toolbar bottom">
+                    <?= /* @noEscape */  $block->getPagerHtml(); ?></div>
+            <?php endif ?>       
+        </fieldset>    
+        <div class="buttons-set">
+            <p class="back-link">
+                <a href="javascript:;" onclick="javascript: window.history.back();" class="left">&laquo;
+                <?=  /* @noEscape */ __('Back') ?></a>
+            </p>
+        </div>
+    </div>
+<?php } ?>

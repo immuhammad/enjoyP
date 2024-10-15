@@ -1,0 +1,113 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpmembership
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+// @block Webkul/Mpmembership/Block/Product/Fee
+
+$data = $block->getPostData();
+if ($data && count($data) > 0) {
+    $notifyUrl = $block->getUrl('mpmembership/index/ipnnotifyproduct', ['_secure' => $block->getIsSecure()]);
+    $cancelReturn = $block->getUrl('mpmembership/index/index', ['_secure' => $block->getIsSecure()]);
+    $returnUrl = $block->getUrl(
+        'mpmembership/index/paypalreturn',
+        [
+        '_secure' => $block->getIsSecure(),
+        'pro_ids' => urlencode($data['products_ids']),
+        'ref_no' => $data['invoice']
+        ]
+    );
+    ?>
+    <div class="wk_maindata">
+        <form action="https://www.<?= /* @noEscape */ $data['sandbox'] ?>paypal.com/webscr"
+                id="paypal_standard_checkout"
+                name="paypal_standard_checkout"
+                method="POST">
+            <input id="business"
+                    name="business"
+                    value="<?= /* @noEscape */  $data['merchant'];?>"
+                    type="hidden"/>
+            <input id="invoice"
+                    name="invoice"
+                    value="<?= /* @noEscape */  $data['invoice'];?>"
+                    type="hidden"/>
+            <input id="currency_code"
+                    name="currency_code"
+                    value="<?= /* @noEscape */  $data['currency_code'];?>"
+                    type="hidden"/>
+            <input id="paymentaction"
+                    name="paymentaction"
+                    value="sale"
+                    type="hidden"/>
+            <input id="return"
+                    name="return"
+                    value="<?= $escaper->escapeUrl($returnUrl) ?>"
+                    type="hidden"/>
+            <input id="rm" name="rm" value="2" type="hidden"/>
+            <input id="cancel_return"
+                    name="cancel_return"
+                    value="<?= $escaper->escapeUrl($cancelReturn) ?>"
+                    type="hidden"/>
+            <input id="notify_url"
+                    name="notify_url"
+                    value="<?= $escaper->escapeUrl($notifyUrl) ?>"
+                    type="hidden"/>
+            <input id="transaction_subject"
+                    name="custom"
+                    value="<?= /* @noEscape */  urlencode($data['products_ids']); ?>"
+                    type="hidden"/>
+            <input id="bn" name="bn" value="Varien_Cart_WPS_US" type="hidden"/>
+            <input id="charset" name="charset" value="utf-8" type="hidden"/>
+            <input id="item_name_1"
+                    name="item_name_1"
+                    value="Seller Fee For <?= /* @noEscape */  $data['products'] ?> Products"
+                    type="hidden"/>
+            <input id="amount_1"
+                    name="amount_1"
+                    value="<?= /* @noEscape */  $data['seller_fee']?>"
+                    type="hidden"/>
+            <input id="quantity_1" name="quantity_1" value="1" type="hidden"/>
+            <input id="cmd" name="cmd" value="_cart" type="hidden"/>
+            <input id="upload" name="upload" value="1" type="hidden"/>
+            <input id="tax_cart" name="tax_cart" value="0.00" type="hidden"/>
+            <input id="discount_amount_cart"
+                    name="discount_amount_cart"
+                    value="0.00"
+                    type="hidden"/>
+            <input id="email"
+                    name="email"
+                    value="<?= /* @noEscape */  $data['email'];?>"
+                    type="hidden"/>
+            <input id="first_name"
+                    name="first_name"
+                    value="<?= /* @noEscape */  $data['firstname'];?>"
+                    type="hidden"/>
+            <input id="last_name"
+                    name="last_name"
+                    value="<?= /* @noEscape */  $data['lastname'];?>"
+                    type="hidden"/>
+        </form>
+        <p>
+            <a id="paypalredirect">
+                <?= /* @noEscape */  __(
+                    'you will redirect to paypal within 10 seconds...'
+                );?>
+            </a>
+        </p>
+        <script type="text/x-magento-init">
+            {
+                "*": {
+                    "mpPaypalRedirect": {}
+                }
+            }
+        </script>
+    </div>
+    <?php
+}
+?>

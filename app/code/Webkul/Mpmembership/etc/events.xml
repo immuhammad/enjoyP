@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpmembership
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="mp_product_save_before">
+        <observer name="mpmembership_save_product_before_observer" instance="Webkul\Mpmembership\Observer\MpSaveProductBeforeObserver" />
+    </event>
+    <event name="mp_product_save_after">
+        <observer name="mpmembership_mp_product_save_after_observer" instance="Webkul\Mpmembership\Observer\MpSaveProductAfterObserver" />
+    </event>
+    <event name="mp_approve_product">
+        <observer name="mpmembership_mp_approve_product_observer" instance="Webkul\Mpmembership\Observer\MpApproveProductObserver" />
+    </event>
+    <event name="controller_action_predispatch">
+        <observer name="mpmembership_controller_action_predispatch_observer" instance="Webkul\Mpmembership\Observer\ControllerActionPredispatchObserver" />
+    </event>
+    <event name="mp_delete_product">
+        <observer name="mpmembership_mp_delete_product_observer" instance="Webkul\Mpmembership\Observer\MpDeleteProductObserver" />
+    </event>
+</config>

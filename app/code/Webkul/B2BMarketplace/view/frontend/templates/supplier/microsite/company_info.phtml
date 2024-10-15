@@ -1,0 +1,439 @@
+<?php
+    $quickOrderBlock =  $block->getLayout()
+    ->createBlock(\Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class);
+    $helper = $quickOrderBlock->helper('Webkul\B2BMarketplace\Helper\Data');
+    $helper->getCompanyName();
+    $baseUrl = $helper->getBaseUrl()."pub/media/b2b/";
+    $regions = $helper->getAllRegions();
+
+    $corporateAddress = $helper->getCorporateAddress();
+    $operatioanlAddress = $helper->getOperatioanlAddress();
+    $defultLogo = $helper->getDefaultLogo();
+    $sellerLogo = $helper->getSellerLogo();
+    $supplier = $block->getPersistentData();
+if (empty($supplier)) {
+    $supplier = $helper->getCurrentSupplier();
+}
+
+    $defaultBanner = $helper->getDefaultBanner();
+    $sellerBanner = $helper->getSellerBanner();
+
+?>
+<div class="wk-supplier-company-overview-container">
+    <form method="post" action="<?= /* @noEscape */
+    $quickOrderBlock->getUrl('b2bmarketplace/supplier/info_update'); ?>" 
+    id="wk-supplier-company-info-form" enctype="multipart/form-data" 
+    data-mage-init='{"validation":{}}'>
+        <fieldset class="fieldset">
+            <?= /* @noEscape */ $block->getBlockHtml('seller.formkey')?>
+            <?= /* @noEscape */ $block->getBlockHtml('formkey') ?>
+            <div class="field">
+                <label class="label"><span><?= /* @noEscape */ __('Company Logo') ?></span></label>
+                <div class="control">
+                    <div class="wk-logo-container">
+                        <div class="wk-logo-image-block">
+                            <input type="hidden" value="" name="remove_logo" id="remove_logo">
+                            <label for="logo_pic">
+                                <img src="<?= /* @noEscape */ $sellerLogo; ?>">
+                            </label>
+                            <input type="file" id="logo_pic" name="logo_pic" 
+                            title="<?= /* @noEscape */ __('Company Logo') ?>" class="input-text" value="" />
+                        </div>
+                        <div class="wk-logo-content-block">
+                            <div class="wk-logo-reset wk-image-button"> 
+                            <?= /* @noEscape */ __("Reset Logo"); ?></div>
+                            <div class="wk-logo-remove wk-image-button"> 
+                            <?= /* @noEscape */ __("Remove Logo"); ?></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field profile">
+                <label class="label" for="banner_pic"> <?= /* @noEscape */ __('Company Banner') ?> </label>
+                <div class="control">
+                    <input type="file" id="banner_pic" name="banner_pic"  title="Banner Pic" class="banner" size="26" />
+                    <input type="hidden" value="" name="remove_banner" id="remove_banner">
+                    <div class="wk-banner-container">
+                        <div class="wk-banner-image">
+                            <img src="<?= /* @noEscape */ $sellerBanner; ?>">
+                        </div>
+                        <div class="wk-banner-button-set">
+                            <div class="wk-banner-reset wk-image-button">
+                            <?= /* @noEscape */ __("Reset Banner"); ?></div>
+                            <div class="wk-banner-remove wk-image-button">
+                            <?= /* @noEscape */ __("Remove Banner"); ?></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label" for="company_name"><span><?= /* @noEscape */ __('Company Name') ?></span></label>
+                <div class="control">
+                    <input type="text" data-validate="{required:true}" id="company_name" 
+                    name="wk_supplier_company_name" title="<?= /* @noEscape */ __('Company Name') ?>" 
+                    class="input-text validate-no-html-tags" 
+                    value="<?= $block->escapeHtml($helper->getCompanyName()); ?>" />
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label" for="company_tagline">
+                <span><?= /* @noEscape */ __('Company Tagline') ?></span></label>
+                <div class="control">
+                    <input type="text" data-validate="{required:true}" id="company_tagline" 
+                    name="wk_supplier_company_tagline" value="<?= $block->escapeHtml($helper->getCompanyTagline()); ?>" 
+                    title="<?= /* @noEscape */ __('Company Tagline') ?>" class="input-text validate-no-html-tags" />
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label" for="registered_in"><span><?= /* @noEscape */ __('Registered In') ?></span></label>
+                <div class="control">
+                    <input type="text" data-validate="{required:true}" 
+                    id="registered_in" name="wk_supplier_registered_in" 
+                    value="<?= $block->escapeHtml($helper->getRegisteredIn()); ?>" 
+                    title="<?= /* @noEscape */ __('Registered In') ?>" 
+                    class="input-text validate-no-html-tags" />
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label" for="company_team_size">
+                <span><?= /* @noEscape */ __('Company Team Size') ?></span></label>
+                <div class="control">
+                    <input type="text" id="company_team_size" name="wk_supplier_team_size" 
+                    value="<?= $block->escapeHtml($helper->getTeamSize()); ?>" 
+                    title="<?= /* @noEscape */ __('Company Team Size') ?>" 
+                    class="input-text validate-no-html-tags" />
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label" for="certification"><span><?= /* @noEscape */ __('Certification') ?></span></label>
+                <div class="control">
+                    <input type="text" data-validate="{required:true}" id="certification" 
+                    name="wk_supplier_certification" value="<?= $block->escapeHtml($helper->getCertification()); ?>" 
+                    title="<?= /* @noEscape */ __('Certification') ?>" class="input-text validate-no-html-tags" />
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+            <div class="wk-fieldset-sub-title"><?= /* @noEscape */ __("Operational Address"); ?></div>
+            <div class="field required wk-country-field">
+                <label class="label" for="supplier-operational-country">
+                <span><?= /* @noEscape */ __("Country"); ?></span></label>
+                <div class="control">
+                    <?= /* @noEscape */ $helper
+                    ->getCountryHtmlSelect(
+                        $operatioanlAddress['country'],
+                        "operational_country",
+                        "supplier-operational-country"
+                    ); ?>
+                </div>
+            </div>
+            <div class="field required wk-state-field">
+                <label class="label" for="supplier-operational-state">
+                <span><?= /* @noEscape */ __("State"); ?></span></label>
+                <div class="control">
+                    <?php if (array_key_exists($operatioanlAddress['country'], $regions)): ?>
+                        <input style="display:none;" type="text" data-validate="{required:true}" 
+                        class="input-text validate-no-html-tags required-entry" 
+                        title="<?= /* @noEscape */ __("State"); ?>" 
+                        id="supplier-operational-state" name="operational_state" 
+                        value="<?= $block->escapeHtml($operatioanlAddress['region']); ?>">
+                        <select data-validate="{required:true}" name="operational_state_id" 
+                        class="input-text required-entry">
+                            <?php foreach ($regions[$operatioanlAddress['country']] as $regionId => $region): ?>
+                                <?php if ($operatioanlAddress['region_id'] == $regionId): ?>
+                                    <option selected value="<?= /* @noEscape */ $regionId; ?>">
+                                    <?= /* @noEscape */ $region; ?></option>
+                                <?php else: ?>
+                                    <option value="<?= /* @noEscape */ $regionId; ?>">
+                                    <?= /* @noEscape */ $region; ?></option>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </select>
+                    <?php else: ?>
+                        <input type="text" data-validate="{required:true}" 
+                        class="input-text validate-no-html-tags required-entry" 
+                        title="<?= /* @noEscape */ __("State"); ?>" id="supplier-operational-state" 
+                        name="operational_state" value="<?= $block->escapeHtml($operatioanlAddress['region']) ?>">
+                        <select style="display:none;" data-validate="{required:true}" 
+                        name="operational_state_id" class="input-text validate-no-html-tags required-entry">
+                        </select>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label" for="supplier-operational-city">
+                <span><?= /* @noEscape */ __("City"); ?></span></label>
+                <div class="control">
+                    <input type="text" data-validate="{required:true}" 
+                    class="input-text validate-no-html-tags required-entry" 
+                    title="<?= /* @noEscape */ __("City"); ?>" id="supplier-operational-city" 
+                    name="operational_city" value="<?=
+                     $block->escapeHtml($operatioanlAddress['city']) ?>">
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label" for="supplier-operational-address">
+                <span><?= /* @noEscape */ __("Address Line"); ?></span></label>
+                <div class="control">
+                    <input type="text" data-validate="{required:true}" 
+                    class="input-text validate-no-html-tags required-entry" 
+                    title="<?= /* @noEscape */ __("Address Line"); ?>" 
+                    id="supplier-operational-address" 
+                    name="operational_address" 
+                    value="<?= $block->escapeHtml($operatioanlAddress['street']) ?>">
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label" for="supplier-operational-postcode">
+                <span><?= /* @noEscape */ __("Zip/Postal code"); ?></span></label>
+                <div class="control">
+                    <input type="text" data-validate="{required:true}" 
+                    class="input-text validate-no-html-tags required-entry" 
+                    title="<?= /* @noEscape */ __("Zip/Postcode"); ?>" 
+                    id="supplier-operational-postcode" name="operational_postcode" 
+                    value="<?= $block->escapeHtml($operatioanlAddress['postcode']) ?>">
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label" for="supplier-operational-phone">
+                <span><?= /* @noEscape */ __("Phone Number"); ?></span></label>
+                <div class="control">
+                    <input type="text" data-validate="{required:true}" 
+                    class="input-text validate-no-html-tags required-entry" 
+                    title="<?= /* @noEscape */ __("Phone Number"); ?>" id="supplier-operational-phone" 
+                    name="operational_phone" 
+                    value="<?= $block->escapeHtml($operatioanlAddress['telephone']) ?>">
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+            <div class="wk-fieldset-sub-title"><?= /* @noEscape */ __("Corporate Address"); ?></div>
+            <div class="field required wk-country-field">
+                <label class="label" for="supplier-corporate-country">
+                <span><?= /* @noEscape */ __("Country"); ?></span></label>
+                <div class="control">
+                    <?= /* @noEscape */ $helper
+                    ->getCountryHtmlSelect(
+                        $corporateAddress['country'],
+                        "corporate_country",
+                        "supplier-corporate-country"
+                    ); ?>
+                </div>
+            </div>
+            <div class="field required wk-state-field">
+                <label class="label" for="supplier-state"><span><?= /* @noEscape */ __("State"); ?></span></label>
+                <div class="control">
+                    <?php if (array_key_exists($corporateAddress['country'], $regions)): ?>
+                        <input style="display:none;" type="text" 
+                        data-validate="{required:true}" 
+                        class="input-text validate-no-html-tags required-entry" 
+                        title="<?= /* @noEscape */ __("State"); ?>" id="supplier-corporate-state" 
+                        name="corporate_state" 
+                        value="<?= $block->escapeHtml($corporateAddress['region']) ?>">
+                        <select data-validate="{required:true}" name="corporate_state_id" 
+                        class="input-text required-entry">
+                            <?php foreach ($regions[$corporateAddress['country']] as $regionId => $region): ?>
+                                <?php if ($corporateAddress['region_id'] == $regionId): ?>
+                                    <option selected 
+                                    value="<?= /* @noEscape */ $regionId; ?>"><?= /* @noEscape */
+                                    $region; ?></option>
+                                <?php else: ?>
+                                    <option value="<?= /* @noEscape */ $regionId; ?>"><?= /* @noEscape */
+                                    $region; ?></option>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </select>
+                    <?php else: ?>
+                        <input type="text" data-validate="{required:true}" 
+                        class="input-text validate-no-html-tags required-entry" 
+                        title="<?= /* @noEscape */ __("State"); ?>" id="supplier-corporate-state" 
+                        name="corporate_state" 
+                        value="<?= $block->escapeHtml($corporateAddress['region']) ?>">
+                        <select style="display:none;" data-validate="{required:true}" 
+                        name="corporate_state_id" class="input-text required-entry"></select>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label" for="supplier-corporate-city">
+                <span><?= /* @noEscape */ __("City"); ?></span></label>
+                <div class="control">
+                    <input type="text" data-validate="{required:true}" 
+                    class="input-text validate-no-html-tags required-entry" 
+                    title="<?= /* @noEscape */ __("City"); ?>" id="supplier-corporate-city" 
+                    name="corporate_city" 
+                    value="<?= $block->escapeHtml($corporateAddress['city']) ?>">
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label" for="supplier-corporate-address">
+                <span><?= /* @noEscape */ __("Address Line"); ?></span></label>
+                <div class="control">
+                    <input type="text" data-validate="{required:true}" 
+                    class="input-text validate-no-html-tags required-entry" 
+                    title="<?= /* @noEscape */ __("Address Line"); ?>" id="supplier-corporate-address" 
+                    name="corporate_address" 
+                    value="<?= $block->escapeHtml($corporateAddress['street']) ?>">
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label" for="supplier-corporate-postcode">
+                <span><?= /* @noEscape */ __("Zip/Postal code"); ?></span></label>
+                <div class="control">
+                    <input type="text" data-validate="{required:true}" 
+                    class="input-text validate-no-html-tags required-entry" 
+                    title="<?= /* @noEscape */ __("Zip/Postcode"); ?>" id="supplier-corporate-postcode" 
+                    name="corporate_postcode" 
+                    value="<?= $block->escapeHtml($corporateAddress['postcode']) ?>">
+                </div>
+            </div>
+            <div class="field required">
+                <label class="label" for="supplier-corporate-phone">
+                <span><?= /* @noEscape */ __("Phone Number"); ?></span></label>
+                <div class="control">
+                    <input type="text" data-validate="{required:true}" 
+                    class="input-text validate-no-html-tags required-entry" 
+                    title="<?= /* @noEscape */ __("Phone Number"); ?>" id="supplier-corporate-phone" 
+                    name="corporate_phone" 
+                    value="<?= $block->escapeHtml($corporateAddress['telephone']) ?>">
+                </div>
+            </div>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button id="company-info" name="section" value="company_info" 
+                    class="action primary" type="submit">
+                        <span><?= /* @noEscape */ __("Update Information"); ?></span>
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<script id="wk-region-dropdown" type="text/x-magento-template">
+    <% _.each(data, function(key, value) { %>
+        <option value="<%- value %>"><%- key %></option>
+    <% }); %>
+</script>
+
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/alert',
+        "mage/template"
+    ], function($, alertBox, template) {
+        var defaultLogo = "<?= /* @noEscape */ $defultLogo; ?>";
+        var sellerLogo = "<?= /* @noEscape */ $sellerLogo; ?>";
+        var defaultBanner = "<?= /* @noEscape */ $defaultBanner; ?>";
+        var sellerBanner = "<?= /* @noEscape */ $sellerBanner; ?>";
+        var warningLabel = "Warning";
+        var regions = <?= /* @noEscape */ json_encode($regions); ?>;
+        $(document).ready(function() {
+            var val = $(".wk-country-field select").val();
+            // manageState($(".wk-country-field select"), val);
+            $("body").on("change", ".wk-country-field select", function() {
+                var val = $(this).val();
+                manageState($(this), val);
+            });
+        });
+
+        function manageState(currentObject, val)
+        {
+            var html = "";
+            if (val in regions) {
+                var regionTemplate = template('#wk-region-dropdown');
+                var dropdownHtml = regionTemplate({ data: regions[val] });
+                currentObject.parent().parent().parent().find(".wk-state-field input").hide();
+                currentObject.parent().parent().parent().find(".wk-state-field select").empty();
+                currentObject.parent().parent().parent().find(".wk-state-field select").append(dropdownHtml);
+                currentObject.parent().parent().parent().find(".wk-state-field select").show();
+            } else {
+                currentObject.parent().parent().parent().find(".wk-state-field input").show();
+                currentObject.parent().parent().parent().find(".wk-state-field select").hide();
+            }
+        }
+
+        var acceptedImageType = ["png", "jpg", "jpeg", "gif"];
+        $("body").on("change", ".wk-logo-image-block input", function () {
+            var imageName = $(this).val();
+            if (imageName!=""){
+                var result = imageName.split(".");
+                var length = result.length;
+                var currentObject = $(this);
+                var ext = result[length-1];
+                ext = ext.toLowerCase();
+                if (acceptedImageType.indexOf(ext)!=-1) {
+                    if (this.files && this.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $("#remove_logo").val(0);
+                            $(".wk-logo-image-block img").attr("src", e.target.result);
+                        }
+                        reader.readAsDataURL(this.files[0]);
+                    }
+                } else {
+                    alertBox({
+                        title: warningLabel,
+                        content: "<div>Invlaid image</div>",
+                        actions: {
+                            always: function (){}
+                        }
+                    });
+                }
+            }
+        });
+
+        $("body").on("click", ".wk-logo-reset", function () {
+            $(".wk-logo-image-block img").attr("src", sellerLogo);
+            $("#logo_pic").val("");
+            $("#remove_logo").val("");
+        });
+
+        $("body").on("click", ".wk-logo-remove", function () {
+            $(".wk-logo-image-block img").attr("src", defaultLogo);
+            $("#remove_logo").val(1);
+            $("#logo_pic").val("");
+        });
+
+        $("body").on("change", "#banner_pic", function () {
+            var imageName = $(this).val();
+            var result = imageName.split(".");
+            var length = result.length;
+            var currentObject = $(this);
+            var ext = result[length-1];
+            ext = ext.toLowerCase();
+            if (acceptedImageType.indexOf(ext)!=-1) {
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#remove_banner").val(0);
+                        $(".wk-banner-image img").attr("src", e.target.result);
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                }
+            } else {
+                alertBox({
+                    title: warningLabel,
+                    content: "<div>Invlaid image</div>",
+                    actions: {
+                        always: function (){}
+                    }
+                });
+            }
+        });
+
+        $("body").on("click", ".wk-banner-reset", function () {
+            $(".wk-banner-image img").attr("src", sellerBanner);
+            $("#remove_banner").val("");
+            $("#banner_pic").val("");
+        });
+
+        $("body").on("click", ".wk-banner-remove", function () {
+            $(".wk-banner-image img").attr("src", defaultBanner);
+            $("#remove_banner").val(1);
+            $("#banner_pic").val("");
+        });
+    });
+</script>

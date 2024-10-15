@@ -1,0 +1,453 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $quickOrderBlock =  $block->getLayout()
+    ->createBlock(
+        \Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class
+    );
+    $helper = $quickOrderBlock->helper('Webkul\B2BMarketplace\Helper\Quote');
+    $summary = $helper->getSellerQuoteSummary($block->getRequest()->getParams());
+    $quoteStatusCount = count($summary);
+    $i = 0;
+    $currentStatus = 'new';
+    $quotesUrl = 'b2bmarketplace/supplier/quotes';
+    if ($quickOrderBlock->getRequest()->getParam('status')) {
+        $currentStatus = $quickOrderBlock->getRequest()->getParam('status');
+        $quotesUrl = 'b2bmarketplace/supplier/quotes/status/'.$currentStatus;
+    }
+    $status = $block->getCurrentStatusKeyVal($currentStatus);
+    $filterData = $quickOrderBlock->getRequest()->getParams();
+    $isActiveFilterArr = [];
+    $filterProductName = '';
+    if (isset($filterData['product_name']) && $filterData['product_name']) {
+        $isActiveFilterArr['product_name']['label'] = __('Product Name');
+        $isActiveFilterArr['product_name']['value'] = $filterData['product_name'];
+        $filterProductName = $filterData['product_name'];
+    }
+    $filterCustomerName = '';
+    if (isset($filterData['customer_name']) && $filterData['customer_name']) {
+        $isActiveFilterArr['customer_name']['label'] = __('Customer Name');
+        $isActiveFilterArr['customer_name']['value'] = $filterData['customer_name'];
+        $filterCustomerName = $filterData['customer_name'];
+    }
+    $filterCreatedAfter = '';
+    if (isset($filterData['created_after']) && $filterData['created_after']) {
+        $isActiveFilterArr['created_after']['label'] = __('Requested After');
+        $isActiveFilterArr['created_after']['value'] = $filterData['created_after'];
+        $filterCreatedAfter = $filterData['created_after'];
+    }
+    $filterCreatedBefore = '';
+    if (isset($filterData['created_before']) && $filterData['created_before']) {
+        $isActiveFilterArr['created_before']['label'] = __('Requested Before');
+        $isActiveFilterArr['created_before']['value'] = $filterData['created_before'];
+        $filterCreatedBefore = $filterData['created_before'];
+    }
+    ?>
+
+<div class="wk-filter-tootlbar">
+    <div class="wk-filter-tootlbar-action">
+        <div id="wk-quote-filter" class="wk-filter-btn" data-ref="wk-filter"><?= /* @noEscape */ __('Filters')?></div>
+        <div class="wk-filter-btn" data-ref="wk-summary"><?= /* @noEscape */ __('Summary')?></div>
+    </div>
+    <div class="wk-filter-tootlbar-content">
+        <form 
+        action="<?= /* @noEscape */ $block->getUrl($quotesUrl, [
+            '_secure' => $block->getIsSecure()]) ?>" 
+            id="wk-filter-form" 
+            name="wk-filter-form"
+            data-mage-init='{"validation":{}}' onsubmit="return validateForm();">
+            <div id="wk-filter" class="wk-filter-content wk-display-none">
+                <div class="wk-qs-filter-container">
+                    <div class="wk-qs-filter-item">
+                        <div class="wk-qs-filter-item-body">
+                            <div class="wk-qs-filter-item-label"><?= /* @noEscape */ __('Product Name')?></div>
+                            <div class="wk-qs-filter-item-content">
+                                <input type="text" name="product_name" 
+                                data-validate="{'validate-no-html-tags':true}"
+                                value="<?= /* @noEscape */ $filterProductName; ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="wk-qs-filter-item">
+                        <div class="wk-qs-filter-item-body">
+                            <div class="wk-qs-filter-item-label"><?= /* @noEscape */ __('Customer Name')?></div>
+                            <div class="wk-qs-filter-item-content">
+                                <input type="text" name="customer_name" 
+                                data-validate="{'validate-no-html-tags':true}"
+                                value="<?= /* @noEscape */ $filterCustomerName; ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="wk-qs-filter-item">
+                        <div class="wk-qs-filter-item-body">
+                            <div class="wk-qs-filter-item-label"><?= /* @noEscape */ __('Requested After')?></div>
+                            <div class="wk-qs-filter-item-content">
+                                <input type="text" 
+                                class="input-text wk-date-filter validate-date" 
+                                data-validate="{'validate-no-html-tags':true}"
+                                name="created_after" value="<?= /* @noEscape */ $filterCreatedAfter; ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="wk-qs-filter-item">
+                        <div class="wk-qs-filter-item-body">
+                            <div class="wk-qs-filter-item-label"><?= /* @noEscape */ __('Requested Before')?></div>
+                            <div class="wk-qs-filter-item-content">
+                                <input type="text" class="wk-date-filter" 
+                                data-validate="{'validate-no-html-tags':true}"
+                                name="created_before" value="<?= /* @noEscape */ $filterCreatedBefore; ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="wk-qs-filter-action">
+                        <button class="action tocart primary" 
+                        title="<?= /* @noEscape */ __('Apply Filter') ?>" type="submit">
+                            <span><span><?= /* @noEscape */ __('Apply Filter') ?></span></span>
+                        </button>
+                    
+                    </div>
+                </div>
+            </div>
+        </form>
+        <?php if (count($isActiveFilterArr)) { ?>
+            <div class="wk-filter-tootlbar-filters-current _show">
+                <div class="wk-filter-tootlbar-filters-title-wrap">
+                    <span class="wk-filter-tootlbar-filters-title">
+                        <?= /* @noEscape */ __('Active filters:')?>
+                    </span>
+                </div>
+                <div class="wk-filter-tootlbar-filters-list-wrap">
+                    <ul class="wk-filter-tootlbar-filters-list" data-role="filter-list">
+                        <?php foreach ($isActiveFilterArr as $key => $value) { ?>
+                            <li id="wk-filter-active-<?= /* @noEscape */ $key?>">
+                                <span><?= /* @noEscape */ $value['label']?>: </span>
+                                <span><?= /* @noEscape */ $value['value']?></span>
+                                <button class="wk-filter-action-remove" type="button">
+                                    <span><?= /* @noEscape */ __('Remove')?></span>
+                                </button>
+                            </li>
+                            <?php
+                        } ?>
+                    </ul>
+                </div>
+                <div class="wk-filter-tootlbar-filters-actions-wrap">
+                    <span class="wk-filter-tootlbar-filters-clear" id="wk-filters-clear-all">
+                        <?= /* @noEscape */ __('Clear all')?>
+                    </span>
+                </div>
+            </div>
+        <?php } ?>
+        <div id="wk-summary" class="wk-filter-content wk-display-none">
+            <div class="wk-qs-summary-container">
+                <?php foreach ($summary as $label): ?>
+                    <div class="wk-qs-summary-item <?= /* @noEscape */ $label["class"]; ?>">
+                        <div class="wk-qs-summary-item-body">
+                            <div class="wk-qs-summary-item-icon"></div>
+                            <div class="wk-qs-summary-item-content">
+                                <div class="wk-qs-summary-item-count">
+                                <?= /* @noEscape */ $label["count"]; ?></div>
+                                <div class="wk-qs-summary-item-label">
+                                <?= /* @noEscape */ $label["label"]; ?></div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php
+    $queryParams = $quickOrderBlock->getQueryParamsForSuppQuote();
+?>
+<div class="wk_mp_design">
+    <div class="fieldset wk_mp_fieldset">
+        <div class="wk-response-tabs">
+            <div class="product data items" role="tablist">
+                <?php foreach ($summary as $label): ?>
+                    <?php $i++;?>
+                    <div class="data item title <?php if ($label['key'] == $currentStatus): ?>active 
+                    <?php endif ?> <?php if ($i == $quoteStatusCount):?>wk-b2b-tab-last <?php endif ?>" 
+                    aria-labeledby="tab-label-<?= /* @noEscape */ $label['key']?>-title" data-role="collapsible" 
+                    id="tab-label-<?= /* @noEscape */ $label['key']?>" role="tab" data-collapsible="true" 
+                    aria-selected="false" aria-expanded="false" tabindex="0">
+                        <a class="data switch" 
+                            tabindex="-1" 
+                            data-toggle="switch" 
+                            href="<?= /* @noEscape */ $block->getUrl('b2bmarketplace/supplier/quotes', [
+                                '_secure' => $quickOrderBlock->getRequest()->isSecure(),
+                                'status' => $label['key'],
+                                '_query' => $queryParams])?>" 
+                            id="tab-label-<?= /* @noEscape */ $label['key']?>-title">
+                            <span><?= /* @noEscape */ __($label["label"]); ?></span>
+                            <span class="wk-item-count"><?= /* @noEscape */ $label["count"]; ?></span>
+                        </a>
+                    </div>
+                    <?php if ($label['key'] == $currentStatus): ?>
+                        <div class="data item content" id="new" data-role="content" 
+                        aria-labelledby="tab-label-new" role="tabpanel" aria-hidden="false">
+                            <div class="table-wrapper">
+                                <?php if (count($block->getQuotesCollection()) == 0): ?>
+                                    <div class="fieldset wk_mp_fieldset">
+                                        <div class="wk_emptymsg">
+                                            <?= /* @noEscape */ __('No Quotes Available') ?>
+                                        </div>
+                                    </div>
+                                <?php else: ?>
+                                    <?= /* @noEscape */ $block->getBlockHtml('formkey')?>
+                                    <table cellspacing="0" class="data table mpquote-list">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" class="col proname">
+                                                    <span class="label name">
+                                                        <?= /* @noEscape */ __('Requested')?>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="col proname">
+                                                    <span class="label name">
+                                                        <?= /* @noEscape */ __('Customer Name')?>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="col quote_qty">
+                                                    <span class="label qty">
+                                                        <?= /* @noEscape */ __('Quoted Qty')?>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="col">
+                                                    <span class="label">
+                                                        <?= /* @noEscape */ __('Requested On')?>
+                                                    </span>
+                                                </th>
+                                                <th scope="col" class="col action">
+                                                    <span class="label">
+                                                    </span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <?php $i = 0; ?>
+                                        <?php foreach ($block->getQuotesCollection() as $quote): ?>
+                                            <tbody>
+                                                <tr class="<?= /* @noEscape */
+                                                $class = ($i == count($block->getQuotesCollection()))?
+                                                'wk_last_tr':''?>">
+                                                    <input type="hidden" class="id" 
+                                                    value="<?= /* @noEscape */ $quote->getId(); ?>">
+                                                    <td data-th="<?= /* @noEscape */ __("Requested")?>" 
+                                                    class="col proname">
+                                                        <span class="label">
+                                                            <?php if ($totalProducts = $quote
+                                                            ->getTotalProducts() > 1): ?>
+                                                                <div data-id="<?= /* @noEscape */ $quote->getId(); ?>" 
+                                                                class="wk-mpqs-products"><?= /* @noEscape */
+                                                                $quote->getTotalProducts()." Products"; ?></div>
+                                                            <?php else: ?>
+                                                                <?= /* @noEscape */ $quote->getName(); ?>
+                                                            <?php endif;?>
+                                                        </span>
+                                                    </td>
+                                                    <td data-th="<?= /* @noEscape */ __("Customer Name")?>" 
+                                                    class="col wk_qs_quote_suppliers">
+                                                        <span class="label">
+                                                            <?= /* @noEscape */ $quote->getCustomerName(); ?>
+                                                        </span> 
+                                                    </td>
+                                                    <td data-th="<?= /* @noEscape */ __("Quoted Qty")?>"
+                                                     class="col quote_qty wk_qs_quote_qty">
+                                                        <span class="label qty">
+                                                            <?= /* @noEscape */ $quote->getTotalQty(); ?>
+                                                            <?= /* @noEscape */ __(' Units')?>
+                                                        </span>
+                                                    </td>
+                                                    <td data-th="<?= /* @noEscape */ __("Requested On")?>" class="col">
+                                                        <span class="label">
+                                                            <?= /* @noEscape */
+                                                            $quickOrderBlock
+                                                            ->helper('Webkul\B2BMarketplace\Helper\Data')
+                                                            ->formatDate(
+                                                                $quote->getCreatedAt(),
+                                                                \IntlDateFormatter::LONG,
+                                                                true
+                                                            );
+                                                            ?>
+                                                        </span> 
+                                                    </td>
+                                                    <td data-th="<?= /* @noEscape */ __("Action")?>" class="col action">
+                                                        <a href="<?= /* @noEscape */
+                                                        $block->getUrl('b2bmarketplace/supplier/quote/', [
+                                                            'id'=>$quote->getEntityId(),
+                                                            '_secure' => $block->getIsSecure()]) ?>">
+                                                            <?= /* @noEscape */ __('View Request')?></a>
+                                                    
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        <?php endforeach; ?>
+                                    </table>
+                                    
+                                <?php endif; ?>
+                            </div>
+                            <?php if ($block->getPagerHtml()): ?>
+                                <div class="order-products-toolbar toolbar bottom">
+                                <?= /* @noEscape */ $block->getPagerHtml(); ?></div>
+                            <?php endif ?>
+                        </div>
+                        <?php
+                    endif;
+                    ?>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+</div>
+<script id="wk-quote-items" type="text/x-magento-template">
+    <tr class="wk-child-items">
+        <td data-th="<?= /* @noEscape */ __('Requested')?>" 
+        class="col proname" colspan="2">
+            <span class="label">
+                <%- data.product_name %>
+            </span>
+        </td>
+        <td data-th="<?= /* @noEscape */ __('Quoted Qty')?>" 
+        class="col quote_qty wk_qs_quote_qty" colspan="3">
+            <span class="label qty"><%- data.qty %>
+            <?= /* @noEscape */ __(' Units')?></span>
+        </td>
+    </tr>
+</script>
+
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/alert',
+        "mage/template",
+        "mage/calendar",
+        'mage/mage'
+    ], function($, alertBox, template) {
+        var warningLable = "Warning";
+        $(document).ready(function() {
+            $(".wk-date-filter").calendar({ dateFormat:'Y-mm-dd' });
+
+            $(".wk-filter-btn").click(function(){
+                var ref = $(this).attr("data-ref");
+                if ($(this).hasClass("wk-active-filter")) {
+                    $(this).removeClass("wk-active-filter");
+                    $(".wk-filter-content").removeClass("wk-display-none");
+                    $(".wk-filter-content").addClass("wk-display-none");
+                } else {
+                    $(".wk-filter-btn").removeClass("wk-active-filter");
+                    $(this).addClass("wk-active-filter");
+                    $(".wk-filter-content").removeClass("wk-display-none");
+                    $(".wk-filter-content").addClass("wk-display-none");
+                    $("#"+ref).removeClass("wk-display-none");
+                }
+            });
+
+            $(".wk-mpqs-products").click(function() {
+                var parent = $(this).parent().parent().parent();
+                var currentItem = $(this);
+                if ($(this).hasClass("wk-mpqs-open")) {
+                    parent.parent().find(".wk-child-items").hide();
+                    currentItem.removeClass("wk-mpqs-open");
+                } else {
+                    var ref = $(this).attr("data-id");
+                    $(this).append("<div class='wk-qs-sm-loader'></div>");
+                    
+                    $.ajax({
+                        url: "<?= /* @noEscape */ $block->getUrl(
+                            'b2bmarketplace/supplier_quote_product/fetch',
+                            [
+                            '_secure' => $block->getIsSecure()]
+                        ) ?>",
+                        type: 'POST',
+                        data: { ref : ref, status: <?= /* @noEscape */ $status;?>, 
+                            form_key: "<?= /* @noEscape */ $helper->getFormKey();?>"},
+                        dataType: 'json',
+                        success: function (data) {
+                            currentItem.find(".wk-qs-sm-loader").remove();
+                            parent.parent().find(".wk-child-items").remove();
+                            currentItem.addClass("wk-mpqs-open");
+                            if (data.error) {
+                                
+                            } else {
+                                var html = "";
+                                $.each(data.items, function (key, val) {
+                                    var msgTemplate = template('#wk-quote-items');
+                                    var msgHtml = msgTemplate({ data: val });
+                                    html += msgHtml;
+                                });
+                                parent.after(html);
+                            }
+                            if (data.reload) {
+                                location.reload(true);
+                            }
+                        }
+                    });
+                }
+            });
+
+            $(".wk-filter-action-remove").click(function () {
+                var currentFilterId = $(this).parent('li').attr('id');
+                var currentFilterNameArr = currentFilterId.split('wk-filter-active-');
+                var currentFilterName = currentFilterNameArr[1];
+                $(this).parent('li').remove();
+                $('body').trigger('processStart');
+                $('[name="'+currentFilterName+'"]').val('');
+                $('.wk-qs-filter-action').find('button').trigger('click');
+            });
+
+            $('#wk-filters-clear-all').click(function () {
+                $(this).parents('.wk-filter-tootlbar-filters-current').remove();
+                $('body').trigger('processStart');
+                $('[name="product_name"]').val('');
+                $('[name="quote_status"]').val('');
+                $('[name="created_after"]').val('');
+                $('[name="created_before"]').val('');
+                location.href = "<?= /* @noEscape */ $block->getUrl(
+                    'b2bmarketplace/supplier/quotes',
+                    [
+                    '_secure' => $block->getIsSecure()]
+                )?>";
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    function validateForm(){
+        let after = jQuery('[name="created_after"]').val();
+        let before = jQuery('[name="created_before"]').val();
+        if(after=="" && before==""){
+            return true;
+        }
+        if (after!=""){
+            let arrAfter = after.split("-");
+            if(Array.isArray(arrAfter)){
+                if(arrAfter.length!=3){
+                    return false; 
+                }
+            }
+
+        }
+        if (before!=""){
+            let arrBefore = before.split("-");
+            if(Array.isArray(arrBefore)){
+                if(arrBefore.length!=3){
+                    return false; 
+                }
+            }
+        }
+        return true;
+    }
+</script>

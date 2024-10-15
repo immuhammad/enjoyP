@@ -1,0 +1,129 @@
+<?php
+/**
+ * Webkul Affiliate Banner template.
+ * @category  Webkul
+ * @package   Webkul_Affiliate
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$isAffiliate = $block->isAffiliate();
+$config = $block->getAffiliateConfig();
+if ($isAffiliate && $config['enable']) {
+    $productsColl = $block->getAllProducts();
+    ?>
+    <div class="wk-mp-design ">
+        <fieldset class="fieldset info">
+            <legend class="legend">
+                <span><b><?= /* @noEscape */ __('Product Ads') ?></b></span> |
+                <a href="<?= /* @noEscape */ $block->getUrl('affiliate/user/banner')?>" >
+                <?= /* @noEscape */ __('Banners/Text Ad') ?> </a>
+                <div style="display:inline-block; float:right" >
+                    <form action="<?= /* @noEscape */  $block->getUrl('affiliate/user/ads')?>" 
+                        method="get" name="adsForm" id="myForm">
+                        <input type="text" class="input-text" style="width:300px" 
+                            name="proName" 
+                            placeholder="<?= /* @noEscape */  __('Search by Product Name')?>" 
+                            value="<?= /* @noEscape */ $block->getRequest()->getParam('proName')?>">
+                        <button class="button" title="<?= /* @noEscape */ __('Search')?>" 
+                            type="submit">
+                            <span><span><span><?= /* @noEscape */ __('Submit')?></span></span></span>
+                        </button>                
+                    </form>
+                </div>
+            </legend>
+            <div class="grid">
+            
+                <div class="hor-scroll">
+                    <?php if ($productsColl && $productsColl->getSize()): ?>
+                        <table cellspacing="0" class="border table wk-affiliate-list-table">
+                            <thead>
+                                <tr class="wk-content">
+                                    <th class="wk-first-td name">
+                                        <span class="label"><?= /* @noEscape */ __('Product')?></span>
+                                    </th>
+                                    <th class="wk-first-td">
+                                        <span class="label"><?= /* @noEscape */ __('HTML Code')?></span>
+                                    </th>
+                                    <th class="wk-first-td">
+                                        <span class="label name"><?= /* @noEscape */ __('Preview')?></span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $i = 0;
+                                $affId = $isAffiliate['data']->getCustomerId();
+                                foreach ($productsColl as $products) {
+                                    $i++;
+                                    $imageUrl = $block->getProImgUrl($products);
+                                    ?>
+                                    <tr class="wk-row-view 
+                                    <?= /* @noEscape */ $i == $productsColl->getSize()? 'wk-last_tr':''?>">
+                                        <td class="wk-first_td">
+                                            <div class="label name" 
+                                            title="<?= /* @noEscape */ $products->getName(); ?>">
+                                                <div class="wk-pro-divide1">
+                                                    <img src="<?= /* @noEscape */ $imageUrl?>" class="image" />
+                                                </div>
+                                                <div class="wk-pro-divide2">
+                                                    <?= /* @noEscape */ $products->getName(); ?></div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <?php
+                                            $htmlCodeForAds = $block->getHtmlCodeForAds(
+                                                $block->getUrl(),
+                                                $products,
+                                                $affId
+                                            );
+                                            ?>
+                                            <input type="text" 
+                                            class="banner_content wk-copy-to-txt" 
+                                            readonly="readonly" 
+                                            value="<?= /* @noEscape */ $htmlCodeForAds ?>" />
+                                        </td>
+                                        <td>
+                                            <div class="primary">
+                                                <button type="button" class="action primary preview" 
+                                                title="Save">
+                                                    <span><?= /* @noEscape */ __('Preview')?></span>
+                                                </button>
+                                                <button type="button" 
+                                                    class="action primary wk-copy-txt-btn" 
+                                                    title="<?= /* @noEscape */ __('Copy HTML Code')?>">
+                                                    <?= /* @noEscape */ __('Copy HTML Code')?>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    <?php else: ?>
+                        <div class="wk-emptymsg">
+                            <?= /* @noEscape */  __('No Product Available') ?>
+                        </div>
+                    <?php endif ?>
+                </div>
+            </div>
+            <?php if ($block->getPagerHtml()): ?>
+                <div class="order-products-toolbar toolbar bottom">
+                    <?= /* @noEscape */  $block->getPagerHtml(); ?></div>
+            <?php endif ?>
+        </fieldset>
+        <div class="buttons-set">
+            <p class="back-link">
+                <a href="javascript:;" onclick="javascript: window.history.back();" 
+                class="left">&laquo; <?= /* @noEscape */  __('Back') ?></a>
+            </p>
+        </div>
+    </div>
+    <script type="text/x-magento-init">
+    {
+        "*": {
+            "bannerlist": {}
+        }
+    }
+    </script>
+<?php } ?>

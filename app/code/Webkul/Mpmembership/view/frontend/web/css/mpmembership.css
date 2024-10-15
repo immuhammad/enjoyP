@@ -1,0 +1,36 @@
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpmembership
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+
+.product-list span{
+    display:inline-block;
+}
+.head .label {
+    font-weight: 600;
+    width: 125px;
+}
+.product .label {
+    width: 125px;
+}
+
+.head .label.checkbox,
+.product .label.checkbox {
+    width: 15px;
+}
+.transaction.page-title h1{
+    font-size: 30px;
+}
+.wk_adminmsg{
+    color: #ff4545;
+    margin-bottom: 30px;
+}
+.fieldset.info.wk-mp-fieldset .grid {
+    overflow: auto;
+    max-width: 100%;
+}

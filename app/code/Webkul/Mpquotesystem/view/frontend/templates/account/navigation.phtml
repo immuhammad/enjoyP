@@ -1,0 +1,91 @@
+<?php
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpquotesystem
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+// use to display navigation in marketplace account section left side for seller.
+$_helper = $block->getMpHelper();
+$isPartner= $_helper->isSeller();
+$magentoCurrentUrl = $block->getCurrentUrl();
+$isSellerGroup = $_helper->isSellerGroupModuleInstalled();
+$quoteNotificationCount = $block->getQuoteNotificationCount();
+?>
+<?php
+if ($isPartner) { ?>
+    <li class="nav item mpquotesystem-nav  
+    <?= strpos($magentoCurrentUrl, 'mpquotesystem/sellerquote') !== false ? $block->escapeHtmlAttr("current"):"";?>"
+>
+        <a onClick="javascript:void(0)">
+             <?=$block->escapeHtml(__("Marketplace Quote System"))?>
+        </a>
+        <ul class="mpquotesystem-sub-nav mpquotesystem-child-menu">
+            <?php if (($isSellerGroup &&
+            $_helper->isAllowedAction('mpquotesystem/sellerquote/managequote')) || !$isSellerGroup):?>
+            <li class="nav item 
+            <?=strpos($magentoCurrentUrl, 'mpquotesystem/sellerquote/managequote') !==
+            false ? $block->escapeHtmlAttr("current"):$block->escapeHtmlAttr("no-border");?>">
+                <strong>
+                    <?php if (strpos($magentoCurrentUrl, 'mpquotesystem/sellerquote/managequote') === false):?>
+                        <a href="
+                        <?=$block->escapeUrl($block->getUrl(
+                            'mpquotesystem/sellerquote/managequote',
+                            ['_secure' => $block->getIsSecure()]
+                        ))?>">
+                             <?= $block->escapeHtml(__('Manage Quotes'))?>
+                        </a>
+                        <?php if ($quoteNotificationCount): ?>
+                            <div class="notification-block">
+                                <a href="" class="notifications-action marketplace-dropdown">
+                                    <img height="20" width="20"
+                                    src="
+                                    <?= $block->escapeUrl($block->getViewFileUrl(
+                                        'Webkul_Mpquotesystem::images/icons_notifications.png'
+                                    ))?>
+                                    "
+                                    class="notifications-img" />
+                                    <?php if ($quoteNotificationCount > 5): ?>
+                                    <span class="notification-count">5+</span>
+                                    <?php else: ?>
+                                        <span class="notification-count">
+                                            <?= $block->escapeHtml($quoteNotificationCount); ?>
+                                        </span>
+                                    <?php endif; ?>
+                                </a>
+                            </div>
+                        <?php endif; ?>
+                    <?php else: ?>
+                         <?=$block->escapeHtml(__('Manage Quotes'))?>
+                    <?php endif; ?>
+                </strong>
+            </li>
+            <?php endif;?>
+            <?php if (($isSellerGroup && $_helper->isAllowedAction('mpquotesystem/sellerquote/index'))
+            || !$isSellerGroup):?>
+            <li class="nav item <?= strpos($magentoCurrentUrl, 'mpquotesystem/sellerquote/index') !== false
+            ? $block->escapeHtmlAttr("current")
+            :$block->escapeHtmlAttr("no-border");?>">
+                <strong>
+                    <?php if (strpos($magentoCurrentUrl, 'mpquotesystem/sellerquote/index') === false):?>
+                    <a href="
+                        <?=$block->escapeUrl($block->getUrl(
+                            'mpquotesystem/sellerquote/index',
+                            ['_secure' => $block->getIsSecure()]
+                        ))?>">
+                             <?=$block->escapeHtml(__('Quote Settings'))?>
+                        </a>
+                    <?php else: ?>
+                         <?=$block->escapeHtml(__('Quote Settings'))?>
+                    <?php endif; ?>
+                </strong>
+            </li>
+            <?php endif;?>
+        </ul>
+    </li>
+<?php }?>

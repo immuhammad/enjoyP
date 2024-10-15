@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpmembership
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Webkul_Mpmembership::menu" title="Seller Membership" module="Webkul_Mpmembership" sortOrder="100" parent="Webkul_Marketplace::marketplace" resource="Webkul_Mpmembership::menu" dependsOnConfig="marketplace/mpmembership_settings/enabled"/>
+        <add id="Webkul_Mpmembership::sellertransaction" title="View Membership Seller Transactions" module="Webkul_Mpmembership" sortOrder="20" parent="Webkul_Mpmembership::menu" action="mpmembership/sellertransaction" resource="Webkul_Mpmembership::sellertransaction" dependsOnConfig="marketplace/mpmembership_settings/enabled"/>
+        <add id="Webkul_Mpmembership::producttransaction" title="View Membership Product Transactions" module="Webkul_Mpmembership" sortOrder="21" parent="Webkul_Mpmembership::menu" action="mpmembership/producttransaction" resource="Webkul_Mpmembership::producttransaction" dependsOnConfig="marketplace/mpmembership_settings/enabled"/>
+    </menu>
+</config>

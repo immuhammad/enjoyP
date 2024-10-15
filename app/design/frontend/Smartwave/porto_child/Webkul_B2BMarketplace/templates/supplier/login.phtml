@@ -1,0 +1,260 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_B2BMarketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?php
+    $quickOrderBlock =  $block->getLayout()->createBlock(
+        \Webkul\B2BMarketplace\Block\Supplier\Profile\QuickOrder::class
+    );
+    $url = '/static/frontend/Smartwave/porto_child/en_US/Webkul_B2BMarketplace/images/Registration.png';
+    ?>
+            <div class="container-fluid">
+                <div class="row py-3">
+                    
+                    <div class="col-lg-6 col-md-12 col-sm-12 pt-5 sign-in d-none d-lg-block left-image" style="background-image: url('<?php echo $url ?>'); background-repeat:no-repeat;">
+						<div class="vh-center">
+						<div class="content">
+						<img src="<?php echo $this->getViewFileUrl('Webkul_B2BMarketplace::images/Logo-green.png'); ?>"  width="100px" height="100px" />
+						<h1  class="ml-2" style="color:white;"> Become  seller</h1>
+						<h3 class="m-3"  style="color:white;">You will need only 3 things to start selling on Enjoyp</h3>
+										<ul  style="color:white;">
+										<li>GST details</li>
+										<li>Pan details</li>
+										<li>Active Bank Account</li>
+										</ul> 
+					    </h3>
+                           <!-- <img src="<?php //echo $this->getViewFileUrl('Webkul_B2BMarketplace::images/backgrounds.png'); ?>" width="590px" height="700px" /> -->
+						</div>     
+						</div>
+					</div>
+                    <div class="col-lg-6 col-md-12 col-sm-12 sign-in-class right-form">
+                         
+                    <div class="page-title">
+            <span class="base sign-in-as-supplier" data-ui-id="page-title-wrapper">
+            <?= /* @noEscape */ __(' Sign in as supplier')?></span>
+        </div>
+    <!-- </div> -->
+    <form method="post" action="<?= /* @noEscape */
+    $quickOrderBlock->getUrl('customer/account/loginPost'); ?>" 
+    id="wk-supplier-login-form" enctype="multipart/form-data" 
+    data-mage-init='{"validation":{}}'>
+        <fieldset class="fieldset wk-supplier-login">
+            <input type="hidden" name="supplier_login" value="1">
+            <?= /* @noEscape */ $block->getBlockHtml('formkey') ?>
+            <div class="field required">
+                <label class="label" for="supplier-email">
+                <span><?= /* @noEscape */ __("Email Address"); ?></span>
+                </label>
+                <div class="control">
+                    <input type="email" data-validate="{required:true, 'validate-email':true}" 
+                    class="input-text required-entry" title="<?= /* @noEscape */ __("Email Address"); ?>" 
+                    id="supplier-email" name="login[username]">
+                </div>
+            </div>
+            <div class="field email required">
+                <label for="supplier-password" class="label">
+                <span><?= /* @noEscape */ __("Password"); ?></span></label>
+                <div class="control">
+                    <input type="password" data-validate="{required:true}" 
+                    title="<?= /* @noEscape */ __("Password"); ?>" 
+                    class="input-text required-entry" id="supplier-password"
+                     name="login[password]">
+                </div>
+            </div>
+            <?= $block->getChildHtml('form_additional_info') ?>
+            <div class="actions-toolbar ">
+                <div class="primary">
+                    <button id="login supplier-sign-in" class="action login  btn btn-success" type="submit">
+                        <span><?= /* @noEscape */ __("Sign In"); ?></span>
+                    </button>
+                </div>
+                <div class="secondary wk-secondary">
+                
+                    <!-- <a class="action remind" href="/* @noEscape */
+                    // $block->getUrl('b2bmarketplace/supplier/create', [
+                    //     "_secure" => $quickOrderBlock->getRequest()->isSecure()]) " 
+                    > -->
+                        <span class="footer-reg">
+                           <p class="mr-2"> Don't have account? </p><p class="wk-supplier-registration-link">
+                        <a href="<?= /* @noEscape */ $block->getUrl('b2bmarketplace/supplier/create')?>" class="register-supplier">
+                            <?= /* @noEscape */ __('Register as Supplier')?>
+                        </a>
+                    </p>
+                        </span>
+                    </a>
+                </div>
+                <!-- <div class="secondary">
+                    <a class="action remind" 
+                    href="<?= $block->escapeUrl($block->getForgotPasswordUrl()).
+                    "module/webkul_b2bmarketplace" ?>">
+                        <span><?= $block->escapeHtml(__('Forgot Your Password?')) ?></span>
+                    </a>
+                </div> -->
+            </div>
+        </fieldset>
+    </form> 
+
+                    </div>
+<!--           
+<div class="wk-supplier-account-container">
+    <div class="wk-page-title-wrapper page-title-wrapper">
+        <div class="page-title">
+            <span class="base" data-ui-id="page-title-wrapper">
+            <?= /* @noEscape */ __('Supplier Sign In Enjoyptest')?></span>
+        </div>
+    </div>
+    <form method="post" action="<?= /* @noEscape */
+    $quickOrderBlock->getUrl('customer/account/loginPost'); ?>" 
+    id="wk-supplier-login-form" enctype="multipart/form-data" 
+    data-mage-init='{"validation":{}}'>
+        <fieldset class="fieldset wk-supplier-login">
+            <input type="hidden" name="supplier_login" value="1">
+            <?= /* @noEscape */ $block->getBlockHtml('formkey') ?>
+            <div class="field required">
+                <label class="label" for="supplier-email">
+                <span><?= /* @noEscape */ __("Email Address"); ?></span>
+                </label>
+                <div class="control">
+                    <input type="email" data-validate="{required:true, 'validate-email':true}" 
+                    class="input-text required-entry" title="<?= /* @noEscape */ __("Email Address"); ?>" 
+                    id="supplier-email" name="login[username]">
+                </div>
+            </div>
+            <div class="field email required">
+                <label for="supplier-password" class="label">
+                <span><?= /* @noEscape */ __("Password"); ?></span></label>
+                <div class="control">
+                    <input type="password" data-validate="{required:true}" 
+                    title="<?= /* @noEscape */ __("Password"); ?>" 
+                    class="input-text required-entry" id="supplier-password"
+                     name="login[password]">
+                </div>
+            </div>
+            <?= $block->getChildHtml('form_additional_info') ?>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button id="login" class="action login primary" type="submit">
+                        <span><?= /* @noEscape */ __("Sign In"); ?></span>
+                    </button>
+                </div>
+                <div class="secondary wk-secondary">
+                    <a class="action remind" href="<?= /* @noEscape */
+                    $block->getUrl('b2bmarketplace/supplier/create', [
+                        "_secure" => $quickOrderBlock->getRequest()->isSecure()]) ?>" 
+                        target="blank">
+                        <span><?= /* @noEscape */
+                        $block->escapeHtml(__(
+                            "Don't have account? Click here to register as Supplier"
+                        )) ?></span>
+                    </a>
+                </div>
+                <div class="secondary">
+                    <a class="action remind" 
+                    href="<?= $block->escapeUrl($block->getForgotPasswordUrl()).
+                    "module/webkul_b2bmarketplace" ?>">
+                        <span><?= $block->escapeHtml(__('Forgot Your Password?')) ?></span>
+                    </a>
+                </div>
+            </div>
+        </fieldset>
+    </form> -->
+</div>
+
+
+</div>
+<style>
+.layout-1220 .block.category.event, .layout-1220 .footer.content, .layout-1220 .header.content, .layout-1220 .navigation, 
+.layout-1220 .page-main, .layout-1220 .page-wrapper>.breadcrumbs >ul, .layout-1220 .page-wrapper>.page-bottom, 
+.layout-1220 .page-wrapper>.widget,.page-header.type15 .header-main .header.content {max-width: 100%;}
+.container-fluid {padding:0;}
+#maincontent {padding: 0;}
+.m-2 {margin:0!important;}
+.ml-5, .mx-5 {margin-left: 0!important;}
+.pt-3, .py-3 {padding-top:0!important; padding-bottom:0!important;}
+.page-header .header-main {max-width: 88%; margin: 0 auto;}
+.left-image {padding-top: inherit!important; background-size: cover; height:120vh;}
+.vh-center {
+	display: -webkit-flexbox;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    justify-content: center;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+	width: 100%;
+    height: 100%;
+}
+.left-image img {margin: 0 0 30px 0!important;}
+.left-image h1 {font-size:40px; line-height:normal;}
+span.sign-in-as-supplier {
+	letter-spacing: -0.02em;
+    color: #222529;
+    font-size: 32px;
+    line-height: 44px;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+.right-form {padding: 80px 60px;}
+#maincontent label {
+	font-size: 14px;
+    line-height: 20px;
+    color: #222529;
+    margin-bottom: 0;
+}
+#maincontent fieldset.wk-supplier-login input {
+	height: 48px;
+    background: #FFFFFF;
+    border: 1px solid #D0D5DD;
+    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+}
+#maincontent fieldset.wk-supplier-login .primary {margin: 0 auto; text-align: center; float: none;}
+#maincontent fieldset.wk-supplier-login .actions-toolbar  {margin: 25px auto; text-align: center;}
+#maincontent button.login {
+	background: #046F4F;
+    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+    color: #fff;
+    font-size: 16px;
+    line-height: 24px;
+    text-transform: none;
+    letter-spacing: 0;
+    padding: 14px 55px;
+	margin-bottom: 30px;
+}
+.footer-reg {margin: 0 auto; text-align: center; display: block;}
+.footer-reg p {
+	font-size: 16px;
+    line-height: 24px;
+    display: inline-block;
+    letter-spacing: -0.02em;
+    color: #4B5565;
+}
+.fieldset.wk-supplier-login {width:100%;}
+.porto-block-html-top {display:none;}
+footer .single-subscribe .newsletter .input-text {z-index:1!important;}
+.wk-supplier-registration-link a:before {top:-1px;}
+
+.page-header.sticky-header .header-main {max-width:100%;}
+.page-header.sticky-header .header-main .header.content {max-width: 88%;}
+body #maincontent .bottom-section .wk-list-container-wrapper {
+    width: 95%;
+} 
+
+@media only screen and (max-width: 991px) {
+	span.sign-in-as-supplier {font-size: 24px;line-height: 32px;}
+	.right-form {padding:30px;}
+	.wk-mp-login-container {border-top: 1px solid #E3E3E3;}
+} 
+</style>

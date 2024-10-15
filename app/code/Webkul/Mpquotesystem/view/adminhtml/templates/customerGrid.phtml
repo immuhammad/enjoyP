@@ -1,0 +1,198 @@
+<?php
+/**
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpquotesystem
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<?= $block->getChildHtml('', true) ?>
+<div id="wk_quotesystem" class="main-col wk-hide">
+    <form id="wk_quotesystem_popup" method="POST" enctype="multipart/form-data" class="admin__scope-old edit-form"
+    action="<?= $block->escapeUrl($block->getUrl(
+        'mpquotesystem/buyerquote/savequote',
+        ['_secure' => $block->getIsSecure()]
+    ))?>">
+        <div id="product_composite_configure_messages wk-hide">
+            <div class="messages"><div class="message message-error error"><div></div></div></div>
+        </div>
+        <div id="product_composite_configure_form">
+            <input type="hidden" name="as_js_varname" value="iFrameResponse">
+        </div>
+        <input type="hidden" name="as_js_varname" value="iFrameResponse">
+        <input type="hidden" name="product" value=""/>
+        <input type="hidden" name="customer_id" value=""/>
+        <input type="hidden" name="form_key" value="<?= $block->escapeHtml($block->getFormKey()) ?>"/>
+        <div class="wk_quote_configurable_options product_composite_configure_form_fields"
+         id =product_composite_configure_form_fields></div>
+        <div class="entry-edit form-inline" >
+            <fieldset class="fieldset admin__fieldset">
+                <legend class="legend admin__legend"><?= $block->escapeHtml(__("Quote Product")) ?></legend>
+                <div class="admin__field field field-attribute_label  required _required">
+                    <label for="quote_qty" class="label admin__field-label quote_qty">
+                        <span><?= $block->escapeHtml(__("Quantity"))?> :</span>
+                    </label>
+                    <div class="admin__field-control control">
+                        <input type="text" id="quote_qty" name="quote_qty" 
+                        class=" input-text admin__control-text required-entry required" 
+                        data-validate="{required:true,'validate-greater-than-zero':true, 'validate-number':true}"/>
+                    </div>
+                    <span class="wk-qs-min-qty"></span>
+                </div>
+                <div class="admin__field field field-attribute_label  required _required">
+                    <label for="quote_price" class="label admin__field-label">
+                        <span><?= $block->escapeHtml(__("Price per Item"))?> :</span>
+                    </label>
+                    <div class="admin__field-control control">
+                        <input type="text" id="quote_price" name="quote_price" class="admin__control-text" 
+                        data-validate="{required:true,'validate-greater-than-zero':true, 'validate-number':true}"/>
+                    </div>
+                </div>
+                <div class="admin__field field field-attribute_label  required _required">
+                    <label for="quote_description" class="label admin__field-label">
+                        <span><?= $block->escapeHtml(__("Description"))?> :</span>
+                    </label>
+                    <div class="admin__field-control control">
+                        <textarea id="quote_description" name="quote_description" class="textarea"
+                        data-validate="{required:true}"></textarea>
+                    </div>
+                </div>
+                <div class="wk-file-field-container">
+                    <label class="label wk-file-label wk-quote-primary-btn">
+                        <?=$block->escapeHtml(__('Add Attachment(s)'))?>
+                        <input type="file" name="files" class="wk-file-field" id="wk-file-field"
+                        data-url="<?= $block->escapeUrl(
+                            $block->getUrl(
+                                'mpquotesystem/buyerquote/fileUpload',
+                                ['_secure' => $block->getRequest()->isSecure()]
+                            )
+                        ) ?>" multiple="multiple"/>
+                    </label>
+                </div>
+            </fieldset>
+        </div>
+    </form>
+</div>
+<!-- Form for mass quote action -->
+
+<form id="wk_quotesystem_massquote_popup" method="POST" enctype="multipart/form-data" class="admin__scope-old edit-form"
+    action="<?= $block->escapeUrl($block->getUrl(
+        'mpquotesystem/buyerquote/massquotesave',
+        ['_secure' => $block->getIsSecure()]
+    ))?>">
+        <div id="product_composite_configure_messages wk-hide">
+            <div class="messages"><div class="message message-error error"><div></div></div></div>
+        </div>
+        <div id="product_composite_configure_form">
+            <input type="hidden" name="as_js_varname" value="iFrameResponse">
+        </div>
+        <input type="hidden" name="product_ids" value=""/>
+        <input type="hidden" name="customer_id" value=""/>
+        <input type="hidden" name="form_key" value="<?= $block->escapeHtml($block->getFormKey()) ?>"/>
+
+        <div class="entry-edit form-inline" >
+            <fieldset class="fieldset admin__fieldset">
+                <legend class="legend admin__legend"><?= $block->escapeHtml(__("Quote Product"))?></legend>
+                <div class="admin__field field field-attribute_label  required _required">
+                    <label for="quote_qty" class="label admin__field-label quote_qty">
+                        <span><?= $block->escapeHtml(__("Quantity"))?> :</span>
+                    </label>
+                    <div class="admin__field-control control">
+                        <input type="text" id="quote_qty" name="quote_qty" 
+                        class=" input-text admin__control-text required-entry required" 
+                        data-validate="{required:true,'validate-greater-than-zero':true, 'validate-number':true}"/>
+                    </div>
+                    <span class="wk-qs-min-qty"></span>
+                </div>
+                <div class="admin__field field field-attribute_label  required _required">
+                    <label for="quote_price" class="label admin__field-label">
+                        <span><?= $block->escapeHtml(__("Price per Item"))?> :</span>
+                    </label>
+                    <div class="admin__field-control control">
+                        <input type="text" id="quote_price" name="quote_price" class="admin__control-text" 
+                        data-validate="{required:true,'validate-greater-than-zero':true, 'validate-number':true}"/>
+                    </div>
+                </div>
+                <div class="admin__field field field-attribute_label  required _required">
+                    <label for="quote_description" class="label admin__field-label">
+                        <span><?= $block->escapeHtml(__("Description"))?> :</span>
+                    </label>
+                    <div class="admin__field-control control">
+                        <textarea id="quote_description" name="quote_description" class="textarea"
+                        data-validate="{required:true}"></textarea>
+                    </div>
+                </div>
+                <div class="wk-file-field-container">
+                    <label class="label wk-file-label wk-quote-primary-btn">
+                        <?=$block->escapeHtml(__('Add Attachment(s)'))?>
+                        <input type="file" name="files" class="wk-file-field" id="wk-mass-file-field"
+                        data-url="<?= $block->escapeUrl(
+                            $block->getUrl(
+                                'mpquotesystem/buyerquote/fileUpload',
+                                ['_secure' => $block->getRequest()->isSecure()]
+                            )
+                        ) ?>" multiple="multiple"/>
+                    </label>
+                </div>
+            </fieldset>
+        </div>
+        <script id="wk-mass-file-field-template" type="text/x-magento-template">
+            <div class="wk-uploaded-file">
+                <span class="wk-uploaded-file-style wk-quote-primary-btn"><%- data.extension %></span>
+                <span class="wk-uploaded-file-name"><%- data.name %></span>
+                <input type="hidden" name="attachments[]" value="<%- data.file %>" class="wk-uploaded-file-value"/>
+                <span class="wk-uploaded-file-del"></span>
+            </div>
+        </script>
+        <script id="wk-mass-file-field-uploader-template" type="text/x-magento-template">
+            
+        </script>
+    </form>
+<script id="wk-file-field-template" type="text/x-magento-template">
+    <div class="wk-uploaded-file">
+        <span class="wk-uploaded-file-style wk-quote-primary-btn"><%- data.extension %></span>
+        <span class="wk-uploaded-file-name"><%- data.name %></span>
+        <input type="hidden" name="attachments[]" value="<%- data.file %>" class="wk-uploaded-file-value"/>
+        <span class="wk-uploaded-file-del"></span>
+    </div>
+</script>
+<script id="wk-file-field-uploader-template" type="text/x-magento-template">
+    <div id="<%- data.id %>" class="wk-uploaded-file-row">
+        <img src="<?= $block->escapehtml(
+            $block->getViewFileUrl('Webkul_Mpquotesystem/images/ajax-loader-big.gif')
+        )?>"/>
+    </div>
+</script>
+<?php
+    $formData = [
+        "ajaxurl" => $block->getUrl('mpquotesystem/buyerquote/checkproducttype', ['_secure' => $block->getIsSecure()]),
+        "formkey" => $block->getFormKey(),
+        "bundleOptionsUrl" => $block->getUrl(
+            'mpquotesystem/buyerquote/bundleOptions',
+            ['_secure' => $block->getIsSecure()]
+        ),
+        "customOptionsUrl" => $block->getUrl(
+            'sales/order_create/configureProductToAdd',
+            ['_secure' => $block->getIsSecure()]
+        ),
+        'fileDeleteUrl'         =>  $block->getUrl(
+            'mpquotesystem/buyerquote/fileDelete',
+            ['_secure' => $block->getRequest()->isSecure()]
+        ),
+        'quoteUrl' => $block->getUrl(
+            'mpquotesystem/managequotes/index',
+            ['_secure' => $block->getRequest()->isSecure()]
+        ),
+    ];
+    $serializedFormData = $block->getJsonHelper()->jsonEncode($formData);
+    ?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "WkAddquote": <?= /* @noEscape */ $serializedFormData; ?>
+        }
+    }
+</script>
+

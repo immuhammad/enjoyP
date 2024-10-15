@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Stripe
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp/etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="script-src">
+            <values>
+                <value id="webkul-stripe-checkout" type="host">https://checkout.stripe.com/checkout.js</value>
+                <value id="webkul-stripe-v3" type="host">https://js.stripe.com/v3/</value>
+            </values>
+        </policy>
+        <policy id="frame-src">
+            <values>
+                <value id="webkul-stripe-js" type="host">https://js.stripe.com/</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>

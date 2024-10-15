@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software
+ *
+ * @category  Webkul
+ * @package   Webkul_Mpmembership
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <!-- marketplace section -->
+        <section id="marketplace" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+            <!-- membership settings -->
+            <group id="mpmembership_settings" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Marketplace Seller Membership</label>
+                <!-- module enabled -->
+                <field id="enabled" translate="label comment" sortOrder="1" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <!-- paypal sandbox status -->
+                <field id="sandbox" translate="label comment" sortOrder="2" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sandbox Status</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <!-- paypal ID -->
+                <field id="paypalid" translate="label comment" sortOrder="3" type="text" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Admin Paypal Account Id</label>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                    <validate>required-entry validate-email</validate>
+                    <comment>Paypal Id, i.e. john@xyz.com</comment>
+                </field>
+                <!-- type of fee -->
+                <field id="type_of_fee" translate="label comment" sortOrder="7" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Type Of Fee</label>
+                    <source_model>Webkul\Mpmembership\Model\Config\Source\Feetype</source_model>
+                    <depends>
+                        <field id="feeappliedfor">1</field>
+                        <field id="enabled">1</field>
+                    </depends>
+                    <comment>If Type of Fee set as "Percent" then we suggest you to ENABLE "Product update approval required" setting</comment>
+                </field>
+                <!-- fee amount -->
+                <field id="fee_amount" translate="label comment" sortOrder="5" type="text" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Fee</label>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                    <validate>required-entry validate-zero-or-greater</validate>
+                    <comment>Seller Fee</comment>
+                </field>
+                <!-- fee applicable for -->
+                <field id="feeappliedfor" translate="label comment" sortOrder="6" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Fee Applied For</label>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                    <source_model>Webkul\Mpmembership\Model\Config\Source\Feeapplied</source_model>
+                </field>
+                <!-- number of products allowed to add -->
+                <field id="defaultproductallowed" translate="label comment" sortOrder="8" type="text" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Number Of products</label>
+                    <validate>required-entry validate-greater-than-zero validate-digits</validate>
+                    <depends>
+                        <field id="feeappliedfor">0</field>
+                        <field id="enabled">1</field>
+                        <field id="checktype" separator=",">0,2</field>
+                    </depends>
+                    <comment>Number of products allowed to add by seller, e.g, 10</comment>
+                </field>
+                <!-- number of months allowed to add products -->
+                <field id="defaulttimeallowed" translate="label comment" sortOrder="9" type="text" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Number Of Months</label>
+                    <validate>required-entry validate-greater-than-zero validate-digits</validate>
+                    <depends>
+                        <field id="feeappliedfor">0</field>
+                        <field id="checktype" separator=",">0,1</field>
+                        <field id="enabled">1</field>
+                    </depends>
+                    <comment>Number of months allowed to add product by seller, e.g, 5</comment>
+                </field>
+                <!-- checks if fee applied for vendor -->
+                <field id="checktype" translate="label comment" sortOrder="7" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Check On</label>
+                    <source_model>Webkul\Mpmembership\Model\Config\Source\Checktype</source_model>
+                    <depends>
+                        <field id="feeappliedfor">0</field>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <!-- custom email template -->
+                <field id="transaction_completed_template" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Transaction Completed Mail Template to Seller</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
